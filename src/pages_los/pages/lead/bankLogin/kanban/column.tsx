@@ -17,6 +17,7 @@ export const Column = ({
   ribbon,
   name,
   query,
+  otherDetails,
 }) => {
   return (
     <Droppable droppableId={`${columnID}`}>
@@ -43,6 +44,7 @@ export const Column = ({
                   columnName={name}
                   refID={refID}
                   query={query}
+                  otherDetails={otherDetails}
                   {...one}
                 />
               ))}
