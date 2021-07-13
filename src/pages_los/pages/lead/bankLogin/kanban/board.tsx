@@ -21,6 +21,7 @@ export const Board = ({
   itemsKey,
   disabled,
   query,
+  otherDetails,
 }) => {
   const [search, setSearch] = useState("");
   const [currentAction, setCurrentAction] = useState<any>(null);
@@ -100,6 +101,7 @@ export const Board = ({
                     itemsKey={itemsKey}
                     refID={refID}
                     query={query}
+                    otherDetails={otherDetails}
                     {...one}
                   />
                 );

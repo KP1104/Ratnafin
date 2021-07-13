@@ -23,6 +23,7 @@ export const Kanban = ({
   splitItemsBy,
   itemsPriorityKey,
   itemsKey,
+  otherDetails,
 }) => {
   const [state, setState] = useState<any>([]);
   const { enqueueSnackbar } = useSnackbar();
@@ -129,6 +130,7 @@ export const Kanban = ({
           refID={refID}
           disabled={query?.isLoading || query?.isFetching}
           query={query}
+          otherDetails={otherDetails}
         />
       </DragDropContext>
       <DialogComponent

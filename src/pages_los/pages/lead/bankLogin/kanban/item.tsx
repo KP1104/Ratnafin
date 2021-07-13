@@ -11,6 +11,7 @@ export const Item = ({
   ribbon,
   columnName,
   query,
+  otherDetails,
   ...others
 }) => {
   return (
@@ -31,6 +32,7 @@ export const Item = ({
               id={id}
               refID={refID}
               query={query}
+              otherDetails={otherDetails}
               {...others}
             />
             <ItemRibbon color={ribbon} />
