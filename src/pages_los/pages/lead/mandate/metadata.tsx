@@ -11,10 +11,10 @@ export const mandateMetaData: MetaDataType = {
       ordering: "auto",
       renderType: "tabs",
       groups: {
-        0: "Basic Details",
-        1: "Facility Type",
-        2: "Disbursement",
-        3: "Elite Services",
+        0: "Facility Details",
+        1: "Disbursement Tranches Details",
+        2: "Elite Services Charges Details",
+        3: "Other Details",
       },
       gridConfig: {
         item: {
@@ -49,146 +49,19 @@ export const mandateMetaData: MetaDataType = {
   fields: [
     {
       render: {
-        componentType: "hidden",
-        group: 0,
-      },
-      name: "tranCD",
-      GridProps: {
-        xs: 12,
-        md: 12,
-        sm: 12,
-      },
-    },
-    {
-      render: {
-        //@ts-ignore
-        componentType: "rateOfInt",
-        group: 0,
-      },
-      name: "totalFeeAtSanctionInPercent",
-      label: "% of Total Fees at the time of Sanction",
-      placeholder: "% of Total Fees at the time of Sanction",
-      required: true,
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-    },
-    {
-      render: {
-        //@ts-ignore
-        componentType: "currency",
-        group: 0,
-      },
-      name: "advanceAmount",
-      label: "Advance Amount",
-      placeholder: "Advance Amount",
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-    },
-    {
-      render: {
-        //@ts-ignore
-        componentType: "select",
-        group: 0,
-      },
-      name: "anyBankAproached",
-      label: "Bank to be approched mentioned",
-      placeholder: "Bank to be approched mentioned",
-      defaultValue: "00",
-      required: true,
-      validate: "getValidateValue",
-      //@ts-ignore
-      options: "getYesOrNoOptions",
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-    },
-    {
-      render: {
-        componentType: "spacer",
-        group: 0,
-      },
-      name: "spacer",
-      GridProps: {
-        xs: 12,
-        md: 12,
-        sm: 12,
-      },
-    },
-    {
-      render: {
-        componentType: "textField",
-        group: 0,
-      },
-      name: "bankNames",
-      label: "Bank to be approched",
-      placeholder: "Bank to be approched",
-      multiline: true,
-      rows: 3,
-      rowsMax: 3,
-      maxLength: 500,
-      dependentFields: ["anyBankAproached"],
-      shouldExclude: (_, dependentFields) => {
-        if (dependentFields["anyBankAproached"].value === "Y") {
-          return false;
-        }
-        return true;
-      },
-      GridProps: {
-        xs: 12,
-        md: 6,
-        sm: 6,
-      },
-    },
-    {
-      render: {
         componentType: "arrayField",
-        group: 1,
+        group: 0,
       },
       name: "facilityDetails",
       removeRowFn: "deleteAssignArrayFieldData",
       arrayFieldIDName: "lineNo",
-      label: "Facility Type",
+      label: "Facility Details",
       GridProps: {
         xs: 12,
         md: 12,
         sm: 12,
       },
       _fields: [
-        {
-          render: {
-            componentType: "hidden",
-          },
-          name: "serialNo",
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
-        },
-        {
-          render: {
-            //@ts-ignore
-            componentType: "currency",
-          },
-          name: "fundAmount",
-          label: "Amount of Fund to be raised",
-          placeholder: "Amount of Fund to be raised",
-          required: true,
-          validate: "getValidateValue",
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
-        },
         {
           render: {
             componentType: "hidden",
@@ -226,6 +99,22 @@ export const mandateMetaData: MetaDataType = {
             //@ts-ignore
             componentType: "currency",
           },
+          name: "fundAmount",
+          label: "Amount of Fund to be raised",
+          placeholder: "Amount of Fund to be raised",
+          required: true,
+          validate: "getValidateValue",
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            //@ts-ignore
+            componentType: "currency",
+          },
           name: "fundFeeInPercent",
           label: "Fees in % of Fund Raised / Absolute Amount",
           placeholder: "Fees in % of Fund Raised / Absolute Amount",
@@ -243,11 +132,11 @@ export const mandateMetaData: MetaDataType = {
       render: {
         //@ts-ignore
         componentType: "select",
-        group: 2,
+        group: 1,
       },
       name: "anyDisbursementDetails",
-      label: "Do you want to Add addtional Disbursement",
-      placeholder: "Do you want to Add additional Disbursement",
+      label: "Do You Want To Add Disbursement Tranches",
+      placeholder: "Do You Want To Add Disbursement Tranches",
       defaultValue: "00",
       required: true,
       validate: "getValidateValue",
@@ -263,7 +152,7 @@ export const mandateMetaData: MetaDataType = {
       render: {
         //@ts-ignore
         componentType: "rateOfInt",
-        group: 2,
+        group: 1,
       },
       name: "totalFeeAtDisbursementInPercent",
       label: "% of Total Fees at the time of Disbursement",
@@ -285,7 +174,7 @@ export const mandateMetaData: MetaDataType = {
     {
       render: {
         componentType: "arrayField",
-        group: 2,
+        group: 1,
       },
       name: "disbursementMileStoneDetails",
       removeRowFn: "deleteAssignArrayFieldData",
@@ -364,7 +253,7 @@ export const mandateMetaData: MetaDataType = {
     {
       render: {
         componentType: "arrayField",
-        group: 3,
+        group: 2,
       },
       name: "eliteSerivceDetails",
       removeRowFn: "deleteAssignArrayFieldData",
@@ -451,6 +340,107 @@ export const mandateMetaData: MetaDataType = {
           },
         },
       ],
+    },
+
+    {
+      render: {
+        componentType: "hidden",
+        group: 3,
+      },
+      name: "tranCD",
+      GridProps: {
+        xs: 12,
+        md: 12,
+        sm: 12,
+      },
+    },
+    {
+      render: {
+        //@ts-ignore
+        componentType: "rateOfInt",
+        group: 3,
+      },
+      name: "totalFeeAtSanctionInPercent",
+      label: "% of Total Fees at the time of Sanction",
+      placeholder: "% of Total Fees at the time of Sanction",
+      required: true,
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+    {
+      render: {
+        //@ts-ignore
+        componentType: "currency",
+        group: 3,
+      },
+      name: "advanceAmount",
+      label: "Advance Amount",
+      placeholder: "Advance Amount",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+    {
+      render: {
+        //@ts-ignore
+        componentType: "select",
+        group: 3,
+      },
+      name: "anyBankAproached",
+      label: "Bank to be approched mentioned",
+      placeholder: "Bank to be approched mentioned",
+      defaultValue: "00",
+      required: true,
+      validate: "getValidateValue",
+      //@ts-ignore
+      options: "getYesOrNoOptions",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+    {
+      render: {
+        componentType: "spacer",
+        group: 3,
+      },
+      name: "spacer",
+      GridProps: {
+        xs: 12,
+        md: 12,
+        sm: 12,
+      },
+    },
+    {
+      render: {
+        componentType: "textField",
+        group: 3,
+      },
+      name: "bankNames",
+      label: "Bank to be approched",
+      placeholder: "Bank to be approched",
+      multiline: true,
+      rows: 3,
+      rowsMax: 3,
+      maxLength: 500,
+      dependentFields: ["anyBankAproached"],
+      shouldExclude: (_, dependentFields) => {
+        if (dependentFields["anyBankAproached"].value === "Y") {
+          return false;
+        }
+        return true;
+      },
+      GridProps: {
+        xs: 12,
+        md: 6,
+        sm: 6,
+      },
     },
   ],
 };

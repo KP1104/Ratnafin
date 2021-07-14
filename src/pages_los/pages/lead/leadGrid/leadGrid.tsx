@@ -110,6 +110,8 @@ export const LeadGrid = ({ gridCode, actions }) => {
               key={currentAction?.rows[0].id}
               moduleType="lead"
               refID={currentAction?.rows[0].id}
+              otherDetails={currentAction?.rows[0].data}
+              closeDialog={handleDialogClose}
             />
           ) : (currentAction?.name ?? "") === "viewMandate" ? (
             <Mandate

@@ -7,7 +7,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Dialog from "@material-ui/core/Dialog";
 import { InvalidAction } from "pages_los/common/invalidAction";
 import { Ellipses } from "./components";
+import { HeaderDetails } from "../termsheet/headerDetails";
 import { BankStage } from "../stages";
+import { Termsheet } from "../termsheet";
 
 const ITEM_HEIGHT = 48;
 
@@ -20,6 +22,7 @@ export const Card = ({
   id,
   refID,
   query,
+  otherDetails,
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [currentAction, setCurrentAction] = useState<any>(null);
@@ -104,12 +107,18 @@ export const Card = ({
         currentAction={currentAction}
         closeDialog={closeAction}
         isDataChangedRef={isDataChangedRef}
+        otherDetails={otherDetails}
       />
     </Fragment>
   );
 };
 
-const DialogPicker = ({ currentAction, closeDialog, isDataChangedRef }) => {
+const DialogPicker = ({
+  currentAction,
+  closeDialog,
+  isDataChangedRef,
+  otherDetails,
+}) => {
   return (
     <Dialog
       open={Boolean(currentAction)}
@@ -118,9 +127,6 @@ const DialogPicker = ({ currentAction, closeDialog, isDataChangedRef }) => {
     >
       {(() => {
         switch (currentAction?.name) {
-          // case "termsheet": {
-          //   return null;
-          // }
           case "bankStages": {
             return (
               <BankStage
@@ -131,6 +137,26 @@ const DialogPicker = ({ currentAction, closeDialog, isDataChangedRef }) => {
                 closeDialog={closeDialog}
                 gridTitle={`Bank Stages: ${currentAction?.bankName}`}
               />
+            );
+          }
+          case "termsheet": {
+            return (
+              <>
+                <HeaderDetails
+                  rowData={otherDetails}
+                  closeDialog={closeDialog}
+                  bankName={currentAction?.bankName}
+                />
+                <Termsheet
+                  key="termsheet"
+                  category={otherDetails?.category_id}
+                  refID={currentAction?.refID}
+                  branchID={currentAction?.id}
+                  isDataChangedRef={isDataChangedRef}
+                  closeDialog={closeDialog}
+                  bankName={currentAction?.bankName}
+                />
+              </>
             );
           }
           default: {
