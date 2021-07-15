@@ -22,6 +22,7 @@ export const Board = ({
   disabled,
   query,
   otherDetails,
+  sanctionFlag,
 }) => {
   const [search, setSearch] = useState("");
   const [currentAction, setCurrentAction] = useState<any>(null);
@@ -71,17 +72,20 @@ export const Board = ({
         >
           Add Bank
         </Button>
-        <Button
-          variant="contained"
-          onClick={() =>
-            setCurrentAction({
-              name: "sanction",
-              refID: refID,
-            })
-          }
-        >
-          Sancation
-        </Button>
+
+        {sanctionFlag?.indexOf("Yes") >= 0 ? null : (
+          <Button
+            variant="contained"
+            onClick={() =>
+              setCurrentAction({
+                name: "sanction",
+                refID: refID,
+              })
+            }
+          >
+            Sanction
+          </Button>
+        )}
       </Toolbar>
       <BoardContainer disabled={disabled}>
         <Filter

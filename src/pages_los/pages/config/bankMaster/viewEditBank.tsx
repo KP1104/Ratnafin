@@ -139,12 +139,6 @@ export const ViewEditBank: FC<{
       displayMode={formMode}
       disableGroupErrorDetection={false}
       disableGroupExclude={true}
-      formStyle={{
-        background: "white",
-        height: "calc(50vh - 230px)",
-        overflowY: "auto",
-        overflowX: "hidden",
-      }}
     >
       {!readOnly ? <Button onClick={moveToEditMode}>Edit</Button> : null}
       {typeof closeDialog === "function" ? (
@@ -161,12 +155,6 @@ export const ViewEditBank: FC<{
       displayMode={formMode}
       disableGroupErrorDetection={false}
       disableGroupExclude={true}
-      formStyle={{
-        background: "white",
-        height: "calc(50vh - 230px)",
-        overflowY: "auto",
-        overflowX: "hidden",
-      }}
     >
       {({ isSubmitting, handleSubmit }) => (
         <>

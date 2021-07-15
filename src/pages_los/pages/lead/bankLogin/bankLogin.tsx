@@ -9,7 +9,13 @@ export const BankLogin = (props) => {
       <>
         <Kanban
           columns={columns}
-          filterBy={["bankName", "branchName", "stageName", "subStageName"]}
+          filterBy={[
+            "bankName",
+            "branchName",
+            "stageName",
+            "subStageName",
+            "sanctionFlag",
+          ]}
           splitItemsBy="statusCode" //items contaning column ID
           itemsKey="branchID" //unique Id for each item
           itemsPriorityKey="priority" //for sorting items
