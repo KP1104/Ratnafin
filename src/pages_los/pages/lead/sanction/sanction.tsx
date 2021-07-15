@@ -103,7 +103,7 @@ export const Sanction: FC<{
       queryFn: () => API.getSanctionData({ moduleType, refID })(branchID),
     },
     {
-      queryKey: ["getTermsheetFormMetaData", product],
+      queryKey: ["getSanctionFormMetaData", product],
       queryFn: () => API.getMetadata()(product),
     },
   ]);
