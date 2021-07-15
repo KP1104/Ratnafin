@@ -60,31 +60,33 @@ export const Board = ({
           style={{ marginLeft: "8px", marginRight: "8px" }}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <Button
-          variant="contained"
-          style={{ marginRight: "16px" }}
-          onClick={() =>
-            setCurrentAction({
-              name: "addBank",
-              refID: refID,
-            })
-          }
-        >
-          Add Bank
-        </Button>
 
         {sanctionFlag?.indexOf("Yes") >= 0 ? null : (
-          <Button
-            variant="contained"
-            onClick={() =>
-              setCurrentAction({
-                name: "sanction",
-                refID: refID,
-              })
-            }
-          >
-            Sanction
-          </Button>
+          <>
+            <Button
+              variant="contained"
+              style={{ marginRight: "16px" }}
+              onClick={() =>
+                setCurrentAction({
+                  name: "addBank",
+                  refID: refID,
+                })
+              }
+            >
+              Add Bank
+            </Button>
+            <Button
+              variant="contained"
+              onClick={() =>
+                setCurrentAction({
+                  name: "sanction",
+                  refID: refID,
+                })
+              }
+            >
+              Sanction
+            </Button>
+          </>
         )}
       </Toolbar>
       <BoardContainer disabled={disabled}>
