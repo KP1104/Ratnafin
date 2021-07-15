@@ -34,7 +34,7 @@ export const BankSelection: FC<{
     };
   }, []);
   const result = useQuery<any, any>(["getBankSelection", refID], () =>
-    API.getBankSelection({ refID })("bankLogin")
+    API.getBankSelection({ refID })
   );
 
   const closeMyDialog = () => {
