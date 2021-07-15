@@ -65,17 +65,6 @@ export const CFTermSheetMetadata: MetaDataType = {
       _fields: [
         {
           render: {
-            componentType: "hidden",
-          },
-          name: "serialNo",
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
-        },
-        {
-          render: {
             componentType: "textField",
           },
           name: "facilityType",
@@ -106,7 +95,7 @@ export const CFTermSheetMetadata: MetaDataType = {
         {
           render: {
             //@ts-ignore
-            componentType: "rateOfInt",
+            componentType: "rateOfIntWithoutValidation",
           },
           name: "processingFee",
           label: "Processing Fees",
@@ -120,11 +109,11 @@ export const CFTermSheetMetadata: MetaDataType = {
         {
           render: {
             //@ts-ignore
-            componentType: "rateOfInt",
+            componentType: "textField",
           },
-          name: "baseRate",
-          label: "Base Rate %",
-          placeholder: "Base Rate %",
+          name: "floatingOrFixedRate",
+          label: "Floating Rate or Fixed Rate",
+          placeholder: "Floating Rate or Fixed Rate",
           GridProps: {
             xs: 12,
             md: 3,
@@ -148,7 +137,21 @@ export const CFTermSheetMetadata: MetaDataType = {
         {
           render: {
             //@ts-ignore
-            componentType: "rateOfInt",
+            componentType: "rateOfIntWithoutValidation",
+          },
+          name: "baseRate",
+          label: "Rate %",
+          placeholder: "Rate %",
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            //@ts-ignore
+            componentType: "rateOfIntWithoutValidation",
           },
           name: "spreadInPercent",
           label: "Spread %",
@@ -162,28 +165,13 @@ export const CFTermSheetMetadata: MetaDataType = {
         {
           render: {
             //@ts-ignore
-            componentType: "rateOfInt",
+            componentType: "rateOfIntWithoutValidation",
           },
           name: "actualROI",
           label: "Actual Rate of Interest",
           placeholder: "Actual Rate of Interest",
-          isReadOnly: true,
           dependentFields: ["baseRate", "spreadInPercent"],
           setValueOnDependentFieldsChange: calculateActualRateofInte,
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
-        },
-        {
-          render: {
-            //@ts-ignore
-            componentType: "currency",
-          },
-          name: "fixedOrFloatingRate",
-          label: "Floating Rate or Fixed Rate",
-          placeholder: "Floating Rate or Fixed Rate",
           GridProps: {
             xs: 12,
             md: 3,
@@ -305,7 +293,7 @@ export const CFTermSheetMetadata: MetaDataType = {
         {
           render: {
             //@ts-ignore
-            componentType: "rateOfInt",
+            componentType: "rateOfIntWithoutValidation",
           },
           name: "collateralCoverage",
           label: "Value of Collateral Coverage",
@@ -375,7 +363,7 @@ export const CFTermSheetMetadata: MetaDataType = {
         {
           render: {
             //@ts-ignore
-            componentType: "rateOfInt",
+            componentType: "rateOfIntWithoutValidation",
           },
           name: "totalFeeAtDisbursementInPercent",
           label: "% of Total Fees at the time of Disbursement",
@@ -420,13 +408,16 @@ export const CFTermSheetMetadata: MetaDataType = {
     {
       render: {
         componentType: "textField",
-        group: 3,
+        group: 1,
       },
       name: "bankName",
       label: "Bank Name",
       placeholder: "Bank Name",
+      isReadOnly: true,
       maxLength: 50,
       showMaxLength: false,
+      required: true,
+      validate: "getValidateValue",
       GridProps: {
         xs: 12,
         md: 3,
@@ -436,7 +427,7 @@ export const CFTermSheetMetadata: MetaDataType = {
     {
       render: {
         componentType: "textField",
-        group: 3,
+        group: 1,
       },
       name: "departmentName",
       label: "Departement Name",
@@ -452,7 +443,7 @@ export const CFTermSheetMetadata: MetaDataType = {
     {
       render: {
         componentType: "textField",
-        group: 3,
+        group: 1,
       },
       name: "bankerName",
       label: "Banker Name",
@@ -468,12 +459,14 @@ export const CFTermSheetMetadata: MetaDataType = {
     {
       render: {
         componentType: "datePicker",
-        group: 3,
+        group: 1,
       },
-      name: "termSheetDate",
-      label: "Date of Termsheet",
-      placeholder: "Date of Termsheet",
+      name: "sanctionDate",
+      label: "Date of Sanction",
+      placeholder: "Date of Sanction",
       format: "dd/MM/yyyy",
+      required: true,
+      validate: "getValidateValue",
       GridProps: {
         xs: 12,
         md: 3,
@@ -545,7 +538,7 @@ export const CFTermSheetMetadata: MetaDataType = {
     {
       render: {
         //@ts-ignore
-        componentType: "rateOfInt",
+        componentType: "rateOfIntWithoutValidation",
         group: 3,
       },
       name: "escrowSweepInPercent",

@@ -131,6 +131,7 @@ export const Kanban = ({
           disabled={query?.isLoading || query?.isFetching}
           query={query}
           otherDetails={otherDetails}
+          sanctionFlag={query?.data?.map((one) => one.sanctionFlag)}
         />
       </DragDropContext>
       <DialogComponent

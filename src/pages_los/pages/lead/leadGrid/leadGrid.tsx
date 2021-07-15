@@ -127,6 +127,11 @@ export const LeadGrid = ({ gridCode, actions }) => {
               key={currentAction?.rows[0].id}
               moduleType="lead"
               refID={currentAction?.rows[0].id}
+              product={currentAction?.rows[0]?.data.category_id}
+              branchID={currentAction?.rows[0]?.data.branch_id}
+              bankName={currentAction?.rows[0]?.data.bank_name}
+              isDataChangedRef={isDataEditedRef}
+              closeDialog={handleDialogClose}
             />
           ) : (currentAction?.name ?? "") === "disbursement" ? (
             <Disbursement

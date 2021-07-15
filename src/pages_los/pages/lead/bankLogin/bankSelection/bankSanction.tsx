@@ -11,18 +11,18 @@ import { GridMetaDataType, ActionTypes } from "components/dataTable/types";
 import GridWrapper from "components/dataTableStatic";
 import { Alert } from "components/common/alert";
 import { TextFieldForSelect } from "components/styledComponent/textfield";
-import { BankSelectionGridMetaData } from "./metaData";
+import { BankSanctionGridMetaData } from "./metaData";
 import * as API from "../api";
 
 const actions: ActionTypes[] = [
   {
-    actionName: "addBanks",
-    actionLabel: "Add Banks",
-    multiple: true,
+    actionName: "addSanctions",
+    actionLabel: "Move To Sanction",
+    multiple: false,
   },
 ];
 
-export const BankSelection: FC<{
+export const BankSanction: FC<{
   refID: string;
   closeDialog: any;
   isDataChangedRef: any;
@@ -30,13 +30,12 @@ export const BankSelection: FC<{
   const [currentAction, setCurrentAction] = useState<any>(null);
   useEffect(() => {
     return () => {
-      queryClient.removeQueries(["getBankSelection", refID]);
+      queryClient.removeQueries(["getBankSanction", refID]);
     };
   }, []);
-  const result = useQuery<any, any>(["getBankSelection", refID], () =>
-    API.getBankSelection({ refID })("bankLogin")
+  const result = useQuery<any, any>(["getBankSanction", refID], () =>
+    API.getBankSelection({ refID })("sanction")
   );
-
   const closeMyDialog = () => {
     setCurrentAction(null);
   };
@@ -56,7 +55,7 @@ export const BankSelection: FC<{
       ) : null}
       <GridWrapper
         key={`externalAPIGridStatusListing`}
-        finalMetaData={BankSelectionGridMetaData as GridMetaDataType}
+        finalMetaData={BankSanctionGridMetaData as GridMetaDataType}
         data={result.data ?? []}
         setData={() => null}
         loading={result.isLoading || result.isFetching}
@@ -66,7 +65,7 @@ export const BankSelection: FC<{
       <Dialog open={Boolean(currentAction)} maxWidth="sm" fullWidth>
         <DialogAction
           refID={refID}
-          branchID={currentAction?.rows?.map((one) => one.id)}
+          branchID={currentAction?.rows[0].id}
           isDataChangedRef={isDataChangedRef}
           closeDialog={closeDialog}
           closeMyDialog={closeMyDialog}
@@ -78,18 +77,18 @@ export const BankSelection: FC<{
   return renderResult;
 };
 
-interface addBankToSelectionFnType {
+interface moveToSanctionFnType {
   refID: any;
   remarks: any;
   branchID: any;
 }
 
-const addNewBanksToSelectionWrapper = (addBankToSelectionFn) => async ({
+const moveToSanctionWrapper = (moveToSanctionFn) => async ({
   refID,
   branchID,
   remarks,
-}: addBankToSelectionFnType) => {
-  return addBankToSelectionFn({ refID, branchID, remarks });
+}: moveToSanctionFnType) => {
+  return moveToSanctionFn({ refID, branchID, remarks });
 };
 
 const DialogAction = ({
@@ -101,22 +100,19 @@ const DialogAction = ({
 }) => {
   const [remarks, setRemarks] = useState("");
   const [error, setError] = useState("");
-  const mutation = useMutation(
-    addNewBanksToSelectionWrapper(API.addNewBanksToSelection),
-    {
-      onMutate: () => {
-        setError("");
-      },
-      onError: (error: any) => {},
-      onSuccess: (data) => {
-        setRemarks("");
-        setError("");
-        isDataChangedRef.current = true;
-        closeMyDialog();
-        closeDialog();
-      },
-    }
-  );
+  const mutation = useMutation(moveToSanctionWrapper(API.moveToSanction), {
+    onMutate: () => {
+      setError("");
+    },
+    onError: (error: any) => {},
+    onSuccess: (data) => {
+      setRemarks("");
+      setError("");
+      isDataChangedRef.current = true;
+      closeMyDialog();
+      closeDialog();
+    },
+  });
   return (
     <Fragment>
       {mutation.isError ? (
@@ -127,7 +123,7 @@ const DialogAction = ({
         />
       ) : null}
       <DialogTitle>
-        Are you sure you want add the selected bank to Bank Selection?
+        Are you sure you want to move the selected bank to Sanction?
       </DialogTitle>
       <DialogContent>
         <TextFieldForSelect
@@ -141,6 +137,7 @@ const DialogAction = ({
           error={Boolean(error)}
           helperText={error}
           value={remarks}
+          required={true}
         />
       </DialogContent>
       <DialogActions>

@@ -1,10 +1,9 @@
 import { MetaDataType } from "components/dyanmicForm/types";
-import { calculateActualRateofInte } from "../utils";
 
-export const SMETermSheetMetadata: MetaDataType = {
+export const CFSanctionMetadata: MetaDataType = {
   form: {
-    name: "termsheet",
-    label: "Termsheet",
+    name: "sanction",
+    label: "Sanction",
     resetFieldOnUmnount: false,
     validationRun: "onBlur",
     submitAction: "",
@@ -14,7 +13,8 @@ export const SMETermSheetMetadata: MetaDataType = {
       groups: {
         0: "Facility Details",
         1: "Collateral Details",
-        2: "Other Details",
+        2: "Disbursement Tranches Details",
+        3: "Other Details",
       },
       gridConfig: {
         item: {
@@ -119,6 +119,20 @@ export const SMETermSheetMetadata: MetaDataType = {
         {
           render: {
             //@ts-ignore
+            componentType: "currency",
+          },
+          name: "fixedOrFloatingRate",
+          label: "Floating Rate or Fixed Rate",
+          placeholder: "Floating Rate or Fixed Rate",
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            //@ts-ignore
             componentType: "textField",
           },
           name: "baseRateName",
@@ -136,8 +150,8 @@ export const SMETermSheetMetadata: MetaDataType = {
             componentType: "rateOfIntWithoutValidation",
           },
           name: "baseRate",
-          label: "Base Rate %",
-          placeholder: "Base Rate %",
+          label: "Rate %",
+          placeholder: "Rate %",
           GridProps: {
             xs: 12,
             md: 3,
@@ -167,21 +181,6 @@ export const SMETermSheetMetadata: MetaDataType = {
           label: "Actual Rate of Interest",
           placeholder: "Actual Rate of Interest",
           dependentFields: ["baseRate", "spreadInPercent"],
-          setValueOnDependentFieldsChange: calculateActualRateofInte,
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
-        },
-        {
-          render: {
-            //@ts-ignore
-            componentType: "currency",
-          },
-          name: "fixedOrFloatingRate",
-          label: "Floating Rate or Fixed Rate",
-          placeholder: "Floating Rate or Fixed Rate",
           GridProps: {
             xs: 12,
             md: 3,
@@ -248,23 +247,6 @@ export const SMETermSheetMetadata: MetaDataType = {
     },
     {
       render: {
-        componentType: "select",
-        group: 1,
-      },
-      name: "providedCollateral",
-      label: "Collateral Provided or not?",
-      placeholder: "Collateral Provided or not?",
-      //@ts-ignore
-      options: "getYesOrNoOptions",
-      defaultValue: "00",
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-    },
-    {
-      render: {
         componentType: "arrayField",
         group: 1,
       },
@@ -272,13 +254,6 @@ export const SMETermSheetMetadata: MetaDataType = {
       removeRowFn: "deleteAssignArrayFieldData",
       arrayFieldIDName: "lineNo",
       label: "Collateral Details",
-      dependentFields: ["providedCollateral"],
-      shouldExclude: (_, dependentFields) => {
-        if (dependentFields["providedCollateral"].value === "Y") {
-          return false;
-        }
-        return true;
-      },
       GridProps: {
         xs: 12,
         md: 12,
@@ -290,6 +265,20 @@ export const SMETermSheetMetadata: MetaDataType = {
             componentType: "hidden",
           },
           name: "serialNo",
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            //@ts-ignore
+            componentType: "rateOfIntWithoutValidation",
+          },
+          name: "collateralCoverage",
+          label: "% of Collateral Coverage",
+          placeholder: "% of Collateral Coverage",
           GridProps: {
             xs: 12,
             md: 3,
@@ -311,14 +300,28 @@ export const SMETermSheetMetadata: MetaDataType = {
             sm: 3,
           },
         },
+      ],
+    },
+    {
+      render: {
+        componentType: "arrayField",
+        group: 2,
+      },
+      name: "disbursementMileStoneDetails",
+      removeRowFn: "deleteAssignArrayFieldData",
+      arrayFieldIDName: "lineNo",
+      label: "Disbursement Details",
+      GridProps: {
+        xs: 12,
+        md: 12,
+        sm: 12,
+      },
+      _fields: [
         {
           render: {
-            //@ts-ignore
-            componentType: "rateOfIntWithoutValidation",
+            componentType: "hidden",
           },
-          name: "collateralCoverage",
-          label: "Value of Collateral Coverage",
-          placeholder: "Value of Collateral Coverage",
+          name: "serialNo",
           GridProps: {
             xs: 12,
             md: 3,
@@ -330,13 +333,43 @@ export const SMETermSheetMetadata: MetaDataType = {
             //@ts-ignore
             componentType: "textField",
           },
+          name: "disbursementSequence",
+          label: "Disbursement Sequence",
+          placeholder: "Disbursement Sequence (First,Second,Third)",
+          GridProps: {
+            xs: 12,
+            md: 4,
+            sm: 4,
+          },
+        },
+        {
+          render: {
+            //@ts-ignore
+            componentType: "rateOfIntWithoutValidation",
+          },
+          name: "totalFeeAtDisbursementInPercent",
+          label: "% of Total Fees at the time of Disbursement",
+          placeholder: "% of Total Fees at the time of Disbursement",
+          required: true,
+          GridProps: {
+            xs: 12,
+            md: 4,
+            sm: 4,
+          },
+        },
+        {
+          render: {
+            componentType: "textField",
+          },
           name: "description",
           label: "Description",
           placeholder: "Description",
+          maxLength: 500,
+          showMaxLength: false,
           GridProps: {
             xs: 12,
-            md: 3,
-            sm: 3,
+            md: 4,
+            sm: 4,
           },
         },
       ],
@@ -345,7 +378,7 @@ export const SMETermSheetMetadata: MetaDataType = {
     {
       render: {
         componentType: "hidden",
-        group: 2,
+        group: 3,
       },
       name: "tranCD",
       GridProps: {
@@ -357,7 +390,7 @@ export const SMETermSheetMetadata: MetaDataType = {
     {
       render: {
         componentType: "textField",
-        group: 2,
+        group: 3,
       },
       name: "bankName",
       label: "Bank Name",
@@ -376,7 +409,7 @@ export const SMETermSheetMetadata: MetaDataType = {
     {
       render: {
         componentType: "textField",
-        group: 2,
+        group: 3,
       },
       name: "departmentName",
       label: "Departement Name",
@@ -392,7 +425,7 @@ export const SMETermSheetMetadata: MetaDataType = {
     {
       render: {
         componentType: "textField",
-        group: 2,
+        group: 3,
       },
       name: "bankerName",
       label: "Banker Name",
@@ -408,11 +441,11 @@ export const SMETermSheetMetadata: MetaDataType = {
     {
       render: {
         componentType: "datePicker",
-        group: 2,
+        group: 3,
       },
-      name: "termSheetDate",
-      label: "Date of Termsheet",
-      placeholder: "Date of Termsheet",
+      name: "sanctionDate",
+      label: "Date of Sanction",
+      placeholder: "Date of Sanction",
       format: "dd/MM/yyyy",
       required: true,
       validate: "getValidateValue",
@@ -425,8 +458,116 @@ export const SMETermSheetMetadata: MetaDataType = {
     {
       render: {
         //@ts-ignore
+        componentType: "rateOfIntWithoutValidation",
+        group: 3,
+      },
+      name: "securityCoverage",
+      label: "Security Coverage",
+      placeholder: "Security Coverage",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+    {
+      render: {
+        //@ts-ignore
+        componentType: "textField",
+        group: 3,
+      },
+      name: "disbursementMilestones",
+      label: "Disbursement Milestones",
+      placeholder: "Disbursement Milestones",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+    {
+      render: {
+        //@ts-ignore
+        componentType: "rateOfIntWithoutValidation",
+        group: 3,
+      },
+      name: "escrowSweepInPercent",
+      label: "Escrow Sweep %",
+      placeholder: "Escrow Sweep %",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+    {
+      render: {
+        //@ts-ignore
+        componentType: "select",
+        group: 3,
+      },
+      name: "DSCRA",
+      label: "DSCRA to be maintained if any",
+      placeholder: "DSCRA to be maintained if any",
+      //@ts-ignore
+      options: "getYesOrNoOptions",
+      defaultValue: "00",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+    {
+      render: {
+        //@ts-ignore
         componentType: "currency",
-        group: 2,
+        group: 3,
+      },
+      name: "keyManRiskPolicyAmount",
+      label: "Amount of Key Man Risk Policy",
+      placeholder: "Amount of Key Man Risk Policy",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+    {
+      render: {
+        //@ts-ignore
+        componentType: "textField",
+        group: 3,
+      },
+      name: "guarantorNames",
+      label: "Name of Guarantors",
+      placeholder: "Name of Guarantors",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+    {
+      render: {
+        //@ts-ignore
+        componentType: "textField",
+        group: 3,
+      },
+      name: "MIStoBankSubmissionFreq",
+      label: "Frequency of Submission of MIS to Bank",
+      placeholder: "Frequency of Submission of MIS to Bank",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+    {
+      render: {
+        //@ts-ignore
+        componentType: "currency",
+        group: 3,
       },
       name: "anyDeviationTakenByBank",
       label: "Deviation if any taken by Bank",
@@ -441,7 +582,7 @@ export const SMETermSheetMetadata: MetaDataType = {
       render: {
         //@ts-ignore
         componentType: "textField",
-        group: 2,
+        group: 3,
       },
       name: "preDisbursementConditions",
       label: "Pre Disbursement Conditions",
@@ -455,70 +596,8 @@ export const SMETermSheetMetadata: MetaDataType = {
     {
       render: {
         //@ts-ignore
-        componentType: "currency",
-        group: 2,
-      },
-      name: "LCBGCommission",
-      label: "LC / BG Comission",
-      placeholder: "LC / BG Comission",
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-    },
-    {
-      render: {
-        //@ts-ignore
         componentType: "textField",
-        group: 2,
-      },
-      name: "marginInCCBG",
-      label: "Margin in CC & BG",
-      placeholder: "Margin in CC & BG",
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-    },
-    {
-      render: {
-        //@ts-ignore
-        componentType: "textField",
-        group: 2,
-      },
-      type: "number",
-      name: "stockStatementSubmissionFreq",
-      label: "Frequency of Stock Statement submission",
-      placeholder: "Frequency of Stock Statement submission",
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-    },
-    {
-      render: {
-        //@ts-ignore
-        componentType: "datePicker",
-        group: 2,
-      },
-      name: "nextRenewalDate",
-      label: "Next Renewal Date",
-      placeholder: "Next Renewal Date",
-      format: "dd/MM/yyyy",
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-    },
-    {
-      render: {
-        //@ts-ignore
-        componentType: "textField",
-        group: 2,
+        group: 3,
       },
       name: "additionalRemarks",
       label: "Additional Remarks",
