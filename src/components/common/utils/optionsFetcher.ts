@@ -229,7 +229,7 @@ export const useOptionsFetcherSimple = (
             ...newOptions,
           ];
         }
-        setOptions(queryOptions.data);
+        setOptions(newOptions);
       } else {
         setOptions([{ label: "Couldn't fetch", value: null, disabled: true }]);
         console.log(

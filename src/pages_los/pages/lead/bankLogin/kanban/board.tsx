@@ -116,9 +116,11 @@ export const Board = ({
       </BoardContainer>
       <Dialog
         open={Boolean(currentAction)}
-        maxWidth="md"
+        maxWidth={currentAction?.name === "sanction" ? "sm" : "md"}
         fullWidth={true}
-        PaperProps={{ style: { height: "70%" } }}
+        PaperProps={
+          currentAction?.name === "sanction" ? {} : { style: { height: "70%" } }
+        }
       >
         <ActionPicker
           currentAction={currentAction}

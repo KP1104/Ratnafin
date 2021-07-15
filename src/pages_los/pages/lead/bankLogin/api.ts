@@ -46,9 +46,9 @@ export const updateBankCategory = async ({
   }
 };
 
-const getBankSelectionAll = (moduleType) => async ({ refID }) => {
+export const getBankSelection = async ({ refID }) => {
   const { data, status } = await LOSSDK.internalFetcher(
-    `./lead/${moduleType}/options/bankList`,
+    `./lead/bankLogin/options/bankList`,
     {
       body: JSON.stringify({
         request_data: {
@@ -107,5 +107,25 @@ export const moveToSanction = async ({ refID, branchID, remarks }) => {
   }
 };
 
-export const getBankSelection = getBankSelectionAll("bankLogin");
-export const getBankSanction = getBankSelectionAll("sanction");
+export const getBankSanction = async ({ refID }) => {
+  const { data, status } = await LOSSDK.internalFetcher(
+    `./lead/sanction/options/bankList`,
+    {
+      body: JSON.stringify({
+        request_data: {
+          refID: refID,
+        },
+        channel: "W",
+      }),
+    }
+  );
+  if (status === "success" && Array.isArray(data?.response_data)) {
+    const newArray = data.response_data.map((one) => ({
+      value: one?.branchID,
+      label: one?.bankName,
+    }));
+    return newArray;
+  } else {
+    throw data?.error_data;
+  }
+};

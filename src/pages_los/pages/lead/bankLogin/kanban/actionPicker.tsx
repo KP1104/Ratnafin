@@ -1,5 +1,4 @@
-import { BankSelection } from "../bankSelection";
-import { BankSanction } from "../bankSelection";
+import { BankSelection, BankSanction } from "../bankSelection";
 
 export const ActionPicker = ({
   currentAction,

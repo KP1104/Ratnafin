@@ -1,81 +1,15 @@
-import { Fragment, FC, useEffect, useState } from "react";
-import { queryClient } from "cache";
-import { useQuery, useMutation } from "react-query";
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
+import { Fragment, FC, useState } from "react";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import { useMutation } from "react-query";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { GridMetaDataType, ActionTypes } from "components/dataTable/types";
-import GridWrapper from "components/dataTableStatic";
-import { Alert } from "components/common/alert";
+import { SelectRenderOnly } from "components/common/select";
 import { TextFieldForSelect } from "components/styledComponent/textfield";
-import { BankSanctionGridMetaData } from "./metaData";
+import { getValidateValue } from "registry/fns/misc/others";
 import * as API from "../api";
-
-const actions: ActionTypes[] = [
-  {
-    actionName: "addSanctions",
-    actionLabel: "Move To Sanction",
-    multiple: false,
-  },
-];
-
-export const BankSanction: FC<{
-  refID: string;
-  closeDialog: any;
-  isDataChangedRef: any;
-}> = ({ refID, closeDialog, isDataChangedRef }) => {
-  const [currentAction, setCurrentAction] = useState<any>(null);
-  useEffect(() => {
-    return () => {
-      queryClient.removeQueries(["getBankSanction", refID]);
-    };
-  }, []);
-  const result = useQuery<any, any>(["getBankSanction", refID], () =>
-    API.getBankSanction({ refID })
-  );
-  const closeMyDialog = () => {
-    setCurrentAction(null);
-  };
-
-  const renderResult = (
-    <Fragment>
-      <div style={{ display: "flex" }}>
-        <div style={{ flexGrow: 1 }} />
-        <Button onClick={closeDialog}>Close</Button>
-      </div>
-      {result.isError ? (
-        <Alert
-          severity="error"
-          errorMsg={result?.error?.error_msg}
-          errorDetail={result?.error?.error_dtl ?? ""}
-        />
-      ) : null}
-      <GridWrapper
-        key={`externalAPIGridStatusListing`}
-        finalMetaData={BankSanctionGridMetaData as GridMetaDataType}
-        data={result.data ?? []}
-        setData={() => null}
-        loading={result.isLoading || result.isFetching}
-        actions={actions}
-        setAction={setCurrentAction}
-      />
-      <Dialog open={Boolean(currentAction)} maxWidth="sm" fullWidth>
-        <DialogAction
-          refID={refID}
-          branchID={currentAction?.rows[0].id}
-          isDataChangedRef={isDataChangedRef}
-          closeDialog={closeDialog}
-          closeMyDialog={closeMyDialog}
-        />
-      </Dialog>
-    </Fragment>
-  );
-
-  return renderResult;
-};
 
 interface moveToSanctionFnType {
   refID: any;
@@ -91,15 +25,31 @@ const moveToSanctionWrapper = (moveToSanctionFn) => async ({
   return moveToSanctionFn({ refID, branchID, remarks });
 };
 
-const DialogAction = ({
-  refID,
-  branchID,
-  isDataChangedRef,
-  closeDialog,
-  closeMyDialog,
-}) => {
+export const BankSanction: FC<{
+  refID: string;
+  closeDialog: any;
+  isDataChangedRef: any;
+}> = ({ refID, closeDialog, isDataChangedRef }) => {
+  const [bank, setBank] = useState<any>("00");
   const [remarks, setRemarks] = useState("");
   const [error, setError] = useState("");
+  const [bankError, setBankError] = useState<any>("");
+
+  const handleChange = (e) => {
+    setBank(e.target.value);
+  };
+
+  const handleBlur = async () => {
+    let result = await getValidateValue({
+      value: bank,
+    });
+    if (Boolean(result)) {
+      setBankError(result);
+    } else {
+      setBankError("");
+    }
+  };
+
   const mutation = useMutation(moveToSanctionWrapper(API.moveToSanction), {
     onMutate: () => {
       setError("");
@@ -109,36 +59,51 @@ const DialogAction = ({
       setRemarks("");
       setError("");
       isDataChangedRef.current = true;
-      closeMyDialog();
       closeDialog();
     },
   });
+
   return (
     <Fragment>
-      {mutation.isError ? (
-        <Alert
-          severity="error"
-          errorMsg={mutation?.error?.error_msg}
-          errorDetail={mutation?.error?.error_detail}
-        />
-      ) : null}
-      <DialogTitle>
-        Are you sure you want to move the selected bank to Sanction?
-      </DialogTitle>
+      <DialogTitle>Bank Sanction</DialogTitle>
       <DialogContent>
-        <TextFieldForSelect
-          rows={3}
-          type="textarea"
-          multiline={true}
-          InputLabelProps={{ shrink: true }}
-          fullWidth={true}
-          label="Remarks"
-          onChange={(e) => setRemarks(e.target.value)}
-          error={Boolean(error)}
-          helperText={error}
-          value={remarks}
-          required={true}
-        />
+        <Grid container>
+          <Grid item xs={12} md={6} sm={6}>
+            <SelectRenderOnly
+              name="sanction"
+              size="small"
+              margin="normal"
+              required
+              fullWidth
+              label="Select Bank for Sanction"
+              options={() => API.getBankSanction({ refID })}
+              value={bank ?? ""}
+              autoComplete="off"
+              handleChange={handleChange}
+              _optionsKey="getBankSanction"
+              handleBlur={handleBlur}
+              defaultOptionLabel="Select Bank"
+              error={bankError}
+              autoFocus={true}
+              touched={true}
+            />
+          </Grid>
+          <Grid item xs={12} md={12} sm={12}>
+            <TextFieldForSelect
+              rows={3}
+              type="textarea"
+              multiline={true}
+              InputLabelProps={{ shrink: true }}
+              fullWidth={true}
+              label="Remarks"
+              onChange={(e) => setRemarks(e.target.value)}
+              error={Boolean(error)}
+              helperText={error}
+              value={remarks}
+              required={true}
+            />
+          </Grid>
+        </Grid>
       </DialogContent>
       <DialogActions>
         <Button
@@ -146,16 +111,20 @@ const DialogAction = ({
             if (!Boolean(remarks)) {
               setError("This is a required field");
             } else {
-              mutation.mutate({ refID, branchID, remarks });
+              mutation.mutate({
+                refID,
+                branchID: bank,
+                remarks,
+              });
             }
           }}
           disabled={mutation.isLoading}
           endIcon={mutation.isLoading ? <CircularProgress size={20} /> : null}
         >
-          Yes
+          Proceed
         </Button>
-        <Button onClick={closeMyDialog} disabled={mutation.isLoading}>
-          No
+        <Button onClick={closeDialog} disabled={mutation.isLoading}>
+          Cancel
         </Button>
       </DialogActions>
     </Fragment>
