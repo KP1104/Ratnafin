@@ -67,6 +67,7 @@ export const SMESanctionMetadata: MetaDataType = {
           name: "facilityType",
           label: "Type of Facility",
           placeholder: "Type of Facility",
+          maxLength: 20,
           GridProps: {
             xs: 12,
             md: 3,
@@ -182,6 +183,7 @@ export const SMESanctionMetadata: MetaDataType = {
           name: "baseRateResetFreq",
           label: "Frequency of Reset of Base Rate",
           placeholder: "Frequency of Reset of Base Rate",
+          maxLength: 10,
           GridProps: {
             xs: 12,
             md: 3,
@@ -196,6 +198,8 @@ export const SMESanctionMetadata: MetaDataType = {
           name: "TenureIncaseOfTermloan",
           label: "Tenure in case of Term Loan",
           placeholder: "Tenure in case of Term Loan",
+          maxLength: 5,
+          showMaxLength: false,
           GridProps: {
             xs: 12,
             md: 3,
@@ -241,8 +245,6 @@ export const SMESanctionMetadata: MetaDataType = {
       label: "Bank Name",
       placeholder: "Bank Name",
       isReadOnly: true,
-      maxLength: 50,
-      showMaxLength: false,
       required: true,
       validate: "getValidateValue",
       GridProps: {
@@ -408,7 +410,7 @@ export const SMESanctionMetadata: MetaDataType = {
     {
       render: {
         //@ts-ignore
-        componentType: "rateOfIntWithoutValidation",
+        componentType: "textField",
         group: 1,
       },
       name: "marginInLCBG",
@@ -426,7 +428,6 @@ export const SMESanctionMetadata: MetaDataType = {
         componentType: "textField",
         group: 1,
       },
-      type: "number",
       name: "ATNWMaintained",
       label: "ATNW to be maintained at the end of Audited",
       placeholder: "ATNW to be maintained at the end of Audited",

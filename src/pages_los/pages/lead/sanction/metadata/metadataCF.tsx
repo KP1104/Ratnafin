@@ -195,6 +195,7 @@ export const CFSanctionMetadata: MetaDataType = {
           name: "baseRateResetFreq",
           label: "Frequency of Reset of Base Rate",
           placeholder: "Frequency of Reset of Base Rate",
+          maxLength: 10,
           GridProps: {
             xs: 12,
             md: 3,
@@ -209,6 +210,8 @@ export const CFSanctionMetadata: MetaDataType = {
           name: "TenureIncaseOfTermloan",
           label: "Tenure in case of Term Loan",
           placeholder: "Tenure in case of Term Loan",
+          maxLength: 5,
+          showMaxLength: false,
           GridProps: {
             xs: 12,
             md: 3,
@@ -310,7 +313,7 @@ export const CFSanctionMetadata: MetaDataType = {
       name: "disbursementMileStoneDetails",
       removeRowFn: "deleteAssignArrayFieldData",
       arrayFieldIDName: "lineNo",
-      label: "Disbursement Details",
+      label: "Disbursement Tranches Details",
       GridProps: {
         xs: 12,
         md: 12,
@@ -374,7 +377,6 @@ export const CFSanctionMetadata: MetaDataType = {
         },
       ],
     },
-
     {
       render: {
         componentType: "hidden",
@@ -464,21 +466,6 @@ export const CFSanctionMetadata: MetaDataType = {
       name: "securityCoverage",
       label: "Security Coverage",
       placeholder: "Security Coverage",
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-    },
-    {
-      render: {
-        //@ts-ignore
-        componentType: "textField",
-        group: 3,
-      },
-      name: "disbursementMilestones",
-      label: "Disbursement Milestones",
-      placeholder: "Disbursement Milestones",
       GridProps: {
         xs: 12,
         md: 3,

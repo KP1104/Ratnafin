@@ -65,11 +65,23 @@ export const CFTermSheetMetadata: MetaDataType = {
       _fields: [
         {
           render: {
+            componentType: "hidden",
+          },
+          name: "serialNo",
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
             componentType: "textField",
           },
           name: "facilityType",
           label: "Type of Facility",
           placeholder: "Type of Facility",
+          maxLength: 20,
           GridProps: {
             xs: 12,
             md: 3,
@@ -109,9 +121,9 @@ export const CFTermSheetMetadata: MetaDataType = {
         {
           render: {
             //@ts-ignore
-            componentType: "textField",
+            componentType: "currency",
           },
-          name: "floatingOrFixedRate",
+          name: "fixedOrFloatingRate",
           label: "Floating Rate or Fixed Rate",
           placeholder: "Floating Rate or Fixed Rate",
           GridProps: {
@@ -128,6 +140,7 @@ export const CFTermSheetMetadata: MetaDataType = {
           name: "baseRateName",
           label: "Name of the Base Rate",
           placeholder: "Name of the Base Rate",
+          maxLength: 20,
           GridProps: {
             xs: 12,
             md: 3,
@@ -140,8 +153,8 @@ export const CFTermSheetMetadata: MetaDataType = {
             componentType: "rateOfIntWithoutValidation",
           },
           name: "baseRate",
-          label: "Rate %",
-          placeholder: "Rate %",
+          label: "Base Rate %",
+          placeholder: "Base Rate %",
           GridProps: {
             xs: 12,
             md: 3,
@@ -186,6 +199,7 @@ export const CFTermSheetMetadata: MetaDataType = {
           name: "baseRateResetFreq",
           label: "Frequency of Reset of Base Rate",
           placeholder: "Frequency of Reset of Base Rate",
+          maxLength: 10,
           GridProps: {
             xs: 12,
             md: 3,
@@ -200,6 +214,8 @@ export const CFTermSheetMetadata: MetaDataType = {
           name: "TenureIncaseOfTermloan",
           label: "Tenure in case of Term Loan",
           placeholder: "Tenure in case of Term Loan",
+          maxLength: 5,
+          showMaxLength: false,
           GridProps: {
             xs: 12,
             md: 3,
@@ -238,23 +254,6 @@ export const CFTermSheetMetadata: MetaDataType = {
     },
     {
       render: {
-        componentType: "select",
-        group: 1,
-      },
-      name: "providedCollateral",
-      label: "Collateral Provided or not?",
-      placeholder: "Collateral Provided or not?",
-      //@ts-ignore
-      options: "getYesOrNoOptions",
-      defaultValue: "00",
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-    },
-    {
-      render: {
         componentType: "arrayField",
         group: 1,
       },
@@ -262,13 +261,6 @@ export const CFTermSheetMetadata: MetaDataType = {
       removeRowFn: "deleteAssignArrayFieldData",
       arrayFieldIDName: "lineNo",
       label: "Collateral Details",
-      dependentFields: ["providedCollateral"],
-      shouldExclude: (_, dependentFields) => {
-        if (dependentFields["providedCollateral"].value === "Y") {
-          return false;
-        }
-        return true;
-      },
       GridProps: {
         xs: 12,
         md: 12,
@@ -277,13 +269,9 @@ export const CFTermSheetMetadata: MetaDataType = {
       _fields: [
         {
           render: {
-            componentType: "textField",
+            componentType: "hidden",
           },
-          name: "collateralType",
-          label: "Type of Collateral",
-          placeholder: "Type of Collateral",
-          maxLength: 20,
-          showMaxLength: false,
+          name: "serialNo",
           GridProps: {
             xs: 12,
             md: 3,
@@ -298,6 +286,21 @@ export const CFTermSheetMetadata: MetaDataType = {
           name: "collateralCoverage",
           label: "Value of Collateral Coverage",
           placeholder: "Value of Collateral Coverage",
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            componentType: "textField",
+          },
+          name: "collateralType",
+          label: "Type of Collateral",
+          placeholder: "Type of Collateral",
+          maxLength: 20,
+          showMaxLength: false,
           GridProps: {
             xs: 12,
             md: 3,
@@ -328,7 +331,7 @@ export const CFTermSheetMetadata: MetaDataType = {
       name: "disbursementMileStoneDetails",
       removeRowFn: "deleteAssignArrayFieldData",
       arrayFieldIDName: "lineNo",
-      label: "Disbursement Details",
+      label: "Disbursement Tranches Details",
       GridProps: {
         xs: 12,
         md: 12,
@@ -408,7 +411,7 @@ export const CFTermSheetMetadata: MetaDataType = {
     {
       render: {
         componentType: "textField",
-        group: 1,
+        group: 3,
       },
       name: "bankName",
       label: "Bank Name",
@@ -427,7 +430,7 @@ export const CFTermSheetMetadata: MetaDataType = {
     {
       render: {
         componentType: "textField",
-        group: 1,
+        group: 3,
       },
       name: "departmentName",
       label: "Departement Name",
@@ -443,7 +446,7 @@ export const CFTermSheetMetadata: MetaDataType = {
     {
       render: {
         componentType: "textField",
-        group: 1,
+        group: 3,
       },
       name: "bankerName",
       label: "Banker Name",
@@ -459,61 +462,14 @@ export const CFTermSheetMetadata: MetaDataType = {
     {
       render: {
         componentType: "datePicker",
-        group: 1,
+        group: 3,
       },
-      name: "sanctionDate",
-      label: "Date of Sanction",
-      placeholder: "Date of Sanction",
+      name: "termSheetDate",
+      label: "Date of Termsheet",
+      placeholder: "dd/mm/yyyy",
       format: "dd/MM/yyyy",
       required: true,
       validate: "getValidateValue",
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-    },
-    {
-      render: {
-        //@ts-ignore
-        componentType: "currency",
-        group: 3,
-      },
-      name: "anyDeviationTakenByBank",
-      label: "Deviation if any taken by Bank",
-      placeholder: "Deviation if any taken by Bank",
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-    },
-    {
-      render: {
-        //@ts-ignore
-        componentType: "textField",
-        group: 3,
-      },
-      name: "preDisbursementConditions",
-      label: "Pre Disbursement Conditions",
-      placeholder: "Pre Disbursement Conditions",
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-    },
-    {
-      render: {
-        //@ts-ignore
-        componentType: "textField",
-        group: 3,
-      },
-      name: "disbursementMilestones",
-      label: "Disbursement Milestones",
-      placeholder: "Disbursement Milestones",
-      maxLength: 20,
-      showMaxLength: false,
       GridProps: {
         xs: 12,
         md: 3,
@@ -577,6 +533,36 @@ export const CFTermSheetMetadata: MetaDataType = {
       name: "keyManRiskPolicyAmount",
       label: "Amount of Key Man Risk Policy",
       placeholder: "Amount of Key Man Risk Policy",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+    {
+      render: {
+        //@ts-ignore
+        componentType: "currency",
+        group: 3,
+      },
+      name: "anyDeviationTakenByBank",
+      label: "Deviation if any taken by Bank",
+      placeholder: "Deviation if any taken by Bank",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+    {
+      render: {
+        //@ts-ignore
+        componentType: "textField",
+        group: 3,
+      },
+      name: "preDisbursementConditions",
+      label: "Pre Disbursement Conditions",
+      placeholder: "Pre Disbursement Conditions",
       GridProps: {
         xs: 12,
         md: 3,
