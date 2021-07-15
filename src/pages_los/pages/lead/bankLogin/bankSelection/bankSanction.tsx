@@ -34,7 +34,7 @@ export const BankSanction: FC<{
     };
   }, []);
   const result = useQuery<any, any>(["getBankSanction", refID], () =>
-    API.getBankSelection({ refID })("sanction")
+    API.getBankSanction({ refID })
   );
   const closeMyDialog = () => {
     setCurrentAction(null);

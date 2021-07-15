@@ -46,7 +46,7 @@ export const updateBankCategory = async ({
   }
 };
 
-export const getBankSelection = ({ refID }) => async (moduleType) => {
+const getBankSelectionAll = (moduleType) => async ({ refID }) => {
   const { data, status } = await LOSSDK.internalFetcher(
     `./lead/${moduleType}/options/bankList`,
     {
@@ -106,3 +106,6 @@ export const moveToSanction = async ({ refID, branchID, remarks }) => {
     throw data?.error_data;
   }
 };
+
+export const getBankSelection = getBankSelectionAll("bankLogin");
+export const getBankSanction = getBankSelectionAll("sanction");
