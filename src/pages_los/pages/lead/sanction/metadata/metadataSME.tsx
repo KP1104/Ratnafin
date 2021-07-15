@@ -1,10 +1,9 @@
 import { MetaDataType } from "components/dyanmicForm/types";
-import { calculateActualRateofInte } from "../utils";
 
-export const CFTermSheetMetadata: MetaDataType = {
+export const SMESanctionMetadata: MetaDataType = {
   form: {
-    name: "termsheet",
-    label: "Termsheet",
+    name: "sanction",
+    label: "Sanction",
     resetFieldOnUmnount: false,
     validationRun: "onBlur",
     submitAction: "",
@@ -13,9 +12,7 @@ export const CFTermSheetMetadata: MetaDataType = {
       renderType: "tabs",
       groups: {
         0: "Facility Details",
-        1: "Collateral Details",
-        2: "Disbursement Tranches Details",
-        3: "Other Details",
+        1: "Other Details",
       },
       gridConfig: {
         item: {
@@ -63,17 +60,6 @@ export const CFTermSheetMetadata: MetaDataType = {
         sm: 12,
       },
       _fields: [
-        {
-          render: {
-            componentType: "hidden",
-          },
-          name: "serialNo",
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
-        },
         {
           render: {
             componentType: "textField",
@@ -140,7 +126,6 @@ export const CFTermSheetMetadata: MetaDataType = {
           name: "baseRateName",
           label: "Name of the Base Rate",
           placeholder: "Name of the Base Rate",
-          maxLength: 20,
           GridProps: {
             xs: 12,
             md: 3,
@@ -153,8 +138,8 @@ export const CFTermSheetMetadata: MetaDataType = {
             componentType: "rateOfIntWithoutValidation",
           },
           name: "baseRate",
-          label: "Base Rate %",
-          placeholder: "Base Rate %",
+          label: "Rate %",
+          placeholder: "Rate %",
           GridProps: {
             xs: 12,
             md: 3,
@@ -184,7 +169,6 @@ export const CFTermSheetMetadata: MetaDataType = {
           label: "Actual Rate of Interest",
           placeholder: "Actual Rate of Interest",
           dependentFields: ["baseRate", "spreadInPercent"],
-          setValueOnDependentFieldsChange: calculateActualRateofInte,
           GridProps: {
             xs: 12,
             md: 3,
@@ -254,171 +238,13 @@ export const CFTermSheetMetadata: MetaDataType = {
     },
     {
       render: {
-        componentType: "arrayField",
-        group: 1,
-      },
-      name: "collateralDetails",
-      removeRowFn: "deleteAssignArrayFieldData",
-      arrayFieldIDName: "lineNo",
-      label: "Collateral Details",
-      GridProps: {
-        xs: 12,
-        md: 12,
-        sm: 12,
-      },
-      _fields: [
-        {
-          render: {
-            componentType: "hidden",
-          },
-          name: "serialNo",
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
-        },
-        {
-          render: {
-            //@ts-ignore
-            componentType: "rateOfIntWithoutValidation",
-          },
-          name: "collateralCoverage",
-          label: "Value of Collateral Coverage",
-          placeholder: "Value of Collateral Coverage",
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
-        },
-        {
-          render: {
-            componentType: "textField",
-          },
-          name: "collateralType",
-          label: "Type of Collateral",
-          placeholder: "Type of Collateral",
-          maxLength: 20,
-          showMaxLength: false,
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
-        },
-        {
-          render: {
-            //@ts-ignore
-            componentType: "textField",
-          },
-          name: "description",
-          label: "Description",
-          placeholder: "Description",
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
-        },
-      ],
-    },
-    {
-      render: {
-        componentType: "arrayField",
-        group: 2,
-      },
-      name: "disbursementMileStoneDetails",
-      removeRowFn: "deleteAssignArrayFieldData",
-      arrayFieldIDName: "lineNo",
-      label: "Disbursement Tranches Details",
-      GridProps: {
-        xs: 12,
-        md: 12,
-        sm: 12,
-      },
-      _fields: [
-        {
-          render: {
-            componentType: "hidden",
-          },
-          name: "serialNo",
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
-        },
-        {
-          render: {
-            //@ts-ignore
-            componentType: "textField",
-          },
-          name: "disbursementSequence",
-          label: "Disbursement Sequence",
-          placeholder: "Disbursement Sequence (First,Second,Third)",
-          GridProps: {
-            xs: 12,
-            md: 4,
-            sm: 4,
-          },
-        },
-        {
-          render: {
-            //@ts-ignore
-            componentType: "rateOfIntWithoutValidation",
-          },
-          name: "totalFeeAtDisbursementInPercent",
-          label: "% of Total Fees at the time of Disbursement",
-          placeholder: "% of Total Fees at the time of Disbursement",
-          required: true,
-          GridProps: {
-            xs: 12,
-            md: 4,
-            sm: 4,
-          },
-        },
-        {
-          render: {
-            componentType: "textField",
-          },
-          name: "description",
-          label: "Description",
-          placeholder: "Description",
-          maxLength: 500,
-          showMaxLength: false,
-          GridProps: {
-            xs: 12,
-            md: 4,
-            sm: 4,
-          },
-        },
-      ],
-    },
-
-    {
-      render: {
-        componentType: "hidden",
-        group: 3,
-      },
-      name: "tranCD",
-      GridProps: {
-        xs: 12,
-        md: 12,
-        sm: 12,
-      },
-    },
-    {
-      render: {
         componentType: "textField",
-        group: 3,
+        group: 1,
       },
       name: "bankName",
       label: "Bank Name",
       placeholder: "Bank Name",
       isReadOnly: true,
-      maxLength: 50,
-      showMaxLength: false,
       required: true,
       validate: "getValidateValue",
       GridProps: {
@@ -430,7 +256,7 @@ export const CFTermSheetMetadata: MetaDataType = {
     {
       render: {
         componentType: "textField",
-        group: 3,
+        group: 1,
       },
       name: "departmentName",
       label: "Departement Name",
@@ -446,7 +272,7 @@ export const CFTermSheetMetadata: MetaDataType = {
     {
       render: {
         componentType: "textField",
-        group: 3,
+        group: 1,
       },
       name: "bankerName",
       label: "Banker Name",
@@ -462,11 +288,11 @@ export const CFTermSheetMetadata: MetaDataType = {
     {
       render: {
         componentType: "datePicker",
-        group: 3,
+        group: 1,
       },
-      name: "termSheetDate",
-      label: "Date of Termsheet",
-      placeholder: "dd/mm/yyyy",
+      name: "sanctionDate",
+      label: "Date of Sanction",
+      placeholder: "Date of Sanction",
       format: "dd/MM/yyyy",
       required: true,
       validate: "getValidateValue",
@@ -480,44 +306,11 @@ export const CFTermSheetMetadata: MetaDataType = {
       render: {
         //@ts-ignore
         componentType: "textField",
-        group: 3,
+        group: 1,
       },
-      name: "minimumAssetCoverage",
-      label: "Minimum Asset Coverage",
-      placeholder: "Example (1.5 times, 2 times)",
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-    },
-    {
-      render: {
-        //@ts-ignore
-        componentType: "rateOfIntWithoutValidation",
-        group: 3,
-      },
-      name: "escrowSweepInPercent",
-      label: "Escrow Sweep %",
-      placeholder: "Escrow Sweep %",
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-    },
-    {
-      render: {
-        //@ts-ignore
-        componentType: "select",
-        group: 3,
-      },
-      name: "DSCRA",
-      label: "DSCRA to be maintained if any",
-      placeholder: "DSCRA to be maintained if any",
-      //@ts-ignore
-      options: "getYesOrNoOptions",
-      defaultValue: "00",
+      name: "guarantorNames",
+      label: "Name of Guarantors",
+      placeholder: "Name of Guarantors",
       GridProps: {
         xs: 12,
         md: 3,
@@ -528,22 +321,7 @@ export const CFTermSheetMetadata: MetaDataType = {
       render: {
         //@ts-ignore
         componentType: "currency",
-        group: 3,
-      },
-      name: "keyManRiskPolicyAmount",
-      label: "Amount of Key Man Risk Policy",
-      placeholder: "Amount of Key Man Risk Policy",
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-    },
-    {
-      render: {
-        //@ts-ignore
-        componentType: "currency",
-        group: 3,
+        group: 1,
       },
       name: "anyDeviationTakenByBank",
       label: "Deviation if any taken by Bank",
@@ -558,7 +336,7 @@ export const CFTermSheetMetadata: MetaDataType = {
       render: {
         //@ts-ignore
         componentType: "textField",
-        group: 3,
+        group: 1,
       },
       name: "preDisbursementConditions",
       label: "Pre Disbursement Conditions",
@@ -572,8 +350,162 @@ export const CFTermSheetMetadata: MetaDataType = {
     {
       render: {
         //@ts-ignore
+        componentType: "currency",
+        group: 1,
+      },
+      name: "LCBGCommission",
+      label: "LC / BG Comission",
+      placeholder: "LC / BG Comission",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+    {
+      render: {
+        //@ts-ignore
+        componentType: "rateOfIntWithoutValidation",
+        group: 1,
+      },
+      name: "marginInCC",
+      label: "Margin in CC",
+      placeholder: "Margin in CC",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+    {
+      render: {
+        //@ts-ignore
+        componentType: "rateOfIntWithoutValidation",
+        group: 1,
+      },
+      name: "debtorsPercent",
+      label: "% on Debtors",
+      placeholder: "% on Debtors",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+    {
+      render: {
+        //@ts-ignore
+        componentType: "rateOfIntWithoutValidation",
+        group: 1,
+      },
+      name: "stockPercent",
+      label: "% on Stock",
+      placeholder: "% on Stock",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+    {
+      render: {
+        //@ts-ignore
         componentType: "textField",
-        group: 3,
+        group: 1,
+      },
+      name: "marginInLCBG",
+      label: "Margin in LC & BG",
+      placeholder: "Margin in LC & BG",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+    {
+      render: {
+        //@ts-ignore
+        componentType: "textField",
+        group: 1,
+      },
+      name: "ATNWMaintained",
+      label: "ATNW to be maintained at the end of Audited",
+      placeholder: "ATNW to be maintained at the end of Audited",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+    {
+      render: {
+        //@ts-ignore
+        componentType: "textField",
+        group: 1,
+      },
+      name: "stockStatementSubmissionFreq",
+      label: "Frequency of Stock Statement submission",
+      placeholder: "Frequency of Stock Statement submission",
+      maxLength: 5,
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+    {
+      render: {
+        componentType: "datePicker",
+        group: 1,
+      },
+      name: "submissionDateOfQIS",
+      label: "Date of Submission of QIS",
+      placeholder: "dd/mm/yyyy",
+      format: "dd/MM/yyyy",
+      required: true,
+      validate: "getValidateValue",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+    {
+      render: {
+        //@ts-ignore
+        componentType: "textField",
+        group: 1,
+      },
+      name: "anyAchievedMilestones",
+      label: "Milestones to be Achieved",
+      placeholder: "Milestones to be Achieved",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+    {
+      render: {
+        //@ts-ignore
+        componentType: "datePicker",
+        group: 1,
+      },
+      name: "nextRenewalDate",
+      label: "Next Renewal Date",
+      placeholder: "Next Renewal Date",
+      format: "dd/MM/yyyy",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+    {
+      render: {
+        //@ts-ignore
+        componentType: "textField",
+        group: 1,
       },
       name: "additionalRemarks",
       label: "Additional Remarks",
@@ -584,6 +516,18 @@ export const CFTermSheetMetadata: MetaDataType = {
         xs: 12,
         md: 3,
         sm: 3,
+      },
+    },
+    {
+      render: {
+        componentType: "hidden",
+        group: 1,
+      },
+      name: "tranCD",
+      GridProps: {
+        xs: 12,
+        md: 12,
+        sm: 12,
       },
     },
   ],

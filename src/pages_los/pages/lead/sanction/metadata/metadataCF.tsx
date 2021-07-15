@@ -1,10 +1,9 @@
 import { MetaDataType } from "components/dyanmicForm/types";
-import { calculateActualRateofInte } from "../utils";
 
-export const CFTermSheetMetadata: MetaDataType = {
+export const CFSanctionMetadata: MetaDataType = {
   form: {
-    name: "termsheet",
-    label: "Termsheet",
+    name: "sanction",
+    label: "Sanction",
     resetFieldOnUmnount: false,
     validationRun: "onBlur",
     submitAction: "",
@@ -81,7 +80,6 @@ export const CFTermSheetMetadata: MetaDataType = {
           name: "facilityType",
           label: "Type of Facility",
           placeholder: "Type of Facility",
-          maxLength: 20,
           GridProps: {
             xs: 12,
             md: 3,
@@ -140,7 +138,6 @@ export const CFTermSheetMetadata: MetaDataType = {
           name: "baseRateName",
           label: "Name of the Base Rate",
           placeholder: "Name of the Base Rate",
-          maxLength: 20,
           GridProps: {
             xs: 12,
             md: 3,
@@ -153,8 +150,8 @@ export const CFTermSheetMetadata: MetaDataType = {
             componentType: "rateOfIntWithoutValidation",
           },
           name: "baseRate",
-          label: "Base Rate %",
-          placeholder: "Base Rate %",
+          label: "Rate %",
+          placeholder: "Rate %",
           GridProps: {
             xs: 12,
             md: 3,
@@ -184,7 +181,6 @@ export const CFTermSheetMetadata: MetaDataType = {
           label: "Actual Rate of Interest",
           placeholder: "Actual Rate of Interest",
           dependentFields: ["baseRate", "spreadInPercent"],
-          setValueOnDependentFieldsChange: calculateActualRateofInte,
           GridProps: {
             xs: 12,
             md: 3,
@@ -284,8 +280,8 @@ export const CFTermSheetMetadata: MetaDataType = {
             componentType: "rateOfIntWithoutValidation",
           },
           name: "collateralCoverage",
-          label: "Value of Collateral Coverage",
-          placeholder: "Value of Collateral Coverage",
+          label: "% of Collateral Coverage",
+          placeholder: "% of Collateral Coverage",
           GridProps: {
             xs: 12,
             md: 3,
@@ -301,20 +297,6 @@ export const CFTermSheetMetadata: MetaDataType = {
           placeholder: "Type of Collateral",
           maxLength: 20,
           showMaxLength: false,
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
-        },
-        {
-          render: {
-            //@ts-ignore
-            componentType: "textField",
-          },
-          name: "description",
-          label: "Description",
-          placeholder: "Description",
           GridProps: {
             xs: 12,
             md: 3,
@@ -395,7 +377,6 @@ export const CFTermSheetMetadata: MetaDataType = {
         },
       ],
     },
-
     {
       render: {
         componentType: "hidden",
@@ -464,9 +445,9 @@ export const CFTermSheetMetadata: MetaDataType = {
         componentType: "datePicker",
         group: 3,
       },
-      name: "termSheetDate",
-      label: "Date of Termsheet",
-      placeholder: "dd/mm/yyyy",
+      name: "sanctionDate",
+      label: "Date of Sanction",
+      placeholder: "Date of Sanction",
       format: "dd/MM/yyyy",
       required: true,
       validate: "getValidateValue",
@@ -479,12 +460,12 @@ export const CFTermSheetMetadata: MetaDataType = {
     {
       render: {
         //@ts-ignore
-        componentType: "textField",
+        componentType: "rateOfIntWithoutValidation",
         group: 3,
       },
-      name: "minimumAssetCoverage",
-      label: "Minimum Asset Coverage",
-      placeholder: "Example (1.5 times, 2 times)",
+      name: "securityCoverage",
+      label: "Security Coverage",
+      placeholder: "Security Coverage",
       GridProps: {
         xs: 12,
         md: 3,
@@ -533,6 +514,36 @@ export const CFTermSheetMetadata: MetaDataType = {
       name: "keyManRiskPolicyAmount",
       label: "Amount of Key Man Risk Policy",
       placeholder: "Amount of Key Man Risk Policy",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+    {
+      render: {
+        //@ts-ignore
+        componentType: "textField",
+        group: 3,
+      },
+      name: "guarantorNames",
+      label: "Name of Guarantors",
+      placeholder: "Name of Guarantors",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+    {
+      render: {
+        //@ts-ignore
+        componentType: "textField",
+        group: 3,
+      },
+      name: "MIStoBankSubmissionFreq",
+      label: "Frequency of Submission of MIS to Bank",
+      placeholder: "Frequency of Submission of MIS to Bank",
       GridProps: {
         xs: 12,
         md: 3,

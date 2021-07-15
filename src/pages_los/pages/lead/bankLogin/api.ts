@@ -85,3 +85,47 @@ export const addNewBanksToSelection = async ({ refID, branchID, remarks }) => {
     throw data?.error_data;
   }
 };
+
+export const moveToSanction = async ({ refID, branchID, remarks }) => {
+  const { data, status } = await LOSSDK.internalFetcher(
+    `./lead/moveToSanction`,
+    {
+      body: JSON.stringify({
+        request_data: {
+          refID: refID,
+          branchID: branchID,
+          remarks: remarks,
+        },
+        channel: "W",
+      }),
+    }
+  );
+  if (status === "success") {
+    return data?.response_data;
+  } else {
+    throw data?.error_data;
+  }
+};
+
+export const getBankSanction = async ({ refID }) => {
+  const { data, status } = await LOSSDK.internalFetcher(
+    `./lead/sanction/options/bankList`,
+    {
+      body: JSON.stringify({
+        request_data: {
+          refID: refID,
+        },
+        channel: "W",
+      }),
+    }
+  );
+  if (status === "success" && Array.isArray(data?.response_data)) {
+    const newArray = data.response_data.map((one) => ({
+      value: one?.branchID,
+      label: one?.bankName,
+    }));
+    return newArray;
+  } else {
+    throw data?.error_data;
+  }
+};

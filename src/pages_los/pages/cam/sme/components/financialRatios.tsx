@@ -156,7 +156,7 @@ export const FinancialRatios = ({ finance }) => {
       </tr>
       <tr>
         <Default colspan={1} value="DSCR" element="th" />
-        {printTDSForAmount({ obj: finance, key: "dscr" })}
+        {printTDSForPercentage({ obj: finance, key: "dscr" })}
       </tr>
       <tr>
         <Default

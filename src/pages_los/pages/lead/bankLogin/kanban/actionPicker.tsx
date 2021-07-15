@@ -1,4 +1,4 @@
-import { BankSelection } from "../bankSelection";
+import { BankSelection, BankSanction } from "../bankSelection";
 
 export const ActionPicker = ({
   currentAction,
@@ -7,6 +7,12 @@ export const ActionPicker = ({
 }) => {
   return currentAction?.name === "addBank" ? (
     <BankSelection
+      refID={currentAction?.refID}
+      closeDialog={closeDialog}
+      isDataChangedRef={dataChangedRef}
+    />
+  ) : currentAction?.name === "sanction" ? (
+    <BankSanction
       refID={currentAction?.refID}
       closeDialog={closeDialog}
       isDataChangedRef={dataChangedRef}

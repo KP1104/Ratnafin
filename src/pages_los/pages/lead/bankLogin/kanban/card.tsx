@@ -19,6 +19,7 @@ export const Card = ({
   columnName,
   stageName,
   subStageName,
+  sanctionFlag,
   id,
   refID,
   query,
@@ -75,6 +76,14 @@ export const Card = ({
         color="textSecondary"
       >
         {stageStr}
+      </Typography>
+      <Typography
+        variant="subtitle2"
+        gutterBottom
+        align="left"
+        color="textSecondary"
+      >
+        {sanctionFlag === "Yes" ? "Sanctioned" : null}
       </Typography>
 
       {columnName !== "selection" ? (

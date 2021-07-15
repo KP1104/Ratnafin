@@ -17,18 +17,18 @@ const actions: ActionTypes[] = [
     actionName: "ViewBranch",
     actionLabel: "View Branches",
     multiple: false,
-    rowDoubleClick: true,
+    rowDoubleClick: false,
   },
   {
     actionName: "EditBank",
     actionLabel: "Edit Details",
     multiple: false,
-    rowDoubleClick: false,
+    rowDoubleClick: true,
   },
   {
     actionName: "DeleteBank",
     actionLabel: "Delete",
-    multiple: false,
+    multiple: true,
     rowDoubleClick: false,
   },
   {
@@ -86,11 +86,12 @@ export const BankMaster = () => {
         //@ts-ignore
         onClose={handleDialogClose}
         fullScreen={selectedAction === "ViewBranch" ? true : false}
-        maxWidth="lg"
+        maxWidth="md"
         PaperProps={{
           style:
-            selectedAction.indexOf("AddBank", "ViewDetails") >= 0
-              ? { width: "100%", height: "50%" }
+            selectedAction.indexOf("AddBank") >= 0 ||
+            selectedAction === "EditBank"
+              ? { width: "100%", height: "70%" }
               : {},
         }}
       >

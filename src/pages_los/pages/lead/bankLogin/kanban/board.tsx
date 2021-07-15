@@ -22,6 +22,7 @@ export const Board = ({
   disabled,
   query,
   otherDetails,
+  sanctionFlag,
 }) => {
   const [search, setSearch] = useState("");
   const [currentAction, setCurrentAction] = useState<any>(null);
@@ -59,29 +60,34 @@ export const Board = ({
           style={{ marginLeft: "8px", marginRight: "8px" }}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <Button
-          variant="contained"
-          style={{ marginRight: "16px" }}
-          onClick={() =>
-            setCurrentAction({
-              name: "addBank",
-              refID: refID,
-            })
-          }
-        >
-          Add Bank
-        </Button>
-        <Button
-          variant="contained"
-          onClick={() =>
-            setCurrentAction({
-              name: "sanction",
-              refID: refID,
-            })
-          }
-        >
-          Sancation
-        </Button>
+
+        {sanctionFlag?.indexOf("Yes") >= 0 ? null : (
+          <>
+            <Button
+              variant="contained"
+              style={{ marginRight: "16px" }}
+              onClick={() =>
+                setCurrentAction({
+                  name: "addBank",
+                  refID: refID,
+                })
+              }
+            >
+              Add Bank
+            </Button>
+            <Button
+              variant="contained"
+              onClick={() =>
+                setCurrentAction({
+                  name: "sanction",
+                  refID: refID,
+                })
+              }
+            >
+              Sanction
+            </Button>
+          </>
+        )}
       </Toolbar>
       <BoardContainer disabled={disabled}>
         <Filter
@@ -112,9 +118,11 @@ export const Board = ({
       </BoardContainer>
       <Dialog
         open={Boolean(currentAction)}
-        maxWidth="md"
+        maxWidth={currentAction?.name === "sanction" ? "sm" : "md"}
         fullWidth={true}
-        PaperProps={{ style: { height: "70%" } }}
+        PaperProps={
+          currentAction?.name === "sanction" ? {} : { style: { height: "70%" } }
+        }
       >
         <ActionPicker
           currentAction={currentAction}
