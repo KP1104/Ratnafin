@@ -118,6 +118,35 @@ const MySelect: FC<MySelectAllProps> = ({
         } else if (value.length === 0 && !skipDefaultOption) {
           value = ["00"];
         }
+        //Remove this code to disable select All
+        if (value[value.length - 1] === "all") {
+          let values: any = [],
+            labels: any = [];
+          if (
+            _options.filter((one) => one.value !== "00").length ===
+            value.filter((one) => one !== "all").length
+          ) {
+            handleChange(
+              ["00"],
+              [
+                Boolean(defaultOptionLabel)
+                  ? defaultOptionLabel
+                  : "Select Option",
+              ]
+            );
+          } else {
+            for (let i = 0; i < _options.length; i++) {
+              if (_options[i].value === "00") {
+                continue;
+              }
+              values.push(_options[i].value);
+              labels.push(_options[i].label);
+            }
+            handleChange(values, labels);
+          }
+          return;
+        }
+        //End of select All Code
       }
       let result = getLabelFromValuesForOptions(value);
       result = multiple ? result : result[0];
@@ -125,6 +154,20 @@ const MySelect: FC<MySelectAllProps> = ({
     },
     [handleChange, getLabelFromValuesForOptions, multiple, skipDefaultOption]
   );
+  //Remove This to disable selectAll
+  const filteredOptions = _options.filter((one) => one.value !== "00");
+  const filtervalue = Array.isArray(value)
+    ? value.filter((one) => one !== "00")
+    : [];
+  const isAllSelected = multiple
+    ? filteredOptions.length === (value?.length ?? -Infinity)
+    : false;
+
+  const isIndeterminate =
+    multiple &&
+    filtervalue.length > 0 &&
+    filtervalue.length < filteredOptions.length;
+  //end of select All
   const { loadingOptions } = useOptionsFetcher(
     formState,
     options,
@@ -170,6 +213,15 @@ const MySelect: FC<MySelectAllProps> = ({
       </MenuItem>
     );
   });
+  //Remove this to disable select all
+  const selectAllMenu = (
+    <MenuItem button={true} key="selectAll" value="all">
+      <Checkbox checked={isAllSelected} indeterminate={isIndeterminate} />
+      Select All
+    </MenuItem>
+  );
+  //end of select all
+
   const result = (
     <TextField
       {...others}
@@ -213,7 +265,10 @@ const MySelect: FC<MySelectAllProps> = ({
         ...inputProps,
       }}
     >
-      {menuItems}
+      {/*Uncomment first and comment/remove second line to remove select all}
+      {/*menuItems*/}
+      {multiple && showCheckbox ? [selectAllMenu, ...menuItems] : menuItems}
+      {/*end of selectAll*/}
     </TextField>
   );
   if (Boolean(enableGrid)) {
