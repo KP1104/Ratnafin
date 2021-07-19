@@ -5,11 +5,16 @@ import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Dialog from "@material-ui/core/Dialog";
+import Grid from "@material-ui/core/Grid";
 import { InvalidAction } from "pages_los/common/invalidAction";
 import { Ellipses } from "./components";
 import { HeaderDetails } from "../termsheet/headerDetails";
 import { BankStage } from "../stages";
-import { Termsheet } from "../termsheet";
+import { Termsheet, DocumentUploadTermsheet } from "../termsheet";
+import {
+  DOCContextProvider,
+  DocAPICrudProviderGenerator,
+} from "../termsheet/documentUpload/context";
 
 const ITEM_HEIGHT = 48;
 
@@ -156,15 +161,31 @@ const DialogPicker = ({
                   closeDialog={closeDialog}
                   bankName={currentAction?.bankName}
                 />
-                <Termsheet
-                  key="termsheet"
-                  category={otherDetails?.category_id}
-                  refID={currentAction?.refID}
-                  branchID={currentAction?.id}
-                  isDataChangedRef={isDataChangedRef}
-                  closeDialog={closeDialog}
-                  bankName={currentAction?.bankName}
-                />
+                <Grid container>
+                  <Grid item xs={12} md={10} sm={10}>
+                    <Termsheet
+                      key="termsheet"
+                      category={otherDetails?.category_id}
+                      refID={currentAction?.refID}
+                      branchID={currentAction?.id}
+                      isDataChangedRef={isDataChangedRef}
+                      closeDialog={closeDialog}
+                      bankName={currentAction?.bankName}
+                    />
+                  </Grid>
+                  <DOCContextProvider
+                    key={"termsheet"}
+                    {...DocAPICrudProviderGenerator(currentAction?.refID, null)}
+                  >
+                    <Grid item xs={12} md={2} sm={2}>
+                      <DocumentUploadTermsheet
+                        key="termsheet"
+                        branchID={currentAction?.id}
+                        isDataChangedRef={isDataChangedRef}
+                      />
+                    </Grid>
+                  </DOCContextProvider>
+                </Grid>
               </>
             );
           }
