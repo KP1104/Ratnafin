@@ -1,4 +1,4 @@
-import { Fragment, useState, useContext, useEffect, useRef } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -6,28 +6,94 @@ import DialogContent from "@material-ui/core/DialogContent";
 import Typography from "@material-ui/core/Typography";
 import loaderGif from "assets/images/loader.gif";
 import IconButton from "@material-ui/core/IconButton";
+import { useStyles } from "components/fileUpload/style";
 import Close from "@material-ui/icons/Close";
+import Alert from "@material-ui/lab/Alert";
 import { DOCContext } from "./context";
+import { SelectFile } from "./select";
 
-export const ToPreviewDocument = ({ tranCD }) => {
-  const [open, setOpen] = useState(Boolean);
+export const ToPreviewDocument = ({ tranCD, fileName, isDataChangedRef }) => {
+  const classes = useStyles();
+  const [open, setOpen] = useState(false);
+  const [update, setUpdate] = useState(false);
+
+  const closeUpdate = () => {
+    setUpdate(false);
+  };
 
   return (
     <>
-      {Boolean(open) ? (
-        <PreviewDocument tranCD={tranCD} open={open} setOpen={setOpen} />
+      {Boolean(open) || Boolean(update) ? (
+        <>
+          <PreviewDocument
+            tranCD={tranCD}
+            open={open}
+            setOpen={setOpen}
+            fileName={fileName}
+            closeUpdate={closeUpdate}
+            isDataChangedRef={isDataChangedRef}
+            update={update}
+          />
+        </>
       ) : (
-        <Button onClick={() => setOpen(true)}>Preview Document</Button>
+        <>
+          <div
+            className={classes.uploadWrapper}
+            style={{ alignSelf: "center", height: "200px" }}
+          >
+            <Button color="primary" onClick={() => setOpen(true)}>
+              Preview
+            </Button>
+            <Typography>Termsheet</Typography>
+
+            <input type="file" style={{ display: "none" }} />
+          </div>
+          <div>
+            <Button
+              color="primary"
+              onClick={() => setUpdate(true)}
+              style={{ display: "contents", marginTop: "10px" }}
+            >
+              Update
+            </Button>
+          </div>
+        </>
       )}
     </>
   );
 };
 
-export const PreviewDocument = ({ tranCD, open, setOpen }) => {
-  return <FileViewer tranCD={tranCD} open={open} setOpen={setOpen} />;
+export const PreviewDocument = ({
+  tranCD,
+  open,
+  setOpen,
+  fileName,
+  update,
+  isDataChangedRef,
+  closeUpdate,
+}) => {
+  return (
+    <>
+      {Boolean(open) ? (
+        <FileViewer
+          tranCD={tranCD}
+          open={open}
+          setOpen={setOpen}
+          fileName={fileName}
+        />
+      ) : Boolean(update) ? (
+        <SelectFile
+          isDataChangedRef={isDataChangedRef}
+          tranCD={tranCD}
+          closeUpdate={closeUpdate}
+          update={update}
+        />
+      ) : null}
+    </>
+  );
 };
 
-export const FileViewer = ({ tranCD, open, setOpen }) => {
+export const FileViewer = ({ tranCD, open, setOpen, fileName }) => {
   const { loading, blob, error, success } = useBlobLoader({
     tranCD,
   });
@@ -47,7 +113,7 @@ export const FileViewer = ({ tranCD, open, setOpen }) => {
         <Typography variant="h6" color="textSecondary">
           File:
         </Typography>
-        <Typography variant="h6">ABC</Typography>
+        <Typography variant="h6">{fileName}</Typography>
         <div style={{ flexGrow: 1 }}></div>
 
         <IconButton color="primary" onClick={() => setOpen(false)}>
@@ -58,7 +124,7 @@ export const FileViewer = ({ tranCD, open, setOpen }) => {
         {loading ? (
           <img src={loaderGif} width="50px" height="50px" alt="loader" />
         ) : Boolean(error) ? (
-          <span>{error}</span>
+          <Alert severity="error">{error}</Alert>
         ) : (
           <iframe
             src={`${urlObj.current}`}
@@ -81,7 +147,7 @@ const useBlobLoader = ({ tranCD }) => {
 
   useEffect(() => {
     previewDocument
-      .fn(previewDocument.args)
+      .fn(previewDocument.args)(tranCD)
       .then((blob) => {
         if (blob instanceof Error) {
           setError(blob.message);

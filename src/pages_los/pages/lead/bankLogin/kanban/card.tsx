@@ -162,7 +162,7 @@ const DialogPicker = ({
                   bankName={currentAction?.bankName}
                 />
                 <Grid container>
-                  <Grid item xs={12} md={8} sm={8}>
+                  <Grid item xs={12} md={10} sm={10}>
                     <Termsheet
                       key="termsheet"
                       category={otherDetails?.category_id}
@@ -175,13 +175,12 @@ const DialogPicker = ({
                   </Grid>
                   <DOCContextProvider
                     key={"termsheet"}
-                    {...DocAPICrudProviderGenerator(currentAction?.id)}
+                    {...DocAPICrudProviderGenerator(currentAction?.refID, null)}
                   >
-                    <Grid item xs={12} md={4} sm={4}>
+                    <Grid item xs={12} md={2} sm={2}>
                       <DocumentUploadTermsheet
                         key="termsheet"
-                        tranCD={currentAction?.id}
-                        closeDialog={closeDialog}
+                        branchID={currentAction?.id}
                         isDataChangedRef={isDataChangedRef}
                       />
                     </Grid>

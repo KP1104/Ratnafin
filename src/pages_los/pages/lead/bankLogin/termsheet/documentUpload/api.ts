@@ -1,6 +1,6 @@
 import { LOSSDK } from "registry/fns/los";
 
-export const onFileUpload = ({ tranCD }) => async (
+export const onFileUpload = ({ refID, tranCD }) => async (
   file,
   progressHandler: any = () => {},
   completeHandler: any = () => {}
@@ -42,7 +42,7 @@ export const onFileUpload = ({ tranCD }) => async (
   xhr.send(formData);
 };
 
-export const previewDocument = async ({ tranCD }: any) => {
+export const previewDocument = ({ refID }: any) => async (tranCD) => {
   const url = new URL(
     `./lead/document/termsheet/preview`,
     LOSSDK.getBaseURL() as URL
@@ -71,13 +71,14 @@ export const previewDocument = async ({ tranCD }: any) => {
   }
 };
 
-export const documentIfExist = async ({ tranCD }: any) => {
+export const documentIfExist = ({ refID }: any) => async (branchID, tranCD) => {
   const { data, status } = await LOSSDK.internalFetcher(
     `./lead/termsheet/check/file`,
     {
       body: JSON.stringify({
         request_data: {
-          tranCD: tranCD,
+          refID: refID,
+          branchID: branchID,
         },
         channel: "W",
       }),
