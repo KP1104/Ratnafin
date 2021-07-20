@@ -307,13 +307,6 @@ export const extendedMetaData: ExtendedFieldMetaDataTypeOptional = {
         return true;
       },
     },
-    schemaValidation: {
-      type: "string",
-      rules: [
-        { name: "typeError", params: ["This field is required"] },
-        { name: "required", params: ["This field is required"] },
-      ],
-    },
   },
 
   squareFeetFormat: {

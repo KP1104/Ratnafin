@@ -198,7 +198,7 @@ export const SMETermSheetMetadata: MetaDataType = {
           name: "baseRateResetFreq",
           label: "Frequency of Reset of Base Rate",
           placeholder: "Frequency of Reset of Base Rate",
-          maxLength: 10,
+          maxLength: 5,
           GridProps: {
             xs: 12,
             md: 3,
@@ -211,8 +211,8 @@ export const SMETermSheetMetadata: MetaDataType = {
             componentType: "textField",
           },
           name: "TenureIncaseOfTermloan",
-          label: "Tenure in case of Term Loan",
-          placeholder: "Tenure in case of Term Loan",
+          label: "Tenure",
+          placeholder: "Tenure",
           maxLength: 5,
           showMaxLength: false,
           GridProps: {
@@ -227,8 +227,9 @@ export const SMETermSheetMetadata: MetaDataType = {
             componentType: "textField",
           },
           name: "MoratoriumPeriodInCaseOfTermloan",
-          label: "Moratorium Period in case of Term Loan",
-          placeholder: "Moratorium Period in case of Term Loan",
+          label: "Moratorium Period",
+          placeholder: "Moratorium Period",
+          maxLength: 5,
           GridProps: {
             xs: 12,
             md: 3,
@@ -279,12 +280,13 @@ export const SMETermSheetMetadata: MetaDataType = {
         },
         {
           render: {
-            //@ts-ignore
-            componentType: "rateOfIntWithoutValidation",
+            componentType: "textField",
           },
-          name: "collateralCoverage",
-          label: "Value of Collateral Coverage",
-          placeholder: "Value of Collateral Coverage",
+          name: "collateralType",
+          label: "Type of Collateral",
+          placeholder: "Type of Collateral",
+          maxLength: 20,
+          showMaxLength: false,
           GridProps: {
             xs: 12,
             md: 3,
@@ -295,11 +297,38 @@ export const SMETermSheetMetadata: MetaDataType = {
           render: {
             componentType: "textField",
           },
-          name: "collateralType",
-          label: "Type of Collateral",
-          placeholder: "Type of Collateral",
-          maxLength: 20,
-          showMaxLength: false,
+          name: "collateralOwner",
+          label: "Owner of Collateral",
+          placeholder: "Owner of Collateral",
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            //@ts-ignore
+            componentType: "squareFeetFormat",
+          },
+          name: "collateralArea",
+          label: "Area of Colletral (Sq.Ft)",
+          placeholder: "Area of Colletral (Sq.Ft)",
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+
+        {
+          render: {
+            //@ts-ignore
+            componentType: "currency",
+          },
+          name: "collateralCoverage",
+          label: "Value of Collateral Coverage",
+          placeholder: "Value of Collateral Coverage",
           GridProps: {
             xs: 12,
             md: 3,
@@ -344,7 +373,6 @@ export const SMETermSheetMetadata: MetaDataType = {
       placeholder: "Bank Name",
       isReadOnly: true,
       required: true,
-      validate: "getValidateValue",
       GridProps: {
         xs: 12,
         md: 3,
@@ -357,8 +385,8 @@ export const SMETermSheetMetadata: MetaDataType = {
         group: 2,
       },
       name: "departmentName",
-      label: "Departement Name",
-      placeholder: "Department Name",
+      label: "Bank Departement Name",
+      placeholder: "Bank Department Name",
       maxLength: 50,
       showMaxLength: false,
       GridProps: {
@@ -389,7 +417,7 @@ export const SMETermSheetMetadata: MetaDataType = {
         group: 2,
       },
       name: "termSheetDate",
-      label: "Date of Termsheet",
+      label: "Date of Term Sheet",
       placeholder: "dd/mm/yyyy",
       format: "dd/MM/yyyy",
       required: true,
