@@ -36,8 +36,8 @@ export const infraFormMetaData = {
     {
       render: { componentType: "select" },
       name: "bankBranch",
-      label: "Bank Branch",
-      placeholder: "Branch Select",
+      label: "Ratnaafin Branch",
+      placeholder: "Ratnaafin Branch Select",
       defaultValue: "00",
       options: "getBranchList",
       multiple: true,
@@ -159,6 +159,7 @@ export const infraFormMetaData = {
       name: "collateralCoverage",
       label: "Collateral Coverage",
       placeholder: "Collateral Coverage",
+      defaultValue: "0.00",
       GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {
@@ -176,11 +177,11 @@ export const infraFormMetaData = {
       GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {
-      render: { componentType: "currency" },
+      render: { componentType: "rateOfIntWithoutValidation" },
       name: "pf",
       label: "Processing Fees",
       placeholder: "Processing Fees",
-      maxLength: 100,
+      defaultValue: "0.00",
       GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {

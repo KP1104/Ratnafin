@@ -71,7 +71,7 @@ export const unsecureGridMetaData = {
       isVisible: false,
     },
     {
-      columnName: "Bank Branch Name",
+      columnName: "Ratnaafin Branch Name",
       componentType: "default",
       accessor: "bankBranchName",
       sequence: 8,

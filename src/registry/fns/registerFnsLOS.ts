@@ -312,3 +312,13 @@ registerFn(
   "ShouldExcludeShowLoanAmountBasedLTV",
   shouldExclude.showLoanAmountBasedLTV
 );
+
+registerFn(
+  "shouldShowChequeBouncesPercentageField",
+  shouldExclude.showChequeBouncesPercentageField
+);
+
+registerFn(
+  "shouldShowChequeBouncesFlatValueField",
+  shouldExclude.showChequeBouncesFlatValueField
+);

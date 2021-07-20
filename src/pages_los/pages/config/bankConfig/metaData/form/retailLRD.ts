@@ -35,8 +35,8 @@ export const retailLRDFormMetaData = {
     {
       render: { componentType: "select" },
       name: "bankBranch",
-      label: "Bank Branch",
-      placeholder: "Branch Select",
+      label: "Ratnaafin Branch",
+      placeholder: "Ratnaafin Branch Select",
       defaultValue: "00",
       options: "getBranchList",
       multiple: true,
