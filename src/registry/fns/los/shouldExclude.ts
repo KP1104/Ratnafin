@@ -375,3 +375,17 @@ export const showLoanAmountBasedLTV = async (_, dependentFields) => {
   }
   return true;
 };
+
+export const showChequeBouncesPercentageField = (_, dependentValues) => {
+  if (dependentValues?.["chequeBouncesType"]?.value === "01") {
+    return false;
+  }
+  return true;
+};
+
+export const showChequeBouncesFlatValueField = (_, dependentValues) => {
+  if (dependentValues?.["chequeBouncesType"]?.value === "02") {
+    return false;
+  }
+  return true;
+};
