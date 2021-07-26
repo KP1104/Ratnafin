@@ -1,3 +1,6 @@
+import { isNull } from "lodash";
+const result = "";
+
 export const calculateEBITDA = (dependentFields) => {
   const depreciation = Number(dependentFields?.depreciation?.value);
   const ebit = Number(dependentFields?.ebit?.value);
@@ -26,28 +29,40 @@ export const calculateEBITDAPercentage = (dependentFields) => {
   const ebitDa = Number(dependentFields?.ebitDa?.value);
   const revenue = Number(dependentFields?.revenue?.value);
   const total = (ebitDa / revenue) * 100;
-  return total;
+  if (isNaN(total) || isNull(total)) {
+    return result;
+  }
+  return total.toPrecision(5);
 };
 
 export const calculateEBTPercentage = (dependentFields) => {
   const ebt = Number(dependentFields?.ebt?.value);
   const revenue = Number(dependentFields?.revenue?.value);
   const total = (ebt / revenue) * 100;
-  return total;
+  if (isNaN(total) || isNull(total)) {
+    return result;
+  }
+  return total.toPrecision(5);
 };
 
 export const calculatePatPercentage = (dependentFields) => {
   const pat = Number(dependentFields?.pat?.value);
   const revenue = Number(dependentFields?.revenue?.value);
   const total = (pat / revenue) * 100;
-  return total;
+  if (isNaN(total) || isNull(total)) {
+    return result;
+  }
+  return total.toPrecision(5);
 };
 
 export const calculateCashProfitPercentage = (dependentFields) => {
   const cashProfit = Number(dependentFields?.cashProfit?.value);
   const revenue = Number(dependentFields?.revenue?.value);
   const total = (cashProfit / revenue) * 100;
-  return total;
+  if (isNaN(total) || isNull(total)) {
+    return result;
+  }
+  return total.toPrecision(5);
 };
 
 export const calculateAdjustedPat = (dependentFields) => {
@@ -69,14 +84,20 @@ export const calculateAdjustedPatPercentage = (dependentFields) => {
   const adjustedPat = Number(dependentFields?.adjustedPat?.value);
   const revenue = Number(dependentFields?.revenue?.value);
   const total = (adjustedPat / revenue) * 100;
-  return total;
+  if (isNaN(total) || isNull(total)) {
+    return result;
+  }
+  return total.toPrecision(5);
 };
 
 export const calculateAdjustedCashProfitPercentage = (dependentFields) => {
   const adjustedCashProfit = Number(dependentFields?.adjustedCashProfit?.value);
   const revenue = Number(dependentFields?.revenue?.value);
   const total = (adjustedCashProfit / revenue) * 100;
-  return total;
+  if (isNaN(total) || isNull(total)) {
+    return result;
+  }
+  return total.toPrecision(5);
 };
 
 export const calculateNetWorth = (dependentFields) => {
@@ -94,8 +115,11 @@ export const calculateNetWorthQuasi = (dependentFields) => {
 export const calculateLongTermDebtEquity = (dependentFields) => {
   const networthQuasi = Number(dependentFields?.networthQuasi?.value);
   const longTermDebtFund = Number(dependentFields?.longTermDebtFund?.value);
-
-  return Number(longTermDebtFund / networthQuasi).toFixed(2);
+  const total = longTermDebtFund / networthQuasi;
+  if (isNaN(total) || isNull(total)) {
+    return result;
+  }
+  return Math.round(total).toFixed(2);
 };
 
 export const calculateTolTnvQuasi = (dependentFields) => {
@@ -103,12 +127,16 @@ export const calculateTolTnvQuasi = (dependentFields) => {
   const shortTermDebtFund = Number(dependentFields?.shortTermDebtFund?.value);
   const networthQuasi = Number(dependentFields?.networthQuasi?.value);
   const currentLiabilities = Number(dependentFields?.currentLiabilities?.value);
-  const total = shortTermDebtFund + longTermDebtFund + currentLiabilities;
-  return Number(total / networthQuasi).toFixed(2);
+  const sumOfAll = shortTermDebtFund + longTermDebtFund + currentLiabilities;
+  const total = sumOfAll / networthQuasi;
+  if (isNaN(total) || isNull(total)) {
+    return result;
+  }
+  return Math.round(total).toFixed(2);
 };
 
 export const calculateCurrentRatio = (dependentFields) => {
   const currentAssets = Number(dependentFields?.currentAssets?.value);
   const currentLiabilities = Number(dependentFields?.currentLiabilities?.value);
-  return Number(currentAssets / currentLiabilities).toFixed(2);
+  return Math.round(currentAssets / currentLiabilities).toFixed(2);
 };
