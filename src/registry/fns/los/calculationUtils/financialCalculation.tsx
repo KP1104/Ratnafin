@@ -145,7 +145,6 @@ export const calculateLongTermDebtEquity = (dependentFields) => {
   const networthQuasi = Number(dependentFields?.networthQuasi?.value);
   const longTermDebtFund = Number(dependentFields?.longTermDebtFund?.value);
   const total = longTermDebtFund / networthQuasi;
-  console.log(total);
   if (isNaN(total)) {
     return "";
   }
