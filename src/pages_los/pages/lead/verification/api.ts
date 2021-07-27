@@ -50,3 +50,10 @@ export const initiateVerificationAPI = ({ refID }) => async (formData) => {
     throw data?.error_data;
   }
 };
+
+export const generateDocumentDownloadURL = (moduleType, docUUID) => {
+  return new URL(
+    `http://10.55.6.61:8081/los/${moduleType}/external/equifaxreport/data/download?docUUID=${docUUID}&tokenID=${LOSSDK.getToken()}`,
+    LOSSDK.getBaseURL() as URL
+  ).href;
+};
