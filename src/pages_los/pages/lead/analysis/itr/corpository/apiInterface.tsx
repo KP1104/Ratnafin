@@ -117,7 +117,7 @@ export const CorpositoryAPIInterface = ({
         <br />
         {searchQuery.isIdle ? null : searchQuery.isLoading ||
           searchQuery.isFetching ? (
-          <span>Loading Company Data from Corpository...</span>
+          <span>Loading Data...</span>
         ) : searchQuery.isError ? (
           <span>{searchQuery.error?.error_msg ?? "unknown error occured"}</span>
         ) : (

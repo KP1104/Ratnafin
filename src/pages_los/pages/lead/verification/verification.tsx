@@ -3,6 +3,7 @@ import Dialog from "@material-ui/core/Dialog";
 import { queryClient, ClearCacheContext } from "cache";
 import { ActionTypes } from "components/dataTable";
 import { InvalidAction } from "pages_los/common/invalidAction";
+import { Download } from "./download";
 import { APIGrid } from "./apiGrid";
 import { APIInterfaceForm } from "./apiInterface";
 import { generateVerificationAPIContext, ExternalAPIProvider } from "./context";
@@ -13,6 +14,21 @@ const actions: ActionTypes[] = [
     actionLabel: "Inititate Verification",
     multiple: undefined,
     alwaysAvailable: true,
+  },
+  {
+    actionName: "download",
+    actionLabel: "Download",
+    multiple: false,
+    shouldExclude: (rows: any) => {
+      let exclude = false;
+      for (let i = 0; i < rows.length; i++) {
+        if (["SUCCESS"].indexOf(rows[i].data?.status) < 0) {
+          exclude = true;
+          break;
+        }
+      }
+      return exclude;
+    },
   },
 ];
 
@@ -58,6 +74,12 @@ export const Verification = ({ refID, moduleType }) => {
             moduleType={moduleType}
             closeDialog={closeMyDialog}
             isDataChangedRef={isMyDataChangedRef}
+          />
+        ) : (currentAction?.name ?? "") === "download" ? (
+          <Download
+            moduleType={moduleType}
+            closeDialog={closeMyDialog}
+            row={currentAction?.rows[0] ?? undefined}
           />
         ) : (
           <InvalidAction closeDialog={closeMyDialog} />
