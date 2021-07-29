@@ -322,3 +322,9 @@ registerFn(
   "shouldShowChequeBouncesFlatValueField",
   shouldExclude.showChequeBouncesFlatValueField
 );
+
+//Mandate Termsheet Sanction Facility Type
+registerFn(
+  "getMandateTermsheetSanctionFacilityType",
+  LOSSDK.getMandateTermsheetSanctionFacilityType
+);

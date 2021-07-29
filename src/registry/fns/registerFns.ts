@@ -152,6 +152,7 @@ registerFn(
   "getEmployementCodeForMoveToInquiry",
   miscSDK.getEmployementCodeForMoveToInquiry
 );
+registerFn("setFacilityFundBaseValue", others.setFacilityFundBaseValue);
 //Dummy only for testing
 registerFn("shouldExcludeDummy", others.shouldExcludeDummy);
 registerFn("getMonthDifferenceInRows", others.getMonthDifferenceInRows);

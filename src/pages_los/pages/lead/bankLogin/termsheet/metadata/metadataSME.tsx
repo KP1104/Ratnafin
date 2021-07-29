@@ -85,15 +85,29 @@ export const SMETermSheetMetadata: MetaDataType = {
           name: "facilityType",
           label: "Type of Facility",
           placeholder: "Type of Facility",
-          options: [
-            { label: "Term Loan", value: "TL" },
-            { label: "Cash Credit", value: "CC" },
-            { label: "LC/BG", value: "LCBG" },
-            { label: "Fund Base", value: "FB" },
-          ],
+          required: true,
+          validate: "getValidateValue",
           defaultValue: "00",
-          maxLength: 20,
+          //@ts-ignore
+          options: "getMandateTermsheetSanctionFacilityType",
           disableCaching: true,
+          runPostValidationHookAlways: true,
+          //@ts-ignore
+          postValidationSetCrossFieldValues: "setFacilityFundBaseValue",
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            componentType: "textField",
+          },
+          name: "fundBaseType",
+          label: "Fund base Type",
+          placeholder: "Fund base Type",
+          dependentFields: ["facilityType"],
           GridProps: {
             xs: 12,
             md: 3,
