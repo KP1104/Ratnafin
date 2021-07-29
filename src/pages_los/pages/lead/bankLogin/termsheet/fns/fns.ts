@@ -1,6 +1,6 @@
 export const showFixedOrFloatingRateFields = (_, dependentValues) => {
   if (
-    dependentValues["facilityDetails.fixedOrFloatingRate"]?.value === "FR" &&
+    dependentValues["facilityDetails.fixedOrFloatingRate"]?.value === "FLR" &&
     dependentValues["facilityDetails.facilityType"]?.value !== "LCBG"
   ) {
     return false;
