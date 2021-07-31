@@ -172,3 +172,12 @@ export const setBankFacilityValue = (fieldData) => {
     },
   };
 };
+
+export const setFacilityFundBaseValue = (fieldData) => {
+  const fieldValues = fieldData.incomingMessage?.others[fieldData.value];
+  return {
+    fundBaseType: {
+      value: fieldValues?.fundValue,
+    },
+  };
+};

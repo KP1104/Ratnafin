@@ -1,4 +1,9 @@
 import { MetaDataType } from "components/dyanmicForm/types";
+import {
+  calculateAmount,
+  calculatePercentage,
+  visaversaValidateValue,
+} from "./fns";
 
 export const mandateMetaData: MetaDataType = {
   form: {
@@ -83,11 +88,8 @@ export const mandateMetaData: MetaDataType = {
           required: true,
           validate: "getValidateValue",
           defaultValue: "00",
-          options: [
-            { label: "Static", value: "Static" },
-            { label: "Static1", value: "Static1" },
-            { label: "Static2", value: "Static2" },
-          ],
+          //@ts-ignore
+          options: "getMandateTermsheetSanctionFacilityType",
           GridProps: {
             xs: 12,
             md: 3,
@@ -103,6 +105,7 @@ export const mandateMetaData: MetaDataType = {
           label: "Amount of Fund to be raised",
           placeholder: "Amount of Fund to be raised",
           required: true,
+          disableCaching: true,
           validate: "getValidateValue",
           GridProps: {
             xs: 12,
@@ -112,65 +115,24 @@ export const mandateMetaData: MetaDataType = {
         },
         {
           render: {
-            //@ts-ignore
-            componentType: "currency",
+            componentType: "visaversa",
+            group: 0,
           },
-          name: "fundFeeInPercent",
-          label: "Fees in % of Fund Raised / Absolute Amount",
-          placeholder: "Fees in % of Fund Raised / Absolute Amount",
+          name: "feeDetails",
+          label: "Visaversa Label",
+          dependentFields: ["fundAmount"],
+          leftName: "fundFeeInAmount",
+          rightName: "fundFeeInPercent",
+          leftLabel: "Fees in % of Absolute Amount",
+          rightLabel: "Fees in % of Fund Raised",
+          leftTransform: calculateAmount,
+          rightTransform: calculatePercentage,
           required: true,
-          validate: "getValidateValue",
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
+          validate: visaversaValidateValue,
         },
       ],
     },
-    {
-      render: {
-        //@ts-ignore
-        componentType: "select",
-        group: 1,
-      },
-      name: "anyDisbursementDetails",
-      label: "Do You Want To Add Disbursement Tranches",
-      placeholder: "Do You Want To Add Disbursement Tranches",
-      defaultValue: "00",
-      required: true,
-      validate: "getValidateValue",
-      //@ts-ignore
-      options: "getYesOrNoOptions",
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-    },
-    {
-      render: {
-        //@ts-ignore
-        componentType: "rateOfInt",
-        group: 1,
-      },
-      name: "totalFeeAtDisbursementInPercent",
-      label: "% of Total Fees at the time of Disbursement",
-      placeholder: "% of Total Fees at the time of Disbursement",
-      required: true,
-      dependentFields: ["anyDisbursementDetails"],
-      shouldExclude: (_, dependentFields) => {
-        if (dependentFields["anyDisbursementDetails"].value === "N") {
-          return false;
-        }
-        return true;
-      },
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-    },
+
     {
       render: {
         componentType: "arrayField",
@@ -180,13 +142,6 @@ export const mandateMetaData: MetaDataType = {
       removeRowFn: "deleteAssignArrayFieldData",
       arrayFieldIDName: "lineNo",
       label: "Disbursement Details",
-      dependentFields: ["anyDisbursementDetails"],
-      shouldExclude: (_, dependentFields) => {
-        if (dependentFields["anyDisbursementDetails"].value === "Y") {
-          return false;
-        }
-        return true;
-      },
       GridProps: {
         xs: 12,
         md: 12,
@@ -286,6 +241,23 @@ export const mandateMetaData: MetaDataType = {
           placeholder: "Elite Serivce Name",
           //@ts-ignore
           options: "getEliteSeviceName",
+          defaultValue: "00",
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            //@ts-ignore
+            componentType: "select",
+          },
+          name: "serviceChargeType",
+          label: "Elite Services Charges Type",
+          placeholder: "Elite Services Charges Type",
+          //@ts-ignore
+          options: "getEliteSeviceLumsumPer",
           defaultValue: "00",
           GridProps: {
             xs: 12,
@@ -429,6 +401,8 @@ export const mandateMetaData: MetaDataType = {
       rows: 3,
       rowsMax: 3,
       maxLength: 500,
+      required: true,
+      validate: "getValidateValue",
       dependentFields: ["anyBankAproached"],
       shouldExclude: (_, dependentFields) => {
         if (dependentFields["anyBankAproached"].value === "Y") {

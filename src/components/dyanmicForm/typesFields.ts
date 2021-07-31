@@ -26,6 +26,7 @@ import { TypographyProps } from "components/common/typograhpy";
 import { HiddenFieldProps } from "components/common/hidden";
 import { TransferListProps } from "components/common/transferList";
 import { SearchFieldProps } from "components/common/search";
+import { VisaversaProps } from "components/common/visaversa";
 export interface FieldRenderProps<T> {
   componentType: T;
   group?: number;
@@ -180,5 +181,10 @@ export type AllSearchFieldProps = Merge<
   Omitted<SearchFieldProps>,
   FieldMetaData<"searchField">
 >;
-
 export type SearchFieldPropsOptional = Optional<AllSearchFieldProps>;
+
+export type AllVisaversaFieldProps = Merge<
+  Omitted<VisaversaProps>,
+  FieldMetaData<"visaversa">
+>;
+export type VisaversaFieldPropsOptional = Optional<AllVisaversaFieldProps>;

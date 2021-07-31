@@ -4,6 +4,9 @@ import {
   showFixedOrFloatingRateFields,
   showSelectionOfFixedOrFloatingRate,
   showTenureOrMoratoriumField,
+  showDependentFieldsOfCC,
+  showDependentFieldsOfLCBG,
+  showDependentFieldsOfFundbase,
 } from "../fns";
 
 export const SMETermSheetMetadata: MetaDataType = {
@@ -85,14 +88,29 @@ export const SMETermSheetMetadata: MetaDataType = {
           name: "facilityType",
           label: "Type of Facility",
           placeholder: "Type of Facility",
-          options: [
-            { label: "Term Loan", value: "TL" },
-            { label: "Cash Credit", value: "CC" },
-            { label: "LC/BG", value: "LCBG" },
-            { label: "Fund Base", value: "FB" },
-          ],
           defaultValue: "00",
-          maxLength: 20,
+          required: true,
+          validate: "getValidateValue",
+          //@ts-ignore
+          options: "getMandateTermsheetSanctionFacilityType",
+          disableCaching: true,
+          runPostValidationHookAlways: true,
+          //@ts-ignore
+          postValidationSetCrossFieldValues: "setFacilityFundBaseValue",
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            componentType: "hidden",
+          },
+          name: "fundBaseType",
+          label: "Fund base Type",
+          placeholder: "Fund base Type",
+          dependentFields: ["facilityType1"],
           disableCaching: true,
           GridProps: {
             xs: 12,
@@ -132,7 +150,7 @@ export const SMETermSheetMetadata: MetaDataType = {
         },
         {
           render: {
-            componentType: "toggleButtonGroup",
+            componentType: "radio",
           },
           name: "fixedOrFloatingRate",
           label: "Rate Type",
@@ -146,11 +164,10 @@ export const SMETermSheetMetadata: MetaDataType = {
           options: [
             {
               label: "Fixed",
-              value: "FR",
+              value: "fixed",
             },
-            { label: "Floating", value: "FLR" },
+            { label: "Floating", value: "floating" },
           ],
-          exclusive: true,
         },
         {
           render: {
@@ -160,7 +177,7 @@ export const SMETermSheetMetadata: MetaDataType = {
           name: "baseRate",
           label: "Base Rate %",
           placeholder: "Base Rate %",
-          dependentFields: ["fixedOrFloatingRate"],
+          dependentFields: ["facilityType", "fixedOrFloatingRate"],
           shouldExclude: showFixedOrFloatingRateFields,
           GridProps: {
             xs: 12,
@@ -176,7 +193,7 @@ export const SMETermSheetMetadata: MetaDataType = {
           name: "baseRateName",
           label: "Name of the Base Rate",
           placeholder: "Name of the Base Rate",
-          dependentFields: ["fixedOrFloatingRate"],
+          dependentFields: ["facilityType", "fixedOrFloatingRate"],
           shouldExclude: showFixedOrFloatingRateFields,
           maxLength: 20,
           GridProps: {
@@ -193,7 +210,7 @@ export const SMETermSheetMetadata: MetaDataType = {
           name: "spreadInPercent",
           label: "Spread %",
           placeholder: "Spread %",
-          dependentFields: ["fixedOrFloatingRate"],
+          dependentFields: ["facilityType", "fixedOrFloatingRate"],
           shouldExclude: showFixedOrFloatingRateFields,
           GridProps: {
             xs: 12,
@@ -213,6 +230,7 @@ export const SMETermSheetMetadata: MetaDataType = {
             "baseRate",
             "spreadInPercent",
             "fixedOrFloatingRate",
+            "facilityType",
           ],
           shouldExclude: showFixedOrFloatingRateFields,
           setValueOnDependentFieldsChange: calculateActualRateofInte,
@@ -230,7 +248,7 @@ export const SMETermSheetMetadata: MetaDataType = {
           name: "baseRateResetFreq",
           label: "Frequency of Reset of Base Rate",
           placeholder: "Frequency of Reset of Base Rate",
-          dependentFields: ["fixedOrFloatingRate"],
+          dependentFields: ["facilityType", "fixedOrFloatingRate"],
           shouldExclude: showFixedOrFloatingRateFields,
           maxLength: 5,
           GridProps: {
@@ -244,7 +262,7 @@ export const SMETermSheetMetadata: MetaDataType = {
             //@ts-ignore
             componentType: "textField",
           },
-          name: "TenureIncaseOfTermloan",
+          name: "tenure",
           label: "Tenure",
           placeholder: "Tenure",
           maxLength: 5,
@@ -262,13 +280,120 @@ export const SMETermSheetMetadata: MetaDataType = {
             //@ts-ignore
             componentType: "textField",
           },
-          name: "MoratoriumPeriodInCaseOfTermloan",
+          name: "moratoriumPeriod",
           type: "number",
           label: "Moratorium Period",
           placeholder: "Moratorium Period",
           dependentFields: ["facilityType"],
           shouldExclude: showTenureOrMoratoriumField,
           maxLength: 5,
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            //@ts-ignore
+            componentType: "currency",
+            group: 2,
+          },
+          name: "LCBGCommission",
+          label: "LC / BG Comission",
+          placeholder: "LC / BG Comission",
+          dependentFields: ["facilityType"],
+          shouldExclude: showDependentFieldsOfLCBG,
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            //@ts-ignore
+            componentType: "rateOfIntWithoutValidation",
+            group: 2,
+          },
+          name: "marginInStock",
+          label: "Margin in Stock",
+          placeholder: "Margin in Stock",
+          dependentFields: ["facilityType"],
+          shouldExclude: showDependentFieldsOfCC,
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            //@ts-ignore
+            componentType: "rateOfIntWithoutValidation",
+            group: 2,
+          },
+          name: "marginBookDebts",
+          label: "Margin Book Debts",
+          placeholder: "Margin Book Debts",
+          dependentFields: ["facilityType"],
+          shouldExclude: showDependentFieldsOfCC,
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            //@ts-ignore
+            componentType: "textField",
+            group: 2,
+          },
+          type: "number",
+          name: "daysOfDebtors",
+          label: "No of Days of Debtors",
+          placeholder: "No of Days of Debtors",
+          dependentFields: ["facilityType"],
+          shouldExclude: showDependentFieldsOfCC,
+          maxLength: 3,
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            //@ts-ignore
+            componentType: "textField",
+            group: 2,
+          },
+          name: "marginPercentOfFixedDeposit",
+          label: "Margin Percentage of Fixed Deposit",
+          placeholder: "Margin Percentage of Fixed Deposit",
+          dependentFields: ["facilityType"],
+          shouldExclude: showDependentFieldsOfLCBG,
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            //@ts-ignore
+            componentType: "textField",
+            group: 2,
+          },
+          type: "number",
+          name: "stockStatementSubmissionFreq",
+          label: "Frequency of Stock Statement submission",
+          placeholder: "Frequency of Stock Statement submission",
+          dependentFields: ["fundBaseType"],
+          shouldExclude: showDependentFieldsOfFundbase,
+          maxLength: 5,
+          showMaxLength: false,
           GridProps: {
             xs: 12,
             md: 3,
@@ -337,8 +462,8 @@ export const SMETermSheetMetadata: MetaDataType = {
             componentType: "textField",
           },
           name: "collateralOwner",
-          label: "Owner of Collateral",
-          placeholder: "Owner of Collateral",
+          label: "Owner of Colletral",
+          placeholder: "Owner of Colletral",
           GridProps: {
             xs: 12,
             md: 3,
@@ -468,21 +593,7 @@ export const SMETermSheetMetadata: MetaDataType = {
         sm: 3,
       },
     },
-    {
-      render: {
-        //@ts-ignore
-        componentType: "currency",
-        group: 2,
-      },
-      name: "LCBGCommission",
-      label: "LC / BG Comission",
-      placeholder: "LC / BG Comission",
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-    },
+
     {
       render: {
         //@ts-ignore
@@ -492,24 +603,6 @@ export const SMETermSheetMetadata: MetaDataType = {
       name: "marginInCCBG",
       label: "Margin in CC & BG",
       placeholder: "Margin in CC & BG",
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-    },
-    {
-      render: {
-        //@ts-ignore
-        componentType: "textField",
-        group: 2,
-      },
-      type: "number",
-      name: "stockStatementSubmissionFreq",
-      label: "Frequency of Stock Statement submission",
-      placeholder: "Frequency of Stock Statement submission",
-      maxLength: 5,
-      showMaxLength: false,
       GridProps: {
         xs: 12,
         md: 3,
@@ -530,6 +623,18 @@ export const SMETermSheetMetadata: MetaDataType = {
         xs: 12,
         md: 3,
         sm: 3,
+      },
+    },
+    {
+      render: {
+        componentType: "spacer",
+        group: 2,
+      },
+      name: "spacer",
+      GridProps: {
+        xs: 12,
+        md: 12,
+        sm: 12,
       },
     },
     {
