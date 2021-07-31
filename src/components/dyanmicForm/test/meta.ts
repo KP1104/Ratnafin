@@ -48,14 +48,33 @@ const GeneralDetailsMetaData = {
   },
   fields: [
     {
-      render: { componentType: "searchField", group: 0 },
+      render: { componentType: "textField", group: 0 },
       name: "lead",
-      type: "text",
-      label: "Search Lead",
+      label: "Total Amount",
       placeholder: "Lead",
+      disableCaching: true,
+      required: true,
+      validate: "getValidateValue",
       GridProps: { xs: 12, md: 3, sm: 3 },
-      setColor: "red",
-      searchComponent: "searchComponent",
+    },
+    {
+      render: {
+        componentType: "visaversa",
+        group: 0,
+      },
+      name: "visaversa",
+      label: "Visaversa Label",
+      dependentFields: ["lead"],
+      defaultValue: "",
+      leftName: "kms",
+      rightName: "miles",
+      leftLabel: "Amount",
+      rightLabel: "Percentage",
+      leftTransform: "calculateAmount",
+      rightTransform: "calculatePercentage",
+      runValidationOnDependentFieldsChange: true,
+      required: true,
+      validate: "getValidateValue",
     },
     {
       render: {

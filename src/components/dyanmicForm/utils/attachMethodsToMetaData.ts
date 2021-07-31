@@ -51,6 +51,10 @@ const searchComponentNotFound = (fieldKey) => () => {
   console.log(`no method for searchComponentNotFound found at ${fieldKey}`);
   return "Component not found";
 };
+const transformNotFound = (key) => (fieldKey) => (value) => {
+  console.log(`no method found for ${key} Transform at ${fieldKey}`);
+  return value;
+};
 
 export const defaultFieldsToAttachMethods: AttachMethodArrayType[] = [
   [/^fields.*.options$/, optionsMethodNotFound],
@@ -72,6 +76,9 @@ export const defaultFieldsToAttachMethods: AttachMethodArrayType[] = [
   ],
   [/^fields.*.getFixedRowsCount$/, getFixedRowsCount],
   [/^fields.*.searchComponent$/, searchComponentNotFound],
+
+  [/^fields.*.leftTransform$/, transformNotFound("left")],
+  [/^fields.*.rightTransform$/, transformNotFound("right")],
 ];
 
 //do not walk for arrayFields _fields as well we will run it seperately

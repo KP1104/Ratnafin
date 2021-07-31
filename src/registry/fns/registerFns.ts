@@ -80,6 +80,7 @@ registerFn("getFollowupType", miscSDK.getMiscVal("CC_FOLLOW_UP"));
 
 registerFn("getEliteSeviceName", miscSDK.getMiscVal("ELITE_SERVICES"));
 registerFn("getEliteSeviceLumsumPer", miscSDK.getMiscVal("ELITE_SERV_CHRG"));
+registerFn("getFrequencyOfSubmission", miscSDK.getMiscVal("SUBM_FREQ"));
 
 registerFn("getProductType", miscSDK.getProductType);
 registerFn("getProductTypeForBank", miscSDK.getProductTypeForBank);

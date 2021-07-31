@@ -1,4 +1,9 @@
 import { MetaDataType } from "components/dyanmicForm/types";
+import {
+  calculateAmount,
+  calculatePercentage,
+  visaversaValidateValue,
+} from "./fns";
 
 export const mandateMetaData: MetaDataType = {
   form: {
@@ -100,6 +105,7 @@ export const mandateMetaData: MetaDataType = {
           label: "Amount of Fund to be raised",
           placeholder: "Amount of Fund to be raised",
           required: true,
+          disableCaching: true,
           validate: "getValidateValue",
           GridProps: {
             xs: 12,
@@ -109,35 +115,20 @@ export const mandateMetaData: MetaDataType = {
         },
         {
           render: {
-            //@ts-ignore
-            componentType: "rateOfIntWithoutValidation",
+            componentType: "visaversa",
+            group: 0,
           },
-          name: "fundFeeInPercent",
-          label: "Fees in % of Fund Raised",
-          placeholder: "Fees in % of Fund Raised",
+          name: "feeDetails",
+          label: "Visaversa Label",
+          dependentFields: ["fundAmount"],
+          leftName: "fundFeeInAmount",
+          rightName: "fundFeeInPercent",
+          leftLabel: "Fees in % of Absolute Amount",
+          rightLabel: "Fees in % of Fund Raised",
+          leftTransform: calculateAmount,
+          rightTransform: calculatePercentage,
           required: true,
-          validate: "getValidateValue",
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
-        },
-        {
-          render: {
-            //@ts-ignore
-            componentType: "currency",
-          },
-          name: "fundFeeInAmount",
-          label: "Fees in % of Absolute Amount",
-          placeholder: "Fees in % of Absolute Amount",
-          required: true,
-          validate: "getValidateValue",
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
+          validate: visaversaValidateValue,
         },
       ],
     },

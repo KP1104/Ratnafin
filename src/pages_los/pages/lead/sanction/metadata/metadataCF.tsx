@@ -1,10 +1,10 @@
 import { MetaDataType } from "components/dyanmicForm/types";
-import { calculateActualRateofInte } from "../../bankLogin/termsheet/utils";
+import { calculateActualRateofInte } from "../utils";
 import {
   showFixedOrFloatingRateFields,
   showSelectionOfFixedOrFloatingRate,
   showTenureOrMoratoriumField,
-} from "../../bankLogin/termsheet/fns";
+} from "../fns";
 
 export const CFSanctionMetadata: MetaDataType = {
   form: {
@@ -21,7 +21,9 @@ export const CFSanctionMetadata: MetaDataType = {
         1: "Collateral Details",
         2: "Disbursement Tranches Details",
         3: "Escrow Sweep Details",
-        4: "Other Details",
+        4: "Pre Disbursement Conditions",
+        5: "Guarantor Name",
+        6: "Other Details",
       },
       gridConfig: {
         item: {
@@ -87,14 +89,29 @@ export const CFSanctionMetadata: MetaDataType = {
           name: "facilityType",
           label: "Type of Facility",
           placeholder: "Type of Facility",
-          options: [
-            { label: "Term Loan", value: "TL" },
-            { label: "Cash Credit", value: "CC" },
-            { label: "LC/BG", value: "LCBG" },
-            { label: "Fund Base", value: "FB" },
-          ],
+          required: true,
+          validate: "getValidateValue",
           defaultValue: "00",
-          maxLength: 20,
+          //@ts-ignore
+          options: "getMandateTermsheetSanctionFacilityType",
+          disableCaching: true,
+          runPostValidationHookAlways: true,
+          //@ts-ignore
+          postValidationSetCrossFieldValues: "setFacilityFundBaseValue",
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            componentType: "hidden",
+          },
+          name: "fundBaseType",
+          label: "Fund base Type",
+          placeholder: "Fund base Type",
+          dependentFields: ["facilityType1"],
           disableCaching: true,
           GridProps: {
             xs: 12,
@@ -134,12 +151,13 @@ export const CFSanctionMetadata: MetaDataType = {
         },
         {
           render: {
-            componentType: "toggleButtonGroup",
+            componentType: "radio",
           },
           name: "fixedOrFloatingRate",
           label: "Rate Type",
           dependentFields: ["facilityType"],
           shouldExclude: showSelectionOfFixedOrFloatingRate,
+          defaultValue: "fixed",
           GridProps: {
             xs: 12,
             md: 3,
@@ -148,11 +166,10 @@ export const CFSanctionMetadata: MetaDataType = {
           options: [
             {
               label: "Fixed",
-              value: "FR",
+              value: "fixed",
             },
-            { label: "Floating", value: "FLR" },
+            { label: "Floating", value: "floating" },
           ],
-          exclusive: true,
         },
         {
           render: {
@@ -162,7 +179,7 @@ export const CFSanctionMetadata: MetaDataType = {
           name: "baseRate",
           label: "Base Rate %",
           placeholder: "Base Rate %",
-          dependentFields: ["fixedOrFloatingRate", "facilityType"],
+          dependentFields: ["facilityType", "fixedOrFloatingRate"],
           shouldExclude: showFixedOrFloatingRateFields,
           GridProps: {
             xs: 12,
@@ -178,7 +195,7 @@ export const CFSanctionMetadata: MetaDataType = {
           name: "baseRateName",
           label: "Name of the Base Rate",
           placeholder: "Name of the Base Rate",
-          dependentFields: ["fixedOrFloatingRate", "facilityType"],
+          dependentFields: ["facilityType", "fixedOrFloatingRate"],
           shouldExclude: showFixedOrFloatingRateFields,
           maxLength: 20,
           GridProps: {
@@ -195,7 +212,7 @@ export const CFSanctionMetadata: MetaDataType = {
           name: "spreadInPercent",
           label: "Spread %",
           placeholder: "Spread %",
-          dependentFields: ["fixedOrFloatingRate", "facilityType"],
+          dependentFields: ["facilityType", "fixedOrFloatingRate"],
           shouldExclude: showFixedOrFloatingRateFields,
           GridProps: {
             xs: 12,
@@ -233,7 +250,7 @@ export const CFSanctionMetadata: MetaDataType = {
           name: "baseRateResetFreq",
           label: "Frequency of Reset of Base Rate",
           placeholder: "Frequency of Reset of Base Rate",
-          dependentFields: ["fixedOrFloatingRate", "facilityType"],
+          dependentFields: ["facilityType", "fixedOrFloatingRate"],
           shouldExclude: showFixedOrFloatingRateFields,
           maxLength: 5,
           GridProps: {
@@ -247,7 +264,7 @@ export const CFSanctionMetadata: MetaDataType = {
             //@ts-ignore
             componentType: "textField",
           },
-          name: "TenureIncaseOfTermloan",
+          name: "tenure",
           label: "Tenure",
           placeholder: "Tenure",
           maxLength: 5,
@@ -265,7 +282,7 @@ export const CFSanctionMetadata: MetaDataType = {
             //@ts-ignore
             componentType: "textField",
           },
-          name: "MoratoriumPeriodInCaseOfTermloan",
+          name: "moratoriumPeriod",
           type: "number",
           label: "Moratorium Period",
           placeholder: "Moratorium Period",
@@ -325,8 +342,8 @@ export const CFSanctionMetadata: MetaDataType = {
             componentType: "textField",
           },
           name: "collateralType",
-          label: "Type of Collateral",
-          placeholder: "Type of Collateral",
+          label: "Owner of Colletral",
+          placeholder: "Owner of Colletral",
           maxLength: 20,
           showMaxLength: false,
           GridProps: {
@@ -456,7 +473,7 @@ export const CFSanctionMetadata: MetaDataType = {
         componentType: "arrayField",
         group: 3,
       },
-      name: "escrowSweepDetails",
+      name: "escrowDetails",
       removeRowFn: "deleteAssignArrayFieldData",
       arrayFieldIDName: "lineNo",
       label: "Escrow Sweep Details",
@@ -483,7 +500,7 @@ export const CFSanctionMetadata: MetaDataType = {
             componentType: "textField",
           },
           type: "number",
-          name: "period",
+          name: "periodInMonth",
           label: "Period",
           placeholder: "Period (In Months)",
           GridProps: {
@@ -513,7 +530,7 @@ export const CFSanctionMetadata: MetaDataType = {
             componentType: "rateOfIntWithoutValidation",
             group: 3,
           },
-          name: "escrowSweepInPercent",
+          name: "escrowSweepPercent",
           label: "Escrow Sweep %",
           placeholder: "Escrow Sweep %",
           GridProps: {
@@ -526,8 +543,96 @@ export const CFSanctionMetadata: MetaDataType = {
     },
     {
       render: {
-        componentType: "hidden",
+        componentType: "arrayField",
         group: 4,
+      },
+      name: "preDisbursementConditions",
+      removeRowFn: "deleteAssignArrayFieldData",
+      arrayFieldIDName: "lineNo",
+      label: "Pre Disbursement Conditions",
+      GridProps: {
+        xs: 12,
+        md: 12,
+        sm: 12,
+      },
+      _fields: [
+        {
+          render: {
+            componentType: "hidden",
+          },
+          name: "serialNo",
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            componentType: "textField",
+          },
+          name: "condition",
+          label: "Conditions",
+          placeholder: "Conditions",
+          multiline: true,
+          rows: 2,
+          rowsMax: 3,
+          maxLength: 200,
+          GridProps: {
+            xs: 12,
+            md: 6,
+            sm: 6,
+          },
+        },
+      ],
+    },
+    {
+      render: {
+        componentType: "arrayField",
+        group: 5,
+      },
+      name: "guarantorNames",
+      removeRowFn: "deleteAssignArrayFieldData",
+      arrayFieldIDName: "lineNo",
+      label: "Guarantors Name",
+      GridProps: {
+        xs: 12,
+        md: 12,
+        sm: 12,
+      },
+      _fields: [
+        {
+          render: {
+            componentType: "hidden",
+          },
+          name: "serialNo",
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            componentType: "textField",
+          },
+          name: "name",
+          label: "Name",
+          placeholder: "Name",
+          maxLength: 20,
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+      ],
+    },
+
+    {
+      render: {
+        componentType: "hidden",
+        group: 6,
       },
       name: "tranCD",
       GridProps: {
@@ -539,16 +644,13 @@ export const CFSanctionMetadata: MetaDataType = {
     {
       render: {
         componentType: "textField",
-        group: 4,
+        group: 6,
       },
       name: "bankName",
       label: "Bank Name",
       placeholder: "Bank Name",
       isReadOnly: true,
-      maxLength: 50,
-      showMaxLength: false,
       required: true,
-      validate: "getValidateValue",
       GridProps: {
         xs: 12,
         md: 3,
@@ -558,11 +660,11 @@ export const CFSanctionMetadata: MetaDataType = {
     {
       render: {
         componentType: "textField",
-        group: 4,
+        group: 6,
       },
       name: "departmentName",
-      label: "Departement Name",
-      placeholder: "Department Name",
+      label: "Bank Departement Name",
+      placeholder: "Bank Department Name",
       maxLength: 50,
       showMaxLength: false,
       GridProps: {
@@ -574,7 +676,7 @@ export const CFSanctionMetadata: MetaDataType = {
     {
       render: {
         componentType: "textField",
-        group: 4,
+        group: 6,
       },
       name: "bankerName",
       label: "Banker Name",
@@ -590,11 +692,11 @@ export const CFSanctionMetadata: MetaDataType = {
     {
       render: {
         componentType: "datePicker",
-        group: 4,
+        group: 6,
       },
       name: "sanctionDate",
-      label: "Date of Sanction",
-      placeholder: "Date of Sanction",
+      label: "Date of Term Sheet",
+      placeholder: "DD/MM/YYYY",
       format: "dd/MM/yyyy",
       required: true,
       validate: "getValidateValue",
@@ -607,12 +709,12 @@ export const CFSanctionMetadata: MetaDataType = {
     {
       render: {
         //@ts-ignore
-        componentType: "rateOfIntWithoutValidation",
-        group: 4,
+        componentType: "textField",
+        group: 6,
       },
-      name: "securityCoverage",
-      label: "Security Coverage",
-      placeholder: "Security Coverage",
+      name: "minimumAssetCoverage",
+      label: "Minimum Asset Coverage",
+      placeholder: "Example (1.5 times, 2 times)",
       GridProps: {
         xs: 12,
         md: 3,
@@ -623,11 +725,11 @@ export const CFSanctionMetadata: MetaDataType = {
       render: {
         //@ts-ignore
         componentType: "select",
-        group: 4,
+        group: 6,
       },
-      name: "DSCRA",
-      label: "DSCRA to be maintained if any",
-      placeholder: "DSCRA to be maintained if any",
+      name: "dscra",
+      label: "Any DSCRA to be maintained",
+      placeholder: "Any DSCRA to be maintained",
       //@ts-ignore
       options: "getYesOrNoOptions",
       defaultValue: "00",
@@ -641,9 +743,9 @@ export const CFSanctionMetadata: MetaDataType = {
       render: {
         //@ts-ignore
         componentType: "textField",
-        group: 4,
+        group: 6,
       },
-      name: "DSCRAMonths",
+      name: "dscraMonths",
       label: "DSCRA No of Months",
       placeholder: "No of Months",
       maxLength: 3,
@@ -666,9 +768,9 @@ export const CFSanctionMetadata: MetaDataType = {
       render: {
         //@ts-ignore
         componentType: "currency",
-        group: 4,
+        group: 6,
       },
-      name: "DSCRAAmount",
+      name: "dscraAmount",
       label: "DSCRA Amount",
       placeholder: "DSCRA Amount",
       dependentFields: ["DSCRA"],
@@ -689,7 +791,7 @@ export const CFSanctionMetadata: MetaDataType = {
       render: {
         //@ts-ignore
         componentType: "currency",
-        group: 4,
+        group: 6,
       },
       name: "keyManRiskPolicyAmount",
       label: "Amount of Key Man Risk Policy",
@@ -703,12 +805,47 @@ export const CFSanctionMetadata: MetaDataType = {
     {
       render: {
         //@ts-ignore
-        componentType: "textField",
-        group: 4,
+        componentType: "datePicker",
+        group: 6,
       },
-      name: "guarantorNames",
-      label: "Name of Guarantors",
-      placeholder: "Name of Guarantors",
+      name: "nextRenewalDate",
+      label: "Next Renewal Date",
+      placeholder: "DD/MM/YYYY",
+      format: "dd/MM/yyyy",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+    {
+      render: {
+        //@ts-ignore
+        componentType: "select",
+        group: 6,
+      },
+      name: "submissionFreqFromMIStoBank",
+      label: "Frequency of Submission of MIS to Bank",
+      placeholder: "Frequency of Submission of MIS to Bank",
+      defaultValue: "00",
+      //@ts-ignore
+      options: "getFrequencyOfSubmission",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+    {
+      render: {
+        //@ts-ignore
+        componentType: "datePicker",
+        group: 6,
+      },
+      name: "frequencyStartDate",
+      label: "Frequency Start Date",
+      placeholder: "DD/MM/YYYY",
+      format: "dd/MM/yyyy",
       GridProps: {
         xs: 12,
         md: 3,
@@ -719,11 +856,11 @@ export const CFSanctionMetadata: MetaDataType = {
       render: {
         //@ts-ignore
         componentType: "textField",
-        group: 4,
+        group: 6,
       },
-      name: "MIStoBankSubmissionFreq",
-      label: "Frequency of Submission of MIS to Bank",
-      placeholder: "Frequency of Submission of MIS to Bank",
+      name: "ATNWMaintained",
+      label: "ATNW to be maintained at the end of Audited",
+      placeholder: "ATNW to be maintained at the end of Audited",
       GridProps: {
         xs: 12,
         md: 3,
@@ -733,11 +870,11 @@ export const CFSanctionMetadata: MetaDataType = {
     {
       render: {
         componentType: "datePicker",
-        group: 4,
+        group: 6,
       },
-      name: "frquencyStartDate",
-      label: "Frequency Start Date",
-      placeholder: "DD/MM/YYYY",
+      name: "submissionDateOfQIS",
+      label: "QIS Submission Date",
+      placeholder: "dd/mm/yyyy",
       format: "dd/MM/yyyy",
       required: true,
       validate: "getValidateValue",
@@ -751,11 +888,11 @@ export const CFSanctionMetadata: MetaDataType = {
       render: {
         //@ts-ignore
         componentType: "textField",
-        group: 4,
+        group: 6,
       },
-      name: "preDisbursementConditions",
-      label: "Pre Disbursement Conditions",
-      placeholder: "Pre Disbursement Conditions",
+      name: "submissionFrequencyOfQIS",
+      label: "QIS Submission frequency End of Period",
+      placeholder: "QIS Submission frequency End of of Period",
       GridProps: {
         xs: 12,
         md: 3,
@@ -764,34 +901,34 @@ export const CFSanctionMetadata: MetaDataType = {
     },
     {
       render: {
-        //@ts-ignore
-        componentType: "currency",
-        group: 4,
+        componentType: "spacer",
+        group: 6,
       },
-      name: "anyDeviationTakenByBank",
-      label: "Deviation if any taken by Bank",
-      placeholder: "Deviation if any taken by Bank",
+      name: "spacer",
       GridProps: {
         xs: 12,
-        md: 3,
-        sm: 3,
+        md: 12,
+        sm: 12,
       },
     },
     {
       render: {
         //@ts-ignore
         componentType: "textField",
-        group: 4,
+        group: 6,
       },
       name: "additionalRemarks",
       label: "Additional Remarks",
       placeholder: "Additional Remarks",
       maxLength: 100,
       showMaxLength: false,
+      multiline: true,
+      rows: 3,
+      rowsMax: 3,
       GridProps: {
         xs: 12,
-        md: 3,
-        sm: 3,
+        md: 6,
+        sm: 6,
       },
     },
   ],

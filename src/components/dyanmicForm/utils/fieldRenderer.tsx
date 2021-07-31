@@ -40,6 +40,7 @@ const TimePicker = lazy(() =>
     default: module.TimePicker,
   }))
 );
+const Visaversa = lazy(() => import("components/common/visaversa"));
 const TextField = lazy(() => import("components/common/textField"));
 const Select = lazy(() => import("components/common/select"));
 const Radio = lazy(() => import("components/common/radio"));
@@ -151,6 +152,9 @@ export const renderField: RenderFunctionType = (
       break;
     case "searchField":
       Component = SearchField;
+      break;
+    case "visaversa":
+      Component = Visaversa;
       break;
     default:
       Component = EmptyComponent;
