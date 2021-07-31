@@ -87,14 +87,29 @@ export const CFTermSheetMetadata: MetaDataType = {
           name: "facilityType",
           label: "Type of Facility",
           placeholder: "Type of Facility",
-          options: [
-            { label: "Term Loan", value: "TL" },
-            { label: "Cash Credit", value: "CC" },
-            { label: "LC/BG", value: "LCBG" },
-            { label: "Fund Base", value: "FB" },
-          ],
+          required: true,
+          validate: "getValidateValue",
           defaultValue: "00",
-          maxLength: 20,
+          //@ts-ignore
+          options: "getMandateTermsheetSanctionFacilityType",
+          disableCaching: true,
+          runPostValidationHookAlways: true,
+          //@ts-ignore
+          postValidationSetCrossFieldValues: "setFacilityFundBaseValue",
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            componentType: "hidden",
+          },
+          name: "fundBaseType",
+          label: "Fund base Type",
+          placeholder: "Fund base Type",
+          dependentFields: ["facilityType1"],
           disableCaching: true,
           GridProps: {
             xs: 12,
@@ -140,6 +155,7 @@ export const CFTermSheetMetadata: MetaDataType = {
           label: "Rate Type",
           dependentFields: ["facilityType"],
           shouldExclude: showSelectionOfFixedOrFloatingRate,
+          defaultValue: "fixed",
           GridProps: {
             xs: 12,
             md: 3,
@@ -148,9 +164,9 @@ export const CFTermSheetMetadata: MetaDataType = {
           options: [
             {
               label: "Fixed",
-              value: "FR",
+              value: "fixed",
             },
-            { label: "Floating", value: "FLR" },
+            { label: "Floating", value: "floating" },
           ],
           exclusive: true,
         },
@@ -162,7 +178,7 @@ export const CFTermSheetMetadata: MetaDataType = {
           name: "baseRate",
           label: "Base Rate %",
           placeholder: "Base Rate %",
-          dependentFields: ["fixedOrFloatingRate"],
+          dependentFields: ["facilityType", "fixedOrFloatingRate"],
           shouldExclude: showFixedOrFloatingRateFields,
           GridProps: {
             xs: 12,
@@ -178,7 +194,7 @@ export const CFTermSheetMetadata: MetaDataType = {
           name: "baseRateName",
           label: "Name of the Base Rate",
           placeholder: "Name of the Base Rate",
-          dependentFields: ["fixedOrFloatingRate"],
+          dependentFields: ["facilityType", "fixedOrFloatingRate"],
           shouldExclude: showFixedOrFloatingRateFields,
           maxLength: 20,
           GridProps: {
@@ -195,7 +211,7 @@ export const CFTermSheetMetadata: MetaDataType = {
           name: "spreadInPercent",
           label: "Spread %",
           placeholder: "Spread %",
-          dependentFields: ["fixedOrFloatingRate"],
+          dependentFields: ["facilityType", "fixedOrFloatingRate"],
           shouldExclude: showFixedOrFloatingRateFields,
           GridProps: {
             xs: 12,
@@ -215,6 +231,7 @@ export const CFTermSheetMetadata: MetaDataType = {
             "baseRate",
             "spreadInPercent",
             "fixedOrFloatingRate",
+            "facilityType",
           ],
           shouldExclude: showFixedOrFloatingRateFields,
           setValueOnDependentFieldsChange: calculateActualRateofInte,
@@ -232,7 +249,7 @@ export const CFTermSheetMetadata: MetaDataType = {
           name: "baseRateResetFreq",
           label: "Frequency of Reset of Base Rate",
           placeholder: "Frequency of Reset of Base Rate",
-          dependentFields: ["fixedOrFloatingRate"],
+          dependentFields: ["facilityType", "fixedOrFloatingRate"],
           shouldExclude: showFixedOrFloatingRateFields,
           maxLength: 5,
           GridProps: {
@@ -246,7 +263,7 @@ export const CFTermSheetMetadata: MetaDataType = {
             //@ts-ignore
             componentType: "textField",
           },
-          name: "TenureIncaseOfTermloan",
+          name: "tenure",
           label: "Tenure",
           placeholder: "Tenure",
           maxLength: 5,
@@ -264,7 +281,7 @@ export const CFTermSheetMetadata: MetaDataType = {
             //@ts-ignore
             componentType: "textField",
           },
-          name: "MoratoriumPeriodInCaseOfTermloan",
+          name: "moratoriumPeriod",
           type: "number",
           label: "Moratorium Period",
           placeholder: "Moratorium Period",
@@ -324,8 +341,8 @@ export const CFTermSheetMetadata: MetaDataType = {
             componentType: "textField",
           },
           name: "collateralType",
-          label: "Type of Collateral",
-          placeholder: "Type of Collateral",
+          label: "Owner of Colletral",
+          placeholder: "Owner of Colletral",
           maxLength: 20,
           showMaxLength: false,
           GridProps: {
@@ -455,7 +472,7 @@ export const CFTermSheetMetadata: MetaDataType = {
         componentType: "arrayField",
         group: 3,
       },
-      name: "escrowSweepDetails",
+      name: "escrowDetails",
       removeRowFn: "deleteAssignArrayFieldData",
       arrayFieldIDName: "lineNo",
       label: "Escrow Sweep Details",
@@ -482,7 +499,7 @@ export const CFTermSheetMetadata: MetaDataType = {
             componentType: "textField",
           },
           type: "number",
-          name: "period",
+          name: "periodInMonth",
           label: "Period",
           placeholder: "Period (In Months)",
           GridProps: {
@@ -512,7 +529,7 @@ export const CFTermSheetMetadata: MetaDataType = {
             componentType: "rateOfIntWithoutValidation",
             group: 3,
           },
-          name: "escrowSweepInPercent",
+          name: "escrowSweepPercent",
           label: "Escrow Sweep %",
           placeholder: "Escrow Sweep %",
           GridProps: {
@@ -622,9 +639,9 @@ export const CFTermSheetMetadata: MetaDataType = {
         componentType: "select",
         group: 4,
       },
-      name: "DSCRA",
-      label: "DSCRA to be maintained if any",
-      placeholder: "DSCRA to be maintained if any",
+      name: "dscra",
+      label: "Any DSCRA to be maintained",
+      placeholder: "Any DSCRA to be maintained",
       //@ts-ignore
       options: "getYesOrNoOptions",
       defaultValue: "00",
@@ -640,7 +657,7 @@ export const CFTermSheetMetadata: MetaDataType = {
         componentType: "textField",
         group: 4,
       },
-      name: "DSCRAMonths",
+      name: "dscraMonths",
       label: "DSCRA No of Months",
       placeholder: "No of Months",
       maxLength: 3,
@@ -665,7 +682,7 @@ export const CFTermSheetMetadata: MetaDataType = {
         componentType: "currency",
         group: 4,
       },
-      name: "DSCRAAmount",
+      name: "dscraAmount",
       label: "DSCRA Amount",
       placeholder: "DSCRA Amount",
       dependentFields: ["DSCRA"],
@@ -699,17 +716,14 @@ export const CFTermSheetMetadata: MetaDataType = {
     },
     {
       render: {
-        //@ts-ignore
-        componentType: "currency",
+        componentType: "spacer",
         group: 4,
       },
-      name: "anyDeviationTakenByBank",
-      label: "Deviation if any taken by Bank",
-      placeholder: "Deviation if any taken by Bank",
+      name: "spacer",
       GridProps: {
         xs: 12,
-        md: 3,
-        sm: 3,
+        md: 12,
+        sm: 12,
       },
     },
     {
