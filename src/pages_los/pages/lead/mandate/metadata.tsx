@@ -210,7 +210,7 @@ export const mandateMetaData: MetaDataType = {
         componentType: "arrayField",
         group: 2,
       },
-      name: "eliteSerivceDetails",
+      name: "eliteServiceDetails",
       removeRowFn: "deleteAssignArrayFieldData",
       arrayFieldIDName: "lineNo",
       label: "Elite Services Details",
@@ -288,23 +288,6 @@ export const mandateMetaData: MetaDataType = {
           placeholder: "Elite Description",
           maxLength: 500,
           showMaxLength: false,
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
-        },
-        {
-          render: {
-            //@ts-ignore
-            componentType: "select",
-          },
-          name: "serviceChargeLumpsum",
-          label: "Elite Service Charges - Lumsum or per",
-          placeholder: "Elite Service Charges - Lumsum or per",
-          //@ts-ignore
-          options: "getEliteSeviceLumsumPer",
-          defaultValue: "00",
           GridProps: {
             xs: 12,
             md: 3,

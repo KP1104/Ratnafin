@@ -155,7 +155,7 @@ export const SMESanctionMetadata: MetaDataType = {
             componentType: "radio",
           },
           name: "fixedOrFloatingRate",
-          label: "Rate Type",
+          label: "Floating Rate or Fixed Rate",
           dependentFields: ["facilityType"],
           shouldExclude: showSelectionOfFixedOrFloatingRate,
           GridProps: {
@@ -228,6 +228,7 @@ export const SMESanctionMetadata: MetaDataType = {
           name: "actualROI",
           label: "Actual Rate of Interest",
           placeholder: "Actual Rate of Interest",
+          readOnly: true,
           dependentFields: [
             "baseRate",
             "spreadInPercent",
@@ -298,22 +299,7 @@ export const SMESanctionMetadata: MetaDataType = {
         {
           render: {
             //@ts-ignore
-            componentType: "currency",
-          },
-          name: "prePaymentCharges",
-          label: "Pre Payment Charges",
-          placeholder: "Pre Payment Charges",
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
-        },
-        {
-          render: {
-            //@ts-ignore
-            componentType: "currency",
-            group: 4,
+            componentType: "rateOfIntWithoutValidation",
           },
           name: "LCBGCommission",
           label: "LC / BG Comission",
@@ -330,7 +316,6 @@ export const SMESanctionMetadata: MetaDataType = {
           render: {
             //@ts-ignore
             componentType: "rateOfIntWithoutValidation",
-            group: 4,
           },
           name: "marginInStock",
           label: "Margin in Stock",
@@ -347,7 +332,6 @@ export const SMESanctionMetadata: MetaDataType = {
           render: {
             //@ts-ignore
             componentType: "rateOfIntWithoutValidation",
-            group: 4,
           },
           name: "marginBookDebts",
           label: "Margin Book Debts",
@@ -364,7 +348,6 @@ export const SMESanctionMetadata: MetaDataType = {
           render: {
             //@ts-ignore
             componentType: "textField",
-            group: 4,
           },
           type: "number",
           name: "daysOfDebtors",
@@ -383,7 +366,6 @@ export const SMESanctionMetadata: MetaDataType = {
           render: {
             //@ts-ignore
             componentType: "rateOfIntWithoutValidation",
-            group: 4,
           },
           name: "marginPercentOfFixedDeposit",
           label: "Margin Percentage of Fixed Deposit",
@@ -400,7 +382,6 @@ export const SMESanctionMetadata: MetaDataType = {
           render: {
             //@ts-ignore
             componentType: "textField",
-            group: 4,
           },
           type: "number",
           name: "stockStatementSubmissionFreq",
@@ -410,6 +391,35 @@ export const SMESanctionMetadata: MetaDataType = {
           shouldExclude: showDependentFieldsOfFundbase,
           maxLength: 5,
           showMaxLength: false,
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            //@ts-ignore
+            componentType: "textField",
+            group: 2,
+          },
+          name: "marginInCCBG",
+          label: "Margin in CC & BG",
+          placeholder: "Margin in CC & BG",
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            //@ts-ignore
+            componentType: "currency",
+          },
+          name: "prePaymentCharges",
+          label: "Pre Payment Charges",
+          placeholder: "Pre Payment Charges",
           GridProps: {
             xs: 12,
             md: 3,
@@ -670,6 +680,22 @@ export const SMESanctionMetadata: MetaDataType = {
     {
       render: {
         //@ts-ignore
+        componentType: "datePicker",
+        group: 4,
+      },
+      name: "nextRenewalDate",
+      label: "Next Renewal Date ",
+      placeholder: "DD/MM/YYYY",
+      format: "dd/MM/yyyy",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+    {
+      render: {
+        //@ts-ignore
         componentType: "select",
         group: 4,
       },
@@ -708,8 +734,8 @@ export const SMESanctionMetadata: MetaDataType = {
         group: 4,
       },
       name: "ATNWMaintained",
-      label: "ATNW to be maintained at the end of Audited",
-      placeholder: "ATNW to be maintained at the end of Audited",
+      label: "ATNW to be maintained at the end of Audited Financials",
+      placeholder: "ATNW to be maintained at the end of Audited Financials",
       GridProps: {
         xs: 12,
         md: 3,
@@ -736,12 +762,15 @@ export const SMESanctionMetadata: MetaDataType = {
     {
       render: {
         //@ts-ignore
-        componentType: "textField",
+        componentType: "select",
         group: 4,
       },
       name: "submissionFrequencyOfQIS",
       label: "QIS Submission frequency End of Period",
       placeholder: "QIS Submission frequency End of of Period",
+      defaultValue: "00",
+      //@ts-ignore
+      options: "getFrequencyOfSubmission",
       GridProps: {
         xs: 12,
         md: 3,

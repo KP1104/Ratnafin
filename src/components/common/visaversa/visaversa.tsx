@@ -4,6 +4,7 @@ import Grid, { GridProps } from "@material-ui/core/Grid";
 import { TextField } from "components/styledComponent";
 import { TextFieldProps } from "@material-ui/core/TextField";
 import { transformDependentFieldsState } from "packages/form";
+import NumberFormat from "react-number-format";
 import { Merge } from "../types";
 
 interface VisaversaProps {
@@ -20,6 +21,50 @@ interface VisaversaProps {
 export type MyTextFieldAllProps = Merge<TextFieldProps, VisaversaProps>;
 
 export type MyVisaversaProps = UseFieldHookProps & MyTextFieldAllProps;
+
+function NumberFormatCustom(props) {
+  const { inputRef, onChange, FormatProps, ...other } = props;
+  return (
+    <NumberFormat
+      {...other}
+      getInputRef={inputRef}
+      onValueChange={(values) => {
+        onChange(
+          {
+            target: {
+              value: values.value,
+              formattedValue: values.formattedValue,
+            },
+          },
+          values.formattedValue
+        );
+      }}
+      {...FormatProps}
+    />
+  );
+}
+
+function PercentageFormatCustom(props) {
+  const { inputRef, onChange, FormatProps, ...other } = props;
+  return (
+    <NumberFormat
+      {...other}
+      getInputRef={inputRef}
+      onValueChange={(values) => {
+        onChange(
+          {
+            target: {
+              value: values.value,
+              formattedValue: values.formattedValue,
+            },
+          },
+          values.formattedValue
+        );
+      }}
+      {...FormatProps}
+    />
+  );
+}
 
 const Visaversa: FC<MyVisaversaProps> = ({
   name: fieldName,
@@ -92,7 +137,7 @@ const Visaversa: FC<MyVisaversaProps> = ({
       value,
       rightName,
       transformDependentFieldsState(dependentValues)
-    ).toFixed(2);
+    );
     setValue(
       { [leftName]: value, [rightName]: result },
       { [leftName]: value, [rightName]: result },
@@ -131,6 +176,29 @@ const Visaversa: FC<MyVisaversaProps> = ({
         InputLabelProps={{
           shrink: true,
         }}
+        InputProps={{
+          //@ts-ignore
+          inputComponent: NumberFormatCustom,
+          inputProps: {
+            FormatProps: {
+              thousandSeparator: true,
+              prefix: "₹",
+              thousandsGroupStyle: "lakh",
+              allowNegative: true,
+              allowLeadingZeros: false,
+              decimalScale: 2,
+              isAllowed: (values) => {
+                if (values?.value?.length > 10) {
+                  return false;
+                }
+                if (values.floatValue === 0) {
+                  return false;
+                }
+                return true;
+              },
+            },
+          },
+        }}
       />
       <TextField
         key={fieldKey}
@@ -141,6 +209,26 @@ const Visaversa: FC<MyVisaversaProps> = ({
         onChange={handleRightChange}
         InputLabelProps={{
           shrink: true,
+        }}
+        InputProps={{
+          //@ts-ignore
+          inputComponent: PercentageFormatCustom,
+          inputProps: {
+            FormatProps: {
+              suffix: "%",
+              decimalScale: 2,
+              fixedDecimalScale: true,
+              allowNegative: true,
+              allowEmptyFormatting: true,
+              isAllowed: (values) => {
+                //@ts-ignore
+                if (values.floatValue >= 999.99) {
+                  return false;
+                }
+                return true;
+              },
+            },
+          },
         }}
       />
     </div>
