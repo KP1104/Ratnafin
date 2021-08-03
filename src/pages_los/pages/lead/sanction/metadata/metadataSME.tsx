@@ -400,7 +400,7 @@ export const SMESanctionMetadata: MetaDataType = {
         {
           render: {
             //@ts-ignore
-            componentType: "textField",
+            componentType: "rateOfIntWithoutValidation",
             group: 2,
           },
           name: "marginInCCBG",
