@@ -149,10 +149,10 @@ export const CFTermSheetMetadata: MetaDataType = {
         },
         {
           render: {
-            componentType: "toggleButtonGroup",
+            componentType: "radio",
           },
           name: "fixedOrFloatingRate",
-          label: "Rate Type",
+          label: "Floating Rate or Fixed Rate",
           dependentFields: ["facilityType"],
           shouldExclude: showSelectionOfFixedOrFloatingRate,
           defaultValue: "fixed",
@@ -168,7 +168,6 @@ export const CFTermSheetMetadata: MetaDataType = {
             },
             { label: "Floating", value: "floating" },
           ],
-          exclusive: true,
         },
         {
           render: {
@@ -227,6 +226,7 @@ export const CFTermSheetMetadata: MetaDataType = {
           name: "actualROI",
           label: "Actual Rate of Interest",
           placeholder: "Actual Rate of Interest",
+          readOnly: true,
           dependentFields: [
             "baseRate",
             "spreadInPercent",
@@ -297,6 +297,22 @@ export const CFTermSheetMetadata: MetaDataType = {
         {
           render: {
             //@ts-ignore
+            componentType: "textField",
+          },
+          type: "number",
+          maxLength: 6,
+          name: "minimumAssetCoverage",
+          label: "Minimum Asset Coverage",
+          placeholder: "Example (1.5 times, 2 times)",
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            //@ts-ignore
             componentType: "currency",
           },
           name: "prePaymentCharges",
@@ -341,8 +357,8 @@ export const CFTermSheetMetadata: MetaDataType = {
             componentType: "textField",
           },
           name: "collateralType",
-          label: "Owner of Colletral",
-          placeholder: "Owner of Colletral",
+          label: "Type of Collateral",
+          placeholder: "Type of Collateral",
           maxLength: 20,
           showMaxLength: false,
           GridProps: {
@@ -356,8 +372,8 @@ export const CFTermSheetMetadata: MetaDataType = {
             componentType: "textField",
           },
           name: "collateralOwner",
-          label: "Owner of Collateral",
-          placeholder: "Owner of Collateral",
+          label: "Owner of Colletral",
+          placeholder: "Owner of Colletral",
           GridProps: {
             xs: 12,
             md: 3,
@@ -621,25 +637,10 @@ export const CFTermSheetMetadata: MetaDataType = {
     {
       render: {
         //@ts-ignore
-        componentType: "textField",
-        group: 4,
-      },
-      name: "minimumAssetCoverage",
-      label: "Minimum Asset Coverage",
-      placeholder: "Example (1.5 times, 2 times)",
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-    },
-    {
-      render: {
-        //@ts-ignore
         componentType: "select",
         group: 4,
       },
-      name: "dscra",
+      name: "dscraAny",
       label: "Any DSCRA to be maintained",
       placeholder: "Any DSCRA to be maintained",
       //@ts-ignore
@@ -662,10 +663,10 @@ export const CFTermSheetMetadata: MetaDataType = {
       placeholder: "No of Months",
       maxLength: 3,
       showMaxLength: false,
-      dependentFields: ["DSCRA"],
+      dependentFields: ["dscraAny"],
       //@ts-ignore
       shouldExclude: (_, dependentFields) => {
-        if (dependentFields["DSCRA"].value === "Y") {
+        if (dependentFields["dscraAny"].value === "Y") {
           return false;
         }
         return true;
@@ -685,29 +686,14 @@ export const CFTermSheetMetadata: MetaDataType = {
       name: "dscraAmount",
       label: "DSCRA Amount",
       placeholder: "DSCRA Amount",
-      dependentFields: ["DSCRA"],
+      dependentFields: ["dscraAny"],
       //@ts-ignore
       shouldExclude: (_, dependentFields) => {
-        if (dependentFields["DSCRA"].value === "Y") {
+        if (dependentFields["dscraAny"].value === "Y") {
           return false;
         }
         return true;
       },
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-    },
-    {
-      render: {
-        //@ts-ignore
-        componentType: "currency",
-        group: 4,
-      },
-      name: "keyManRiskPolicyAmount",
-      label: "Amount of Key Man Risk Policy",
-      placeholder: "Amount of Key Man Risk Policy",
       GridProps: {
         xs: 12,
         md: 3,
@@ -724,24 +710,6 @@ export const CFTermSheetMetadata: MetaDataType = {
         xs: 12,
         md: 12,
         sm: 12,
-      },
-    },
-    {
-      render: {
-        //@ts-ignore
-        componentType: "textField",
-        group: 4,
-      },
-      name: "preDisbursementConditions",
-      label: "Pre Disbursement Conditions",
-      placeholder: "Pre Disbursement Conditions",
-      multiline: true,
-      rows: 3,
-      rowsMax: 3,
-      GridProps: {
-        xs: 12,
-        md: 6,
-        sm: 6,
       },
     },
     {

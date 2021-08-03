@@ -154,7 +154,7 @@ export const CFSanctionMetadata: MetaDataType = {
             componentType: "radio",
           },
           name: "fixedOrFloatingRate",
-          label: "Rate Type",
+          label: "Floating Rate or Fixed Rate",
           dependentFields: ["facilityType"],
           shouldExclude: showSelectionOfFixedOrFloatingRate,
           defaultValue: "fixed",
@@ -228,6 +228,7 @@ export const CFSanctionMetadata: MetaDataType = {
           name: "actualROI",
           label: "Actual Rate of Interest",
           placeholder: "Actual Rate of Interest",
+          readOnly: true,
           dependentFields: [
             "baseRate",
             "spreadInPercent",
@@ -298,6 +299,22 @@ export const CFSanctionMetadata: MetaDataType = {
         {
           render: {
             //@ts-ignore
+            componentType: "textField",
+          },
+          type: "number",
+          maxLength: 6,
+          name: "minimumAssetCoverage",
+          label: "Minimum Asset Coverage",
+          placeholder: "Example (1.5 times, 2 times)",
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            //@ts-ignore
             componentType: "currency",
           },
           name: "prePaymentCharges",
@@ -342,8 +359,8 @@ export const CFSanctionMetadata: MetaDataType = {
             componentType: "textField",
           },
           name: "collateralType",
-          label: "Owner of Colletral",
-          placeholder: "Owner of Colletral",
+          label: "Type of Collateral",
+          placeholder: "Type of Collateral",
           maxLength: 20,
           showMaxLength: false,
           GridProps: {
@@ -357,8 +374,8 @@ export const CFSanctionMetadata: MetaDataType = {
             componentType: "textField",
           },
           name: "collateralOwner",
-          label: "Owner of Collateral",
-          placeholder: "Owner of Collateral",
+          label: "Owner of Colletral",
+          placeholder: "Owner of Colletral",
           GridProps: {
             xs: 12,
             md: 3,
@@ -695,7 +712,7 @@ export const CFSanctionMetadata: MetaDataType = {
         group: 6,
       },
       name: "sanctionDate",
-      label: "Date of Term Sheet",
+      label: "Date of Sanction",
       placeholder: "DD/MM/YYYY",
       format: "dd/MM/yyyy",
       required: true,
@@ -709,25 +726,10 @@ export const CFSanctionMetadata: MetaDataType = {
     {
       render: {
         //@ts-ignore
-        componentType: "textField",
-        group: 6,
-      },
-      name: "minimumAssetCoverage",
-      label: "Minimum Asset Coverage",
-      placeholder: "Example (1.5 times, 2 times)",
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-    },
-    {
-      render: {
-        //@ts-ignore
         componentType: "select",
         group: 6,
       },
-      name: "dscra",
+      name: "dscraAny",
       label: "Any DSCRA to be maintained",
       placeholder: "Any DSCRA to be maintained",
       //@ts-ignore
@@ -750,10 +752,10 @@ export const CFSanctionMetadata: MetaDataType = {
       placeholder: "No of Months",
       maxLength: 3,
       showMaxLength: false,
-      dependentFields: ["DSCRA"],
+      dependentFields: ["dscraAny"],
       //@ts-ignore
       shouldExclude: (_, dependentFields) => {
-        if (dependentFields["DSCRA"].value === "Y") {
+        if (dependentFields["dscraAny"].value === "Y") {
           return false;
         }
         return true;
@@ -773,10 +775,10 @@ export const CFSanctionMetadata: MetaDataType = {
       name: "dscraAmount",
       label: "DSCRA Amount",
       placeholder: "DSCRA Amount",
-      dependentFields: ["DSCRA"],
+      dependentFields: ["dscraAny"],
       //@ts-ignore
       shouldExclude: (_, dependentFields) => {
-        if (dependentFields["DSCRA"].value === "Y") {
+        if (dependentFields["dscraAny"].value === "Y") {
           return false;
         }
         return true;
@@ -859,8 +861,8 @@ export const CFSanctionMetadata: MetaDataType = {
         group: 6,
       },
       name: "ATNWMaintained",
-      label: "ATNW to be maintained at the end of Audited",
-      placeholder: "ATNW to be maintained at the end of Audited",
+      label: "ATNW to be maintained at the end of Audited Financials",
+      placeholder: "ATNW to be maintained at the end of Audited Financials",
       GridProps: {
         xs: 12,
         md: 3,
@@ -887,12 +889,15 @@ export const CFSanctionMetadata: MetaDataType = {
     {
       render: {
         //@ts-ignore
-        componentType: "textField",
+        componentType: "select",
         group: 6,
       },
       name: "submissionFrequencyOfQIS",
       label: "QIS Submission frequency End of Period",
       placeholder: "QIS Submission frequency End of of Period",
+      defaultValue: "00",
+      //@ts-ignore
+      options: "getFrequencyOfSubmission",
       GridProps: {
         xs: 12,
         md: 3,
