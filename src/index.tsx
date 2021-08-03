@@ -6,7 +6,7 @@ import "typeface-roboto";
 import "registry"; //register functions to be used across application
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import ErrorBoundary from "errorBoundary/errorBoundary";
+//import ErrorBoundary from "errorBoundary/errorBoundary";
 const LOS = lazy(() => import("app/los"));
 const CRM = lazy(() => import("app/crm"));
 const ErrorPage = lazy(() => import("app/error"));
@@ -35,6 +35,7 @@ const App = () => (
             <Route path="/verification/*" element={<Verification />} />
             <Route path="/error/*" element={<ErrorPage />} />
             <Route path="/middleware/*" element={<Middleware />} />
+
             <Route path="*" element={<Redirect />} />
           </Routes>
           {/* </ErrorBoundary> */}

@@ -37,6 +37,7 @@ import { ColdCalling } from "pages_los/pages/taskManagement/coldCalling";
 import { BankConfigWrapper } from "./pages/config/bankConfig";
 import { BankMasterWrapper } from "pages_los/pages/config/bankMaster";
 import Editor from "components/editor";
+import GridControl from "components/common/grid";
 
 const DashbordPages = () => {
   const classes = useStyles();
@@ -96,6 +97,7 @@ const DashbordPages = () => {
             <Route path="/testForm" element={<TestForm />} />
             <Route path="/pages/:id" element={<Dummy />} />
             <Route path="/editor" element={<Editor />} />
+            <Route path="/grid" element={<GridControl />} />
           </Routes>
         </Content>
       </div>
