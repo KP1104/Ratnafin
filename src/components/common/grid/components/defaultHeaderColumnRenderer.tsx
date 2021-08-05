@@ -1,8 +1,6 @@
-import { useRef } from "react";
-import TableSortLabel from "@material-ui/core/TableSortLabel";
-import { useDrag, useDrop } from "react-dnd";
-
-export const DefaultHeaderColumnRenderer = ({ column }) => {
+export const DefaultHeaderColumnRenderer = ({
+  column: { columnName, getResizerProps },
+}) => {
   return (
     <>
       <span
@@ -10,14 +8,13 @@ export const DefaultHeaderColumnRenderer = ({ column }) => {
           overflow: "hidden",
           textOverflow: "ellipsis",
           whiteSpace: "nowrap",
-          paddingRight: "10px",
         }}
       >
-        {column.columnName}
+        {columnName}
       </span>
 
       <div
-        {...column.getResizerProps([
+        {...getResizerProps([
           {
             style: {
               display: "inline-block",

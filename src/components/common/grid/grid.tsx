@@ -15,6 +15,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
+import TableFooter from "@material-ui/core/TableFooter";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -24,25 +25,56 @@ import { Alert } from "components/common/alert";
 import { setIn } from "packages/form";
 import metaData from "./metaData";
 import { useCheckboxColumn } from "./components/useCheckbox";
+import { RowContextProvider } from "./components/rowContext";
 import { useSnackbar } from "notistack";
+
+const emptyTransformer = (data) => data;
 
 const MYTable: FC<{
   columns: any;
   data: any;
-  newRowObj?: any;
   dataIdColumn: any;
+  newRowObj?: any;
   rowValidator?: any;
-}> = ({ columns, data = [], newRowObj, dataIdColumn, rowValidator }) => {
+  dataTransformer?: any;
+}> = ({
+  columns,
+  data = [],
+  newRowObj,
+  dataIdColumn,
+  rowValidator,
+  dataTransformer = emptyTransformer,
+}) => {
   const rowIDColumn = "__id";
   const incrCounter = useRef(-1);
   const myColumns = useMemo(() => columns, []);
   const [myData, setMyData] = useState(() =>
-    data.map((one) => ({ ...one, [rowIDColumn]: ++incrCounter.current }))
+    dataTransformer(
+      data.map((one) => ({ ...one, [rowIDColumn]: ++incrCounter.current }))
+    )
+  );
+
+  const setMyDataWrapper = useCallback(
+    (value) => {
+      if (typeof value === "function") {
+        setMyData((old) => {
+          let result = value(old);
+          result = dataTransformer(result);
+          return result;
+        });
+      } else {
+        let result = dataTransformer(value);
+        setMyData(result);
+      }
+    },
+    [setMyData, dataTransformer]
   );
   const currentRowObj = useRef({});
+  const currentRowError = useRef({});
   const [currentEditRow, setCurrentEditRow] = useState(-1);
   const [newRowAdded, setNewRowAdded] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
+  const rowContainerRef = useRef<HTMLDivElement | null>(null);
 
   const getRowId = useCallback((data) => data[rowIDColumn], []);
 
@@ -50,62 +82,84 @@ const MYTable: FC<{
     setShowDialog(false);
   }, [setShowDialog]);
 
-  const handleCurrentRowCellChange = useCallback((value) => {
-    currentRowObj.current = { ...currentRowObj.current, ...value };
-  }, []);
-
   const addNewRow = useCallback(() => {
     if (!newRowAdded) {
-      setMyData((old) => [
+      setMyDataWrapper((old) => [
         ...old,
         {
           ...newRowObj,
           [rowIDColumn]: ++incrCounter.current,
         },
       ]);
+
       setNewRowAdded(true);
       setCurrentEditRow(incrCounter.current);
       currentRowObj.current = {};
+      setTimeout(() => {
+        let elem = rowContainerRef.current;
+        elem?.scrollTo({
+          behavior: "smooth",
+          top: elem.scrollHeight - elem.offsetHeight,
+          left: 0,
+        });
+      }, 1);
     }
-  }, [setMyData, setNewRowAdded, setCurrentEditRow, newRowAdded, myData]);
+  }, [
+    setMyDataWrapper,
+    setNewRowAdded,
+    setCurrentEditRow,
+    newRowAdded,
+    myData,
+  ]);
 
   const saveCurrentRow = useCallback(
     (index) => {
+      if (Object.keys(currentRowError.current).length > 0) {
+        return false;
+      }
       let newData = myData.map((one) => {
         if (getRowId(one) === index) {
           return { ...one, ...currentRowObj.current };
         }
         return one;
       });
-      setMyData(newData);
+      setMyDataWrapper(newData);
       setCurrentEditRow(-1);
       setNewRowAdded(false);
       currentRowObj.current = {};
+      return true;
     },
-    [setMyData, setNewRowAdded, setCurrentEditRow, myData, getRowId]
+    [setMyDataWrapper, setNewRowAdded, setCurrentEditRow, myData, getRowId]
   );
 
   const cancelCurrentRowEdit = useCallback(
     (index) => {
       if (newRowAdded) {
-        setMyData((old) => old.filter((one) => !(getRowId(one) === index)));
+        setMyDataWrapper((old) =>
+          old.filter((one) => !(getRowId(one) === index))
+        );
       }
       setCurrentEditRow(-1);
       setNewRowAdded(false);
       currentRowObj.current = {};
+      currentRowError.current = {};
     },
-    [setMyData, setCurrentEditRow, setNewRowAdded, newRowAdded]
+    [setMyDataWrapper, setCurrentEditRow, setNewRowAdded, newRowAdded]
   );
 
   const requestRowEdit = useCallback(
     (index) => {
-      if (newRowAdded) {
+      if (newRowAdded || Object.keys(currentRowError.current).length > 0) {
         return;
       }
       if (currentEditRow === -1) {
         setCurrentEditRow(index);
       } else {
-        saveCurrentRow(currentEditRow);
+        // let success = saveCurrentRow(currentEditRow);
+        // if (success) {
+        //   setCurrentEditRow(index);
+        // }
+        cancelCurrentRowEdit(currentEditRow);
         setCurrentEditRow(index);
       }
       currentRowObj.current = {};
@@ -119,9 +173,7 @@ const MYTable: FC<{
       data: myData,
       requestRowEdit,
       currentEditRow,
-      currentRowError,
       getRowId,
-      handleCurrentRowCellChange,
       saveCurrentRow,
       cancelCurrentRowEdit,
     },
@@ -135,6 +187,7 @@ const MYTable: FC<{
     getTableProps,
     getTableBodyProps,
     headerGroups,
+    footerGroups,
     rows,
     prepareRow,
     totalColumnsWidth,
@@ -143,7 +196,13 @@ const MYTable: FC<{
 
   return (
     <Fragment>
-      <Paper style={{ width: `${totalColumnsWidth}px`, overflow: "scroll" }}>
+      <Paper
+        style={{
+          width: `${totalColumnsWidth}px`,
+          maxWidth: "750px",
+          overflow: "hidden",
+        }}
+      >
         <Toolbar
           variant="dense"
           style={{
@@ -176,7 +235,14 @@ const MYTable: FC<{
                   component="div"
                 >
                   {headerGroup.headers.map((column) => (
-                    <TableCell {...column.getHeaderProps()} component="div">
+                    <TableCell
+                      {...column.getHeaderProps([
+                        {
+                          style: { textAlign: column?.alignment ?? "unset" },
+                        },
+                      ])}
+                      component="div"
+                    >
                       {column.render("Header")}
                     </TableCell>
                   ))}
@@ -184,37 +250,78 @@ const MYTable: FC<{
               ))}
             </TableHead>
             <TableBody {...getTableBodyProps({})} component="div">
-              <div style={{ overflow: "auto", maxHeight: "500px" }}>
+              <div
+                style={{ overflow: "scroll", maxHeight: "200px" }}
+                ref={rowContainerRef}
+              >
                 {rows.map((row, i) => {
                   prepareRow(row);
-                  return (
-                    <TableRow {...row.getRowProps()} component="div">
-                      {row.cells.map((cell) => (
-                        <TableCell
-                          {...cell.getCellProps([
-                            {
-                              style: {
-                                textOverflow: "ellipsis",
-                                overflow: "hidden",
+                  const rowProps = row.getRowProps();
+                  const renderRow = (
+                    <TableRow {...rowProps} component="div">
+                      {row.cells.map((cell) => {
+                        return (
+                          <TableCell
+                            {...cell.getCellProps([
+                              {
+                                style: {
+                                  textOverflow: "ellipsis",
+                                  overflow: "hidden",
+                                  textAlign: cell?.column?.alignment ?? "unset",
+                                },
                               },
-                            },
-                          ])}
-                          component="div"
-                        >
-                          {cell.render("Cell")}
-                        </TableCell>
-                      ))}
+                            ])}
+                            component="div"
+                          >
+                            {cell.render("Cell")}
+                          </TableCell>
+                        );
+                      })}
                     </TableRow>
                   );
+                  if (currentEditRow === row.id) {
+                    return (
+                      <RowContextProvider
+                        currentRowError={currentRowError}
+                        currentRowObj={currentRowObj}
+                        key={`${rowProps.key}_row_with_context`}
+                        initialData={row.original}
+                        rowValidator={rowValidator}
+                      >
+                        {renderRow}
+                      </RowContextProvider>
+                    );
+                  } else {
+                    return renderRow;
+                  }
                 })}
-                <TableRow component="div">
-                  <Button onClick={addNewRow}>AddRow</Button>
-                </TableRow>
               </div>
             </TableBody>
+            <TableHead component="div">
+              {footerGroups.map((footerGroup) => (
+                <TableRow
+                  {...footerGroup.getFooterGroupProps()}
+                  component="div"
+                >
+                  {footerGroup.headers.map((column) => (
+                    <TableCell
+                      {...column.getFooterProps([
+                        {
+                          style: { textAlign: column?.alignment ?? "unset" },
+                        },
+                      ])}
+                      component="div"
+                    >
+                      {column.render("Footer")}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </TableHead>
           </Table>
         </TableContainer>
       </Paper>
+      <Button onClick={addNewRow}>AddRow</Button>
       <DeleteRows
         selectedRows={selectedFlatRows}
         dataIdColumn={dataIdColumn}
@@ -307,6 +414,16 @@ const App = () => {
         { myId: 6, name: "Aaryaman", age: 24 },
       ]}
       dataIdColumn="myId"
+      rowValidator={rowValidator}
+      newRowObj={{ myId: null, name: "", age: "" }}
+      dataTransformer={(data) => {
+        let total = 0;
+        let result = data.map((one) => {
+          total = total + Number(one.age) ?? 0;
+          return { ...one, cummulativeAge: total };
+        });
+        return result;
+      }}
     />
   );
 };
@@ -329,7 +446,7 @@ const rowValidator = async (obj) => {
       strict: false,
       abortEarly: false,
     });
-    return null;
+    return {};
   } catch (e) {
     if (e instanceof yup.ValidationError) {
       let errorObj = {};
@@ -340,8 +457,9 @@ const rowValidator = async (obj) => {
           e.inner[i].errors[0]
         );
       }
-      return errorObj;
+      throw errorObj;
+    } else {
+      console.log(e);
     }
-    return e.message;
   }
 };

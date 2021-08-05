@@ -1,51 +1,37 @@
 import { useState } from "react";
 import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
+import { useContext } from "react";
+import { RowContext } from "./rowContext";
+import { DefaultCellRender } from "./defaultCell";
 
 export const EditableTextField = (props) => {
   const {
     column: { id: columnName },
     row: { id },
     currentEditRow,
-    handleCurrentRowCellChange,
     value,
   } = props;
   if (currentEditRow === id) {
-    return (
-      <MyTextField
-        key={value}
-        value={value}
-        handleCurrentRowCellChange={handleCurrentRowCellChange}
-        columnName={columnName}
-      />
-    );
+    return <MyTextField key={columnName} columnName={columnName} />;
   } else {
-    return (
-      <Typography
-        component="span"
-        variant="subtitle2"
-        style={{ whiteSpace: "nowrap" }}
-      >
-        {value}
-      </Typography>
-    );
+    return <DefaultCellRender {...props} />;
   }
 };
 
-export const MyTextField = ({
-  value,
-  handleCurrentRowCellChange,
-  columnName,
-}) => {
-  const [currentValue, setCurrentValue] = useState(value ?? "");
+export const MyTextField = ({ columnName }) => {
+  const { error, setCellValue, currentRow } = useContext(RowContext);
+  const [touched, setTouched] = useState(false);
+
   return (
     <TextField
       type="text"
-      value={currentValue}
+      value={currentRow?.[columnName]}
       size="small"
       variant="outlined"
-      onChange={(e) => setCurrentValue(e.target.value)}
-      onBlur={() => handleCurrentRowCellChange({ [columnName]: currentValue })}
+      onChange={(e) => setCellValue({ [columnName]: e.target.value })}
+      helperText={touched && error?.[columnName]}
+      error={touched && Boolean(error?.[columnName])}
+      onBlur={() => setTouched(true)}
     />
   );
 };

@@ -1,6 +1,8 @@
 import { ActionCell } from "./components/actionCell";
 import { EditableTextField } from "./components/textField";
 import { DefaultHeaderColumnRenderer } from "./components/defaultHeaderColumnRenderer";
+import { DefaultCellRender } from "./components/defaultCell";
+import { DefaultFooterCell } from "./components/footerCell";
 
 const metaData = {
   columns: [
@@ -15,10 +17,20 @@ const metaData = {
     {
       accessor: "age",
       Header: DefaultHeaderColumnRenderer,
-      alignment: "left",
+      alignment: "right",
       width: 100,
       Cell: EditableTextField,
       columnName: "Age",
+      Footer: DefaultFooterCell,
+    },
+    {
+      accessor: "cummulativeAge",
+      Header: DefaultHeaderColumnRenderer,
+      alignment: "right",
+      width: 130,
+      columnName: "Cummulative Age",
+      Cell: DefaultCellRender,
+      Footer: DefaultFooterCell,
     },
     {
       accessor: "editAccess",

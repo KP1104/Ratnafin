@@ -7,10 +7,22 @@ export const useCheckboxColumn = (visible) => (hooks) => {
         id: "selectionCheckbox",
         Header: CheckboxHeaderRenderer,
         Cell: CheckboxCellRenderer,
-        minWidth: 20,
-        width: 20,
-        maxWidth: 20,
+        minWidth: 25,
+        width: 25,
+        maxWidth: 25,
         sticky: true,
+        Footer: () => (
+          <span
+            style={{
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              paddingRight: "10px",
+            }}
+          >
+            Total
+          </span>
+        ),
       },
       ...columns,
     ]);
