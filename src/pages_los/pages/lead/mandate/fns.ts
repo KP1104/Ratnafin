@@ -29,7 +29,7 @@ export const visaversaValidateValue = async (fieldData, dependentFields) => {
   let value = Number(fieldData?.value["fundFeeInAmount"]);
 
   if (value >= totalAmount) {
-    return "Should not be greater than previous one value";
+    return "Should not be greater than Raised Fund Amount";
   }
   return "";
 };
