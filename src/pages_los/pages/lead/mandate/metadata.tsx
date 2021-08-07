@@ -251,7 +251,7 @@ export const mandateMetaData: MetaDataType = {
         {
           render: {
             //@ts-ignore
-            componentType: "autocomplete",
+            componentType: "select",
           },
           name: "serviceChargeType",
           label: "Elite Services Charges Type",
@@ -259,7 +259,6 @@ export const mandateMetaData: MetaDataType = {
           //@ts-ignore
           options: "getEliteSeviceLumsumPer",
           defaultValue: "00",
-          // enableVirtualized: true,
           GridProps: {
             xs: 12,
             md: 3,
