@@ -83,6 +83,7 @@ export const BankSanction: FC<{
               _optionsKey="getBankSanction"
               handleBlur={handleBlur}
               defaultOptionLabel="Select Bank"
+              disableCaching={true}
               error={bankError}
               autoFocus={true}
               touched={true}

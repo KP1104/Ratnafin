@@ -89,7 +89,6 @@ const Visaversa: FC<MyVisaversaProps> = ({
     setValue,
     handleBlur,
     isSubmitting,
-    fieldKey,
     dependentValues,
   } = useField({
     name: fieldName,
@@ -163,8 +162,8 @@ const Visaversa: FC<MyVisaversaProps> = ({
   let result = (
     <div style={{ display: "flex" }} tabIndex={0} onBlur={handleBlur}>
       <TextField
-        key={fieldKey}
-        id={fieldKey}
+        key="left"
+        id="left"
         name={leftName}
         value={leftValue}
         label={leftLabel}
@@ -201,8 +200,8 @@ const Visaversa: FC<MyVisaversaProps> = ({
         }}
       />
       <TextField
-        key={fieldKey}
-        id={fieldKey}
+        key="right"
+        id="right"
         name={rightName}
         label={rightLabel}
         value={rightValue}
