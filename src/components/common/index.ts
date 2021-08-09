@@ -11,3 +11,4 @@ export * from "./toggleButtonGroup";
 export * from "./spacer";
 export * from "./autocomplete";
 export * from "./visaversa";
+export * from "./dataTable";

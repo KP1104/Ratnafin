@@ -10,8 +10,10 @@ export const RowContextProvider = ({
   children,
   initialData,
   rowValidator,
+  setFormError,
 }) => {
   const [error, setError] = useState({});
+  const [isError, setIsError] = useState(false);
   const [currentRow, setCurrentRow] = useState(initialData);
 
   const setCellValue = useCallback((value) => {
@@ -27,14 +29,20 @@ export const RowContextProvider = ({
       try {
         await rowValidator(obj);
         setError({});
+        setIsError(false);
         currentRowError.current = {};
       } catch (e) {
         setError(e);
+        setIsError(true);
         currentRowError.current = e;
       }
     };
     executeValidation(currentRow);
   }, [currentRow]);
+
+  useEffect(() => {
+    isError ? setFormError("has error") : setFormError("");
+  }, [isError]);
 
   return (
     <RowContext.Provider value={{ error, currentRow, setCellValue }}>

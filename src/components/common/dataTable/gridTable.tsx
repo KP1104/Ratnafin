@@ -1,12 +1,12 @@
-import { useMemo, FC, useState, useCallback, useRef, Fragment } from "react";
+import { FC, useState, useCallback, useRef, Fragment } from "react";
 import {
   useTable,
   useRowSelect,
   useBlockLayout,
   useResizeColumns,
 } from "react-table";
-import * as yup from "yup";
 import { useMutation } from "react-query";
+import { useSnackbar } from "notistack";
 import Paper from "@material-ui/core/Paper";
 import Toolbar from "@material-ui/core/Toolbar";
 import TableContainer from "@material-ui/core/TableContainer";
@@ -15,60 +15,56 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
-import TableFooter from "@material-ui/core/TableFooter";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { Alert } from "components/common/alert";
-import { setIn } from "packages/form";
-import metaData from "./metaData";
 import { useCheckboxColumn } from "./components/useCheckbox";
 import { RowContextProvider } from "./components/rowContext";
-import { useSnackbar } from "notistack";
 
-const emptyTransformer = (data) => data;
-
-const MYTable: FC<{
+interface GridTableType {
   columns: any;
+  defaultColumn: any;
   data: any;
+  setData: any;
+  rowIDColumn: any;
   dataIdColumn: any;
   newRowObj?: any;
   rowValidator?: any;
   dataTransformer?: any;
-}> = ({
-  columns,
-  data = [],
-  newRowObj,
-  dataIdColumn,
-  rowValidator,
-  dataTransformer = emptyTransformer,
-}) => {
-  const rowIDColumn = "__id";
-  const incrCounter = useRef(-1);
-  const myColumns = useMemo(() => columns, []);
-  const [myData, setMyData] = useState(() =>
-    dataTransformer(
-      data.map((one) => ({ ...one, [rowIDColumn]: ++incrCounter.current }))
-    )
-  );
+  deleteRowFn?: any;
+  onChange?: any;
+  label: any;
+  maxHeight?: string;
+  setFormError?: any;
+}
 
-  const setMyDataWrapper = useCallback(
-    (value) => {
-      if (typeof value === "function") {
-        setMyData((old) => {
-          let result = value(old);
-          result = dataTransformer(result);
-          return result;
-        });
-      } else {
-        let result = dataTransformer(value);
-        setMyData(result);
-      }
-    },
-    [setMyData, dataTransformer]
-  );
+const defaultValidator = async () => {};
+const defaultNewRowObj = {};
+const defaultIdColumn = "id"; //user data id identifier
+const defaultMaxHeight = "200px";
+
+const defaultRowDeleteFn = async () => {
+  throw { error_msg: "Fn not defined" };
+};
+
+export const GridTable: FC<GridTableType> = ({
+  columns,
+  defaultColumn,
+  data,
+  setData,
+  rowIDColumn,
+  label,
+  setFormError,
+  maxHeight = defaultMaxHeight,
+  newRowObj = defaultNewRowObj,
+  dataIdColumn = defaultIdColumn,
+  rowValidator = defaultValidator,
+  deleteRowFn = defaultRowDeleteFn,
+}) => {
+  const incrCounter = useRef(-1);
   const currentRowObj = useRef({});
   const currentRowError = useRef({});
   const [currentEditRow, setCurrentEditRow] = useState(-1);
@@ -84,14 +80,13 @@ const MYTable: FC<{
 
   const addNewRow = useCallback(() => {
     if (!newRowAdded) {
-      setMyDataWrapper((old) => [
+      setData((old) => [
         ...old,
         {
           ...newRowObj,
           [rowIDColumn]: ++incrCounter.current,
         },
       ]);
-
       setNewRowAdded(true);
       setCurrentEditRow(incrCounter.current);
       currentRowObj.current = {};
@@ -104,47 +99,39 @@ const MYTable: FC<{
         });
       }, 1);
     }
-  }, [
-    setMyDataWrapper,
-    setNewRowAdded,
-    setCurrentEditRow,
-    newRowAdded,
-    myData,
-  ]);
+  }, [setData, setNewRowAdded, setCurrentEditRow, newRowAdded, data]);
 
   const saveCurrentRow = useCallback(
     (index) => {
       if (Object.keys(currentRowError.current).length > 0) {
         return false;
       }
-      let newData = myData.map((one) => {
+      let newData = data.map((one) => {
         if (getRowId(one) === index) {
           return { ...one, ...currentRowObj.current };
         }
         return one;
       });
-      setMyDataWrapper(newData);
+      setData(newData);
       setCurrentEditRow(-1);
       setNewRowAdded(false);
       currentRowObj.current = {};
       return true;
     },
-    [setMyDataWrapper, setNewRowAdded, setCurrentEditRow, myData, getRowId]
+    [setData, setNewRowAdded, setCurrentEditRow, data, getRowId]
   );
 
   const cancelCurrentRowEdit = useCallback(
     (index) => {
       if (newRowAdded) {
-        setMyDataWrapper((old) =>
-          old.filter((one) => !(getRowId(one) === index))
-        );
+        setData((old) => old.filter((one) => !(getRowId(one) === index)));
       }
       setCurrentEditRow(-1);
       setNewRowAdded(false);
       currentRowObj.current = {};
       currentRowError.current = {};
     },
-    [setMyDataWrapper, setCurrentEditRow, setNewRowAdded, newRowAdded]
+    [setData, setCurrentEditRow, setNewRowAdded, newRowAdded]
   );
 
   const requestRowEdit = useCallback(
@@ -169,8 +156,9 @@ const MYTable: FC<{
 
   const tableProps = useTable(
     {
-      columns: myColumns.columns,
-      data: myData,
+      columns: columns,
+      data: data,
+      defaultColumn: defaultColumn,
       requestRowEdit,
       currentEditRow,
       getRowId,
@@ -190,7 +178,7 @@ const MYTable: FC<{
     footerGroups,
     rows,
     prepareRow,
-    totalColumnsWidth,
+    //totalColumnsWidth,
     selectedFlatRows,
   } = tableProps;
 
@@ -198,10 +186,12 @@ const MYTable: FC<{
     <Fragment>
       <Paper
         style={{
-          width: `${totalColumnsWidth}px`,
-          maxWidth: "750px",
+          //width: `${totalColumnsWidth}px`,
+          //maxWidth: "750px",
+          width: "100%",
           overflow: "hidden",
         }}
+        tabIndex={0}
       >
         <Toolbar
           variant="dense"
@@ -212,7 +202,7 @@ const MYTable: FC<{
             paddingRight: "16px",
           }}
         >
-          <Typography variant="h6">Hello</Typography>
+          <Typography variant="h6">{label}</Typography>
           <div style={{ flexGrow: 1 }} />
           {selectedFlatRows.length > 0 ? (
             <Button
@@ -251,7 +241,11 @@ const MYTable: FC<{
             </TableHead>
             <TableBody {...getTableBodyProps({})} component="div">
               <div
-                style={{ overflow: "scroll", maxHeight: "200px" }}
+                style={{
+                  overflowY: "scroll",
+                  maxHeight: maxHeight,
+                  overflowX: "hidden",
+                }}
                 ref={rowContainerRef}
               >
                 {rows.map((row, i) => {
@@ -287,6 +281,7 @@ const MYTable: FC<{
                         key={`${rowProps.key}_row_with_context`}
                         initialData={row.original}
                         rowValidator={rowValidator}
+                        setFormError={setFormError}
                       >
                         {renderRow}
                       </RowContextProvider>
@@ -320,13 +315,15 @@ const MYTable: FC<{
             </TableHead>
           </Table>
         </TableContainer>
+        <Button onClick={addNewRow}>AddRow</Button>
       </Paper>
-      <Button onClick={addNewRow}>AddRow</Button>
+
       <DeleteRows
         selectedRows={selectedFlatRows}
         dataIdColumn={dataIdColumn}
         open={showDialog}
         closeDialog={closeDialog}
+        deleteFn={deleteRowFn}
       />
     </Fragment>
   );
@@ -348,9 +345,7 @@ const deleteRowsFnWrapper = (deleteRowsFn) => async ({
 const DeleteRows = ({
   selectedRows,
   dataIdColumn,
-  deleteFn = async () => {
-    throw new Error("deleteFn not defined");
-  },
+  deleteFn,
   open,
   closeDialog,
 }) => {
@@ -399,67 +394,4 @@ const DeleteRows = ({
       </DialogActions>
     </Dialog>
   );
-};
-
-const App = () => {
-  return (
-    <MYTable
-      columns={metaData}
-      data={[
-        { myId: 1, name: "Devarsh", age: 31 },
-        { myId: 2, name: "Dvija", age: 24 },
-        { myId: 3, name: "Rimoni", age: 24 },
-        { myId: 4, name: "Shimoli", age: 24 },
-        { myId: 5, name: "Urja", age: 24 },
-        { myId: 6, name: "Aaryaman", age: 24 },
-      ]}
-      dataIdColumn="myId"
-      rowValidator={rowValidator}
-      newRowObj={{ myId: null, name: "", age: "" }}
-      dataTransformer={(data) => {
-        let total = 0;
-        let result = data.map((one) => {
-          total = total + Number(one.age) ?? 0;
-          return { ...one, cummulativeAge: total };
-        });
-        return result;
-      }}
-    />
-  );
-};
-
-export default App;
-
-const rowValidator = async (obj) => {
-  const rowScheam = yup.object({
-    name: yup
-      .string()
-      .typeError("this field is required")
-      .required("this field is required"),
-    age: yup
-      .string()
-      .typeError("this field is required")
-      .required("this field is required"),
-  });
-  try {
-    await rowScheam.validate(obj, {
-      strict: false,
-      abortEarly: false,
-    });
-    return {};
-  } catch (e) {
-    if (e instanceof yup.ValidationError) {
-      let errorObj = {};
-      for (let i = 0; i < e.inner.length; i++) {
-        errorObj = setIn(
-          errorObj,
-          e.inner[i].path ?? "NOT_FOUND",
-          e.inner[i].errors[0]
-        );
-      }
-      throw errorObj;
-    } else {
-      console.log(e);
-    }
-  }
 };

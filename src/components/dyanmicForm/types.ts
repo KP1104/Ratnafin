@@ -25,6 +25,7 @@ import {
   AllTransferListProps,
   AllSearchFieldProps,
   AllVisaversaFieldProps,
+  AllDataTableProps,
 } from "./typesFields";
 import {
   TextFieldPropsOptional,
@@ -47,6 +48,7 @@ import {
   TextareaAutosizeFieldPropsOptional,
   SearchFieldPropsOptional,
   VisaversaFieldPropsOptional,
+  DataTablePropsOptional,
 } from "./typesFields";
 import { Merge } from "components/common/types";
 import { InitialValuesType, SubmitFnType } from "packages/form";
@@ -118,6 +120,7 @@ export interface ComponentTypeProps {
   textarea?: TextareaAutosizeFieldPropsOptional;
   searchField?: SearchFieldPropsOptional;
   visaversa?: VisaversaFieldPropsOptional;
+  dataTable?: DataTablePropsOptional;
 }
 
 export interface MetaDataType {
@@ -152,7 +155,8 @@ export type FieldMetaDataTypeX =
   | AllTransferListProps
   | AllSearchFieldProps
   | AllVisaversaFieldProps
-  | ArrayFieldProps;
+  | ArrayFieldProps
+  | AllDataTableProps;
 
 export type FieldMetaDataType = Merge<
   FieldMetaDataTypeX,
@@ -208,7 +212,8 @@ export type FieldMetaDataTypeOptional =
   | AutocompletePropsOptional
   | TextareaAutosizeFieldPropsOptional
   | SearchFieldPropsOptional
-  | VisaversaFieldPropsOptional;
+  | VisaversaFieldPropsOptional
+  | DataTablePropsOptional;
 
 export type ExtendedFieldMetaDataTypeOptional = {
   [key: string]: FieldMetaDataTypeOptional;

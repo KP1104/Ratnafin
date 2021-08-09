@@ -15,7 +15,7 @@ export const DefaultFooterCell = ({ rows, column: { id: columnName } }) => {
         whiteSpace: "nowrap",
       }}
     >
-      {total}
+      {`${total}`}
     </span>
   );
 };

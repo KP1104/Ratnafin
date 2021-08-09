@@ -17,10 +17,10 @@ const TestForm = () => {
       key={`testForm`}
       metaData={metaData as MetaDataType}
       initialValues={{
-        addressDetails: [
-          { value1: "334" },
-          { value2: "3434" },
-          { value1: "34345354" },
+        table: [
+          { name: "devarsh", age: 31, myID: 0 },
+          { name: "dvija", age: 24, myID: 1 },
+          { name: "daavu", age: 24, myID: 2 },
         ],
       }}
       onSubmitHandler={(values, displayValues, endSubmit) => {

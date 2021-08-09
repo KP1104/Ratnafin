@@ -169,7 +169,6 @@ const Visaversa: FC<MyVisaversaProps> = ({
         value={leftValue}
         label={leftLabel}
         onChange={handleLeftChange}
-        onBlur={handleBlur}
         disabled={isSubmitting}
         error={!isSubmitting && isError}
         helperText={!isSubmitting && isError ? error : ""}

@@ -512,6 +512,44 @@ export const useField = ({
     },
     [setFieldData]
   );
+  const setValueAsCB = useCallback(
+    (val: any) => {
+      setFieldData((currVal) => {
+        let result;
+        if (typeof val === "function") {
+          result = val(currVal.value);
+        } else {
+          result = val;
+        }
+        const finalResult = {
+          ...currVal,
+          value: result,
+          displayValue: result,
+          touched: true,
+        };
+        return finalResult;
+      });
+    },
+    [setFieldData]
+  );
+  const setErrorAsCB = useCallback(
+    (val: any) => {
+      setFieldData((currVal) => {
+        let result;
+        if (typeof val === "function") {
+          result = val(currVal.error);
+        } else {
+          result = val;
+        }
+        const finalResult = {
+          ...currVal,
+          error: result,
+        };
+        return finalResult;
+      });
+    },
+    [setFieldData]
+  );
   const runValidation = useCallback(
     (mergeObj: any, alwaysRun?: boolean, touchAndValidate?: boolean) => {
       if (mergeObj) {
@@ -627,6 +665,8 @@ export const useField = ({
     handleBlur,
     setTouched,
     setValue,
+    setValueAsCB,
+    setErrorAsCB,
     setIncomingMessage,
     runValidation,
     dependentValues: dependentFieldsState,

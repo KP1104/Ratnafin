@@ -1,4 +1,4 @@
-export const DefaultHeaderColumnRenderer = ({
+export const HeaderColumnCell = ({
   column: { columnName, getResizerProps },
 }) => {
   return (

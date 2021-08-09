@@ -79,6 +79,8 @@ export const defaultFieldsToAttachMethods: AttachMethodArrayType[] = [
 
   [/^fields.*.leftTransform$/, transformNotFound("left")],
   [/^fields.*.rightTransform$/, transformNotFound("right")],
+  [/^fields.*.dataTransformer$/, undefined],
+  [/^fields.*.rowValidator$/, undefined],
 ];
 
 //do not walk for arrayFields _fields as well we will run it seperately
@@ -88,6 +90,7 @@ const skipWalkingForKeys = [
   "shouldExclude",
   "setColor",
   "_fields",
+  "_columns",
 ];
 
 //we will attach default function for each field Key type if we cannot the required function

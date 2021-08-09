@@ -27,6 +27,7 @@ import { HiddenFieldProps } from "components/common/hidden";
 import { TransferListProps } from "components/common/transferList";
 import { SearchFieldProps } from "components/common/search";
 import { VisaversaProps } from "components/common/visaversa";
+import { DataTableProps } from "components/common/dataTable";
 export interface FieldRenderProps<T> {
   componentType: T;
   group?: number;
@@ -188,3 +189,10 @@ export type AllVisaversaFieldProps = Merge<
   FieldMetaData<"visaversa">
 >;
 export type VisaversaFieldPropsOptional = Optional<AllVisaversaFieldProps>;
+
+export type AllDataTableProps = Merge<
+  Omitted<DataTableProps>,
+  FieldMetaData<"dataTable">
+>;
+
+export type DataTablePropsOptional = Optional<AllDataTableProps>;

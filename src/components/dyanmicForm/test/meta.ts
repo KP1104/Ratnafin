@@ -1,3 +1,53 @@
+import * as yup from "yup";
+import { setIn } from "packages/form";
+
+const rowValidator = async (obj) => {
+  const rowScheam = yup.object({
+    name: yup
+      .string()
+      .typeError("this field is required")
+      .required("this field is required"),
+    age: yup
+      .string()
+      .typeError("this field is required")
+      .required("this field is required"),
+  });
+  try {
+    await rowScheam.validate(obj, {
+      strict: false,
+      abortEarly: false,
+    });
+    return {};
+  } catch (e) {
+    if (e instanceof yup.ValidationError) {
+      let errorObj = {};
+      for (let i = 0; i < e.inner.length; i++) {
+        errorObj = setIn(
+          errorObj,
+          e.inner[i].path ?? "NOT_FOUND",
+          e.inner[i].errors[0]
+        );
+      }
+      throw errorObj;
+    } else {
+      console.log(e);
+    }
+  }
+};
+
+export const dataTransform = (data) => {
+  let total = 0;
+  let result = data.map((one) => {
+    if (one.age !== "" && !isNaN(Number(one.age))) {
+      total = total + Number(one.age) ?? 0;
+      return { ...one, cummulativeAge: total };
+    } else {
+      return { ...one, cummulativeAge: 0 };
+    }
+  });
+  return result;
+};
+
 const GeneralDetailsMetaData = {
   form: {
     name: "123456",
@@ -48,99 +98,47 @@ const GeneralDetailsMetaData = {
   },
   fields: [
     {
-      render: { componentType: "textField", group: 0 },
-      name: "lead",
-      label: "Total Amount",
-      placeholder: "Lead",
-      disableCaching: true,
-      required: true,
-      validate: "getValidateValue",
-      GridProps: { xs: 12, md: 3, sm: 3 },
-    },
-    {
       render: {
-        componentType: "visaversa",
+        componentType: "dataTable",
         group: 0,
       },
-      name: "visaversa",
-      label: "Visaversa Label",
-      dependentFields: ["lead"],
-      defaultValue: "",
-      leftName: "kms",
-      rightName: "miles",
-      leftLabel: "Amount",
-      rightLabel: "Percentage",
-      leftTransform: "calculateAmount",
-      rightTransform: "calculatePercentage",
-      runValidationOnDependentFieldsChange: true,
-      required: true,
-      validate: "getValidateValue",
-    },
-    {
-      render: {
-        componentType: "arrayField",
-        group: 0,
-      },
-      name: "Wowsa",
-      label: "",
+      name: "table",
+      label: "demo",
+      rowValidator: rowValidator,
+      dataTransformer: dataTransform,
       GridProps: {
         xs: 12,
         md: 12,
         sm: 12,
       },
-      _fields: [
+      arrayFieldIDName: "myID",
+      _columns: [
         {
-          render: {
-            componentType: "transferList",
-            group: 0,
-          },
-          name: "dummy",
-          label: "dummy",
-          //@ts-ignore
-          leftOptions: "getBankDocType",
-          //@ts-ignore
-          rightOptions: "getITRDocType",
-          leftOptionsLabel: "From",
-          rightOptionsLabel: "To",
-          valueSide: "right",
-          GridProps: {
-            xs: 12,
-            md: 6,
-            sm: 6,
-          },
+          accessor: "name",
+          alignment: "left",
+          width: 200,
+          Cell: "textField",
+          columnName: "Name",
+          footer: false,
+          defaultValue: "",
+          options: "getTaskType",
         },
         {
-          render: { componentType: "textField", group: 0 },
-          name: "condition",
-          type: "text",
-          label: "Condition",
-          placeholder: "Condition",
-          GridProps: { xs: 12, md: 3, sm: 3 },
-          setColor: (value) => (value === "44" ? "blue" : "green"),
+          accessor: "age",
+          alignment: "right",
+          width: 100,
+          Cell: "textField",
+          columnName: "Age",
+          footer: true,
+          defaultValue: 18,
         },
         {
-          render: { componentType: "inputMask", group: 0 },
-          name: "yaer",
-          label: "yearMasked",
-          placeholder: "yyyy-yyyy",
-          formattedValue: true,
-          MaskProps: {
-            mask: "0000`-0000`",
-            lazy: true,
-          },
-          GridProps: { xs: 12, md: 3, sm: 3 },
-        },
-        {
-          render: { componentType: "inputMask", group: 0 },
-          name: "clfr2",
-          label: "CLFR",
-          placeholder: "CLFR",
-          formattedValue: false,
-          MaskProps: {
-            mask: "0000` 0000` 0000",
-            lazy: true,
-          },
-          GridProps: { xs: 12, md: 3, sm: 3 },
+          accessor: "cummulativeAge",
+          alignment: "right",
+          width: 130,
+          columnName: "Cummulative Age",
+          footer: true,
+          defaultValue: 0,
         },
       ],
     },

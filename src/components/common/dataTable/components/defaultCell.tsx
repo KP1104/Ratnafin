@@ -1,6 +1,6 @@
 import Typography from "@material-ui/core/Typography";
 
-export const DefaultCellRender = ({ value }) => {
+export const DefaultCell = ({ value }) => {
   return (
     <Typography
       component="span"

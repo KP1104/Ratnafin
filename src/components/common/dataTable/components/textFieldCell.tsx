@@ -2,9 +2,9 @@ import { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import { useContext } from "react";
 import { RowContext } from "./rowContext";
-import { DefaultCellRender } from "./defaultCell";
+import { DefaultCell } from "./defaultCell";
 
-export const EditableTextField = (props) => {
+export const TextFieldCell = (props) => {
   const {
     column: { id: columnName },
     row: { id },
@@ -14,7 +14,7 @@ export const EditableTextField = (props) => {
   if (currentEditRow === id) {
     return <MyTextField key={columnName} columnName={columnName} />;
   } else {
-    return <DefaultCellRender {...props} />;
+    return <DefaultCell {...props} />;
   }
 };
 

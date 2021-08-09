@@ -68,6 +68,8 @@ const TransferList = lazy(() => import("components/common/transferList"));
 
 const SearchField = lazy(() => import("components/common/search"));
 
+const DataTable = lazy(() => import("components/common/dataTable"));
+
 const EmptyComponent: FC<{ componentType: string }> = ({ componentType }) => {
   return <div>No Component of type: ${componentType}</div>;
 };
@@ -155,6 +157,9 @@ export const renderField: RenderFunctionType = (
       break;
     case "visaversa":
       Component = Visaversa;
+      break;
+    case "dataTable":
+      Component = DataTable;
       break;
     default:
       Component = EmptyComponent;
