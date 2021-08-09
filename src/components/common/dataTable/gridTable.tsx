@@ -39,6 +39,7 @@ interface GridTableType {
   label: any;
   maxHeight?: string;
   setFormError?: any;
+  disabled?: boolean;
 }
 
 const defaultValidator = async () => {};
@@ -58,6 +59,7 @@ export const GridTable: FC<GridTableType> = ({
   rowIDColumn,
   label,
   setFormError,
+  disabled,
   maxHeight = defaultMaxHeight,
   newRowObj = defaultNewRowObj,
   dataIdColumn = defaultIdColumn,
@@ -190,6 +192,7 @@ export const GridTable: FC<GridTableType> = ({
           //maxWidth: "750px",
           width: "100%",
           overflow: "hidden",
+          pointerEvents: disabled ? "none" : "unset",
         }}
         tabIndex={0}
       >

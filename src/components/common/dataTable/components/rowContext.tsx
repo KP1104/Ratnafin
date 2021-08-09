@@ -44,6 +44,12 @@ export const RowContextProvider = ({
     isError ? setFormError("has error") : setFormError("");
   }, [isError]);
 
+  useEffect(() => {
+    return () => {
+      setFormError("");
+    };
+  }, []);
+
   return (
     <RowContext.Provider value={{ error, currentRow, setCellValue }}>
       {children}

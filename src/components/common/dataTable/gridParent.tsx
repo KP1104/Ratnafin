@@ -39,6 +39,8 @@ export const GridParent: FC<MyDataTableProps> = ({
   enableGrid,
   label,
   maxHeight,
+  shouldExclude,
+  dependentFields,
 }) => {
   const transformedMetaData = useMemo(() => {
     let newMetaData = cloneDeep(_columns);
@@ -65,9 +67,13 @@ export const GridParent: FC<MyDataTableProps> = ({
     setErrorAsCB,
     isSubmitting,
     fieldKey,
+    excluded,
+    dependentValues,
   } = useField({
     name: fieldName,
     fieldKey: fieldID,
+    shouldExclude: shouldExclude,
+    dependentFields: dependentFields,
   });
 
   useEffect(() => {
@@ -84,6 +90,10 @@ export const GridParent: FC<MyDataTableProps> = ({
     }
   });
 
+  if (excluded) {
+    return null;
+  }
+
   const result = (
     <GridTable
       key={fieldKey}
@@ -99,6 +109,7 @@ export const GridParent: FC<MyDataTableProps> = ({
       label={label}
       maxHeight={maxHeight}
       setFormError={setErrorAsCB}
+      disabled={isSubmitting}
     />
   );
   if (Boolean(enableGrid)) {

@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import TextField from "@material-ui/core/TextField";
-import { useContext } from "react";
 import { RowContext } from "./rowContext";
 import { DefaultCell } from "./defaultCell";
 
