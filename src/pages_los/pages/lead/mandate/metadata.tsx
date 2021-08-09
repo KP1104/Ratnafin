@@ -169,8 +169,8 @@ export const mandateMetaData: MetaDataType = {
           placeholder: "Disbursement Sequence (First,Second,Third)",
           GridProps: {
             xs: 12,
-            md: 4,
-            sm: 4,
+            md: 3,
+            sm: 3,
           },
         },
         {
@@ -184,8 +184,8 @@ export const mandateMetaData: MetaDataType = {
           required: true,
           GridProps: {
             xs: 12,
-            md: 4,
-            sm: 4,
+            md: 3,
+            sm: 3,
           },
         },
         {
@@ -199,8 +199,8 @@ export const mandateMetaData: MetaDataType = {
           showMaxLength: false,
           GridProps: {
             xs: 12,
-            md: 4,
-            sm: 4,
+            md: 6,
+            sm: 6,
           },
         },
       ],
@@ -354,6 +354,7 @@ export const mandateMetaData: MetaDataType = {
       validate: "getValidateValue",
       //@ts-ignore
       options: "getYesOrNoOptions",
+      disableCaching: true,
       GridProps: {
         xs: 12,
         md: 3,
@@ -373,19 +374,16 @@ export const mandateMetaData: MetaDataType = {
       },
     },
     {
-      render: {
-        componentType: "textField",
-        group: 3,
-      },
+      render: { componentType: "autocomplete", group: 3 },
       name: "bankNames",
       label: "Bank to be approched",
       placeholder: "Bank to be approched",
-      multiline: true,
-      rows: 3,
-      rowsMax: 3,
-      maxLength: 500,
       required: true,
-      validate: "getValidateValue",
+      //@ts-ignore
+      options: "getPerfiosBankList",
+      multiple: true,
+      freeSolo: true,
+      limitTags: -1,
       dependentFields: ["anyBankAproached"],
       shouldExclude: (_, dependentFields) => {
         if (dependentFields["anyBankAproached"].value === "Y") {
@@ -393,11 +391,7 @@ export const mandateMetaData: MetaDataType = {
         }
         return true;
       },
-      GridProps: {
-        xs: 12,
-        md: 6,
-        sm: 6,
-      },
+      GridProps: { xs: 12, md: 5, sm: 5 },
     },
   ],
 };

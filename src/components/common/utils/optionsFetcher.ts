@@ -182,7 +182,9 @@ export const useOptionsFetcherSimple = (
     queryKey = [_optionsKey];
   }
   const queryOptions = useQuery(queryKey, () => options(optionsProps), {
+    retry: false,
     enabled: typeof options === "function",
+    cacheTime: disableCaching ? 0 : 100000000,
   });
   loadingOptions = queryOptions.isLoading;
   useEffect(() => {
