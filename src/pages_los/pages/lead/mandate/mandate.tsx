@@ -1,4 +1,4 @@
-import { FC, useState, useEffect, useContext } from "react";
+import { FC, useState, useEffect, useContext, useCallback } from "react";
 import loaderGif from "assets/images/loader.gif";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import IconButton from "@material-ui/core/IconButton";
@@ -11,6 +11,7 @@ import { useMutation, useQuery } from "react-query";
 import FormWrapper, { MetaDataType } from "components/dyanmicForm";
 import { cloneDeep } from "lodash-es";
 import { mandateMetaData } from "./metadata";
+import { downloadFile } from "pages_los/common/download";
 import * as API from "./api";
 
 interface MandateFormDataFnType {
@@ -36,7 +37,7 @@ export const Mandate: FC<{
   setEditFormStateFromInitValues?: any;
   readOnly?: boolean;
 }> = ({
-  defaultView = "edit",
+  defaultView = "view",
   moduleType,
   productType,
   refID,
@@ -48,6 +49,15 @@ export const Mandate: FC<{
   const { enqueueSnackbar } = useSnackbar();
   const removeCache = useContext(ClearCacheContext);
   const [formMode, setFormMode] = useState(defaultView);
+  const moveToViewMode = useCallback(() => setFormMode("view"), [setFormMode]);
+  const moveToEditMode = useCallback(() => setFormMode("edit"), [setFormMode]);
+
+  //mandate download
+  const downloadMandate = () => {
+    const tranCD = result?.data?.tranCD;
+    let url = API.generateDocumentDownloadURL(tranCD);
+    downloadFile(url, tranCD);
+  };
 
   const mutation = useMutation(
     MandateFormDataFnWrapper(
@@ -77,9 +87,7 @@ export const Mandate: FC<{
           variant: "success",
         });
         isDataChangedRef.current = true;
-        if (typeof closeDialog === "function") {
-          closeDialog();
-        }
+        moveToViewMode();
       },
     }
   );
@@ -122,24 +130,34 @@ export const Mandate: FC<{
 
   let formEditData: any = result.data;
 
-  let editViewMetaData: MetaDataType = {} as MetaDataType;
+  let editMetaData: MetaDataType = {} as MetaDataType;
+  let viewMetaData: MetaDataType = {} as MetaDataType;
 
   if (result.isSuccess) {
     const formStateFromInitValues =
       typeof setEditFormStateFromInitValues === "function"
         ? setEditFormStateFromInitValues(result.data)
         : undefined;
-    editViewMetaData = cloneDeep(mandateMetaData) as MetaDataType;
-    editViewMetaData.form.formState = {
-      formCode: editViewMetaData.form.name,
+    editMetaData = cloneDeep(mandateMetaData) as MetaDataType;
+    viewMetaData = cloneDeep(mandateMetaData) as MetaDataType;
+    editMetaData.form.formState = {
+      formCode: editMetaData.form.name,
       ...formStateFromInitValues,
     };
-    editViewMetaData.form.name = `${editViewMetaData.form.name}-edit`;
-    if (editViewMetaData?.form?.render?.renderType === "stepper") {
-      editViewMetaData.form.render.renderType = "tabs";
+    editMetaData.form.name = `${editMetaData.form.name}-edit`;
+    if (editMetaData?.form?.render?.renderType === "stepper") {
+      editMetaData.form.render.renderType = "tabs";
+    }
+
+    viewMetaData.form.formState = {
+      formCode: viewMetaData.form.name,
+      ...formStateFromInitValues,
+    };
+    viewMetaData.form.name = `${viewMetaData.form.name}-view`;
+    if (viewMetaData?.form?.render?.renderType === "stepper") {
+      viewMetaData.form.render.renderType = "tabs";
     }
   }
-
   const renderResult = loading ? (
     <>
       <img src={loaderGif} alt="loader" width="50px" height="50px" />
@@ -162,11 +180,32 @@ export const Mandate: FC<{
         </div>
       ) : null}
     </>
+  ) : formMode === "view" ? (
+    <FormWrapper
+      key={`${dataUniqueKey}-${formMode}`}
+      metaData={editMetaData as MetaDataType}
+      initialValues={formEditData?.data ?? []}
+      onSubmitHandler={onSubmitHandler}
+      //@ts-ignore
+      displayMode={formMode}
+      disableGroupErrorDetection={false}
+      disableGroupExclude={true}
+    >
+      {!readOnly ? (
+        <>
+          <Button onClick={downloadMandate}>Download</Button>
+          <Button onClick={moveToEditMode}>Edit</Button>
+        </>
+      ) : null}
+      {typeof closeDialog === "function" ? (
+        <Button onClick={closeDialog}>Cancel</Button>
+      ) : null}
+    </FormWrapper>
   ) : formMode === "edit" ? (
     <FormWrapper
       key={`${dataUniqueKey}-${formMode}`}
-      metaData={editViewMetaData as MetaDataType}
-      initialValues={formEditData ?? ""}
+      metaData={viewMetaData as MetaDataType}
+      initialValues={formEditData?.data ?? []}
       onSubmitHandler={onSubmitHandler}
       //@ts-ignore
       displayMode={formMode}
@@ -181,7 +220,7 @@ export const Mandate: FC<{
           >
             Save
           </Button>
-          <Button onClick={closeDialog} disabled={isSubmitting}>
+          <Button onClick={moveToViewMode} disabled={isSubmitting}>
             Cancel
           </Button>
         </>
