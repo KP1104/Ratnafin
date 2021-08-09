@@ -135,168 +135,126 @@ export const mandateMetaData: MetaDataType = {
 
     {
       render: {
-        componentType: "arrayField",
+        componentType: "dataTable",
         group: 1,
       },
       name: "disbursementMileStoneDetails",
       removeRowFn: "deleteAssignArrayFieldData",
-      arrayFieldIDName: "lineNo",
+      arrayFieldIDName: "serialNo",
       label: "Disbursement Details",
+      rowValidator: "",
+      dataTransformer: "",
       GridProps: {
         xs: 12,
         md: 12,
         sm: 12,
       },
-      _fields: [
+      _columns: [
         {
-          render: {
-            componentType: "hidden",
-          },
-          name: "serialNo",
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
+          accessor: "disbursementSequence",
+          width: 200,
+          Cell: "textField",
+          columnName: "Disbursement Sequence",
+          defaultValue: "",
+          footer: false,
+        },
+        {
+          accessor: "totalFeeAtDisbursementInPercent",
+          width: 300,
+          Cell: "rateOfInt",
+          columnName: "% of Total Fees at the time of Disbursement",
+          defaultValue: "",
+          formatProps: {
+            suffix: "%",
+            decimalScale: 2,
+            fixedDecimalScale: true,
+            allowNegative: true,
+            allowEmptyFormatting: true,
+            isAllowed: (values) => {
+              //@ts-ignore
+              if (values.floatValue >= 999.99) {
+                return false;
+              }
+              return true;
+            },
           },
         },
         {
-          render: {
-            //@ts-ignore
-            componentType: "textField",
-          },
-          name: "disbursementSequence",
-          label: "Disbursement Sequence",
-          placeholder: "Disbursement Sequence (First,Second,Third)",
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
-        },
-        {
-          render: {
-            //@ts-ignore
-            componentType: "rateOfInt",
-          },
-          name: "totalFeeAtDisbursementInPercent",
-          label: "% of Total Fees at the time of Disbursement",
-          placeholder: "% of Total Fees at the time of Disbursement",
-          required: true,
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
-        },
-        {
-          render: {
-            componentType: "textField",
-          },
-          name: "description",
-          label: "Description",
-          placeholder: "Description",
-          maxLength: 500,
-          showMaxLength: false,
-          GridProps: {
-            xs: 12,
-            md: 6,
-            sm: 6,
-          },
+          accessor: "description",
+          width: 200,
+          Cell: "textField",
+          columnName: "Description",
+          defaultValue: "",
         },
       ],
     },
     {
       render: {
-        componentType: "arrayField",
+        componentType: "dataTable",
         group: 2,
       },
       name: "eliteServiceDetails",
       removeRowFn: "deleteAssignArrayFieldData",
-      arrayFieldIDName: "lineNo",
+      arrayFieldIDName: "serialNo",
       label: "Elite Services Details",
+      rowValidator: "",
+      dataTransformer: "",
       GridProps: {
         xs: 12,
         md: 12,
         sm: 12,
       },
-      _fields: [
+      _columns: [
         {
-          render: {
-            componentType: "hidden",
-          },
-          name: "serialNo",
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
-        },
-        {
-          render: {
-            //@ts-ignore
-            componentType: "select",
-          },
-          name: "serviceName",
-          label: "Elite Serivce Name",
-          placeholder: "Elite Serivce Name",
-          //@ts-ignore
+          accessor: "serviceName",
+          width: 200,
+          Cell: "textField",
+          columnName: "Elite Serivce Name",
+          defaultValue: "",
+          footer: false,
           options: "getEliteSeviceName",
-          defaultValue: "00",
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
         },
         {
-          render: {
-            //@ts-ignore
-            componentType: "select",
-          },
-          name: "serviceChargeType",
-          label: "Elite Services Charges Type",
-          placeholder: "Elite Services Charges Type",
-          //@ts-ignore
+          accessor: "serviceChargeType",
+          width: 300,
+          Cell: "textField",
+          columnName: "Elite Services Charges Type",
           options: "getEliteSeviceLumsumPer",
-          defaultValue: "00",
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
+          defaultValue: "",
+        },
+        {
+          accessor: "serviceCharge",
+          width: 200,
+          Cell: "currency",
+          columnName: "Elite Services Charges",
+          defaultValue: "",
+          formatProps: {
+            thousandSeparator: true,
+            prefix: "₹",
+            thousandsGroupStyle: "lakh",
+            allowNegative: true,
+            allowLeadingZeros: false,
+            decimalScale: 2,
+            isAllowed: (values) => {
+              if (values?.value?.length > 10) {
+                return false;
+              }
+              if (values.floatValue === 0) {
+                return false;
+              }
+              return true;
+            },
           },
         },
         {
-          render: {
-            //@ts-ignore
-            componentType: "currency",
-          },
-          name: "serviceCharge",
-          label: "Elite Services Charges",
-          placeholder: "Elite Services Charges",
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
-        },
-        {
-          render: {
-            componentType: "textField",
-          },
-          name: "description",
-          label: "Elite Description",
-          placeholder: "Elite Description",
-          maxLength: 500,
-          showMaxLength: false,
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
+          accessor: "description",
+          width: 200,
+          Cell: "textField",
+          columnName: "Description",
+          defaultValue: "",
         },
       ],
     },
-
     {
       render: {
         componentType: "hidden",

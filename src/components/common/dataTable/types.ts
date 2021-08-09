@@ -1,4 +1,8 @@
-export type CellComponentType = "textField" | "default";
+export type CellComponentType =
+  | "textField"
+  | "currency"
+  | "rateOfInt"
+  | "default";
 
 export interface GridColumnType {
   accessor: string;
@@ -11,4 +15,5 @@ export interface GridColumnType {
   footer?: boolean;
   defaultValue?: string | number;
   options?: any;
+  formatProps?: any;
 }

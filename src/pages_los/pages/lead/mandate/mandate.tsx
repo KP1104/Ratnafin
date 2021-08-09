@@ -159,27 +159,9 @@ export const Mandate: FC<{
     }
   }
   const renderResult = loading ? (
-    <>
-      <img src={loaderGif} alt="loader" width="50px" height="50px" />
-      {typeof closeDialog === "function" ? (
-        <div style={{ position: "absolute", right: 0, top: 0 }}>
-          <IconButton onClick={closeDialog}>
-            <HighlightOffOutlinedIcon />
-          </IconButton>
-        </div>
-      ) : null}
-    </>
+    <img src={loaderGif} alt="loader" width="50px" height="50px" />
   ) : isError === true ? (
-    <>
-      <span>{errorMsg}</span>
-      {typeof closeDialog === "function" ? (
-        <div style={{ position: "absolute", right: 0, top: 0 }}>
-          <IconButton onClick={closeDialog}>
-            <HighlightOffOutlinedIcon />
-          </IconButton>
-        </div>
-      ) : null}
-    </>
+    <span>{errorMsg}</span>
   ) : formMode === "view" ? (
     <FormWrapper
       key={`${dataUniqueKey}-${formMode}`}

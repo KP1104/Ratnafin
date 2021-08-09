@@ -2,6 +2,8 @@ import { ActionCell } from "../components/actionCell";
 import { DefaultFooterCell } from "../components/footerCell";
 import { DefaultCell } from "../components/defaultCell";
 import { TextFieldCell } from "../components/textFieldCell";
+import { RateOfIntCell } from "../components/rateOfIntCell";
+import { CurrencyCell } from "../components/currencyCell";
 import { singletonFunctionRegisrationFactory } from "components/utils";
 
 const ActionControl = {
@@ -44,6 +46,12 @@ export const attachCells = (myColumns) => {
         switch (one.Cell) {
           case "textField": {
             return { ...one, Cell: TextFieldCell };
+          }
+          case "rateOfInt": {
+            return { ...one, Cell: RateOfIntCell };
+          }
+          case "currency": {
+            return { ...one, Cell: CurrencyCell };
           }
           default: {
             return { ...one, Cell: DefaultCell };
