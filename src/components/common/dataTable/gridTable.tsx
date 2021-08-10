@@ -66,6 +66,7 @@ export const GridTable: FC<GridTableType> = ({
   rowValidator = defaultValidator,
   deleteRowFn = defaultRowDeleteFn,
 }) => {
+  const touchAllDataRef = useRef<any>(null);
   const incrCounter = useRef(-1);
   const currentRowObj = useRef({});
   const currentRowError = useRef({});
@@ -106,6 +107,7 @@ export const GridTable: FC<GridTableType> = ({
   const saveCurrentRow = useCallback(
     (index) => {
       if (Object.keys(currentRowError.current).length > 0) {
+        touchAllDataRef?.current?.touchAll?.();
         return false;
       }
       let newData = data.map((one) => {
@@ -114,6 +116,7 @@ export const GridTable: FC<GridTableType> = ({
         }
         return one;
       });
+      console.log(newData);
       setData(newData);
       setCurrentEditRow(-1);
       setNewRowAdded(false);
@@ -285,6 +288,7 @@ export const GridTable: FC<GridTableType> = ({
                         initialData={row.original}
                         rowValidator={rowValidator}
                         setFormError={setFormError}
+                        ref={touchAllDataRef}
                       >
                         {renderRow}
                       </RowContextProvider>
