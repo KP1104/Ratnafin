@@ -4,6 +4,7 @@ import { DefaultCell } from "../components/defaultCell";
 import { TextFieldCell } from "../components/textFieldCell";
 import { RateOfIntCell } from "../components/rateOfIntCell";
 import { CurrencyCell } from "../components/currencyCell";
+import { VisaversaCell } from "../components/visaversa";
 import { singletonFunctionRegisrationFactory } from "components/utils";
 
 const ActionControl = {
@@ -52,6 +53,9 @@ export const attachCells = (myColumns) => {
           }
           case "currency": {
             return { ...one, Cell: CurrencyCell };
+          }
+          case "visaversa": {
+            return { ...one, Cell: VisaversaCell };
           }
           default: {
             return { ...one, Cell: DefaultCell };
