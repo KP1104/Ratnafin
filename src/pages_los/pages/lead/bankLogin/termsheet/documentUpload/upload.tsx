@@ -6,12 +6,14 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import { ToPreviewDocument } from "./preview";
+import { DocumentUploadTermsheet } from "./documentUpload";
 
 export const FileUpload = ({
   fileDetails,
   onUpload,
   isDataChangedRef,
   tranCD,
+  branchID,
   closeUpdate,
   closeDialog,
 }) => {
@@ -19,6 +21,7 @@ export const FileUpload = ({
   const [uploadProgress, setUploadProgress] = useState(Infinity);
   const [error, setError] = useState("");
   const [showPreview, setShowPreview] = useState(Boolean);
+  const [uploadCancel, setUploadCancel] = useState(Boolean);
 
   const uploadDocuments = useCallback(
     async (onUpload) => {
@@ -53,7 +56,13 @@ export const FileUpload = ({
   ) : Boolean(showPreview) ? (
     <ToPreviewDocument
       tranCD={tranCD}
+      branchID={branchID}
       fileName={fileDetails[0].name}
+      isDataChangedRef={isDataChangedRef}
+    />
+  ) : Boolean(uploadCancel) ? (
+    <DocumentUploadTermsheet
+      branchID={branchID}
       isDataChangedRef={isDataChangedRef}
     />
   ) : (
@@ -66,6 +75,9 @@ export const FileUpload = ({
         <CardActions>
           <Button color="primary" onClick={() => uploadDocuments(onUpload)}>
             Upload
+          </Button>
+          <Button color="primary" onClick={() => setUploadCancel(true)}>
+            Cancel
           </Button>
         </CardActions>
       </Card>

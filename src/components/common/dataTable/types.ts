@@ -15,7 +15,8 @@ export interface GridColumnType {
   footer?: boolean;
   defaultValue?: string | number;
   options?: any;
-  formatProps?: any;
+  displayStyle?: string;
+  FormatProps?: any;
 
   //visaversa
   leftName?: string;
