@@ -1,205 +1,78 @@
-import { useContext, useRef, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { TextField } from "components/styledComponent";
 import { RowContext } from "./rowContext";
-import NumberFormat from "react-number-format";
-import Typography from "@material-ui/core/Typography";
-
-let currencyFormatter = new Intl.NumberFormat("en-IN", {
-  style: "currency",
-  currency: "INR",
-});
-
-export const DefaultCellCurrency = ({ value }) => {
-  return (
-    <Typography
-      component="span"
-      variant="subtitle2"
-      style={{ whiteSpace: "nowrap" }}
-    >
-      {`${currencyFormatter.format(value)}`}
-    </Typography>
-  );
-};
-
-export const RateOfIntDefaultCell = ({ value }) => {
-  return (
-    <Typography
-      component="span"
-      variant="subtitle2"
-      style={{ whiteSpace: "nowrap" }}
-    >
-      {`${value}%`}
-    </Typography>
-  );
-};
+import { DefaultCell } from "./defaultCell";
 
 export const VisaversaCell = (props) => {
   const {
-    column: {
-      //   id: columnName,
-      leftName,
-      rightName,
-      rightTransform,
-      leftTransform,
-    },
+    column: { id: columnName, ViceVersaProps },
     row: { id },
     currentEditRow,
   } = props;
 
   if (currentEditRow === id) {
-    return (
-      <Visaversa
-        // columnName={columnName}
-        leftName={leftName}
-        rightName={rightName}
-        rightTransform={rightTransform}
-        leftTransform={leftTransform}
-      />
-    );
+    return <Visaversa columnName={columnName} {...ViceVersaProps} />;
   } else {
-    return (
-      <>
-        <DefaultCellCurrency {...props} />;
-        <RateOfIntDefaultCell {...props} />;
-      </>
-    );
+    return <DefaultCell {...props} />;
   }
 };
 
-function NumberFormatCustom(props) {
-  const { inputRef, onChange, FormatProps, ...other } = props;
-  return (
-    <NumberFormat
-      {...other}
-      getInputRef={inputRef}
-      onValueChange={(values) => {
-        onChange(
-          {
-            target: {
-              name: props.name,
-              value: values.value,
-              formattedValue: values.formattedValue,
-            },
-          },
-          values.formattedValue
-        );
-      }}
-      {...FormatProps}
-    />
-  );
-}
-
-function PercentageFormatCustom(props) {
-  const { inputRef, onChange, FormatProps, ...other } = props;
-  return (
-    <NumberFormat
-      {...other}
-      getInputRef={inputRef}
-      onValueChange={(values) => {
-        onChange(
-          {
-            target: {
-              name: props.name,
-              value: values.value,
-              formattedValue: values.formattedValue,
-            },
-          },
-          values.formattedValue
-        );
-      }}
-      {...FormatProps}
-    />
-  );
-}
+const defaultTransform = (value, dependentValue) => value;
 
 export const Visaversa = ({
-  //   columnName,
-  leftName,
-  rightName,
-  rightTransform,
-  leftTransform,
+  columnName,
+  rightTransform = defaultTransform,
+  leftTransform = defaultTransform,
+  defaultSide = "left",
+  dependentField,
 }) => {
-  const { setCellValue, currentRow } = useContext(RowContext);
+  const {
+    error,
+    setCellValue,
+    currentRow,
+    touched,
+    setCellTouched,
+  } = useContext(RowContext);
+  const [leftValue, setLeftValue] = useState("");
+  const [rightValue, setRightValue] = useState("");
+
+  const valueChange = defaultSide === "left" ? leftValue : rightValue;
+
+  useEffect(() => {
+    if (defaultSide === "left") {
+      handleLeftChange(currentRow?.[columnName]);
+      setCellTouched({ [columnName]: true });
+    }
+  }, []);
+
+  useEffect(() => {
+    setCellValue({ [columnName]: valueChange });
+  }, [valueChange]);
 
   const handleLeftChange = (e) => {
-    let value = e.target.value;
-    console.log(value);
-    let result = rightTransform(value, rightName, currentRow.amount);
-    setCellValue({ [leftName]: value, [rightName]: result });
+    let value = e?.target?.value ?? e;
+    let result = rightTransform(value, currentRow?.[dependentField]);
+    setLeftValue(value);
+    setRightValue(result);
   };
 
   const handleRightChange = (e) => {
-    let value = e.target.value;
-    console.log(value);
-    let result = leftTransform(value, leftName, currentRow.amount);
-    setCellValue({ [leftName]: result, [rightName]: value });
+    let value = e?.target?.value ?? e;
+    let result = leftTransform(value, currentRow?.[dependentField]);
+    setLeftValue(result);
+    setRightValue(value);
   };
 
   return (
     <div style={{ display: "flex" }}>
       <TextField
         key="left"
-        id={currentRow?.[leftName]}
-        name={leftName}
-        value={currentRow?.[leftName]}
+        value={leftValue}
         onChange={handleLeftChange}
-        InputLabelProps={{
-          shrink: true,
-        }}
-        InputProps={{
-          //@ts-ignore
-          inputComponent: NumberFormatCustom,
-          inputProps: {
-            FormatProps: {
-              thousandSeparator: true,
-              prefix: "₹",
-              thousandsGroupStyle: "lakh",
-              allowNegative: true,
-              allowLeadingZeros: false,
-              decimalScale: 2,
-              isAllowed: (values) => {
-                if (values?.value?.length > 10) {
-                  return false;
-                }
-                if (values.floatValue === 0) {
-                  return false;
-                }
-                return true;
-              },
-            },
-          },
-        }}
+        helperText={touched?.[columnName] && error?.[columnName]}
+        error={Boolean(touched?.[columnName]) && Boolean(error?.[columnName])}
       />
-      <TextField
-        key="right"
-        id={currentRow?.[rightName]}
-        name={rightName}
-        value={currentRow?.[rightName]}
-        onChange={handleRightChange}
-        InputLabelProps={{
-          shrink: true,
-        }}
-        InputProps={{
-          //@ts-ignore
-          inputComponent: PercentageFormatCustom,
-          inputProps: {
-            FormatProps: {
-              suffix: "%",
-              decimalScale: 2,
-              fixedDecimalScale: true,
-              allowNegative: true,
-              allowEmptyFormatting: true,
-              isAllowed: (values) => {
-                //@ts-ignore
-                if (values.floatValue >= 999.99) {
-                  return false;
-                }
-                return true;
-              },
-            },
-          },
-        }}
-      />
+      <TextField key="right" value={rightValue} onChange={handleRightChange} />
     </div>
   );
 };
