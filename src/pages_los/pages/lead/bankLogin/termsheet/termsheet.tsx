@@ -89,8 +89,9 @@ export const Termsheet: FC<{
         queryClient.removeQueries(one);
       });
       queryClient.removeQueries(["getTermsheetFormData", refID, branchID]);
+      queryClient.removeQueries(["getTermsheetFormMetaData", category]);
     };
-  }, [refID]);
+  }, [refID, branchID]);
 
   const result = useQueries([
     {

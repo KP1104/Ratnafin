@@ -11,6 +11,7 @@ export const SelectFile = ({
   tranCD,
   closeUpdate,
   update,
+  branchID,
 }) => {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
@@ -41,6 +42,7 @@ export const SelectFile = ({
           })}
           isDataChangedRef={isDataChangedRef}
           tranCD={tranCD}
+          branchID={branchID}
           closeUpdate={closeUpdate}
           closeDialog={closeWrapper}
         />

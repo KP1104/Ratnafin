@@ -12,7 +12,12 @@ import Alert from "@material-ui/lab/Alert";
 import { DOCContext } from "./context";
 import { SelectFile } from "./select";
 
-export const ToPreviewDocument = ({ tranCD, fileName, isDataChangedRef }) => {
+export const ToPreviewDocument = ({
+  tranCD,
+  branchID,
+  fileName,
+  isDataChangedRef,
+}) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [update, setUpdate] = useState(false);
@@ -27,6 +32,7 @@ export const ToPreviewDocument = ({ tranCD, fileName, isDataChangedRef }) => {
         <>
           <PreviewDocument
             tranCD={tranCD}
+            branchID={branchID}
             open={open}
             setOpen={setOpen}
             fileName={fileName}
@@ -65,6 +71,7 @@ export const ToPreviewDocument = ({ tranCD, fileName, isDataChangedRef }) => {
 
 export const PreviewDocument = ({
   tranCD,
+  branchID,
   open,
   setOpen,
   fileName,
@@ -85,6 +92,7 @@ export const PreviewDocument = ({
         <SelectFile
           isDataChangedRef={isDataChangedRef}
           tranCD={tranCD}
+          branchID={branchID}
           closeUpdate={closeUpdate}
           update={update}
         />
