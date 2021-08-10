@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import TextField from "@material-ui/core/TextField";
 import { RowContext } from "./rowContext";
 import { DefaultCell } from "./defaultCell";
@@ -8,7 +8,6 @@ export const TextFieldCell = (props) => {
     column: { id: columnName },
     row: { id },
     currentEditRow,
-    value,
   } = props;
   if (currentEditRow === id) {
     return <MyTextField key={columnName} columnName={columnName} />;
@@ -18,8 +17,13 @@ export const TextFieldCell = (props) => {
 };
 
 export const MyTextField = ({ columnName }) => {
-  const { error, setCellValue, currentRow } = useContext(RowContext);
-  const [touched, setTouched] = useState(false);
+  const {
+    error,
+    setCellValue,
+    currentRow,
+    touched,
+    setCellTouched,
+  } = useContext(RowContext);
 
   return (
     <TextField
@@ -28,9 +32,9 @@ export const MyTextField = ({ columnName }) => {
       size="small"
       variant="outlined"
       onChange={(e) => setCellValue({ [columnName]: e.target.value })}
-      helperText={touched && error?.[columnName]}
-      error={touched && Boolean(error?.[columnName])}
-      onBlur={() => setTouched(true)}
+      helperText={touched?.[columnName] && error?.[columnName]}
+      error={Boolean(touched?.[columnName]) && Boolean(error?.[columnName])}
+      onBlur={() => setCellTouched({ [columnName]: true })}
     />
   );
 };

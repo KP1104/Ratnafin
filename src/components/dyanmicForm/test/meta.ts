@@ -133,6 +133,17 @@ const GeneralDetailsMetaData = {
           defaultValue: 18,
         },
         {
+          accessor: "select",
+          alignment: "left",
+          width: 100,
+          Cell: "selectField",
+          columnName: "select",
+          footer: false,
+          options: "getTaskType",
+          multiple: true,
+          showCheckbox: true,
+        },
+        {
           accessor: "cummulativeAge",
           alignment: "right",
           width: 130,

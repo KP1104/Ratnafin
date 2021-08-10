@@ -4,6 +4,7 @@ import { DefaultCell } from "../components/defaultCell";
 import { TextFieldCell } from "../components/textFieldCell";
 import { RateOfIntCell } from "../components/rateOfIntCell";
 import { CurrencyCell } from "../components/currencyCell";
+import { SelectFieldCell } from "../components/selectFieldCell";
 import { singletonFunctionRegisrationFactory } from "components/utils";
 
 const ActionControl = {
@@ -52,6 +53,8 @@ export const attachCells = (myColumns) => {
           }
           case "currency": {
             return { ...one, Cell: CurrencyCell };
+          case "selectField": {
+            return { ...one, Cell: SelectFieldCell };
           }
           default: {
             return { ...one, Cell: DefaultCell };
@@ -97,41 +100,3 @@ export const constructNewRowObj = (myColumns) => {
   }
   return {};
 };
-// export const attachConfigMethods = (metaData) => {
-//   const dataTransformer = metaData?.config?.dataTransformer;
-//   const rowValidation = metaData?.config?.rowValidation;
-//   const deleteRowFn = metaData?.config?.deleteRowFn;
-
-//   if (typeof deleteRowFn === "string") {
-//     let myDeleteRowFn = singletonFunctionRegisrationFactory.getFn(
-//       deleteRowFn,
-//       undefined
-//     );
-//     metaData.config = {
-//       ...metaData?.config,
-//       deleteRowFn: myDeleteRowFn,
-//     };
-//   }
-
-//   if (typeof dataTransformer === "string") {
-//     let myDataTransformer = singletonFunctionRegisrationFactory.getFn(
-//       dataTransformer,
-//       undefined
-//     );
-//     metaData.config = {
-//       ...metaData?.config,
-//       dataTransformer: myDataTransformer,
-//     };
-//   }
-//   if (typeof rowValidation === "string") {
-//     let myRowValidation = singletonFunctionRegisrationFactory.getFn(
-//       rowValidation,
-//       undefined
-//     );
-//     metaData.config = {
-//       ...metaData?.config,
-//       rowValidation: myRowValidation,
-//     };
-//   }
-//   return metaData;
-// };
