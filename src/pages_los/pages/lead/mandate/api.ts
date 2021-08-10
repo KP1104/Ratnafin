@@ -39,8 +39,15 @@ export const getMandateFormData = ({
     }
   );
   if (status === "success") {
-    return data?.response_data;
+    return { data: data?.response_data, tranCD: data?.response_data?.tranCD };
   } else {
     throw data?.error_data;
   }
+};
+
+export const generateDocumentDownloadURL = (tranCD) => {
+  return new URL(
+    `http://10.55.6.61:8081/los/lead/document/mandate/download?accessToken=${LOSSDK.getToken()}&docID=${tranCD}`,
+    LOSSDK.getBaseURL() as URL
+  ).href;
 };
