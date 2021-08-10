@@ -161,10 +161,11 @@ export const mandateMetaData: MetaDataType = {
         {
           accessor: "totalFeeAtDisbursementInPercent",
           width: 300,
-          Cell: "rateOfInt",
+          Cell: "numberField",
           columnName: "% of Total Fees at the time of Disbursement",
           defaultValue: "",
-          formatProps: {
+          displayStyle: "percentage",
+          FormatProps: {
             suffix: "%",
             decimalScale: 2,
             fixedDecimalScale: true,
@@ -225,10 +226,11 @@ export const mandateMetaData: MetaDataType = {
         {
           accessor: "serviceCharge",
           width: 200,
-          Cell: "currency",
+          Cell: "numberField",
           columnName: "Elite Services Charges",
           defaultValue: "",
-          formatProps: {
+          displayStyle: "currency",
+          FormatProps: {
             thousandSeparator: true,
             prefix: "₹",
             thousandsGroupStyle: "lakh",
