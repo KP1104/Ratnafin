@@ -11,9 +11,17 @@ export interface GridColumnType {
   maxWidth?: number;
   minWidth?: number;
   Cell?: any;
-  columnName: string;
+  columnName?: string;
   footer?: boolean;
   defaultValue?: string | number;
   options?: any;
   formatProps?: any;
+
+  //visaversa
+  leftName?: string;
+  rightName?: string;
+  leftLabel?: string;
+  rightLabel?: string;
+  leftTransform?: any;
+  rightTransform?: any;
 }
