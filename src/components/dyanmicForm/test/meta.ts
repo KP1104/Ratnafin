@@ -1,5 +1,9 @@
 import * as yup from "yup";
 import { setIn } from "packages/form";
+import {
+  calculateAmount,
+  calculatePercentage,
+} from "../../../pages_los/pages/lead/mandate/fns";
 
 const rowValidator = async (obj) => {
   const rowScheam = yup.object({
@@ -149,6 +153,26 @@ const GeneralDetailsMetaData = {
           width: 130,
           columnName: "Cummulative Age",
           footer: true,
+          defaultValue: 0,
+        },
+        {
+          accessor: "amount",
+          alignment: "right",
+          width: 100,
+          Cell: "currency",
+          columnName: "Amount",
+          defaultValue: "",
+        },
+        {
+          accessor: "feeDetails",
+          alignment: "center",
+          Cell: "visaversa",
+          width: 150,
+          columnName: "test",
+          leftName: "leftSide",
+          rightName: "rightSide",
+          leftTransform: calculateAmount,
+          rightTransform: calculatePercentage,
           defaultValue: 0,
         },
       ],

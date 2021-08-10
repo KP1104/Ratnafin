@@ -3,7 +3,9 @@ export const calculateAmount = (value, name, dependentFields) => {
     return null;
   }
   const total =
-    (dependentFields["facilityDetails.fundAmount"]?.value * value) / 100;
+    /* dependentFields["facilityDetails.fundAmount"]?.value */ (10 *
+      dependentFields) /
+    100;
   if (isNaN(total)) {
     return "";
   }
@@ -15,7 +17,9 @@ export const calculatePercentage = (value, name, dependentFields) => {
     return null;
   }
   const total =
-    (value / dependentFields["facilityDetails.fundAmount"]?.value) * 100;
+    (value /
+      dependentFields) /* dependentFields["facilityDetails.fundAmount"]?.value */ *
+    100;
   if (isNaN(total)) {
     return "";
   }
