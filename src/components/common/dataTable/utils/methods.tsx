@@ -2,8 +2,7 @@ import { ActionCell } from "../components/actionCell";
 import { DefaultFooterCell } from "../components/footerCell";
 import { DefaultCell } from "../components/defaultCell";
 import { TextFieldCell } from "../components/textFieldCell";
-import { RateOfIntCell } from "../components/rateOfIntCell";
-import { CurrencyCell } from "../components/currencyCell";
+import { NumberCell } from "../components/NumberCell";
 import { SelectFieldCell } from "../components/selectFieldCell";
 import { VisaversaCell } from "../components/visaversa";
 import { singletonFunctionRegisrationFactory } from "components/utils";
@@ -49,11 +48,8 @@ export const attachCells = (myColumns) => {
           case "textField": {
             return { ...one, Cell: TextFieldCell };
           }
-          case "rateOfInt": {
-            return { ...one, Cell: RateOfIntCell };
-          }
-          case "currency": {
-            return { ...one, Cell: CurrencyCell };
+          case "numberField": {
+            return { ...one, Cell: NumberCell };
           }
           case "selectField": {
             return { ...one, Cell: SelectFieldCell };

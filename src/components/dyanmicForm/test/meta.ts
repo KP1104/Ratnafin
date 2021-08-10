@@ -131,10 +131,28 @@ const GeneralDetailsMetaData = {
           accessor: "age",
           alignment: "right",
           width: 100,
-          Cell: "textField",
+          Cell: "numberField",
           columnName: "Age",
           footer: true,
           defaultValue: 18,
+          displayStyle: "",
+          FormatProps: {
+            thousandSeparator: true,
+            prefix: "₹",
+            thousandsGroupStyle: "lakh",
+            allowNegative: false,
+            allowLeadingZeros: false,
+            decimalScale: 0,
+            isAllowed: (values) => {
+              if (values?.value?.length > 10) {
+                return false;
+              }
+              if (values.floatValue === 0) {
+                return false;
+              }
+              return true;
+            },
+          },
         },
         {
           accessor: "select",
