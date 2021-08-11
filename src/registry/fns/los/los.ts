@@ -683,7 +683,7 @@ const LOSAPI = () => {
     }
   };
 
-  const getMandateTermsheetSanctionFacilityType = async () => {
+  const getTermsheetSanctionFacilityType = async () => {
     const { status, data } = await internalFetcher(
       `./lead/options/getfundbasedfacility`,
       {
@@ -704,7 +704,28 @@ const LOSAPI = () => {
         accumlator[current.data_val] = val;
         return accumlator;
       }, {});
+
       return { options: newArray, others: otherValues };
+    } else {
+      throw data?.error_data;
+    }
+  };
+
+  const getMandateFacilityType = async () => {
+    const { status, data } = await internalFetcher(
+      `./lead/options/getfundbasedfacility`,
+      {
+        body: JSON.stringify({
+          request_data: {},
+        }),
+      }
+    );
+    if (status === "success" && Array.isArray(data?.response_data)) {
+      const newArray = data.response_data.map((one) => ({
+        value: one?.data_val,
+        label: one?.disp_val,
+      }));
+      return newArray;
     } else {
       throw data?.error_data;
     }
@@ -759,7 +780,8 @@ const LOSAPI = () => {
     getApplicants,
 
     getProductCategoryList,
-    getMandateTermsheetSanctionFacilityType,
+    getTermsheetSanctionFacilityType,
+    getMandateFacilityType,
   };
 };
 
