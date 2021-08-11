@@ -208,7 +208,7 @@ const MyAutocomplete: FC<MyAllAutocompleteProps> = ({
         {...others}
         key={`${fieldKey}-${lastUpdatedTime}`}
         //@ts-ignore
-        defaultValue={defaultValueRef.current}
+        defaultValue={defaultValueRef.current ?? []}
         limitTags={limitTags ?? 2}
         multiple={multiple}
         disableClearable={disableClearable}
@@ -216,7 +216,7 @@ const MyAutocomplete: FC<MyAllAutocompleteProps> = ({
         options={_options}
         getOptionLabel={getOptionLabel}
         //freeSolo use for free textfield
-        value={Boolean(freeSolo) ? value : undefined}
+        //value={Boolean(freeSolo) ? value : undefined}
         getOptionSelected={(option, value) => {
           if (option.value == value) {
             return true;
@@ -232,7 +232,7 @@ const MyAutocomplete: FC<MyAllAutocompleteProps> = ({
         }
         onChange={(_, value) => {
           //condition for freeSolo functionality with multiple values
-          if (!Array.isArray(value) && !Boolean(multiple)) {
+          if (!Array.isArray(value)) {
             value = [value];
           }
           value = value.map((one) => {
