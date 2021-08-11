@@ -15,7 +15,9 @@ export interface GridColumnType {
   footer?: boolean;
   defaultValue?: string | number;
   options?: any;
+  multiple?: boolean;
+  showCheckbox?: boolean;
   displayStyle?: string;
   FormatProps?: any;
-  ViseVersaProps?: any;
+  ViceVersaProps?: object;
 }

@@ -92,7 +92,7 @@ export const SMESanctionMetadata: MetaDataType = {
           placeholder: "Type of Facility",
           defaultValue: "00",
           //@ts-ignore
-          options: "getMandateTermsheetSanctionFacilityType",
+          options: "getTermsheetSanctionFacilityType",
           disableCaching: true,
           required: true,
           validate: "getValidateValue",

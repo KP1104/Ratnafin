@@ -93,7 +93,7 @@ export const CFSanctionMetadata: MetaDataType = {
           validate: "getValidateValue",
           defaultValue: "00",
           //@ts-ignore
-          options: "getMandateTermsheetSanctionFacilityType",
+          options: "getTermsheetSanctionFacilityType",
           disableCaching: true,
           runPostValidationHookAlways: true,
           //@ts-ignore

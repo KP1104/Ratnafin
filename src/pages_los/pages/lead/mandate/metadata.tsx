@@ -54,82 +54,87 @@ export const mandateMetaData: MetaDataType = {
   fields: [
     {
       render: {
-        componentType: "arrayField",
+        componentType: "dataTable",
         group: 0,
       },
       name: "facilityDetails",
       removeRowFn: "deleteAssignArrayFieldData",
-      arrayFieldIDName: "lineNo",
+      arrayFieldIDName: "serialNo",
       label: "Facility Details",
+      rowValidator: "",
+      dataTransformer: "",
       GridProps: {
         xs: 12,
         md: 12,
         sm: 12,
       },
-      _fields: [
+      _columns: [
         {
-          render: {
-            componentType: "hidden",
-          },
-          name: "serialNo",
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
+          accessor: "facilityType",
+          alignment: "left",
+          width: 100,
+          Cell: "selectField",
+          columnName: "Type of Facility",
+          footer: false,
+          options: "getMandateFacilityType",
+          // multiple: true,
+          // showCheckbox: true,
+        },
+        {
+          accessor: "fundAmount",
+          width: 200,
+          Cell: "numberField",
+          columnName: "Amount of Fund to be raised",
+          defaultValue: "",
+          displayStyle: "currency",
+          FormatProps: {
+            thousandSeparator: true,
+            prefix: "₹",
+            thousandsGroupStyle: "lakh",
+            allowNegative: true,
+            allowLeadingZeros: false,
+            decimalScale: 2,
+            isAllowed: (values) => {
+              if (values?.value?.length > 10) {
+                return false;
+              }
+              if (values.floatValue === 0) {
+                return false;
+              }
+              return true;
+            },
           },
         },
         {
-          render: {
-            componentType: "select",
+          accessor: "fundFeeInAmount",
+          alignment: "center",
+          Cell: "visaversa",
+          width: 150,
+          columnName: "fundFeeInAmount",
+          ViceVersaProps: {
+            leftTransform: calculateAmount,
+            rightTransform: calculatePercentage,
+            dependentField: "fundAmount",
           },
-          name: "facilityType",
-          label: "Type of Facility",
-          placeholder: "Type of Facility",
-          required: true,
-          validate: "getValidateValue",
-          defaultValue: "00",
-          //@ts-ignore
-          options: "getMandateTermsheetSanctionFacilityType",
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
+          defaultValue: 0,
         },
-        {
-          render: {
-            //@ts-ignore
-            componentType: "currency",
-          },
-          name: "fundAmount",
-          label: "Amount of Fund to be raised",
-          placeholder: "Amount of Fund to be raised",
-          required: true,
-          disableCaching: true,
-          validate: "getValidateValue",
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
-        },
-        {
-          render: {
-            componentType: "visaversa",
-            group: 0,
-          },
-          name: "feeDetails",
-          label: "Visaversa Label",
-          dependentFields: ["fundAmount"],
-          leftName: "fundFeeInAmount",
-          rightName: "fundFeeInPercent",
-          leftLabel: "Fees in % of Absolute Amount",
-          rightLabel: "Fees in % of Fund Raised",
-          leftTransform: calculateAmount,
-          rightTransform: calculatePercentage,
-          required: true,
-          validate: visaversaValidateValue,
-        },
+        // {
+        //   render: {
+        //     componentType: "visaversa",
+        //     group: 0,
+        //   },
+        //   name: "feeDetails",
+        //   label: "Visaversa Label",
+        //   dependentFields: ["fundAmount"],
+        //   leftName: "fundFeeInAmount",
+        //   rightName: "fundFeeInPercent",
+        //   leftLabel: "Fees in % of Absolute Amount",
+        //   rightLabel: "Fees in % of Fund Raised",
+        //   leftTransform: calculateAmount,
+        //   rightTransform: calculatePercentage,
+        //   required: true,
+        //   validate: visaversaValidateValue,
+        // },
       ],
     },
 

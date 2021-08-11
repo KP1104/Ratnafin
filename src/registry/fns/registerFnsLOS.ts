@@ -324,7 +324,9 @@ registerFn(
 );
 
 //Mandate Termsheet Sanction Facility Type
+registerFn("getMandateFacilityType", LOSSDK.getMandateFacilityType);
+
 registerFn(
-  "getMandateTermsheetSanctionFacilityType",
-  LOSSDK.getMandateTermsheetSanctionFacilityType
+  "getTermsheetSanctionFacilityType",
+  LOSSDK.getTermsheetSanctionFacilityType
 );
