@@ -1,5 +1,6 @@
 import { useContext, useState, useEffect } from "react";
-import { TextField } from "components/styledComponent";
+import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
 import { RowContext } from "./rowContext";
 import { DefaultCell } from "./defaultCell";
 
@@ -24,6 +25,8 @@ export const Visaversa = ({
   rightTransform = defaultTransform,
   leftTransform = defaultTransform,
   defaultSide = "left",
+  leftAdornment = "",
+  rightAdornment = "",
   dependentField,
 }) => {
   const {
@@ -71,8 +74,29 @@ export const Visaversa = ({
         onChange={handleLeftChange}
         helperText={touched?.[columnName] && error?.[columnName]}
         error={Boolean(touched?.[columnName]) && Boolean(error?.[columnName])}
+        size="small"
+        variant="outlined"
+        InputProps={{
+          endAdornment: Boolean(leftAdornment) && (
+            <InputAdornment position="end">{leftAdornment}</InputAdornment>
+          ),
+        }}
+        fullWidth
       />
-      <TextField key="right" value={rightValue} onChange={handleRightChange} />
+      <div style={{ padding: "0px 4px" }} />
+      <TextField
+        key="right"
+        value={rightValue}
+        onChange={handleRightChange}
+        size="small"
+        variant="outlined"
+        InputProps={{
+          endAdornment: Boolean(rightAdornment) && (
+            <InputAdornment position="end">{rightAdornment}</InputAdornment>
+          ),
+        }}
+        fullWidth
+      />
     </div>
   );
 };

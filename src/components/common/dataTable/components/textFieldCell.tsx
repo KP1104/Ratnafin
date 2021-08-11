@@ -35,6 +35,7 @@ export const MyTextField = ({ columnName }) => {
       helperText={touched?.[columnName] && error?.[columnName]}
       error={Boolean(touched?.[columnName]) && Boolean(error?.[columnName])}
       onBlur={() => setCellTouched({ [columnName]: true })}
+      fullWidth
     />
   );
 };

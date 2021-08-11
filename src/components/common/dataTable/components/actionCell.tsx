@@ -18,7 +18,7 @@ export const ActionCell = ({
             variant="outlined"
             disableRipple={true}
           >
-            Save
+            Done
           </Button>
           <Button
             onClick={() => cancelCurrentRowEdit(id)}
