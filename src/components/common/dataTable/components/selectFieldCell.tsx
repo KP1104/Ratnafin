@@ -69,6 +69,7 @@ export const MySelectField = ({
       loadingOptions={loadingOptions}
       multiple={multiple}
       showCheckbox={showCheckbox}
+      fullWidth
     />
   );
 };

@@ -3,7 +3,7 @@ import { setIn } from "packages/form";
 import {
   calculateAmount,
   calculatePercentage,
-} from "../../../pages_los/pages/lead/mandate/fns";
+} from "pages_los/pages/lead/mandate/fns";
 
 const rowValidator = async (obj) => {
   const rowScheam = yup.object({
@@ -184,7 +184,10 @@ const GeneralDetailsMetaData = {
             leftTransform: calculateAmount,
             rightTransform: calculatePercentage,
             dependentField: "age",
+            leftAdornment: "Rs",
+            rightAdornment: "%",
           },
+          footer: true,
           defaultValue: 0,
         },
       ],

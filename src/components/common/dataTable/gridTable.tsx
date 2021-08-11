@@ -234,7 +234,11 @@ export const GridTable: FC<GridTableType> = ({
                     <TableCell
                       {...column.getHeaderProps([
                         {
-                          style: { textAlign: column?.alignment ?? "unset" },
+                          style: {
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            textAlign: column?.alignment ?? "unset",
+                          },
                         },
                       ])}
                       component="div"

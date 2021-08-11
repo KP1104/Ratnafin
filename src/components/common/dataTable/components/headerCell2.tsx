@@ -5,8 +5,6 @@ export const HeaderColumnCell = ({
     <>
       <span
         style={{
-          overflow: "hidden",
-          textOverflow: "ellipsis",
           whiteSpace: "nowrap",
         }}
       >
