@@ -59,7 +59,7 @@ export const SelectFile = ({
           onUpload={uploadDocuments.fn({
             ...uploadDocuments.args,
             tranCD: tranCD,
-            moduleTyep: context.moduleType,
+            moduleType: context.moduleType,
           })}
           isDataChangedRef={isDataChangedRef}
           tranCD={tranCD}
