@@ -59,6 +59,11 @@ export const Mandate: FC<{
     downloadFile(url, tranCD);
   };
 
+  const result = useQuery(
+    ["getMandateFormData", moduleType, productType, refID],
+    () => API.getMandateFormData({ moduleType, productType, refID })()
+  );
+
   const mutation = useMutation(
     MandateFormDataFnWrapper(
       API.updateMandate({
@@ -76,12 +81,7 @@ export const Mandate: FC<{
         endSubmit(false, errorMsg, error?.error_detail ?? "");
       },
       onSuccess: (data, { endSubmit }) => {
-        queryClient.refetchQueries([
-          "getmandateFormData",
-          moduleType,
-          productType,
-          refID,
-        ]);
+        result.refetch();
         endSubmit(true, "");
         enqueueSnackbar("Mandate Save Successfully", {
           variant: "success",
@@ -115,11 +115,6 @@ export const Mandate: FC<{
       ]);
     };
   }, [refID]);
-
-  const result = useQuery(
-    ["getMandateFormData", moduleType, productType, refID],
-    () => API.getMandateFormData({ moduleType, productType, refID })()
-  );
 
   const dataUniqueKey = `${result.dataUpdatedAt}`;
   const loading = result.isLoading || result.isFetching;

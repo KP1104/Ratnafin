@@ -1,12 +1,12 @@
 import { LOSSDK } from "registry/fns/los";
 
-export const onFileUpload = ({ refID, tranCD }) => async (
+export const onFileUpload = ({ refID, tranCD, moduleType }) => async (
   file,
   progressHandler: any = () => {},
   completeHandler: any = () => {}
 ) => {
   const newURL = new URL(
-    `./lead/document/termsheet/upload`,
+    `./lead/document/${moduleType}/upload`,
     LOSSDK.getBaseURL() as URL
   ).href;
 
@@ -42,9 +42,9 @@ export const onFileUpload = ({ refID, tranCD }) => async (
   xhr.send(formData);
 };
 
-export const previewDocument = ({ refID }: any) => async (tranCD) => {
+export const previewDocument = async (refID, tranCD, moduleType) => {
   const url = new URL(
-    `./lead/document/termsheet/preview`,
+    `./lead/document/${moduleType}/preview`,
     LOSSDK.getBaseURL() as URL
   ).href;
   try {
@@ -71,9 +71,9 @@ export const previewDocument = ({ refID }: any) => async (tranCD) => {
   }
 };
 
-export const documentIfExist = ({ refID }: any) => async (branchID, tranCD) => {
+export const documentIfExist = async (refID, branchID, moduleType) => {
   const { data, status } = await LOSSDK.internalFetcher(
-    `./lead/termsheet/check/file`,
+    `./lead/${moduleType}/check/file`,
     {
       body: JSON.stringify({
         request_data: {

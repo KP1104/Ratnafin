@@ -150,12 +150,12 @@ const useBlobLoader = ({ tranCD }) => {
   const [loading, setLoading] = useState(true);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
-  const { previewDocument } = useContext(DOCContext);
+  const { previewDocument, context } = useContext(DOCContext);
   const [blob, setBlob] = useState<Blob | null>(null);
 
   useEffect(() => {
     previewDocument
-      .fn(previewDocument.args)(tranCD)
+      .fn(previewDocument.args, tranCD, context.moduleType)
       .then((blob) => {
         if (blob instanceof Error) {
           setError(blob.message);

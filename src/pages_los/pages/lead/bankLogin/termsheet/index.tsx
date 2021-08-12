@@ -1,3 +1,2 @@
-export * from "./termsheet";
+export { TermsheetWrapper as Termsheet } from "./termsheet";
 export * from "./closeDialog";
-export * from "./documentUpload";

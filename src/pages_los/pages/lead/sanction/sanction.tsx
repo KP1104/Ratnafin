@@ -1,9 +1,8 @@
-import { FC, useEffect, useContext } from "react";
+import { useEffect, useContext, useState, useCallback } from "react";
 import loaderGif from "assets/images/loader.gif";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import IconButton from "@material-ui/core/IconButton";
-import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
 import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
 import { useSnackbar } from "notistack";
 import { queryClient, ClearCacheContext } from "cache";
 import { SubmitFnType } from "packages/form";
@@ -11,6 +10,11 @@ import { useMutation, useQueries } from "react-query";
 import FormWrapper, { MetaDataType } from "components/dyanmicForm";
 import { cloneDeep } from "lodash-es";
 import * as API from "./api";
+import { DocumentUploadTermsheet } from "../termsheetSanctionDocUpload";
+import {
+  DOCContextProvider,
+  DocAPICrudProviderGenerator,
+} from "../termsheetSanctionDocUpload/context";
 
 interface SanctionFormDataFnType {
   data: object;
@@ -25,29 +29,21 @@ const SanctionFormDataFnWrapper = (sanctionFn) => async ({
   return sanctionFn(data);
 };
 
-export const Sanction: FC<{
-  defaultView?: "view" | "edit";
-  moduleType: any;
-  refID: any;
-  isDataChangedRef: any;
-  closeDialog?: any;
-  setEditFormStateFromInitValues?: any;
-  product: any;
-  branchID: any;
-  bankName: any;
-}> = ({
-  defaultView = "edit",
+const Sanction = ({
   moduleType,
+  productType,
   refID,
   isDataChangedRef,
-  closeDialog,
-  setEditFormStateFromInitValues,
   product,
   branchID,
-  bankName,
+  readOnly,
 }) => {
+  let setEditFormStateFromInitValues: any;
   const { enqueueSnackbar } = useSnackbar();
   const removeCache = useContext(ClearCacheContext);
+  const [formMode, setFormMode] = useState("view");
+  const moveToViewMode = useCallback(() => setFormMode("view"), [setFormMode]);
+  const moveToEditMode = useCallback(() => setFormMode("edit"), [setFormMode]);
 
   const mutation = useMutation(
     SanctionFormDataFnWrapper(
@@ -71,9 +67,7 @@ export const Sanction: FC<{
           variant: "success",
         });
         isDataChangedRef.current = true;
-        if (typeof closeDialog === "function") {
-          closeDialog();
-        }
+        moveToViewMode();
       },
     }
   );
@@ -124,54 +118,47 @@ export const Sanction: FC<{
 
   let formEditData: any = result[0].data;
 
-  let editViewMetaData: MetaDataType = {} as MetaDataType;
+  let editMetaData: MetaDataType = {} as MetaDataType;
+  let viewMetaData: MetaDataType = {} as MetaDataType;
 
   if (result[0].isSuccess || result[1].isSuccess) {
     const formStateFromInitValues =
       typeof setEditFormStateFromInitValues === "function"
         ? setEditFormStateFromInitValues(result[0].data)
         : undefined;
-    editViewMetaData = cloneDeep(result[1].data) as MetaDataType;
-    editViewMetaData.form.formState = {
-      formCode: editViewMetaData.form.name,
+    editMetaData = cloneDeep(result[1].data) as MetaDataType;
+    viewMetaData = cloneDeep(result[1].data) as MetaDataType;
+
+    editMetaData.form.formState = {
+      formCode: editMetaData.form.name,
       ...formStateFromInitValues,
     };
-    editViewMetaData.form.name = `${editViewMetaData.form.name}-edit`;
-    if (editViewMetaData?.form?.render?.renderType === "stepper") {
-      editViewMetaData.form.render.renderType = "tabs";
+    editMetaData.form.name = `${editMetaData.form.name}-edit`;
+    if (editMetaData?.form?.render?.renderType === "stepper") {
+      editMetaData.form.render.renderType = "tabs";
+    }
+    viewMetaData.form.formState = {
+      formCode: viewMetaData.form.name,
+      ...formStateFromInitValues,
+    };
+    viewMetaData.form.name = `${viewMetaData.form.name}-view`;
+    if (viewMetaData?.form?.render?.renderType === "stepper") {
+      viewMetaData.form.render.renderType = "tabs";
     }
   }
 
   const renderResult = loading ? (
-    <>
-      <img src={loaderGif} alt="loader" width="50px" height="50px" />
-      {typeof closeDialog === "function" ? (
-        <div style={{ position: "absolute", right: 0, top: 0 }}>
-          <IconButton onClick={closeDialog}>
-            <HighlightOffOutlinedIcon />
-          </IconButton>
-        </div>
-      ) : null}
-    </>
+    <img src={loaderGif} alt="loader" width="50px" height="50px" />
   ) : isError === true ? (
-    <>
-      <span>{errorMsg}</span>
-      {typeof closeDialog === "function" ? (
-        <div style={{ position: "absolute", right: 0, top: 0 }}>
-          <IconButton onClick={closeDialog}>
-            <HighlightOffOutlinedIcon />
-          </IconButton>
-        </div>
-      ) : null}
-    </>
-  ) : defaultView === "edit" ? (
+    <span>{errorMsg}</span>
+  ) : formMode === "view" ? (
     <FormWrapper
-      key={`${dataUniqueKey}-${defaultView}`}
-      metaData={editViewMetaData as MetaDataType}
-      initialValues={{ ...formEditData, bankName: bankName } ?? ""}
+      key={`${dataUniqueKey}-${formMode}`}
+      metaData={viewMetaData as MetaDataType}
+      initialValues={formEditData}
       onSubmitHandler={onSubmitHandler}
       //@ts-ignore
-      displayMode={defaultView}
+      displayMode={formMode}
       disableGroupErrorDetection={false}
     >
       {({ isSubmitting, handleSubmit }) => (
@@ -185,7 +172,71 @@ export const Sanction: FC<{
           </Button>
         </>
       )}
+      {!readOnly ? <Button onClick={moveToEditMode}>Edit</Button> : null}
+    </FormWrapper>
+  ) : formMode === "edit" ? (
+    <FormWrapper
+      key={`${dataUniqueKey}-${formMode}`}
+      metaData={editMetaData as MetaDataType}
+      initialValues={formEditData}
+      onSubmitHandler={onSubmitHandler}
+      //@ts-ignore
+      displayMode={formMode}
+      disableGroupErrorDetection={false}
+    >
+      {({ isSubmitting, handleSubmit }) => (
+        <>
+          <Button
+            onClick={handleSubmit}
+            disabled={isSubmitting}
+            endIcon={isSubmitting ? <CircularProgress size={20} /> : null}
+          >
+            Save
+          </Button>
+          <Button onClick={moveToViewMode} disabled={isSubmitting}>
+            Cancel
+          </Button>
+        </>
+      )}
     </FormWrapper>
   ) : null;
   return renderResult;
+};
+
+export const SanctionWrapper = ({
+  moduleType,
+  productType,
+  refID,
+  isDataChangedRef,
+  product,
+  branchID,
+  readOnly,
+}) => {
+  return (
+    <>
+      <Grid container>
+        <Grid item xs={12} md={10} sm={10}>
+          <Sanction
+            moduleType={moduleType}
+            productType={productType}
+            refID={refID}
+            isDataChangedRef={isDataChangedRef}
+            product={product}
+            branchID={branchID}
+            readOnly={readOnly}
+          />
+        </Grid>
+        <DOCContextProvider
+          {...DocAPICrudProviderGenerator(refID, null, productType)}
+        >
+          <Grid item xs={12} md={2} sm={2}>
+            <DocumentUploadTermsheet
+              branchID={branchID}
+              isDataChangedRef={isDataChangedRef}
+            />
+          </Grid>
+        </DOCContextProvider>
+      </Grid>
+    </>
+  );
 };
