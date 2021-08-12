@@ -92,7 +92,7 @@ export const SMETermSheetMetadata: MetaDataType = {
           required: true,
           validate: "getValidateValue",
           //@ts-ignore
-          options: "getMandateTermsheetSanctionFacilityType",
+          options: "getTermsheetSanctionFacilityType",
           disableCaching: true,
           runPostValidationHookAlways: true,
           //@ts-ignore
