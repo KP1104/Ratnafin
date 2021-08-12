@@ -64,8 +64,10 @@ export type MyAllAutocompleteProps = Merge<
   UseFieldHookProps
 >;
 
-const getOptionLabel = (option: OptionsProps) => option?.label ?? "";
-const getOptionValue = (option: OptionsProps) => option?.value ?? "";
+const getOptionLabel = (freeSolo: any) => (option: OptionsProps) =>
+  Boolean(freeSolo) ? option : option?.label ?? "";
+const getOptionValue = (freeSolo: any) => (option: OptionsProps) =>
+  Boolean(freeSolo) ? option : option?.value ?? "";
 
 const MyAutocomplete: FC<MyAllAutocompleteProps> = ({
   name: fieldName,
@@ -133,9 +135,15 @@ const MyAutocomplete: FC<MyAllAutocompleteProps> = ({
   const focusRef = useRef();
   const optionsMapperRef = useRef(new Map());
 
-  const transformValues = useCallback((values) => {
+  const myGetOptionLabel = useCallback(getOptionLabel(freeSolo), []);
+  const myGetOptionValue = useCallback(getOptionValue(freeSolo), []);
+
+  const transformValues = useCallback((values, freeSolo) => {
     if (!Array.isArray(values)) {
       values = [values];
+    }
+    if (freeSolo) {
+      return values;
     }
     let newValues = values.map((one) => {
       return optionsMapperRef.current.has(`${one}`)
@@ -162,23 +170,29 @@ const MyAutocomplete: FC<MyAllAutocompleteProps> = ({
       if (typeof value === "function") {
         setOptions((old) => {
           let result = value(old);
-          if (Array.isArray(result)) {
+          if (freeSolo && Array.isArray(result)) {
+            return result.map((one) => getOptionLabel(false)(one));
+          } else if (Array.isArray(result)) {
             result.map((one) => {
-              optionsMapperRef.current.set(`${getOptionValue(one)}`, one);
+              optionsMapperRef.current.set(`${myGetOptionValue(one)}`, one);
             });
           }
           return result;
         });
       } else {
-        if (Array.isArray(value)) {
+        if (freeSolo && Array.isArray(value)) {
+          let newValue = value.map((one) => getOptionLabel(false)(one));
+          setOptions(newValue as any);
+          return;
+        } else if (Array.isArray(value)) {
           value.map((one) => {
-            optionsMapperRef.current.set(`${getOptionValue(one)}`, one);
+            optionsMapperRef.current.set(`${myGetOptionValue(one)}`, one);
           });
         }
         setOptions(value);
       }
     },
-    [setOptions]
+    [setOptions, myGetOptionLabel, myGetOptionValue]
   );
 
   // const [lastUpdatedTime, setLastUpdatedTime] = useState(new Date().getTime());
@@ -217,13 +231,15 @@ const MyAutocomplete: FC<MyAllAutocompleteProps> = ({
         multiple={multiple}
         disableClearable={disableClearable}
         options={_options}
-        getOptionLabel={getOptionLabel}
+        freeSolo={freeSolo}
+        //@ts-ignore
+        getOptionLabel={myGetOptionLabel}
         value={
           loadingOptions
             ? []
             : multiple
-            ? transformValues(value)
-            : transformValues(value)[0]
+            ? transformValues(value, freeSolo)
+            : transformValues(value, freeSolo)[0]
         }
         getOptionSelected={(option, value) => {
           if (option.value == value) {
@@ -243,7 +259,13 @@ const MyAutocomplete: FC<MyAllAutocompleteProps> = ({
           if (!Array.isArray(value)) {
             value = [value];
           }
-          value = value.map((one) => getOptionValue(one) ?? "");
+          if (freeSolo) {
+            //@ts-ignore
+            value = value.map((one) => myGetOptionLabel(one) ?? "");
+          } else {
+            //@ts-ignore
+            value = value.map((one) => myGetOptionValue(one) ?? "");
+          }
           if (!Boolean(multiple) && Array.isArray(value)) {
             //@ts-ignore
             handleChange(value[0]);
@@ -322,7 +344,7 @@ const MyAutocomplete: FC<MyAllAutocompleteProps> = ({
           );
         }}
         renderOption={(option, { selected, inputValue }) => {
-          let label = getOptionLabel(option);
+          let label = myGetOptionLabel(option);
           const matches = match(label, inputValue);
           const parts = parse(label, matches);
           const labelJSX = parts.map((part, index) => (
