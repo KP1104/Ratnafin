@@ -41,7 +41,6 @@ export const infraFormMetaData = {
       defaultValue: "00",
       options: "getBranchList",
       multiple: true,
-      freeSolo: true,
       enableVirtualized: true,
       showCheckbox: true,
       required: true,

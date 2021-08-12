@@ -40,7 +40,6 @@ export const retailLAPFormMetaData = {
       defaultValue: "00",
       options: "getBranchList",
       multiple: true,
-      freeSolo: true,
       enableVirtualized: true,
       showCheckbox: true,
       GridProps: { xs: 12, md: 3, sm: 3 },

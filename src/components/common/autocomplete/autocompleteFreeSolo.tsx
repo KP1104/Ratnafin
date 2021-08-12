@@ -8,7 +8,6 @@ import {
   HTMLAttributes,
   lazy,
   Suspense,
-  useCallback,
 } from "react";
 import { TextFieldProps } from "@material-ui/core/TextField";
 import Grid, { GridProps } from "@material-ui/core/Grid";
@@ -130,21 +129,8 @@ const MyAutocomplete: FC<MyAllAutocompleteProps> = ({
     shouldExclude,
     runValidationOnDependentFieldsChange,
   });
+
   const focusRef = useRef();
-  const optionsMapperRef = useRef(new Map());
-
-  const transformValues = useCallback((values) => {
-    if (!Array.isArray(values)) {
-      values = [values];
-    }
-    let newValues = values.map((one) => {
-      return optionsMapperRef.current.has(`${one}`)
-        ? optionsMapperRef.current.get(`${one}`)
-        : { label: "", value: one };
-    });
-    return newValues;
-  }, []);
-
   useEffect(() => {
     if (isFieldFocused) {
       setTimeout(() => {
@@ -155,39 +141,13 @@ const MyAutocomplete: FC<MyAllAutocompleteProps> = ({
   }, [isFieldFocused]);
 
   const [_options, setOptions] = useState<OptionsProps[]>([]);
-
-  const setOptionsWrapper = useCallback(
-    (value) => {
-      optionsMapperRef.current.clear();
-      if (typeof value === "function") {
-        setOptions((old) => {
-          let result = value(old);
-          if (Array.isArray(result)) {
-            result.map((one) => {
-              optionsMapperRef.current.set(`${getOptionValue(one)}`, one);
-            });
-          }
-          return result;
-        });
-      } else {
-        if (Array.isArray(value)) {
-          value.map((one) => {
-            optionsMapperRef.current.set(`${getOptionValue(one)}`, one);
-          });
-        }
-        setOptions(value);
-      }
-    },
-    [setOptions]
-  );
-
-  // const [lastUpdatedTime, setLastUpdatedTime] = useState(new Date().getTime());
-  // const initDoneRef = useRef(false);
-  //const defaultValueRef = useRef<any>(null);
+  const [lastUpdatedTime, setLastUpdatedTime] = useState(new Date().getTime());
+  const initDoneRef = useRef(false);
+  const defaultValueRef = useRef<any>(null);
   const { loadingOptions } = useOptionsFetcher(
     formState,
     options,
-    setOptionsWrapper,
+    setOptions,
     handleChange,
     dependentValues,
     incomingMessage,
@@ -200,6 +160,42 @@ const MyAutocomplete: FC<MyAllAutocompleteProps> = ({
     ""
   );
 
+  //to set the default value
+  useEffect(() => {
+    let _internalValue: any | any[] = value;
+    if (
+      !initDoneRef.current &&
+      Boolean(_internalValue) &&
+      _options.length > 0 &&
+      _options[0].value !== "00" &&
+      _options[0].value !== null
+    ) {
+      if (!Array.isArray(_internalValue)) {
+        _internalValue = [value];
+      }
+      let answers: OptionsProps[] = [];
+      for (let i = 0; i < _options.length && _internalValue.length > 0; i++) {
+        let foundIndex = _internalValue.findIndex((one) =>
+          /* eslint-disable eqeqeq */
+          one == _options[i].value ? true : false
+        );
+        if (foundIndex > -1) {
+          answers.push(_options[i]);
+          const prev = _internalValue.slice(0, foundIndex);
+          const next = _internalValue.slice(foundIndex + 1);
+          _internalValue = [...prev, ...next];
+        }
+      }
+      initDoneRef.current = true;
+      if (multiple) {
+        defaultValueRef.current = answers;
+      } else {
+        defaultValueRef.current = answers[0];
+      }
+      setLastUpdatedTime(new Date().getTime());
+    }
+  }, [loadingOptions, _options, value, multiple]);
+
   //dont move it to top it can mess up with hooks calling mechanism, if there is another
   //hook added move this below all hook calls
   if (excluded) {
@@ -210,21 +206,17 @@ const MyAutocomplete: FC<MyAllAutocompleteProps> = ({
     <Suspense fallback={"loading..."}>
       <Autocomplete
         {...others}
-        key={fieldKey}
+        key={`${fieldKey}-${lastUpdatedTime}`}
         //@ts-ignore
-        defaultValue={[]}
+        defaultValue={defaultValueRef.current ?? []}
         limitTags={limitTags ?? 2}
         multiple={multiple}
         disableClearable={disableClearable}
+        freeSolo={freeSolo}
         options={_options}
         getOptionLabel={getOptionLabel}
-        value={
-          loadingOptions
-            ? []
-            : multiple
-            ? transformValues(value)
-            : transformValues(value)[0]
-        }
+        //freeSolo use for free textfield
+        //value={Boolean(freeSolo) ? value : undefined}
         getOptionSelected={(option, value) => {
           if (option.value == value) {
             return true;
@@ -243,7 +235,15 @@ const MyAutocomplete: FC<MyAllAutocompleteProps> = ({
           if (!Array.isArray(value)) {
             value = [value];
           }
-          value = value.map((one) => getOptionValue(one) ?? "");
+          value = value.map((one) => {
+            if (typeof one === "object") {
+              if (!Boolean(freeSolo)) {
+                return getOptionValue(one);
+              }
+              return getOptionLabel(one);
+            }
+            return one;
+          });
           if (!Boolean(multiple) && Array.isArray(value)) {
             //@ts-ignore
             handleChange(value[0]);
