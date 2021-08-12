@@ -1,6 +1,5 @@
 import { useState, useRef, Fragment } from "react";
 import Dialog from "@material-ui/core/Dialog";
-import Grid from "@material-ui/core/Grid";
 import {
   ServerGrid,
   ServerGridContextProvider,
@@ -20,11 +19,6 @@ import { Verification } from "../verification";
 import { BankLogin } from "../bankLogin";
 import { Mandate } from "../mandate";
 import { Sanction } from "../sanction";
-import { DocumentUploadTermsheet } from "../sanction/documentUpload";
-import {
-  DOCContextProvider,
-  DocAPICrudProviderGenerator,
-} from "../sanction/documentUpload/context";
 import { Disbursement } from "../disbursement";
 
 export const LeadGrid = ({ gridCode, actions }) => {
@@ -129,36 +123,16 @@ export const LeadGrid = ({ gridCode, actions }) => {
               closeDialog={handleDialogClose}
             />
           ) : (currentAction?.name ?? "") === "sanction" ? (
-            <>
-              <Grid container>
-                <Grid item xs={12} md={10} sm={10}>
-                  <Sanction
-                    key={currentAction?.rows[0].id}
-                    moduleType="lead"
-                    refID={currentAction?.rows[0].id}
-                    product={currentAction?.rows[0]?.data.category_id}
-                    branchID={currentAction?.rows[0]?.data.branch_id}
-                    bankName={currentAction?.rows[0]?.data.bank_name}
-                    isDataChangedRef={isDataEditedRef}
-                    closeDialog={handleDialogClose}
-                  />
-                </Grid>
-                <DOCContextProvider
-                  key={"sanction"}
-                  {...DocAPICrudProviderGenerator(
-                    currentAction?.rows[0].id,
-                    null
-                  )}
-                >
-                  <Grid item xs={12} md={2} sm={2}>
-                    <DocumentUploadTermsheet
-                      branchID={currentAction?.rows[0]?.data.branch_id}
-                      isDataChangedRef={isDataEditedRef}
-                    />
-                  </Grid>
-                </DOCContextProvider>
-              </Grid>
-            </>
+            <Sanction
+              key={currentAction?.rows[0].id}
+              moduleType="lead"
+              productType="sanction"
+              refID={currentAction?.rows[0].id}
+              product={currentAction?.rows[0]?.data.category_id}
+              branchID={currentAction?.rows[0]?.data.branch_id}
+              isDataChangedRef={isDataEditedRef}
+              readOnly={false}
+            />
           ) : (currentAction?.name ?? "") === "disbursement" ? (
             <Disbursement
               key={currentAction?.rows[0].id}

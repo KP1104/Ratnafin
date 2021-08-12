@@ -92,7 +92,7 @@ export const SMETermSheetMetadata: MetaDataType = {
           required: true,
           validate: "getValidateValue",
           //@ts-ignore
-          options: "getMandateTermsheetSanctionFacilityType",
+          options: "getTermsheetSanctionFacilityType",
           disableCaching: true,
           runPostValidationHookAlways: true,
           //@ts-ignore
@@ -168,6 +168,7 @@ export const SMETermSheetMetadata: MetaDataType = {
             },
             { label: "Floating", value: "floating" },
           ],
+          _optionsKey: "fixedOrFloatingRateOptions",
         },
         {
           render: {
@@ -235,6 +236,7 @@ export const SMETermSheetMetadata: MetaDataType = {
           ],
           shouldExclude: showFixedOrFloatingRateFields,
           setValueOnDependentFieldsChange: calculateActualRateofInte,
+          isReadOnly: true,
           GridProps: {
             xs: 12,
             md: 3,

@@ -36,21 +36,22 @@ export const DOCContextProvider: FC<DOCProviderType> = ({
   );
 };
 
-export const DocAPICrudProviderGenerator = (refID, tranCD) => ({
+export const DocAPICrudProviderGenerator = (refID, tranCD, moduleType) => ({
   context: {
     tranCD,
     refID,
+    moduleType,
   },
   uploadDocuments: {
     fn: API.onFileUpload,
-    args: { refID, tranCD },
+    args: { refID, tranCD, moduleType },
   },
   previewDocument: {
     fn: API.previewDocument,
-    args: { refID, tranCD },
+    args: { refID, tranCD, moduleType },
   },
   documentIfExist: {
     fn: API.documentIfExist,
-    args: { refID, tranCD },
+    args: { refID, tranCD, moduleType },
   },
 });

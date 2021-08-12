@@ -21,8 +21,8 @@ export const SelectFile = ({
   const { enqueueSnackbar } = useSnackbar();
   const fileUploadControl = useRef<any | null>(null);
   const [file, setFile] = useState<any>("");
-  const [fileTypeError, setFileTypeError] = useState<any>("");
-  const { uploadDocuments } = useContext(DOCContext);
+  const [error, setError] = useState<any>("");
+  const { uploadDocuments, context } = useContext(DOCContext);
 
   const validateFilesAndAddToListCB = useCallback(
     async (files) => {
@@ -30,7 +30,7 @@ export const SelectFile = ({
         maxAllowedSize,
         allowedExtensions
       )(files);
-      setFileTypeError(error);
+      setError(error);
     },
     [maxAllowedSize, allowedExtensions]
   );
@@ -38,7 +38,7 @@ export const SelectFile = ({
   const handleFileSelect = (e) => {
     const files = e.target.files;
     validateFilesAndAddToListCB(files[0] as File[]);
-    if (fileTypeError !== null) {
+    if (error !== null) {
       setFile(files);
     }
   };
@@ -53,12 +53,13 @@ export const SelectFile = ({
 
   return (
     <>
-      {file.length > 0 && !Boolean(fileTypeError) ? (
+      {file.length > 0 && !Boolean(error) ? (
         <FileUpload
           fileDetails={file}
           onUpload={uploadDocuments.fn({
             ...uploadDocuments.args,
             tranCD: tranCD,
+            moduleTyep: context.moduleType,
           })}
           isDataChangedRef={isDataChangedRef}
           tranCD={tranCD}
@@ -77,18 +78,17 @@ export const SelectFile = ({
               color="primary"
               onClick={() => fileUploadControl?.current?.click()}
             >
-              Termsheet
+              Sanction
             </Button>
             <input
               type="file"
               style={{ display: "none" }}
               ref={fileUploadControl}
               onChange={handleFileSelect}
+              accept="application/pdf"
             />
           </div>
-          <FormHelperText style={{ color: "red" }}>
-            {fileTypeError}
-          </FormHelperText>
+          <FormHelperText style={{ color: "red" }}>{error}</FormHelperText>
           {Boolean(update) ? (
             <div>
               <Button

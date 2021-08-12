@@ -9,7 +9,7 @@ import { ToPreviewDocument } from "./preview";
 import { DOCContext } from "./context";
 
 export const DocumentUploadTermsheet = ({ branchID, isDataChangedRef }) => {
-  const { documentIfExist } = useContext(DOCContext);
+  const { documentIfExist, context } = useContext(DOCContext);
   const removeCache = useContext(ClearCacheContext);
   const wrapperKey = useRef<any>(null);
   if (wrapperKey.current === null) {
@@ -26,15 +26,16 @@ export const DocumentUploadTermsheet = ({ branchID, isDataChangedRef }) => {
       });
       queryClient.removeQueries([
         "documentIfExist",
-        wrapperKey.current,
+        context.refID,
         branchID,
+        context.moduleType,
       ]);
     };
   }, [branchID]);
 
   const queryData = useQuery<any, any, any>(
-    ["documentIfExist", wrapperKey.current, branchID],
-    () => documentIfExist.fn(documentIfExist.args)(branchID)
+    ["documentIfExist", context.refID, branchID, context.moduleType],
+    () => documentIfExist.fn(context.refID, branchID, context.moduleType)
   );
 
   const loading = queryData.isLoading || queryData.isFetching;
