@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useCallback } from "react";
+import { useState, useEffect, useContext, useCallback, FC } from "react";
 import loaderGif from "assets/images/loader.gif";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
@@ -28,15 +28,15 @@ const TermsheetFormDataFnWrapper = (termsheetFn) => async ({
   return termsheetFn(data);
 };
 
-const Termsheet = ({
+const Termsheet: FC<any> = ({
   refID,
   isDataChangedRef,
   branchID,
   category,
   bankName,
   readOnly,
+  setEditFormStateFromInitValues,
 }) => {
-  let setEditFormStateFromInitValues: any;
   const { enqueueSnackbar } = useSnackbar();
   const removeCache = useContext(ClearCacheContext);
   const [formMode, setFormMode] = useState("view");
@@ -110,7 +110,7 @@ const Termsheet = ({
   }`;
   errorMsg = Boolean(errorMsg.trim()) ? errorMsg : "Unknown error occured";
 
-  let formEditData: any = result[0].data;
+  let formEditData = { ...(result[0].data as any), bankName: bankName };
 
   let viewMetaData: MetaDataType = {} as MetaDataType;
   let editMetaData: MetaDataType = {} as MetaDataType;
@@ -150,7 +150,7 @@ const Termsheet = ({
     <FormWrapper
       key={`${dataUniqueKey}-${formMode}`}
       metaData={viewMetaData as MetaDataType}
-      initialValues={{ ...formEditData, bankName: bankName } ?? ""}
+      initialValues={formEditData}
       onSubmitHandler={onSubmitHandler}
       //@ts-ignore
       displayMode={formMode}
@@ -173,7 +173,7 @@ const Termsheet = ({
     <FormWrapper
       key={`${dataUniqueKey}-${formMode}`}
       metaData={editMetaData as MetaDataType}
-      initialValues={{ ...formEditData, bankName: bankName } ?? ""}
+      initialValues={formEditData}
       onSubmitHandler={onSubmitHandler}
       //@ts-ignore
       displayMode={formMode}
