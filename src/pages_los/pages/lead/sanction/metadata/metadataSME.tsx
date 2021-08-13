@@ -593,7 +593,6 @@ export const SMESanctionMetadata: MetaDataType = {
       label: "Bank Name",
       placeholder: "Bank Name",
       isReadOnly: true,
-      required: true,
       GridProps: {
         xs: 12,
         md: 3,

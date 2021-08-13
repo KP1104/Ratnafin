@@ -10,11 +10,11 @@ import { useMutation, useQueries } from "react-query";
 import FormWrapper, { MetaDataType } from "components/dyanmicForm";
 import { cloneDeep } from "lodash-es";
 import * as API from "./api";
-import { DocumentUploadTermsheet } from "../../termsheetSanctionDocUpload";
+import { DocumentUploadTermsheet } from "../../documentUpload";
 import {
   DOCContextProvider,
   DocAPICrudProviderGenerator,
-} from "../../termsheetSanctionDocUpload/context";
+} from "../../documentUpload/context";
 
 interface TermsheetFormDataFnType {
   data: object;

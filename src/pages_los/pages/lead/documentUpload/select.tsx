@@ -78,7 +78,7 @@ export const SelectFile = ({
               color="primary"
               onClick={() => fileUploadControl?.current?.click()}
             >
-              Sanction
+              {context.moduleType}
             </Button>
             <input
               type="file"

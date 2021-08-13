@@ -1,9 +1,8 @@
 import { FC, useState, useEffect, useContext, useCallback } from "react";
 import loaderGif from "assets/images/loader.gif";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import IconButton from "@material-ui/core/IconButton";
-import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
 import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
 import { useSnackbar } from "notistack";
 import { queryClient, ClearCacheContext } from "cache";
 import { SubmitFnType } from "packages/form";
@@ -12,7 +11,12 @@ import FormWrapper, { MetaDataType } from "components/dyanmicForm";
 import { cloneDeep } from "lodash-es";
 import { mandateMetaData } from "./metadata";
 import { downloadFile } from "pages_los/common/download";
+import { DocumentUploadTermsheet } from "../documentUpload";
 import * as API from "./api";
+import {
+  DOCContextProvider,
+  DocAPICrudProviderGenerator,
+} from "../documentUpload/context";
 
 interface MandateFormDataFnType {
   data: object;
@@ -27,24 +31,14 @@ const MandateFormDataFnWrapper = (mandateFn) => async ({
   return mandateFn(data);
 };
 
-export const Mandate: FC<{
-  defaultView?: "view" | "edit";
-  moduleType: any;
-  productType: any;
-  refID: any;
-  isDataChangedRef: any;
-  closeDialog?: any;
-  setEditFormStateFromInitValues?: any;
-  readOnly?: boolean;
-}> = ({
+const Mandate: FC<any> = ({
   defaultView = "view",
   moduleType,
   productType,
   refID,
   isDataChangedRef,
-  closeDialog,
   setEditFormStateFromInitValues,
-  readOnly = false,
+  readOnly,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
   const removeCache = useContext(ClearCacheContext);
@@ -174,9 +168,6 @@ export const Mandate: FC<{
           <Button onClick={moveToEditMode}>Edit</Button>
         </>
       ) : null}
-      {typeof closeDialog === "function" ? (
-        <Button onClick={closeDialog}>Cancel</Button>
-      ) : null}
     </FormWrapper>
   ) : formMode === "edit" ? (
     <FormWrapper
@@ -205,4 +196,40 @@ export const Mandate: FC<{
     </FormWrapper>
   ) : null;
   return renderResult;
+};
+
+export const MandateWrapper = ({
+  moduleType,
+  productType,
+  refID,
+  isDataChangedRef,
+  branchID,
+  readOnly,
+}) => {
+  return (
+    <>
+      <Grid container>
+        <Grid item xs={12} md={10} sm={10}>
+          <Mandate
+            moduleType={moduleType}
+            productType={productType}
+            refID={refID}
+            isDataChangedRef={isDataChangedRef}
+            branchID={branchID}
+            readOnly={readOnly}
+          />
+        </Grid>
+        <DOCContextProvider
+          {...DocAPICrudProviderGenerator(refID, null, productType)}
+        >
+          <Grid item xs={12} md={2} sm={2}>
+            <DocumentUploadTermsheet
+              branchID={branchID}
+              isDataChangedRef={isDataChangedRef}
+            />
+          </Grid>
+        </DOCContextProvider>
+      </Grid>
+    </>
+  );
 };
