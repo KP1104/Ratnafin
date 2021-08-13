@@ -18,10 +18,12 @@ export const DisplayCell = ({ value, displayStyle }) => {
     case "percentage":
       finalNode = `${value}%`;
       break;
+    case "squareFeet":
+      finalNode = new Intl.NumberFormat().format(value);
+      break;
     default:
       finalNode = value;
   }
-  console.log(displayStyle, finalNode);
   return (
     <Typography
       component="span"

@@ -432,173 +432,141 @@ export const SMESanctionMetadata: MetaDataType = {
     },
     {
       render: {
-        componentType: "arrayField",
+        componentType: "dataTable",
         group: 1,
       },
       name: "collateralDetails",
       removeRowFn: "deleteAssignArrayFieldData",
-      arrayFieldIDName: "lineNo",
+      arrayFieldIDName: "serialNo",
       label: "Collateral Details",
+      rowValidator: "",
+      dataTransformer: "",
       GridProps: {
         xs: 12,
         md: 12,
         sm: 12,
       },
-      _fields: [
+      _columns: [
         {
-          render: {
-            componentType: "hidden",
-          },
-          name: "serialNo",
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
+          accessor: "collateralType",
+          width: 200,
+          Cell: "textField",
+          columnName: "Type of Collateral",
+          defaultValue: "",
+          footer: false,
+        },
+        {
+          accessor: "collateralOwner",
+          width: 200,
+          Cell: "textField",
+          columnName: "Owner of Colletral",
+          defaultValue: "",
+          footer: false,
+        },
+        {
+          accessor: "collateralArea",
+          width: 200,
+          Cell: "numberField",
+          columnName: "Area of Colletral (Sq.Ft)",
+          defaultValue: "",
+          footer: false,
+          displayStyle: "squareFeet",
+          FormatProps: {
+            thousandSeparator: true,
+            thousandsGroupStyle: "lakh",
+            allowNegative: false,
+            allowLeadingZeros: false,
+            decimalScale: 2,
+            isAllowed: (values) => {
+              if (values?.value?.length > 10) {
+                return false;
+              }
+              if (values.floatValue === 0) {
+                return false;
+              }
+              return true;
+            },
           },
         },
         {
-          render: {
-            componentType: "textField",
-          },
-          name: "collateralType",
-          label: "Type of Collateral",
-          placeholder: "Type of Collateral",
-          maxLength: 20,
-          showMaxLength: false,
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
-        },
-        {
-          render: {
-            componentType: "textField",
-          },
-          name: "collateralOwner",
-          label: "Owner of Colletral",
-          placeholder: "Owner of Colletral",
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
-        },
-        {
-          render: {
-            //@ts-ignore
-            componentType: "squareFeetFormat",
-          },
-          name: "collateralArea",
-          label: "Area of Colletral (Sq.Ft)",
-          placeholder: "Area of Colletral (Sq.Ft)",
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
-        },
-
-        {
-          render: {
-            //@ts-ignore
-            componentType: "currency",
-          },
-          name: "collateralCoverage",
-          label: "Value of Collateral Coverage",
-          placeholder: "Value of Collateral Coverage",
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
+          accessor: "collateralCoverage",
+          width: 200,
+          Cell: "numberField",
+          columnName: "Value of Collateral Coverage",
+          defaultValue: "",
+          footer: false,
+          displayStyle: "currency",
+          FormatProps: {
+            thousandSeparator: true,
+            prefix: "₹",
+            thousandsGroupStyle: "lakh",
+            allowNegative: true,
+            allowLeadingZeros: false,
+            decimalScale: 2,
+            isAllowed: (values) => {
+              if (values?.value?.length > 10) {
+                return false;
+              }
+              if (values.floatValue === 0) {
+                return false;
+              }
+              return true;
+            },
           },
         },
       ],
     },
     {
       render: {
-        componentType: "arrayField",
+        componentType: "dataTable",
         group: 2,
       },
       name: "preDisbursementConditions",
       removeRowFn: "deleteAssignArrayFieldData",
-      arrayFieldIDName: "lineNo",
+      arrayFieldIDName: "serialNo",
       label: "Pre Disbursement Conditions",
+      rowValidator: "",
+      dataTransformer: "",
       GridProps: {
         xs: 12,
         md: 12,
         sm: 12,
       },
-      _fields: [
+      _columns: [
         {
-          render: {
-            componentType: "hidden",
-          },
-          name: "serialNo",
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
-        },
-        {
-          render: {
-            componentType: "textField",
-          },
-          name: "condition",
-          label: "Conditions",
-          placeholder: "Conditions",
-          multiline: true,
-          rows: 2,
-          rowsMax: 3,
-          maxLength: 200,
-          GridProps: {
-            xs: 12,
-            md: 6,
-            sm: 6,
-          },
+          accessor: "condition",
+          width: 200,
+          Cell: "textField",
+          columnName: "Conditions",
+          defaultValue: "",
+          footer: false,
         },
       ],
     },
     {
       render: {
-        componentType: "arrayField",
+        componentType: "dataTable",
         group: 3,
       },
       name: "guarantorNames",
       removeRowFn: "deleteAssignArrayFieldData",
-      arrayFieldIDName: "lineNo",
+      arrayFieldIDName: "serialNo",
       label: "Guarantors Names",
+      rowValidator: "",
+      dataTransformer: "",
       GridProps: {
         xs: 12,
         md: 12,
         sm: 12,
       },
-      _fields: [
+      _columns: [
         {
-          render: {
-            componentType: "hidden",
-          },
-          name: "serialNo",
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
-        },
-        {
-          render: {
-            componentType: "textField",
-          },
-          name: "name",
-          label: "Name",
-          placeholder: "Name",
-          maxLength: 20,
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
+          accessor: "name",
+          width: 200,
+          Cell: "textField",
+          columnName: "Guarantor Name",
+          defaultValue: "",
+          footer: false,
         },
       ],
     },
