@@ -1,4 +1,4 @@
-import { useEffect, useContext, useState, useCallback } from "react";
+import { useEffect, useContext, useState, useCallback, FC } from "react";
 import loaderGif from "assets/images/loader.gif";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
@@ -29,7 +29,7 @@ const SanctionFormDataFnWrapper = (sanctionFn) => async ({
   return sanctionFn(data);
 };
 
-const Sanction = ({
+const Sanction: FC<any> = ({
   moduleType,
   productType,
   refID,
@@ -37,8 +37,8 @@ const Sanction = ({
   product,
   branchID,
   readOnly,
+  setEditFormStateFromInitValues,
 }) => {
-  let setEditFormStateFromInitValues: any;
   const { enqueueSnackbar } = useSnackbar();
   const removeCache = useContext(ClearCacheContext);
   const [formMode, setFormMode] = useState("view");
@@ -88,6 +88,7 @@ const Sanction = ({
         queryClient.removeQueries(one);
       });
       queryClient.removeQueries(["getSanctionData", moduleType, refID]);
+      queryClient.removeQueries(["getSanctionFormMetaData", product]);
     };
   }, [refID]);
 
@@ -115,8 +116,6 @@ const Sanction = ({
     result[1].error?.error_msg ?? ""
   }`;
   errorMsg = Boolean(errorMsg.trim()) ? errorMsg : "Unknown error occured";
-
-  let formEditData: any = result[0].data;
 
   let editMetaData: MetaDataType = {} as MetaDataType;
   let viewMetaData: MetaDataType = {} as MetaDataType;
@@ -155,7 +154,7 @@ const Sanction = ({
     <FormWrapper
       key={`${dataUniqueKey}-${formMode}`}
       metaData={viewMetaData as MetaDataType}
-      initialValues={formEditData}
+      initialValues={result[0].data}
       onSubmitHandler={onSubmitHandler}
       //@ts-ignore
       displayMode={formMode}
@@ -178,7 +177,7 @@ const Sanction = ({
     <FormWrapper
       key={`${dataUniqueKey}-${formMode}`}
       metaData={editMetaData as MetaDataType}
-      initialValues={formEditData}
+      initialValues={result[0].data}
       onSubmitHandler={onSubmitHandler}
       //@ts-ignore
       displayMode={formMode}

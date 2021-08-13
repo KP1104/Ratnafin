@@ -19,5 +19,5 @@ export interface GridColumnType {
   showCheckbox?: boolean;
   displayStyle?: string;
   FormatProps?: any;
-  ViceVersaProps?: object;
+  ViceVersaProps?: any;
 }
