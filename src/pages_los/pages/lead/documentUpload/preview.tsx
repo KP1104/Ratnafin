@@ -21,6 +21,7 @@ export const ToPreviewDocument = ({
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [update, setUpdate] = useState(false);
+  const { context } = useContext(DOCContext);
 
   const closeUpdate = () => {
     setUpdate(false);
@@ -50,7 +51,7 @@ export const ToPreviewDocument = ({
             <Button color="primary" onClick={() => setOpen(true)}>
               Preview
             </Button>
-            <Typography>Termsheet</Typography>
+            <Typography>{context.moduleType}</Typography>
 
             <input type="file" style={{ display: "none" }} />
           </div>

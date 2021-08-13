@@ -369,6 +369,7 @@ export const CFSanctionMetadata: MetaDataType = {
           Cell: "numberField",
           columnName: "Area of Colletral (Sq.Ft)",
           defaultValue: "",
+          alignment: "right",
           footer: false,
           displayStyle: "squareFeet",
           FormatProps: {
@@ -394,6 +395,7 @@ export const CFSanctionMetadata: MetaDataType = {
           Cell: "numberField",
           columnName: "Value of Collateral Coverage",
           defaultValue: "",
+          alignment: "right",
           footer: false,
           displayStyle: "currency",
           FormatProps: {
@@ -440,6 +442,7 @@ export const CFSanctionMetadata: MetaDataType = {
           columnName: "Disbursement Sequence",
           defaultValue: "",
           footer: false,
+          type: "number",
         },
         {
           accessor: "totalFeeAtDisbursementInPercent",
@@ -448,6 +451,7 @@ export const CFSanctionMetadata: MetaDataType = {
           columnName: "% of Total Fees at the time of Disbursement",
           defaultValue: "",
           footer: false,
+          alignment: "right",
           displayStyle: "percentage",
           FormatProps: {
             suffix: "%",
@@ -498,6 +502,7 @@ export const CFSanctionMetadata: MetaDataType = {
           columnName: "Period (In Months)",
           defaultValue: "",
           footer: false,
+          type: "number",
         },
         {
           accessor: "collectionAmount",
@@ -505,6 +510,7 @@ export const CFSanctionMetadata: MetaDataType = {
           Cell: "numberField",
           columnName: "Collection Amount",
           defaultValue: "",
+          alignment: "right",
           footer: false,
           displayStyle: "currency",
           FormatProps: {
@@ -531,6 +537,7 @@ export const CFSanctionMetadata: MetaDataType = {
           Cell: "numberField",
           columnName: "Escrow Sweep %",
           defaultValue: "",
+          alignment: "right",
           footer: false,
           displayStyle: "percentage",
           FormatProps: {
@@ -626,7 +633,6 @@ export const CFSanctionMetadata: MetaDataType = {
       label: "Bank Name",
       placeholder: "Bank Name",
       isReadOnly: true,
-      required: true,
       GridProps: {
         xs: 12,
         md: 3,

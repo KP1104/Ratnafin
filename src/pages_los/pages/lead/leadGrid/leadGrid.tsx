@@ -119,8 +119,9 @@ export const LeadGrid = ({ gridCode, actions }) => {
               moduleType="lead"
               productType="mandate"
               refID={currentAction?.rows[0].id}
+              branchID={currentAction?.rows[0]?.data.branch_id}
               isDataChangedRef={isDataEditedRef}
-              closeDialog={handleDialogClose}
+              readOnly={false}
             />
           ) : (currentAction?.name ?? "") === "sanction" ? (
             <Sanction

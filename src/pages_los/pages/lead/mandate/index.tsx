@@ -1,1 +1,1 @@
-export * from "./mandate";
+export { MandateWrapper as Mandate } from "./mandate";
