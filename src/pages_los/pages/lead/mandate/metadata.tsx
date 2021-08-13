@@ -86,6 +86,7 @@ export const mandateMetaData: MetaDataType = {
           columnName: "Amount of Fund to be raised",
           defaultValue: "",
           displayStyle: "currency",
+          alignment: "right",
           FormatProps: {
             thousandSeparator: true,
             prefix: "₹",
@@ -106,7 +107,7 @@ export const mandateMetaData: MetaDataType = {
         },
         {
           accessor: "fundFeeInAmount",
-          alignment: "center",
+          alignment: "right",
           Cell: "visaversa",
           width: 150,
           columnName: "Fund Fee",
@@ -146,6 +147,7 @@ export const mandateMetaData: MetaDataType = {
           columnName: "Disbursement Sequence",
           defaultValue: "",
           footer: false,
+          type: "number",
         },
         {
           accessor: "totalFeeAtDisbursementInPercent",
@@ -153,6 +155,7 @@ export const mandateMetaData: MetaDataType = {
           Cell: "numberField",
           columnName: "% of Total Fees at the time of Disbursement",
           defaultValue: "",
+          alignment: "right",
           displayStyle: "percentage",
           FormatProps: {
             suffix: "%",
@@ -218,6 +221,7 @@ export const mandateMetaData: MetaDataType = {
           Cell: "numberField",
           columnName: "Elite Services Charges",
           defaultValue: "",
+          alignment: "right",
           displayStyle: "currency",
           FormatProps: {
             thousandSeparator: true,

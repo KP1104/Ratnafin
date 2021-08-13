@@ -473,6 +473,7 @@ export const SMETermSheetMetadata: MetaDataType = {
           columnName: "Area of Colletral (Sq.Ft)",
           defaultValue: "",
           footer: false,
+          alignment: "right",
           displayStyle: "squareFeet",
           FormatProps: {
             thousandSeparator: true,
@@ -498,6 +499,7 @@ export const SMETermSheetMetadata: MetaDataType = {
           columnName: "Value of Collateral Coverage",
           defaultValue: "",
           footer: false,
+          alignment: "right",
           displayStyle: "currency",
           FormatProps: {
             thousandSeparator: true,
