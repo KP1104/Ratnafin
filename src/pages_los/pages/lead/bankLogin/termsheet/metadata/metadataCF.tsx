@@ -364,19 +364,18 @@ export const CFTermSheetMetadata: MetaDataType = {
         {
           accessor: "collateralArea",
           width: 200,
-          Cell: "textField",
+          Cell: "numberField",
           columnName: "Area of Colletral (Sq.Ft)",
           defaultValue: "",
+          alignment: "right",
           footer: false,
-          displayStyle: "currency",
+          displayStyle: "squareFeet",
           FormatProps: {
             thousandSeparator: true,
             thousandsGroupStyle: "lakh",
-            allowNegative: true,
-            allowLeadingZeros: false,
             decimalScale: 2,
             isAllowed: (values) => {
-              if (values?.value?.length > 20) {
+              if (values?.value?.length > 10) {
                 return false;
               }
               if (values.floatValue === 0) {
@@ -392,6 +391,7 @@ export const CFTermSheetMetadata: MetaDataType = {
           Cell: "numberField",
           columnName: "Value of Collateral Coverage",
           defaultValue: "",
+          alignment: "right",
           footer: false,
           displayStyle: "currency",
           FormatProps: {
@@ -438,6 +438,7 @@ export const CFTermSheetMetadata: MetaDataType = {
           columnName: "Disbursement Sequence",
           defaultValue: "",
           footer: false,
+          type: "number",
         },
         {
           accessor: "totalFeeAtDisbursementInPercent",
@@ -446,6 +447,7 @@ export const CFTermSheetMetadata: MetaDataType = {
           columnName: "% of Total Fees at the time of Disbursement",
           defaultValue: "",
           footer: false,
+          alignment: "right",
           displayStyle: "percentage",
           FormatProps: {
             suffix: "%",
@@ -496,12 +498,14 @@ export const CFTermSheetMetadata: MetaDataType = {
           columnName: "Period (In Months)",
           defaultValue: "",
           footer: false,
+          type: "number",
         },
         {
           accessor: "collectionAmount",
           width: 200,
           Cell: "numberField",
           columnName: "Collection Amount",
+          alignment: "right",
           defaultValue: "",
           footer: false,
           displayStyle: "currency",
@@ -530,6 +534,7 @@ export const CFTermSheetMetadata: MetaDataType = {
           columnName: "Escrow Sweep %",
           defaultValue: "",
           footer: false,
+          alignment: "right",
           displayStyle: "percentage",
           FormatProps: {
             suffix: "%",

@@ -20,4 +20,5 @@ export interface GridColumnType {
   displayStyle?: string;
   FormatProps?: any;
   ViceVersaProps?: any;
+  type?: any;
 }

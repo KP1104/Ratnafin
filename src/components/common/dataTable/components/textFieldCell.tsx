@@ -5,18 +5,24 @@ import { DefaultCell } from "./defaultCell";
 
 export const TextFieldCell = (props) => {
   const {
-    column: { id: columnName },
+    column: { id: columnName, type },
     row: { id },
     currentEditRow,
   } = props;
   if (currentEditRow === id) {
-    return <MyTextField key={columnName} columnName={columnName} />;
+    return (
+      <MyTextField
+        key={columnName}
+        columnName={columnName}
+        type={type ?? "text"}
+      />
+    );
   } else {
     return <DefaultCell {...props} />;
   }
 };
 
-export const MyTextField = ({ columnName }) => {
+export const MyTextField = ({ columnName, type }) => {
   const {
     error,
     setCellValue,
@@ -27,7 +33,7 @@ export const MyTextField = ({ columnName }) => {
 
   return (
     <TextField
-      type="text"
+      type={type}
       value={currentRow?.[columnName]}
       size="small"
       variant="outlined"
