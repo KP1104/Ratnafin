@@ -1,7 +1,6 @@
 import Typography from "@material-ui/core/Typography";
 
 export const DefaultCell = (props) => {
-  console.log(props);
   const { value } = props;
 
   return (

@@ -1,0 +1,127 @@
+import { components, filters } from "components/report";
+
+export const columns = [
+  {
+    columnName: "Particulars",
+    id: "particulars",
+    Header: components.HeaderColumnCell,
+    columns: [
+      // {
+      //   columnName: "Sr No",
+      //   accessor: "serialNo",
+      //   id: "serialNo",
+      //   filter: "fuzzyText",
+      //   aggregate: "count",
+      // },
+      {
+        columnName: "Particulars",
+        accessor: "particulars",
+        id: "particulars",
+        aggregate: "count",
+        Filter: filters.SelectColumnFilter,
+        filter: "includes",
+      },
+      {
+        columnName: "Bucket",
+        accessor: "bucket",
+        id: "bucket",
+        aggregate: "count",
+        Filter: filters.SelectColumnFilter,
+        filter: "includes",
+      },
+    ],
+  },
+  {
+    columnName: "Total",
+    id: "cfsmeTotal",
+    Header: components.HeaderColumnCell,
+    columns: [
+      {
+        columnName: "Count",
+        accessor: "TotalCount",
+        id: "TotalCount",
+        Filter: filters.SliderColumnFilter,
+        filter: "filterGreaterThan",
+        aggregate: "sum",
+      },
+      {
+        columnName: "Value",
+        accessor: "TotalValue",
+        id: "TotalValue",
+        Filter: filters.SliderColumnFilter,
+        filter: "filterGreaterThan",
+        aggregate: "sum",
+      },
+      {
+        columnName: "Fees",
+        accessor: "TotalFees",
+        id: "TotalFees",
+        Filter: filters.SliderColumnFilter,
+        filter: "filterGreaterThan",
+        aggregate: "sum",
+      },
+    ],
+  },
+  {
+    columnName: "CF",
+    id: "cf",
+    Header: components.HeaderColumnCell,
+    columns: [
+      {
+        columnName: "Count",
+        accessor: "CFCount",
+        id: "CFCount",
+        Filter: filters.SliderColumnFilter,
+        filter: "filterGreaterThan",
+        aggregate: "sum",
+      },
+      {
+        columnName: "Value",
+        accessor: "CFValue",
+        id: "CFValue",
+        Filter: filters.SliderColumnFilter,
+        filter: "filterGreaterThan",
+        aggregate: "sum",
+      },
+      {
+        columnName: "Fees",
+        accessor: "CFFees",
+        id: "CFFees",
+        Filter: filters.SliderColumnFilter,
+        filter: "filterGreaterThan",
+        aggregate: "sum",
+      },
+    ],
+  },
+  {
+    columnName: "SME",
+    id: "sme",
+    Header: components.HeaderColumnCell,
+    columns: [
+      {
+        columnName: "Count",
+        accessor: "SMECount",
+        id: "SMECount",
+        Filter: filters.SliderColumnFilter,
+        filter: "filterGreaterThan",
+        aggregate: "sum",
+      },
+      {
+        columnName: "Value",
+        accessor: "SMEValue",
+        id: "SMEValue",
+        Filter: filters.SliderColumnFilter,
+        filter: "filterGreaterThan",
+        aggregate: "sum",
+      },
+      {
+        columnName: "Fees",
+        accessor: "SMEFees",
+        id: "SMEFees",
+        Filter: filters.SliderColumnFilter,
+        filter: "filterGreaterThan",
+        aggregate: "sum",
+      },
+    ],
+  },
+];

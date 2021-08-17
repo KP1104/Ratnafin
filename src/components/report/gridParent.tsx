@@ -1,24 +1,20 @@
-import { FC, useMemo } from "react";
-import cloneDeep from "lodash-es/cloneDeep";
+import { FC, useMemo, useState, Fragment, useCallback, useRef } from "react";
 import { HeaderColumnCell } from "./components/headerCell";
 import { DefaultCell } from "./components/defaultCell";
 import { FooterCell } from "./components/footerCell";
 import { DefaultColumnFilter } from "./filter/defaultColumnFilter";
 import { defaultColumnAggregation } from "./aggregation/defaultColumnAggregation";
 import { GridTable } from "./gridTable";
+import { fuzzyTextFilterFn, customText, filterGreaterThan } from "./filters";
 
-export const GridParent: FC<any> = ({
+export const ReportGrid: FC<any> = ({
   columns,
-  label,
   maxHeight,
   disableFilters = false,
   data = [],
   initialState,
 }) => {
-  const transformedMetaData = useMemo(() => {
-    let newMetaData = cloneDeep(columns);
-    return newMetaData;
-  }, []);
+  const memoizedColumns = useMemo(() => columns, []);
 
   const defaultColumn = useMemo(
     () => ({
@@ -31,15 +27,25 @@ export const GridParent: FC<any> = ({
     []
   );
 
+  const filterTypes = useMemo(
+    () => ({
+      fuzzyText: fuzzyTextFilterFn,
+      customText: customText,
+      filterGreaterThan: filterGreaterThan,
+    }),
+    []
+  );
+
   return (
-    <GridTable
-      columns={transformedMetaData}
-      defaultColumn={defaultColumn}
-      label={label}
-      data={data}
-      maxHeight={maxHeight}
-      disableFilters={disableFilters}
-      initialState={initialState}
-    />
+    <Fragment>
+      <GridTable
+        columns={memoizedColumns}
+        defaultColumn={defaultColumn}
+        data={data}
+        maxHeight={maxHeight}
+        initialState={initialState}
+        filterTypes={filterTypes}
+      />
+    </Fragment>
   );
 };

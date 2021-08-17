@@ -317,6 +317,18 @@ export const metaData: NavBarMetaDataType = {
       ],
     },
     {
+      label: "Reports",
+      icon: "table",
+      children: [
+        {
+          label: "Lead Stages Retail",
+          href: "./reports/leadStagesRetail",
+          isRouterLink: true,
+          icon: "circle",
+        },
+      ],
+    },
+    {
       label: "Config Management",
       icon: "cog",
       children: [

@@ -36,8 +36,8 @@ import { Worklog } from "pages_los/pages/taskManagement/worklog";
 import { ColdCalling } from "pages_los/pages/taskManagement/coldCalling";
 import { BankConfigWrapper } from "./pages/config/bankConfig";
 import { BankMasterWrapper } from "pages_los/pages/config/bankMaster";
+import { LeadStagesRetail } from "pages_los/pages/reports";
 import Editor from "components/editor";
-import Report from "components/report";
 
 const DashbordPages = () => {
   const classes = useStyles();
@@ -93,11 +93,14 @@ const DashbordPages = () => {
             <Route path="/config/banks" element={<BankConfigWrapper />} />
             <Route path="/config/userManagement" element={<UserManagement />} />
             <Route path="/profile" element={<Profile />} />
+            <Route
+              path="/reports/leadStagesRetail"
+              element={<LeadStagesRetail />}
+            />
             {/*dummy routes*/}
             <Route path="/testForm" element={<TestForm />} />
             <Route path="/pages/:id" element={<Dummy />} />
             <Route path="/editor" element={<Editor />} />
-            <Route path="/report" element={<Report />} />
           </Routes>
         </Content>
       </div>

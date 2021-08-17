@@ -1,4 +1,4 @@
-import { FC, Fragment } from "react";
+import { Fragment, useState, useCallback, FC } from "react";
 import {
   useTable,
   useBlockLayout,
@@ -15,17 +15,18 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
-import Typography from "@material-ui/core/Typography";
 import { GroupByCell } from "./components/groupByCell";
+import Toolbar from "@material-ui/core/Toolbar";
+import Switch from "@material-ui/core/Switch";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 interface GridTableType {
   columns: any;
   defaultColumn: any;
   data: any;
-  label: any;
   maxHeight: any;
-  disableFilters?: boolean;
   initialState?: any;
+  filterTypes?: any;
 }
 
 const defaultMaxHeight = "200px";
@@ -69,16 +70,20 @@ export const GridTable: FC<GridTableType> = ({
   columns,
   defaultColumn,
   data,
-  label,
   maxHeight = defaultMaxHeight,
-  disableFilters,
   initialState = {},
+  filterTypes,
 }) => {
+  const [showFilters, setShowFilters] = useState(false);
+  const handleFilterChange = useCallback(() => {
+    setShowFilters((old) => !old);
+  }, [setShowFilters]);
   const tableProps = useTable(
     {
       columns,
       data,
       defaultColumn,
+      filterTypes,
       initialState,
     },
     useFilters,
@@ -96,11 +101,43 @@ export const GridTable: FC<GridTableType> = ({
     footerGroups,
     rows,
     prepareRow,
+    toggleAllRowsExpanded,
+    isAllRowsExpanded,
   } = tableProps;
 
   return (
     <Fragment>
-      <Typography variant="h4">{label}</Typography>
+      <Paper
+        style={{
+          width: "100%",
+          overflow: "hidden",
+        }}
+      >
+        <Toolbar variant="dense">
+          <FormControlLabel
+            control={
+              <Switch
+                checked={showFilters}
+                onChange={handleFilterChange}
+                name="filters"
+                size="small"
+              />
+            }
+            label="show Filters"
+          />
+          <FormControlLabel
+            control={
+              <Switch
+                onChange={() => toggleAllRowsExpanded(!isAllRowsExpanded)}
+                checked={isAllRowsExpanded}
+                name="filters"
+                size="small"
+              />
+            }
+            label="Expand Rows"
+          />
+        </Toolbar>
+      </Paper>
       <Paper
         style={{
           width: "100%",
@@ -131,11 +168,11 @@ export const GridTable: FC<GridTableType> = ({
                 </TableRow>
               ))}
             </TableHead>
-            {disableFilters ? null : (
+            {showFilters ? (
               <RenderFilters
                 headerGroup={headerGroups[headerGroups.length - 1]}
               />
-            )}
+            ) : null}
             <TableBody {...getTableBodyProps({})} component="div">
               <div
                 style={{

@@ -18,6 +18,7 @@ import {
   faLink,
   faQuestion,
   faPlus,
+  faTable,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -38,5 +39,6 @@ library.add(
   faSquare,
   faLink,
   faQuestion,
-  faPlus
+  faPlus,
+  faTable
 );
