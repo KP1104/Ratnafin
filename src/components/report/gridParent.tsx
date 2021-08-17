@@ -10,9 +10,9 @@ import { fuzzyTextFilterFn, customText, filterGreaterThan } from "./filters";
 export const ReportGrid: FC<any> = ({
   columns,
   maxHeight,
-  disableFilters = false,
   data = [],
   initialState,
+  title,
 }) => {
   const memoizedColumns = useMemo(() => columns, []);
 
@@ -45,6 +45,7 @@ export const ReportGrid: FC<any> = ({
         maxHeight={maxHeight}
         initialState={initialState}
         filterTypes={filterTypes}
+        title={title}
       />
     </Fragment>
   );

@@ -15,10 +15,13 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
+import IconButton from "@material-ui/core/IconButton";
 import { GroupByCell } from "./components/groupByCell";
 import Toolbar from "@material-ui/core/Toolbar";
 import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { createNewWorkbook } from "./export";
+import GetAppIcon from "@material-ui/icons/GetApp";
 
 interface GridTableType {
   columns: any;
@@ -27,6 +30,7 @@ interface GridTableType {
   maxHeight: any;
   initialState?: any;
   filterTypes?: any;
+  title?: any;
 }
 
 const defaultMaxHeight = "200px";
@@ -73,6 +77,7 @@ export const GridTable: FC<GridTableType> = ({
   maxHeight = defaultMaxHeight,
   initialState = {},
   filterTypes,
+  title,
 }) => {
   const [showFilters, setShowFilters] = useState(false);
   const handleFilterChange = useCallback(() => {
@@ -136,6 +141,12 @@ export const GridTable: FC<GridTableType> = ({
             }
             label="Expand Rows"
           />
+          <IconButton
+            onClick={() => createNewWorkbook({ data: data, title: title })}
+            size="small"
+          >
+            <GetAppIcon />
+          </IconButton>
         </Toolbar>
       </Paper>
       <Paper
