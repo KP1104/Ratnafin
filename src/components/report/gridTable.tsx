@@ -23,6 +23,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { createNewWorkbook } from "./export";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import { Typography } from "@material-ui/core";
+import { FixedSizeList } from "react-window";
 
 interface GridTableType {
   columns: any;
@@ -107,9 +108,47 @@ export const GridTable: FC<GridTableType> = ({
     footerGroups,
     rows,
     prepareRow,
+    totalColumnsWidth,
     toggleAllRowsExpanded,
     isAllRowsExpanded,
   } = tableProps;
+
+  const RenderRows = useCallback(
+    ({ index, style }) => {
+      const row = rows[index];
+      prepareRow(row);
+      console.log(index, row);
+      return (
+        <TableRow {...row.getRowProps({ style })} component="div">
+          {row.cells.map((cell, index) => {
+            return (
+              <TableCell
+                {...cell.getCellProps([
+                  {
+                    style: {
+                      textOverflow: "ellipsis",
+                      overflow: "hidden",
+                      textAlign: cell?.column?.alignment ?? "unset",
+                    },
+                  },
+                ])}
+                component="div"
+              >
+                {cell.isGrouped ? (
+                  <GroupByCell cell={cell} row={row} key={index} />
+                ) : cell.isAggregated ? (
+                  cell.render("Aggregated")
+                ) : cell.isPlaceholder ? null : (
+                  cell.render("Cell")
+                )}
+              </TableCell>
+            );
+          })}
+        </TableRow>
+      );
+    },
+    [prepareRow, rows]
+  );
 
   return (
     <Fragment>
@@ -201,38 +240,14 @@ export const GridTable: FC<GridTableType> = ({
                   overflowX: "hidden",
                 }}
               >
-                {rows.map((row, i) => {
-                  prepareRow(row);
-                  const rowProps = row.getRowProps();
-                  return (
-                    <TableRow {...rowProps} component="div">
-                      {row.cells.map((cell) => {
-                        return (
-                          <TableCell
-                            {...cell.getCellProps([
-                              {
-                                style: {
-                                  textOverflow: "ellipsis",
-                                  overflow: "hidden",
-                                  textAlign: cell?.column?.alignment ?? "unset",
-                                },
-                              },
-                            ])}
-                            component="div"
-                          >
-                            {cell.isGrouped ? (
-                              <GroupByCell cell={cell} row={row} key={i} />
-                            ) : cell.isAggregated ? (
-                              cell.render("Aggregated")
-                            ) : cell.isPlaceholder ? null : (
-                              cell.render("Cell")
-                            )}
-                          </TableCell>
-                        );
-                      })}
-                    </TableRow>
-                  );
-                })}
+                <FixedSizeList
+                  height={400}
+                  itemCount={rows.length}
+                  itemSize={35}
+                  width={totalColumnsWidth + 10}
+                >
+                  {RenderRows}
+                </FixedSizeList>
               </div>
             </TableBody>
             <TableHead component="div" style={{ borderTop: "1px solid red" }}>
