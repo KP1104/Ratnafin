@@ -10,7 +10,7 @@ export const LeadStagesRetail = () => {
     <Report
       columns={columns}
       disableFilters
-      maxHeight="340px"
+      maxHeight="68vh"
       data={myData}
       title="leadStagesSMECF"
     />

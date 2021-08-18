@@ -22,6 +22,7 @@ import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { createNewWorkbook } from "./export";
 import GetAppIcon from "@material-ui/icons/GetApp";
+import { Typography } from "@material-ui/core";
 
 interface GridTableType {
   columns: any;
@@ -116,9 +117,12 @@ export const GridTable: FC<GridTableType> = ({
         style={{
           width: "100%",
           overflow: "hidden",
+          marginBottom: "8px",
         }}
       >
         <Toolbar variant="dense">
+          <Typography variant="h5">{title}</Typography>
+          <div style={{ flexGrow: 1 }} />
           <FormControlLabel
             control={
               <Switch
@@ -168,9 +172,14 @@ export const GridTable: FC<GridTableType> = ({
                     return (
                       <TableCell
                         {...column.getHeaderProps([
-                          { style: { display: "flex" } },
+                          {
+                            style: {
+                              display: "flex",
+                            },
+                          },
                         ])}
                         component="div"
+                        align={column.alignment}
                       >
                         {column.render("Header")}
                       </TableCell>
@@ -226,7 +235,7 @@ export const GridTable: FC<GridTableType> = ({
                 })}
               </div>
             </TableBody>
-            <TableHead component="div">
+            <TableHead component="div" style={{ borderTop: "1px solid red" }}>
               <RenderFooter footerGroup={footerGroups[0]} />
             </TableHead>
           </Table>
