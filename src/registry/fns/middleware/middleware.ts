@@ -77,11 +77,31 @@ const MiddlewareAPI = () => {
     }
   };
 
+  const getEqifaxReportData = async () => {
+    const { data, status } = await internalFetcher(
+      `./lead/external/equifax/report-data/get`,
+      {
+        body: JSON.stringify({
+          request_data: {
+            tokenID: "C3ECF0CE052675C3E05500000000000104062021012008",
+          },
+          channel: "W",
+        }),
+      }
+    );
+    if (status === "success") {
+      return data?.response_data;
+    } else {
+      throw data?.error_data;
+    }
+  };
+
   return {
     inititateAPI,
     setToken,
     removeToken,
     getCAMData,
+    getEqifaxReportData,
   };
 };
 
