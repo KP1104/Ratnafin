@@ -7,6 +7,7 @@ export const fuzzyTextFilterFn = (rows, id, filterValue) =>
 fuzzyTextFilterFn.autoRemove = (val) => !val;
 
 export const customText = (rows, id, filterValue) => {
+  console.log(rows, id, filterValue);
   return rows.filter((row) => {
     const rowValue = row.values[id];
     return rowValue !== undefined
@@ -25,3 +26,23 @@ export const filterGreaterThan = (rows, id, filterValue) => {
 };
 
 filterGreaterThan.autoRemove = (val) => typeof val !== "number";
+
+export const customInclude = (rows, ids, filterValue) => {
+  console.log(rows, ids, filterValue);
+
+  let result = rows.filter((row) => {
+    return ids.some((id) => {
+      const rowValue = row.values[id];
+      console.log(rowValue, rowValue.length);
+      return (
+        rowValue &&
+        rowValue.length &&
+        filterValue.some((val) => rowValue.includes(val))
+      );
+    });
+  });
+  console.log(result);
+  return result;
+};
+
+customInclude.autoRemove = (val) => !val || !val.length;

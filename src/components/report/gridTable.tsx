@@ -16,6 +16,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import IconButton from "@material-ui/core/IconButton";
+import Button from "@material-ui/core/Button";
 import { GroupByCell } from "./components/groupByCell";
 import Toolbar from "@material-ui/core/Toolbar";
 import Switch from "@material-ui/core/Switch";
@@ -29,13 +30,14 @@ interface GridTableType {
   columns: any;
   defaultColumn: any;
   data: any;
-  maxHeight: any;
+  maxHeight: number;
   initialState?: any;
   filterTypes?: any;
   title?: any;
+  options?: any;
 }
 
-const defaultMaxHeight = "200px";
+const defaultMaxHeight = 300;
 
 const RenderFilters = ({ headerGroup }) => {
   return (
@@ -80,6 +82,7 @@ export const GridTable: FC<GridTableType> = ({
   initialState = {},
   filterTypes,
   title,
+  options,
 }) => {
   const [showFilters, setShowFilters] = useState(false);
   const handleFilterChange = useCallback(() => {
@@ -92,6 +95,7 @@ export const GridTable: FC<GridTableType> = ({
       defaultColumn,
       filterTypes,
       initialState,
+      ...options,
     },
     useFilters,
     useGroupBy,
@@ -111,13 +115,22 @@ export const GridTable: FC<GridTableType> = ({
     totalColumnsWidth,
     toggleAllRowsExpanded,
     isAllRowsExpanded,
+    setAllFilters,
+    state: { filters },
   } = tableProps;
 
   const RenderRows = useCallback(
     ({ index, style }) => {
       const row = rows[index];
       prepareRow(row);
-      console.log(index, row);
+
+      if (row?.isGrouped && row?.isExpanded) {
+        style = {
+          ...style,
+          backgroundColor: "rgba(0, 0, 0, 0.04)",
+        };
+      }
+
       return (
         <TableRow {...row.getRowProps({ style })} component="div">
           {row.cells.map((cell, index) => {
@@ -162,6 +175,15 @@ export const GridTable: FC<GridTableType> = ({
         <Toolbar variant="dense">
           <Typography variant="h5">{title}</Typography>
           <div style={{ flexGrow: 1 }} />
+          {showFilters && filters.length > 0 && (
+            <Button
+              onClick={() => setAllFilters([])}
+              style={{ marginRight: "8px" }}
+            >
+              Clear Filter
+            </Button>
+          )}
+
           <FormControlLabel
             control={
               <Switch
@@ -233,24 +255,22 @@ export const GridTable: FC<GridTableType> = ({
               />
             ) : null}
             <TableBody {...getTableBodyProps({})} component="div">
-              <div
-                style={{
-                  overflowY: "scroll",
-                  maxHeight: maxHeight,
-                  overflowX: "hidden",
-                }}
+              <FixedSizeList
+                height={maxHeight}
+                itemCount={rows.length}
+                itemSize={35}
+                width={totalColumnsWidth + 10}
               >
-                <FixedSizeList
-                  height={400}
-                  itemCount={rows.length}
-                  itemSize={35}
-                  width={totalColumnsWidth + 10}
-                >
-                  {RenderRows}
-                </FixedSizeList>
-              </div>
+                {RenderRows}
+              </FixedSizeList>
             </TableBody>
-            <TableHead component="div" style={{ borderTop: "1px solid red" }}>
+            <TableHead
+              component="div"
+              style={{
+                boxShadow:
+                  "0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12)",
+              }}
+            >
               <RenderFooter footerGroup={footerGroups[0]} />
             </TableHead>
           </Table>

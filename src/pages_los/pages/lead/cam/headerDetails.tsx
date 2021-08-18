@@ -4,7 +4,7 @@ import { SelectRenderOnly as Select } from "components/common/select";
 
 const options = [
   { label: "Default", value: 1 },
-  { label: "Lac", value: 100000 },
+  { label: "Lakhs", value: 100000 },
   { label: "Crore", value: 10000000 },
 ];
 
