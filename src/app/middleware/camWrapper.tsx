@@ -10,7 +10,6 @@ export const CAMMiddlewareWrapper = () => {
   const { refID } = useParams();
   const data = useLocation();
   const amountIn = new URLSearchParams(data?.search).get("amountIn");
-  console.log(data);
   const result = useQuery(["getCAMDataMiddleware", refID], () =>
     MiddlewareSDK.getCAMData({ refID })
   );
