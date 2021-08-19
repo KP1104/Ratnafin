@@ -36,7 +36,7 @@ import { Worklog } from "pages_los/pages/taskManagement/worklog";
 import { ColdCalling } from "pages_los/pages/taskManagement/coldCalling";
 import { BankConfigWrapper } from "./pages/config/bankConfig";
 import { BankMasterWrapper } from "pages_los/pages/config/bankMaster";
-import { LeadStagesRetail } from "pages_los/pages/reports";
+import { LeadStagesSMECF } from "pages_los/pages/reports";
 import Editor from "components/editor";
 
 const DashbordPages = () => {
@@ -94,8 +94,12 @@ const DashbordPages = () => {
             <Route path="/config/userManagement" element={<UserManagement />} />
             <Route path="/profile" element={<Profile />} />
             <Route
+              path="/reports/leadStagesSMECF"
+              element={<LeadStagesSMECF />}
+            />
+            <Route
               path="/reports/leadStagesRetail"
-              element={<LeadStagesRetail />}
+              element={<LeadStagesSMECF />}
             />
             {/*dummy routes*/}
             <Route path="/testForm" element={<TestForm />} />

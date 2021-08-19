@@ -25,6 +25,7 @@ import { createNewWorkbook } from "./export";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import { Typography } from "@material-ui/core";
 import { FixedSizeList } from "react-window";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 interface GridTableType {
   columns: any;
@@ -35,6 +36,7 @@ interface GridTableType {
   filterTypes?: any;
   title?: any;
   options?: any;
+  loading: boolean;
 }
 
 const defaultMaxHeight = 300;
@@ -83,6 +85,7 @@ export const GridTable: FC<GridTableType> = ({
   filterTypes,
   title,
   options,
+  loading = false,
 }) => {
   const [showFilters, setShowFilters] = useState(false);
   const handleFilterChange = useCallback(() => {
@@ -214,6 +217,7 @@ export const GridTable: FC<GridTableType> = ({
           </IconButton>
         </Toolbar>
       </Paper>
+      {loading && <LinearProgress />}
       <Paper
         style={{
           width: "100%",

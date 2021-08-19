@@ -18,6 +18,7 @@ export const ReportGrid: FC<any> = ({
   initialState,
   title,
   options,
+  loading,
 }) => {
   const memoizedColumns = useMemo(() => columns, []);
 
@@ -53,6 +54,7 @@ export const ReportGrid: FC<any> = ({
         filterTypes={filterTypes}
         title={title}
         options={options}
+        loading={loading}
       />
     </Fragment>
   );
