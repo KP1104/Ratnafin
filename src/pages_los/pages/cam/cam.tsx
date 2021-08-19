@@ -63,7 +63,7 @@ export const CAM = ({ camData, amountIn = 1 }) => {
       <div style={{ display: "flex", maxWidth: "210mm", margin: "0 auto" }}>
         <Typography variant="subtitle2">
           {amountIn === 100000
-            ? "Note : All amounts are in Lacs"
+            ? "Note : All amounts are in Lakhs"
             : amountIn === 10000000
             ? "Note : All amounts are in Crore"
             : null}

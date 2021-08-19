@@ -1,11 +1,15 @@
-import { FC, useMemo, useState, Fragment, useCallback, useRef } from "react";
+import { FC, useMemo, Fragment } from "react";
 import { HeaderColumnCell } from "./components/headerCell";
 import { DefaultCell } from "./components/defaultCell";
 import { FooterCell } from "./components/footerCell";
 import { DefaultColumnFilter } from "./filter/defaultColumnFilter";
-import { defaultColumnAggregation } from "./aggregation/defaultColumnAggregation";
 import { GridTable } from "./gridTable";
-import { fuzzyTextFilterFn, customText, filterGreaterThan } from "./filters";
+import {
+  fuzzyTextFilterFn,
+  customText,
+  filterGreaterThan,
+  customInclude,
+} from "./filters";
 
 export const ReportGrid: FC<any> = ({
   columns,
@@ -13,6 +17,7 @@ export const ReportGrid: FC<any> = ({
   data = [],
   initialState,
   title,
+  options,
 }) => {
   const memoizedColumns = useMemo(() => columns, []);
 
@@ -22,7 +27,7 @@ export const ReportGrid: FC<any> = ({
       Cell: DefaultCell,
       Footer: FooterCell,
       Filter: DefaultColumnFilter,
-      Aggregated: defaultColumnAggregation,
+      Aggregated: DefaultCell,
     }),
     []
   );
@@ -32,6 +37,7 @@ export const ReportGrid: FC<any> = ({
       fuzzyText: fuzzyTextFilterFn,
       customText: customText,
       filterGreaterThan: filterGreaterThan,
+      customInclude: customInclude,
     }),
     []
   );
@@ -46,6 +52,7 @@ export const ReportGrid: FC<any> = ({
         initialState={initialState}
         filterTypes={filterTypes}
         title={title}
+        options={options}
       />
     </Fragment>
   );

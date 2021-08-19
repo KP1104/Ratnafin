@@ -2,17 +2,10 @@ import { components, filters } from "components/report";
 
 export const columns = [
   {
-    columnName: "Particulars",
+    columnName: "#",
     id: "particulars",
     Header: components.HeaderColumnCell,
     columns: [
-      // {
-      //   columnName: "Sr No",
-      //   accessor: "serialNo",
-      //   id: "serialNo",
-      //   filter: "fuzzyText",
-      //   aggregate: "count",
-      // },
       {
         columnName: "Particulars",
         accessor: "particulars",
@@ -20,6 +13,7 @@ export const columns = [
         Filter: filters.SelectColumnFilter,
         filter: "includes",
         Footer: "Total",
+        width: 200,
       },
       {
         columnName: "Bucket",
@@ -28,6 +22,8 @@ export const columns = [
         Filter: filters.SelectColumnFilter,
         filter: "includes",
         Footer: "",
+        Aggregated: components.DefaultCellWithDefaultValue("Total"),
+        width: 100,
       },
     ],
   },
@@ -44,6 +40,7 @@ export const columns = [
         filter: "filterGreaterThan",
         aggregate: "sum",
         alignment: "right",
+        width: 120,
       },
       {
         columnName: "Value",
@@ -53,6 +50,7 @@ export const columns = [
         filter: "filterGreaterThan",
         aggregate: "sum",
         alignment: "right",
+        width: 120,
       },
       {
         columnName: "Fees",
@@ -62,6 +60,7 @@ export const columns = [
         filter: "filterGreaterThan",
         aggregate: "sum",
         alignment: "right",
+        width: 120,
       },
     ],
   },
@@ -78,6 +77,7 @@ export const columns = [
         filter: "filterGreaterThan",
         aggregate: "sum",
         alignment: "right",
+        width: 120,
       },
       {
         columnName: "Value",
@@ -87,6 +87,7 @@ export const columns = [
         filter: "filterGreaterThan",
         aggregate: "sum",
         alignment: "right",
+        width: 120,
       },
       {
         columnName: "Fees",
@@ -96,6 +97,7 @@ export const columns = [
         filter: "filterGreaterThan",
         aggregate: "sum",
         alignment: "right",
+        width: 120,
       },
     ],
   },
@@ -112,6 +114,7 @@ export const columns = [
         filter: "filterGreaterThan",
         aggregate: "sum",
         alignment: "right",
+        width: 120,
       },
       {
         columnName: "Value",
@@ -121,6 +124,7 @@ export const columns = [
         filter: "filterGreaterThan",
         aggregate: "sum",
         alignment: "right",
+        width: 120,
       },
       {
         columnName: "Fees",
@@ -130,6 +134,7 @@ export const columns = [
         filter: "filterGreaterThan",
         aggregate: "sum",
         alignment: "right",
+        width: 120,
       },
     ],
   },

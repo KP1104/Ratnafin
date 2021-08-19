@@ -10,9 +10,15 @@ export const LeadStagesRetail = () => {
     <Report
       columns={columns}
       disableFilters
-      maxHeight="68vh"
+      maxHeight={595}
       data={myData}
-      title="leadStagesSMECF"
+      title="Lead Stages SME & CF"
+      initialState={{
+        groupBy: ["particulars"],
+      }}
+      options={{
+        disableGroupBy: true,
+      }}
     />
   );
 };

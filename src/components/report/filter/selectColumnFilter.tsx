@@ -3,7 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 
 export const SelectColumnFilter = ({
-  column: { filterValue, setFilter, preFilteredRows, id },
+  column: { filterValue, setFilter, preFilteredRows, id, multiple },
 }) => {
   // Calculate the options for filtering
   // using the preFilteredRows
@@ -15,6 +15,9 @@ export const SelectColumnFilter = ({
     return [...options.values()];
   }, [id, preFilteredRows]);
 
+  if (multiple && !Array.isArray(filterValue)) {
+    filterValue = [filterValue];
+  }
   return (
     <TextField
       value={filterValue ?? ""}
@@ -25,6 +28,9 @@ export const SelectColumnFilter = ({
       variant="outlined"
       size="small"
       select={true}
+      SelectProps={{
+        multiple: multiple,
+      }}
     >
       <MenuItem key="default" value="">
         All
