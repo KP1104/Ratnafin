@@ -725,7 +725,7 @@ const LOSAPI = () => {
         value: one?.data_val,
         label: one?.disp_val,
       }));
-      return newArray;
+      return newArray.filter((one) => one.value !== "15");
     } else {
       throw data?.error_data;
     }

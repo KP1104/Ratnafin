@@ -17,7 +17,7 @@ export const InputEnquiry = ({ inputEnquiryDetails }) => {
               <strong>{inputEnquiryDetails?.firstName}</strong>
             </td>
             <td>
-              PAN: <strong>{inputEnquiryDetails?.panID}</strong>
+              PAN: <strong>{inputEnquiryDetails?.pan}</strong>
             </td>
             <td>Address Information 1:</td>
           </tr>

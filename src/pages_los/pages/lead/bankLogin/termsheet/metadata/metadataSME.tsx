@@ -7,6 +7,7 @@ import {
   showDependentFieldsOfCC,
   showDependentFieldsOfLCBG,
   showDependentFieldsOfFundbase,
+  showFixedOrRateFields,
 } from "../fns";
 
 export const SMETermSheetMetadata: MetaDataType = {
@@ -213,6 +214,22 @@ export const SMETermSheetMetadata: MetaDataType = {
           placeholder: "Spread %",
           dependentFields: ["facilityType", "fixedOrFloatingRate"],
           shouldExclude: showFixedOrFloatingRateFields,
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            //@ts-ignore
+            componentType: "rateOfIntWithoutValidation",
+          },
+          name: "fixedActualROI",
+          label: "Actual Rate of Interest",
+          placeholder: "Actual Rate of Interest",
+          dependentFields: ["fixedOrFloatingRate", "facilityType"],
+          shouldExclude: showFixedOrRateFields,
           GridProps: {
             xs: 12,
             md: 3,

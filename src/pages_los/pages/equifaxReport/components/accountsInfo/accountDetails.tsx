@@ -1,11 +1,22 @@
 import { History } from "./history";
 
-export const AccountDetails = ({ accountDetail }) => {
+export const AccountDetails = ({ accountDetail, count }) => {
   return (
-    <div className="account-part">
+    <div className={`account-part ` + (count % 2 ? "" : "account-second-part")}>
       <table
         className="table"
-        style={{ marginBottom: 0, borderBottom: "none !important" }}
+        style={
+          count % 2
+            ? {
+                marginBottom: 0,
+                borderBottom: "none !important",
+              }
+            : {
+                marginBottom: 0,
+                borderBottom: "none !important",
+                backgroundColor: "#eeeeee",
+              }
+        }
       >
         <thead className="thead-dark">
           <tr>
