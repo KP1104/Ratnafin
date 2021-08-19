@@ -94,6 +94,13 @@ export const getValidateValue = async (fieldData) => {
   }
 };
 
+export const validateFOIRUpto85Percent = async (fieldData) => {
+  if (Number(fieldData.value) > 85) {
+    return "This value should not be greater than 85%";
+  } else {
+  }
+};
+
 export const setValueOnDependentFieldsChangeOne = (dependentFields) => {
   if (typeof dependentFields === "object") {
     let result = Object.values(dependentFields);

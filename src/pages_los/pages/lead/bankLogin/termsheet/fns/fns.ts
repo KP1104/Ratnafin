@@ -41,3 +41,13 @@ export const showDependentFieldsOfFundbase = (_, dependentValues) => {
   }
   return true;
 };
+
+export const showFixedOrRateFields = (_, dependentValues) => {
+  if (
+    dependentValues["facilityDetails.fixedOrFloatingRate"]?.value === "fixed" &&
+    dependentValues["facilityDetails.facilityType"]?.value !== "15"
+  ) {
+    return false;
+  }
+  return true;
+};

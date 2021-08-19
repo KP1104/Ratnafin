@@ -104,6 +104,7 @@ registerFn("getGenderValue", others.getGenderValue);
 registerFn("setLTVValue", others.setLTVValue);
 registerFn("setNewLTVValue", others.setNewLTVValue);
 registerFn("setLTVValueForCAM", others.setLTVValueForCAM);
+registerFn("validateFOIRUpto85Percent", others.validateFOIRUpto85Percent);
 
 registerFn(
   "getMonthlyEmiPayValidateValue",
