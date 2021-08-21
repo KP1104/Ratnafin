@@ -2,18 +2,17 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import Report from "components/report";
 import { columns } from "./metadata";
-import { transformData } from "./transformData";
 
-import { getLeadStagesSMECFData } from "../api";
+import { getLeadStagesRetailData } from "../api";
 
-export const LeadStagesSMECF = () => {
+export const LeadStagesRetail = () => {
   const [myData, setMyData] = useState([]);
   const query = useQuery<any, any>(
-    "getLeadStagesSMECFData",
-    getLeadStagesSMECFData,
+    "getLeadStagesRetailData",
+    getLeadStagesRetailData,
     {
       onSuccess: (data) => {
-        setMyData(transformData(data));
+        setMyData(data);
       },
       cacheTime: 0,
     }

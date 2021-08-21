@@ -321,6 +321,12 @@ export const metaData: NavBarMetaDataType = {
       icon: "table",
       children: [
         {
+          label: "Lead Stages SME & CF",
+          href: "./reports/leadStagesSMECF",
+          isRouterLink: true,
+          icon: "circle",
+        },
+        {
           label: "Lead Stages Retail",
           href: "./reports/leadStagesRetail",
           isRouterLink: true,
