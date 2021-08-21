@@ -14,6 +14,7 @@ import { AssignBranch } from "../assignBranch";
 import { AssignInquiry } from "../assignInquiry";
 import { Priority } from "../priority";
 import { MoveToLead } from "../moveToLead";
+import { EligibilityCalculator } from "../eligibilityCalculator";
 import { InvalidAction } from "pages_los/common/invalidAction";
 
 //All actions = [ViewDetails,ViewDetailsReadOnly,AssignBranch,Priority,MoveToLead,AssignInquiry]
@@ -42,9 +43,12 @@ export const Inquiry = ({ gridCode, actions }) => {
       </ServerGridContextProvider>
       <Dialog
         fullScreen={
-          ["ViewDetails", "ViewDetailsReadOnly", "Priority"].indexOf(
-            currentAction?.name
-          ) >= 0
+          [
+            "ViewDetails",
+            "ViewDetailsReadOnly",
+            "Priority",
+            "calculator",
+          ].indexOf(currentAction?.name) >= 0
             ? true
             : false
         }
@@ -137,6 +141,19 @@ export const Inquiry = ({ gridCode, actions }) => {
                 refID={currentAction?.rows[0].id}
                 isDataChangedRef={isDataChangedRef}
                 closeDialog={handleDialogClose}
+              />
+            </Fragment>
+          ) : (currentAction?.name ?? "") === "calculator" ? (
+            <Fragment key={currentAction?.rows[0].id}>
+              <HeaderDetails
+                productData={currentAction?.rows[0]}
+                handleDialogClose={handleDialogClose}
+              />
+              <EligibilityCalculator
+                employeentType={currentAction?.rows[0].data?.empl_value}
+                loanAmount={currentAction?.rows[0].data?.desire_loan_amt}
+                productId={currentAction?.rows[0].data?.product_type}
+                employeeCode={currentAction?.rows[0].data?.empl_cd}
               />
             </Fragment>
           ) : (

@@ -72,7 +72,8 @@ export const useStyles = makeStyles((theme) => ({
     position: "relative",
   },
   stepper: {
-    width: theme.spacing(1),
+    width: "100%",
+    // width: theme.spacing(1),
     display: "flex",
     justifyContent: "flex-end",
   },

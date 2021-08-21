@@ -77,13 +77,13 @@ const MiddlewareAPI = () => {
     }
   };
 
-  const getEqifaxReportData = async () => {
+  const getEqifaxReportData = async ({ tokenID }: any) => {
     const { data, status } = await internalFetcher(
       `./lead/external/equifax/report-data/get`,
       {
         body: JSON.stringify({
           request_data: {
-            tokenID: "C3ECF0CE052675C3E05500000000000104062021012008",
+            tokenID: tokenID,
           },
           channel: "W",
         }),
