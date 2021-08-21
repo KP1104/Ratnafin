@@ -56,6 +56,19 @@ export const AssignedInquiry = () => {
       multiple: false,
       rowDoubleClick: false,
     },
+    {
+      actionName: "calculator",
+      actionLabel: "Eligibility Calculator",
+      multiple: false,
+      rowDoubleClick: false,
+      shouldExclude: (rows) => {
+        let exclude = false;
+        if (["12300003", "12300004"].indexOf(rows[0].data?.product_type) >= 0) {
+          exclude = true;
+        }
+        return exclude;
+      },
+    },
   ];
   return <Inquiry gridCode="TRN/006" actions={actions} />;
 };
