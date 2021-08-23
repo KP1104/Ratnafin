@@ -1,17 +1,16 @@
+import { FC } from "react";
+import { useQuery } from "react-query";
+import { cloneDeep } from "lodash-es";
+import loaderGif from "assets/images/loader.gif";
 import FormWrapper, { MetaDataType } from "components/dyanmicForm";
-import {
-  EligibilityCalculatorLAPBusinessOrProfessional,
-  EligibilityCalculatorLAPSalaried,
-} from "./metadata/lap";
-import {
-  EligibilityCalculatorHLBusinessOrProfessional,
-  EligibilityCalculatorHLSalaried,
-} from "./metadata/newHomeLoan";
-export const EligibilityCalculator = ({
+import * as API from "./api";
+
+export const EligibilityCalculator: FC<any> = ({
   employeentType,
   loanAmount,
   productId,
   employeeCode,
+  setEditFormStateFromInitValues,
 }) => {
   let initalValue = {
     ...{
@@ -21,30 +20,41 @@ export const EligibilityCalculator = ({
     },
   };
 
-  let metadata;
+  const result = useQuery(["getMetadata", employeeCode, productId], () =>
+    API.getMetadata()(employeeCode, productId)
+  );
 
-  switch (`${employeeCode}${productId}`) {
-    case "0312300001":
-    case "0112300001":
-      metadata = EligibilityCalculatorHLBusinessOrProfessional;
-      break;
-    case "0212300001":
-      metadata = EligibilityCalculatorHLSalaried;
-      break;
-    case "0312300002":
-    case "0112300002":
-      metadata = EligibilityCalculatorLAPBusinessOrProfessional;
-      break;
+  const dataUniqueKey = `${result.dataUpdatedAt}`;
+  const loading = result.isLoading || result.isFetching;
+  let isError = result.isError;
+  //@ts-ignore
+  let errorMsg = `${result.error?.error_msg ?? ""}`;
+  errorMsg = Boolean(errorMsg.trim()) ? errorMsg : "Unknown error occured";
 
-    case "0212300002":
-      metadata = EligibilityCalculatorLAPSalaried;
-      break;
+  let metaData: MetaDataType = {} as MetaDataType;
+
+  if (result.isSuccess) {
+    const formStateFromInitValues =
+      typeof setEditFormStateFromInitValues === "function"
+        ? setEditFormStateFromInitValues(result.data)
+        : undefined;
+    metaData = cloneDeep(result.data) as MetaDataType;
+
+    metaData.form.formState = {
+      formCode: metaData.form.name,
+      ...formStateFromInitValues,
+    };
+    metaData.form.name = `${metaData.form.name}-edit`;
   }
 
-  return (
+  const renderResult = loading ? (
+    <img src={loaderGif} alt="loader" width="50px" height="50px" />
+  ) : isError === true ? (
+    <span>{errorMsg}</span>
+  ) : (
     <FormWrapper
-      key={"eligibilityCalculator"}
-      metaData={metadata as MetaDataType}
+      key={`${dataUniqueKey}`}
+      metaData={metaData as MetaDataType}
       initialValues={initalValue}
       onSubmitHandler={() => {}}
       //@ts-ignore
@@ -52,4 +62,5 @@ export const EligibilityCalculator = ({
       disableGroupErrorDetection={false}
     ></FormWrapper>
   );
+  return renderResult;
 };
