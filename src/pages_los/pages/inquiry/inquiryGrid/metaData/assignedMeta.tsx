@@ -139,9 +139,23 @@ export const assignedMetaData = {
       isVisible: true,
     },
     {
+      accessor: "empl_value",
+      columnName: "Employment Type",
+      sequence: 8,
+      width: 150,
+      minWidth: 100,
+      maxWidth: 200,
+      alignment: "left",
+      componentType: "default",
+      disableSortBy: false,
+      disableFilters: false,
+      filterComponentType: "valueFilter",
+      isVisible: true,
+    },
+    {
       accessor: "gender",
       columnName: "Gender",
-      sequence: 8,
+      sequence: 9,
       width: 150,
       minWidth: 100,
       maxWidth: 200,
@@ -158,7 +172,7 @@ export const assignedMetaData = {
     {
       accessor: "birth_dt",
       columnName: "Birth Date",
-      sequence: 9,
+      sequence: 10,
       width: 150,
       minWidth: 100,
       maxWidth: 200,
@@ -176,7 +190,7 @@ export const assignedMetaData = {
     {
       accessor: "mobile",
       columnName: "Mobile",
-      sequence: 10,
+      sequence: 11,
       width: 150,
       minWidth: 100,
       maxWidth: 200,
@@ -190,7 +204,7 @@ export const assignedMetaData = {
     {
       accessor: "e_mail_id",
       columnName: "Email",
-      sequence: 11,
+      sequence: 12,
       width: 150,
       minWidth: 100,
       maxWidth: 200,
@@ -204,7 +218,7 @@ export const assignedMetaData = {
     {
       accessor: "desire_loan_amt",
       columnName: "Loan Amount",
-      sequence: 12,
+      sequence: 13,
       width: 150,
       minWidth: 100,
       maxWidth: 200,
@@ -218,7 +232,7 @@ export const assignedMetaData = {
     {
       accessor: "postal_cd",
       columnName: "Postal Code",
-      sequence: 13,
+      sequence: 14,
       width: 150,
       minWidth: 100,
       maxWidth: 200,
@@ -232,7 +246,7 @@ export const assignedMetaData = {
     {
       accessor: "district",
       columnName: "District",
-      sequence: 14,
+      sequence: 15,
       width: 150,
       minWidth: 100,
       maxWidth: 200,
@@ -246,7 +260,7 @@ export const assignedMetaData = {
     {
       accessor: "lead_generate",
       columnName: "Lead Generated",
-      sequence: 15,
+      sequence: 16,
       width: 150,
       minWidth: 100,
       maxWidth: 200,
@@ -263,7 +277,7 @@ export const assignedMetaData = {
     {
       accessor: "sub_product1",
       columnName: "Sub Product-1",
-      sequence: 16,
+      sequence: 17,
       width: 150,
       minWidth: 100,
       maxWidth: 200,
@@ -277,7 +291,7 @@ export const assignedMetaData = {
     {
       accessor: "sub_product2",
       columnName: "Sub Product-2",
-      sequence: 17,
+      sequence: 18,
       width: 150,
       minWidth: 100,
       maxWidth: 200,
@@ -291,7 +305,7 @@ export const assignedMetaData = {
     {
       accessor: "entered_by",
       columnName: "Entered By",
-      sequence: 18,
+      sequence: 19,
       width: 150,
       minWidth: 100,
       maxWidth: 200,

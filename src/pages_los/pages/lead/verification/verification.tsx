@@ -22,7 +22,10 @@ const actions: ActionTypes[] = [
     shouldExclude: (rows: any) => {
       let exclude = false;
       for (let i = 0; i < rows.length; i++) {
-        if (["SUCCESS"].indexOf(rows[i].data?.status) < 0) {
+        if (
+          ["SUCCESS"].indexOf(rows[i].data?.status) < 0 ||
+          ["CREDIT"].indexOf(rows[i].data?.requestType) < 0
+        ) {
           exclude = true;
           break;
         }

@@ -97,6 +97,20 @@ export const EligibilityCalculatorLAPBusinessOrProfessional: MetaDataType = {
     },
     {
       render: {
+        componentType: "hidden",
+        group: 0,
+      },
+      name: "employementCode",
+      label: "Employement Code",
+      placeholder: "Employement Code",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+    {
+      render: {
         //@ts-ignore
         componentType: "currency",
         group: 0,
@@ -169,10 +183,6 @@ export const EligibilityCalculatorLAPBusinessOrProfessional: MetaDataType = {
         "employementType",
         "previousAnnualNetProfit",
         "currentAnnualNetProfit",
-        "applicantIncome",
-        "monthlyIncome",
-        "coApplicantIncome",
-        "coApplicantMonthlyIncome",
       ],
       shouldExclude: applicantFilingDetailsFieldShow,
       setValueOnDependentFieldsChange: calculateApplicantIncome,
@@ -336,7 +346,7 @@ export const EligibilityCalculatorLAPBusinessOrProfessional: MetaDataType = {
       placeholder: "Total Income",
       isReadOnly: true,
       dependentFields: [
-        "employementType",
+        "employementCode",
         "coApplicantEmployement",
         "applicantIncome",
         "monthlyIncome",

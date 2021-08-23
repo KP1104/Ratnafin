@@ -1,5 +1,5 @@
 import { MetaDataType } from "components/dyanmicForm/types";
-import { calculateActualRateofInte } from "../utils";
+import { calculateActualRateofInte } from "../../../utils";
 import {
   showFixedOrFloatingRateFields,
   showSelectionOfFixedOrFloatingRate,
@@ -7,8 +7,9 @@ import {
   showDependentFieldsOfCC,
   showDependentFieldsOfLCBG,
   showDependentFieldsOfFundbase,
-  showFixedOrRateFields,
-} from "../fns";
+  showFixedROIField,
+  showDSCRAField,
+} from "../../../fns";
 
 export const SMETermSheetMetadata: MetaDataType = {
   form: {
@@ -225,23 +226,7 @@ export const SMETermSheetMetadata: MetaDataType = {
             //@ts-ignore
             componentType: "rateOfIntWithoutValidation",
           },
-          name: "fixedActualROI",
-          label: "Actual Rate of Interest",
-          placeholder: "Actual Rate of Interest",
-          dependentFields: ["fixedOrFloatingRate", "facilityType"],
-          shouldExclude: showFixedOrRateFields,
-          GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
-          },
-        },
-        {
-          render: {
-            //@ts-ignore
-            componentType: "rateOfIntWithoutValidation",
-          },
-          name: "actualROI",
+          name: "floatingActualROI",
           label: "Actual Rate of Interest",
           placeholder: "Actual Rate of Interest",
           readOnly: true,
@@ -254,6 +239,22 @@ export const SMETermSheetMetadata: MetaDataType = {
           shouldExclude: showFixedOrFloatingRateFields,
           setValueOnDependentFieldsChange: calculateActualRateofInte,
           isReadOnly: true,
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            //@ts-ignore
+            componentType: "rateOfIntWithoutValidation",
+          },
+          name: "fixedActualROI",
+          label: "Actual Rate of Interest",
+          placeholder: "Actual Rate of Interest",
+          dependentFields: ["fixedOrFloatingRate", "facilityType"],
+          shouldExclude: showFixedROIField,
           GridProps: {
             xs: 12,
             md: 3,
@@ -410,7 +411,7 @@ export const SMETermSheetMetadata: MetaDataType = {
           name: "stockStatementSubmissionFreq",
           label: "Frequency of Stock Statement submission",
           placeholder: "Frequency of Stock Statement submission",
-          dependentFields: ["fundBaseType"],
+          dependentFields: ["facilityType"],
           shouldExclude: showDependentFieldsOfFundbase,
           maxLength: 5,
           showMaxLength: false,
@@ -442,6 +443,43 @@ export const SMETermSheetMetadata: MetaDataType = {
           name: "prePaymentCharges",
           label: "Pre Payment Charges",
           placeholder: "Pre Payment Charges",
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            //@ts-ignore
+            componentType: "textField",
+          },
+          type: "number",
+          name: "dscraMonths",
+          label: "DSCRA No of Months",
+          placeholder: "No of Months",
+          maxLength: 3,
+          showMaxLength: false,
+          dependentFields: ["facilityType"],
+          //@ts-ignore
+          shouldExclude: showDSCRAField,
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            //@ts-ignore
+            componentType: "currency",
+          },
+          name: "dscraAmount",
+          label: "DSCRA Amount",
+          placeholder: "DSCRA Amount",
+          dependentFields: ["facilityType"],
+          //@ts-ignore
+          shouldExclude: showDSCRAField,
           GridProps: {
             xs: 12,
             md: 3,
