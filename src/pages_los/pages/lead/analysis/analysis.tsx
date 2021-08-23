@@ -52,7 +52,7 @@ const actions: ActionTypes[] = [
     shouldExclude: (rows: any) => {
       let exclude = false;
       for (let i = 0; i < rows.length; i++) {
-        if (["SUCCESS"].indexOf(rows[i].data?.status) < 0) {
+        if (["SUCCESS"].indexOf(rows[i].data?.downloadStatus) < 0) {
           exclude = true;
           break;
         }

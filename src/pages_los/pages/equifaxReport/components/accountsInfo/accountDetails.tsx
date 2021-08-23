@@ -21,7 +21,7 @@ export const AccountDetails = ({ accountDetail, count }) => {
         <thead className="thead-dark">
           <tr>
             <th colSpan={10} scope="col" style={{ textAlign: "center" }}>
-              Accounts
+              Account: {`${accountDetail?.AccountType}`}
             </th>
           </tr>
         </thead>
