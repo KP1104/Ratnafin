@@ -332,6 +332,12 @@ export const metaData: NavBarMetaDataType = {
           isRouterLink: true,
           icon: "circle",
         },
+        {
+          label: "Lead Inquiry Details",
+          href: "./reports/leadInquiry",
+          isRouterLink: true,
+          icon: "circle",
+        },
       ],
     },
     {

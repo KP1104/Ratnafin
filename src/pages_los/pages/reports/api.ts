@@ -31,3 +31,19 @@ export const getLeadStagesRetailData = async () => {
     throw data?.error_data;
   }
 };
+
+export const getInquiryLeadDetails = async () => {
+  const { data, status } = await LOSSDK.internalFetcher(
+    "./reports/inquiry_lead_details",
+    {
+      body: JSON.stringify({
+        request_data: {},
+      }),
+    }
+  );
+  if (status === "success") {
+    return data?.response_data;
+  } else {
+    throw data?.error_data;
+  }
+};

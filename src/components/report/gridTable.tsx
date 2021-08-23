@@ -26,6 +26,7 @@ import GetAppIcon from "@material-ui/icons/GetApp";
 import { Typography } from "@material-ui/core";
 import { FixedSizeList } from "react-window";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import { useSequenceColumn } from "./components/useSequence";
 
 interface GridTableType {
   columns: any;
@@ -37,6 +38,7 @@ interface GridTableType {
   title?: any;
   options?: any;
   loading: boolean;
+  hideFooter?: boolean;
 }
 
 const defaultMaxHeight = 300;
@@ -86,6 +88,7 @@ export const GridTable: FC<GridTableType> = ({
   title,
   options,
   loading = false,
+  hideFooter = false,
 }) => {
   const [showFilters, setShowFilters] = useState(false);
   const handleFilterChange = useCallback(() => {
@@ -105,7 +108,8 @@ export const GridTable: FC<GridTableType> = ({
     useSortBy,
     useExpanded,
     useResizeColumns,
-    useBlockLayout
+    useBlockLayout,
+    useSequenceColumn
   );
 
   const {
@@ -268,15 +272,17 @@ export const GridTable: FC<GridTableType> = ({
                 {RenderRows}
               </FixedSizeList>
             </TableBody>
-            <TableHead
-              component="div"
-              style={{
-                boxShadow:
-                  "0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12)",
-              }}
-            >
-              <RenderFooter footerGroup={footerGroups[0]} />
-            </TableHead>
+            {hideFooter ? null : (
+              <TableHead
+                component="div"
+                style={{
+                  boxShadow:
+                    "0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12)",
+                }}
+              >
+                <RenderFooter footerGroup={footerGroups[0]} />
+              </TableHead>
+            )}
           </Table>
         </TableContainer>
       </Paper>
