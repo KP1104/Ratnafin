@@ -5,6 +5,8 @@ export const calculateActualRateofInte = (dependentFields) => {
   const spread = Number(
     dependentFields["facilityDetails.spreadInPercent"]?.value / 100
   );
-  const total = (baseRate + spread) * 100;
-  return (baseRate + spread) * 100;
+  if (!isNaN(baseRate) && !isNaN(spread)) {
+    const total = (baseRate + spread) * 100;
+    return total;
+  }
 };

@@ -8,6 +8,15 @@ export const showFixedOrFloatingRateFields = (_, dependentValues) => {
   }
   return true;
 };
+export const showFixedROIField = (_, dependentValues) => {
+  if (
+    dependentValues["facilityDetails.fixedOrFloatingRate"]?.value === "fixed" &&
+    dependentValues["facilityDetails.facilityType"]?.value !== "15"
+  ) {
+    return false;
+  }
+  return true;
+};
 export const showSelectionOfFixedOrFloatingRate = (_, dependentValues) => {
   if (dependentValues["facilityDetails.facilityType"]?.value !== "15") {
     return false;
@@ -36,7 +45,25 @@ export const showDependentFieldsOfLCBG = (_, dependentValues) => {
 };
 
 export const showDependentFieldsOfFundbase = (_, dependentValues) => {
-  if (dependentValues["facilityDetails.fundBaseType"]?.value === "fundBased") {
+  const facilityType = dependentValues["facilityDetails.facilityType"]?.value;
+  if (["06", "07", "08", "09"].indexOf(facilityType) >= 0) {
+    return true;
+  }
+  return false;
+};
+
+export const postValidationSetFuntBaseType = async (fieldData) => {
+  const fieldValues = fieldData.incomingMessage?.others[fieldData.value];
+  return {
+    fundBaseType: {
+      value: fieldValues?.fundValue,
+    },
+  };
+};
+
+export const showDSCRAField = (_, dependentValues) => {
+  const facilityType = dependentValues["facilityDetails.facilityType"]?.value;
+  if (["04", "05"].indexOf(facilityType) >= 0) {
     return false;
   }
   return true;

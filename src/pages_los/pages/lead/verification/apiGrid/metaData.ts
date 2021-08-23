@@ -44,10 +44,17 @@ export const GridMetaData: GridMetaDataType = {
       alignment: "left",
     },
     {
+      columnName: "Entity Source",
+      componentType: "default",
+      accessor: "source",
+      sequence: 4,
+      alignment: "left",
+    },
+    {
       columnName: "Entity Type",
       componentType: "default",
       accessor: "entityType",
-      sequence: 4,
+      sequence: 5,
       alignment: "left",
     },
 
@@ -55,7 +62,7 @@ export const GridMetaData: GridMetaDataType = {
       columnName: "Entity Name",
       componentType: "default",
       accessor: "entityName",
-      sequence: 5,
+      sequence: 6,
       alignment: "left",
     },
 
@@ -63,7 +70,7 @@ export const GridMetaData: GridMetaDataType = {
       columnName: "Status",
       componentType: "default",
       accessor: "status",
-      sequence: 6,
+      sequence: 7,
       alignment: "left",
     },
     {
@@ -71,7 +78,7 @@ export const GridMetaData: GridMetaDataType = {
       componentType: "default",
       accessor: "remarks",
       showTooltip: true,
-      sequence: 6,
+      sequence: 8,
       alignment: "left",
     },
   ],
