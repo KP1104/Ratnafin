@@ -23,7 +23,7 @@ const actions: ActionTypes[] = [
       let exclude = false;
       for (let i = 0; i < rows.length; i++) {
         if (
-          ["SUCCESS"].indexOf(rows[i].data?.status) < 0 ||
+          ["SUCCESS"].indexOf(rows[i].data?.downloadStatus) < 0 ||
           ["CREDIT"].indexOf(rows[i].data?.requestType) < 0
         ) {
           exclude = true;

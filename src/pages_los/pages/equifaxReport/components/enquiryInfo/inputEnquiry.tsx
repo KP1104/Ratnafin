@@ -23,7 +23,7 @@ export const InputEnquiry = ({ inputEnquiryDetails }) => {
           </tr>
           <tr>
             <td>
-              Consumer’s Family Name : <strong>KUMAR</strong>
+              Consumer’s Family Name : <strong></strong>
             </td>
             <td>
               Voter ID: <strong>{inputEnquiryDetails?.voterID}</strong>
