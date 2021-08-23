@@ -1,10 +1,11 @@
 import { MetaDataType } from "components/dyanmicForm/types";
-import { calculateActualRateofInte } from "../utils";
+import { calculateActualRateofInte } from "../../../utils";
 import {
   showFixedOrFloatingRateFields,
   showSelectionOfFixedOrFloatingRate,
   showTenureOrMoratoriumField,
-} from "../fns";
+  showFixedROIField,
+} from "../../../fns";
 
 export const CFTermSheetMetadata: MetaDataType = {
   form: {
@@ -224,7 +225,7 @@ export const CFTermSheetMetadata: MetaDataType = {
             //@ts-ignore
             componentType: "rateOfIntWithoutValidation",
           },
-          name: "actualROI",
+          name: "floatingActualROI",
           label: "Actual Rate of Interest",
           placeholder: "Actual Rate of Interest",
           readOnly: true,
@@ -237,6 +238,22 @@ export const CFTermSheetMetadata: MetaDataType = {
           shouldExclude: showFixedOrFloatingRateFields,
           setValueOnDependentFieldsChange: calculateActualRateofInte,
           isReadOnly: true,
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            //@ts-ignore
+            componentType: "rateOfIntWithoutValidation",
+          },
+          name: "fixedActualROI",
+          label: "Actual Rate of Interest",
+          placeholder: "Actual Rate of Interest",
+          dependentFields: ["fixedOrFloatingRate", "facilityType"],
+          shouldExclude: showFixedROIField,
           GridProps: {
             xs: 12,
             md: 3,
@@ -320,6 +337,37 @@ export const CFTermSheetMetadata: MetaDataType = {
           name: "prePaymentCharges",
           label: "Pre Payment Charges",
           placeholder: "Pre Payment Charges",
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            //@ts-ignore
+            componentType: "textField",
+          },
+          type: "number",
+          name: "dscraMonths",
+          label: "DSCRA No of Months",
+          placeholder: "No of Months",
+          maxLength: 3,
+          showMaxLength: false,
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            //@ts-ignore
+            componentType: "currency",
+          },
+          name: "dscraAmount",
+          label: "DSCRA Amount",
+          placeholder: "DSCRA Amount",
           GridProps: {
             xs: 12,
             md: 3,
@@ -624,72 +672,6 @@ export const CFTermSheetMetadata: MetaDataType = {
       format: "dd/MM/yyyy",
       required: true,
       validate: "getValidateValue",
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-    },
-    {
-      render: {
-        //@ts-ignore
-        componentType: "select",
-        group: 4,
-      },
-      name: "dscraAny",
-      label: "Any DSCRA to be maintained",
-      placeholder: "Any DSCRA to be maintained",
-      //@ts-ignore
-      options: "getYesOrNoOptions",
-      defaultValue: "00",
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-    },
-    {
-      render: {
-        //@ts-ignore
-        componentType: "textField",
-        group: 4,
-      },
-      name: "dscraMonths",
-      label: "DSCRA No of Months",
-      placeholder: "No of Months",
-      maxLength: 3,
-      showMaxLength: false,
-      dependentFields: ["dscraAny"],
-      //@ts-ignore
-      shouldExclude: (_, dependentFields) => {
-        if (dependentFields["dscraAny"].value === "Y") {
-          return false;
-        }
-        return true;
-      },
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-    },
-    {
-      render: {
-        //@ts-ignore
-        componentType: "currency",
-        group: 4,
-      },
-      name: "dscraAmount",
-      label: "DSCRA Amount",
-      placeholder: "DSCRA Amount",
-      dependentFields: ["dscraAny"],
-      //@ts-ignore
-      shouldExclude: (_, dependentFields) => {
-        if (dependentFields["dscraAny"].value === "Y") {
-          return false;
-        }
-        return true;
-      },
       GridProps: {
         xs: 12,
         md: 3,

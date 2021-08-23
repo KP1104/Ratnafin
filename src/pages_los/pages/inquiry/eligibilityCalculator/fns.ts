@@ -46,7 +46,7 @@ export const calculateApplicantIncome = (dependentFields) => {
   );
 
   let income = 0;
-  if (isNaN(previousYearIncome) || previousYearIncome == 0) {
+  if (!isNaN(previousYearIncome) && previousYearIncome == 0) {
     income = currentYearIncome / 12;
   } else {
     income = Math.abs(currentYearIncome - previousYearIncome);
@@ -73,7 +73,7 @@ export const calculateCoApplicantIncome = (dependentFields) => {
   );
 
   let income = 0;
-  if (!isNaN(previousYearIncome) || previousYearIncome == 0) {
+  if (!isNaN(previousYearIncome) && previousYearIncome == 0) {
     income = currentYearIncome / 12;
   } else {
     income = Math.abs(currentYearIncome - previousYearIncome);
@@ -92,7 +92,7 @@ export const calculateCoApplicantIncome = (dependentFields) => {
 };
 
 export const calculateApplicantCoApplcantTotalIncome = (dependentFields) => {
-  const applicantEmployementType = dependentFields["employementType"]?.value;
+  const applicantEmployementType = dependentFields["employementCode"]?.value;
   const coApplicantEmployementType =
     dependentFields["coApplicantEmployement"]?.value;
   let applicantIncome = 0;

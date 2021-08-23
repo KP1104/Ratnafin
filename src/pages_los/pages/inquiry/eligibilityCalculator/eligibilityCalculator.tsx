@@ -14,7 +14,11 @@ export const EligibilityCalculator = ({
   employeeCode,
 }) => {
   let initalValue = {
-    ...{ loanAmount: loanAmount, employementType: employeentType },
+    ...{
+      loanAmount: loanAmount,
+      employementType: employeentType,
+      employementCode: employeeCode,
+    },
   };
 
   let metadata;
