@@ -48,11 +48,7 @@ export const MyStepper = ({
 
       <div className={classes.stepper}>
         {activeStep === 0 ? null : (
-          <Button
-            type="button"
-            onClick={handlePrev}
-            className={classes.backBtn}
-          >
+          <Button type="button" onClick={handlePrev} className={classes.submit}>
             {formRenderConfig?.labels?.prev ?? "Back"}
           </Button>
         )}

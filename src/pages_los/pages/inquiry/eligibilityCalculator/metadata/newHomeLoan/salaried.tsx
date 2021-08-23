@@ -147,6 +147,8 @@ export const EligibilityCalculatorHLSalaried: MetaDataType = {
       placeholder: "Monthly Income",
       dependentFields: ["employementType"],
       shouldExclude: applicantMonthlySalaryFieldShow,
+      required: true,
+      validate: "getValidateValue",
       GridProps: {
         xs: 12,
         md: 3,
@@ -252,6 +254,8 @@ export const EligibilityCalculatorHLSalaried: MetaDataType = {
       placeholder: "Monthly Income",
       dependentFields: ["coApplicantEmployement"],
       shouldExclude: coApplicantMonthlySalaryFieldShow,
+      required: true,
+      validate: "getValidateValue",
       GridProps: {
         xs: 12,
         md: 3,
@@ -269,6 +273,8 @@ export const EligibilityCalculatorHLSalaried: MetaDataType = {
       placeholder: "Previous Filing Year Annual Net Profit",
       dependentFields: ["coApplicantEmployement"],
       shouldExclude: coApplicantFilingDetailsFieldShow,
+      required: true,
+      validate: "getValidateValue",
       GridProps: {
         xs: 12,
         md: 3,
@@ -286,6 +292,8 @@ export const EligibilityCalculatorHLSalaried: MetaDataType = {
       placeholder: "Current Filing Year Annual Net Profit",
       dependentFields: ["coApplicantEmployement"],
       shouldExclude: coApplicantFilingDetailsFieldShow,
+      required: true,
+      validate: "getValidateValue",
       GridProps: {
         xs: 12,
         md: 3,
