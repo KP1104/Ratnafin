@@ -5,7 +5,7 @@ import { DefaultCell } from "./defaultCell";
 
 export const TextFieldCell = (props) => {
   const {
-    column: { id: columnName, type },
+    column: { id: columnName, type, clearFields },
     row: { id },
     currentEditRow,
   } = props;
@@ -15,6 +15,7 @@ export const TextFieldCell = (props) => {
         key={columnName}
         columnName={columnName}
         type={type ?? "text"}
+        clearFields={clearFields}
       />
     );
   } else {
@@ -22,7 +23,7 @@ export const TextFieldCell = (props) => {
   }
 };
 
-export const MyTextField = ({ columnName, type }) => {
+export const MyTextField = ({ columnName, type, clearFields }) => {
   const {
     error,
     setCellValue,
@@ -37,7 +38,9 @@ export const MyTextField = ({ columnName, type }) => {
       value={currentRow?.[columnName]}
       size="small"
       variant="outlined"
-      onChange={(e) => setCellValue({ [columnName]: e.target.value })}
+      onChange={(e) =>
+        setCellValue({ [columnName]: e.target.value, ...clearFields })
+      }
       helperText={touched?.[columnName] && error?.[columnName]}
       error={Boolean(touched?.[columnName]) && Boolean(error?.[columnName])}
       onBlur={() => setCellTouched({ [columnName]: true })}

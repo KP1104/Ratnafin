@@ -40,6 +40,7 @@ interface GridTableType {
   maxHeight?: string;
   setFormError?: any;
   disabled?: boolean;
+  disableFooter?: boolean;
 }
 
 const defaultValidator = async () => {};
@@ -65,6 +66,7 @@ export const GridTable: FC<GridTableType> = ({
   dataIdColumn = defaultIdColumn,
   rowValidator = defaultValidator,
   deleteRowFn = defaultRowDeleteFn,
+  disableFooter = false,
 }) => {
   const touchAllDataRef = useRef<any>(null);
   const incrCounter = useRef(-1);
@@ -303,27 +305,29 @@ export const GridTable: FC<GridTableType> = ({
                 })}
               </div>
             </TableBody>
-            <TableHead component="div">
-              {footerGroups.map((footerGroup) => (
-                <TableRow
-                  {...footerGroup.getFooterGroupProps()}
-                  component="div"
-                >
-                  {footerGroup.headers.map((column) => (
-                    <TableCell
-                      {...column.getFooterProps([
-                        {
-                          style: { textAlign: column?.alignment ?? "unset" },
-                        },
-                      ])}
-                      component="div"
-                    >
-                      {column.render("Footer")}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))}
-            </TableHead>
+            {disableFooter ? null : (
+              <TableHead component="div">
+                {footerGroups.map((footerGroup) => (
+                  <TableRow
+                    {...footerGroup.getFooterGroupProps()}
+                    component="div"
+                  >
+                    {footerGroup.headers.map((column) => (
+                      <TableCell
+                        {...column.getFooterProps([
+                          {
+                            style: { textAlign: column?.alignment ?? "unset" },
+                          },
+                        ])}
+                        component="div"
+                      >
+                        {column.render("Footer")}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))}
+              </TableHead>
+            )}
           </Table>
         </TableContainer>
         <Button onClick={addNewRow}>AddRow</Button>

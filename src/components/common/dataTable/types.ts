@@ -21,4 +21,5 @@ export interface GridColumnType {
   FormatProps?: any;
   ViceVersaProps?: any;
   type?: any;
+  clearFields?: any;
 }

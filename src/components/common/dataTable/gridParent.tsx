@@ -19,6 +19,7 @@ interface DataTableProps {
   enableGrid: boolean;
   label: string;
   maxHeight?: string;
+  disableFooter?: boolean;
 }
 
 export type MyDataTableProps = UseFieldHookProps & DataTableProps;
@@ -41,6 +42,7 @@ export const GridParent: FC<MyDataTableProps> = ({
   maxHeight,
   shouldExclude,
   dependentFields,
+  disableFooter,
 }) => {
   const transformedMetaData = useMemo(() => {
     let newMetaData = cloneDeep(_columns);
@@ -110,6 +112,7 @@ export const GridParent: FC<MyDataTableProps> = ({
       maxHeight={maxHeight}
       setFormError={setErrorAsCB}
       disabled={isSubmitting}
+      disableFooter={disableFooter}
     />
   );
   if (Boolean(enableGrid)) {

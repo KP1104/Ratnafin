@@ -37,7 +37,13 @@ export const DisplayCell = ({ value, displayStyle }) => {
 
 export const NumberCell = (props) => {
   const {
-    column: { id: columnName, FormatProps, formattedValue, displayStyle },
+    column: {
+      id: columnName,
+      FormatProps,
+      formattedValue,
+      displayStyle,
+      clearFields,
+    },
     row: { id },
     currentEditRow,
   } = props;
@@ -48,6 +54,7 @@ export const NumberCell = (props) => {
         columnName={columnName}
         FormatProps={FormatProps}
         formattedValue={formattedValue}
+        clearFields={clearFields}
       />
     );
   } else {
@@ -55,7 +62,12 @@ export const NumberCell = (props) => {
   }
 };
 
-export const CurrencyInput = ({ columnName, FormatProps, formattedValue }) => {
+export const CurrencyInput = ({
+  columnName,
+  FormatProps,
+  formattedValue,
+  clearFields,
+}) => {
   const {
     error,
     setCellValue,
@@ -67,7 +79,9 @@ export const CurrencyInput = ({ columnName, FormatProps, formattedValue }) => {
   return (
     <TextField
       value={currentRow?.[columnName]}
-      onChange={(e) => setCellValue({ [columnName]: e.target.value })}
+      onChange={(e) =>
+        setCellValue({ [columnName]: e.target.value, ...clearFields })
+      }
       helperText={touched?.[columnName] && error?.[columnName]}
       error={Boolean(touched?.[columnName]) && Boolean(error?.[columnName])}
       onBlur={() => setCellTouched({ [columnName]: true })}

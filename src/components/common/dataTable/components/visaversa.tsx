@@ -6,13 +6,19 @@ import { DefaultCell } from "./defaultCell";
 
 export const VisaversaCell = (props) => {
   const {
-    column: { id: columnName, ViceVersaProps },
+    column: { id: columnName, ViceVersaProps, clearFields },
     row: { id },
     currentEditRow,
   } = props;
 
   if (currentEditRow === id) {
-    return <Visaversa columnName={columnName} {...ViceVersaProps} />;
+    return (
+      <Visaversa
+        columnName={columnName}
+        clearFields={clearFields}
+        {...ViceVersaProps}
+      />
+    );
   } else {
     return <DefaultCell {...props} />;
   }
@@ -24,10 +30,10 @@ export const Visaversa = ({
   columnName,
   rightTransform = defaultTransform,
   leftTransform = defaultTransform,
-  defaultSide = "left",
   leftAdornment = "",
   rightAdornment = "",
   dependentField,
+  clearFields,
 }) => {
   const {
     error,
@@ -36,41 +42,48 @@ export const Visaversa = ({
     touched,
     setCellTouched,
   } = useContext(RowContext);
-  const [leftValue, setLeftValue] = useState("");
-  const [rightValue, setRightValue] = useState("");
-
-  const valueChange = defaultSide === "left" ? leftValue : rightValue;
+  const [computedValue, setComputedValue] = useState("");
 
   useEffect(() => {
-    if (defaultSide === "left") {
-      handleLeftChange(currentRow?.[columnName]);
-      setCellTouched({ [columnName]: true });
-    }
+    let result = rightTransform(
+      currentRow?.[columnName],
+      currentRow?.[dependentField]
+    );
+    setComputedValue(result);
+    setCellTouched({ [columnName]: true });
   }, []);
 
+  let cellValue = currentRow?.[columnName];
+  console.log(cellValue);
+
   useEffect(() => {
-    setCellValue({ [columnName]: valueChange });
-  }, [valueChange]);
+    if (cellValue === "") {
+      setComputedValue("");
+    }
+  }, [cellValue]);
 
   const handleLeftChange = (e) => {
     let value = e?.target?.value ?? e;
-    let result = rightTransform(value, currentRow?.[dependentField]);
-    setLeftValue(value);
-    setRightValue(result);
+    let result = rightTransform(
+      currentRow?.[columnName],
+      currentRow?.[dependentField]
+    );
+    setCellValue({ [columnName]: value });
+    setComputedValue(result);
   };
 
   const handleRightChange = (e) => {
     let value = e?.target?.value ?? e;
     let result = leftTransform(value, currentRow?.[dependentField]);
-    setLeftValue(result);
-    setRightValue(value);
+    setCellValue({ [columnName]: result });
+    setComputedValue(value);
   };
 
   return (
     <div style={{ display: "flex" }}>
       <TextField
         key="left"
-        value={leftValue}
+        value={currentRow?.[columnName]}
         onChange={handleLeftChange}
         helperText={touched?.[columnName] && error?.[columnName]}
         error={Boolean(touched?.[columnName]) && Boolean(error?.[columnName])}
@@ -86,7 +99,7 @@ export const Visaversa = ({
       <div style={{ padding: "0px 4px" }} />
       <TextField
         key="right"
-        value={rightValue}
+        value={computedValue}
         onChange={handleRightChange}
         size="small"
         variant="outlined"

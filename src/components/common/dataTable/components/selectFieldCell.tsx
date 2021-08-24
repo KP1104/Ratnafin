@@ -6,7 +6,14 @@ import { getLabelFromValues, useOptionsFetcherSimple } from "../../utils";
 
 export const SelectFieldCell = (props) => {
   const {
-    column: { id: columnName, options, _optionsKey, multiple, showCheckbox },
+    column: {
+      id: columnName,
+      options,
+      _optionsKey,
+      multiple,
+      showCheckbox,
+      clearFields,
+    },
     row: { id },
     currentEditRow,
   } = props;
@@ -32,6 +39,7 @@ export const SelectFieldCell = (props) => {
         loadingOptions={loadingOptions}
         multiple={multiple}
         showCheckbox={showCheckbox}
+        clearFields={clearFields}
       />
     );
   } else {
@@ -45,6 +53,7 @@ export const MySelectField = ({
   loadingOptions,
   multiple,
   showCheckbox,
+  clearFields,
 }) => {
   const {
     error,
@@ -54,15 +63,17 @@ export const MySelectField = ({
     touched,
   } = useContext(RowContext);
 
+  let value = currentRow?.[columnName];
+
   return (
     <SelectWithoutOptions
-      value={currentRow?.[columnName]}
+      value={value}
       error={error?.[columnName]}
       touched={touched?.[columnName]}
       size="small"
       variant="outlined"
       handleChange={(e) => {
-        setCellValue({ [columnName]: e.target.value });
+        setCellValue({ [columnName]: e.target.value, ...clearFields });
       }}
       handleBlur={() => setCellTouched({ [columnName]: true })}
       options={options}

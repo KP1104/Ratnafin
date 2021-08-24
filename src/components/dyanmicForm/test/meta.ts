@@ -116,6 +116,7 @@ const GeneralDetailsMetaData = {
         sm: 12,
       },
       arrayFieldIDName: "myID",
+      disableFooter: true,
       _columns: [
         {
           accessor: "name",
@@ -153,6 +154,7 @@ const GeneralDetailsMetaData = {
               return true;
             },
           },
+          clearFields: { select: "", feeDetails: "" },
         },
         {
           accessor: "select",
@@ -162,8 +164,8 @@ const GeneralDetailsMetaData = {
           columnName: "select",
           footer: false,
           options: "getTaskType",
-          multiple: true,
-          showCheckbox: true,
+          //multiple: true,
+          //showCheckbox: true,
         },
         {
           accessor: "cummulativeAge",
@@ -179,7 +181,7 @@ const GeneralDetailsMetaData = {
           alignment: "center",
           Cell: "visaversa",
           width: 150,
-          columnName: "test",
+          columnName: "fee Details",
           ViceVersaProps: {
             leftTransform: calculateAmount,
             rightTransform: calculatePercentage,
