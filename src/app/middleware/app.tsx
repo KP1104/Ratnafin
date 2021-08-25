@@ -19,6 +19,7 @@ const Mandate = lazy(() =>
 );
 
 const Credit = lazy(() => import("./creditReport"));
+const CreditCommercial = lazy(() => import("./creditCommercial"));
 
 MiddlewareSDK.inititateAPI(
   `${new URL("./middleware/", process.env.REACT_APP_API_URL).href}` ?? ""
@@ -36,6 +37,7 @@ export const App = () => {
           <Route path="/lead/:refID" element={<CAMMiddlewareWrapper />} />
           <Route path="/mandate" element={<Mandate />} />
           <Route path="/credit/:tokenID" element={<Credit />} />
+          <Route path="/creditCommercial" element={<CreditCommercial />} />
         </Routes>
       </QueryClientProvider>
     </ThemeProvider>
