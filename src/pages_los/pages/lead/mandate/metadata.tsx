@@ -63,6 +63,8 @@ export const mandateMetaData: MetaDataType = {
       label: "Facility Details",
       rowValidator: "",
       dataTransformer: "",
+      //@ts-ignore
+      disableFooter: true,
       GridProps: {
         xs: 12,
         md: 12,
@@ -104,6 +106,7 @@ export const mandateMetaData: MetaDataType = {
               return true;
             },
           },
+          clearFields: { fundFeeInAmount: "" },
         },
         {
           accessor: "fundFeeInAmount",
@@ -134,6 +137,8 @@ export const mandateMetaData: MetaDataType = {
       label: "Disbursement Details",
       rowValidator: "",
       dataTransformer: "",
+      //@ts-ignore
+      disableFooter: true,
       GridProps: {
         xs: 12,
         md: 12,
@@ -192,6 +197,8 @@ export const mandateMetaData: MetaDataType = {
       label: "Elite Services Details",
       rowValidator: "",
       dataTransformer: "",
+      //@ts-ignore
+      disableFooter: true,
       GridProps: {
         xs: 12,
         md: 12,

@@ -387,6 +387,8 @@ export const CFTermSheetMetadata: MetaDataType = {
       label: "Collateral Details",
       rowValidator: "",
       dataTransformer: "",
+      //@ts-ignore
+      disableFooter: true,
       GridProps: {
         xs: 12,
         md: 12,
@@ -473,6 +475,8 @@ export const CFTermSheetMetadata: MetaDataType = {
       label: "Disbursement Tranches Details",
       rowValidator: "",
       dataTransformer: "",
+      //@ts-ignore
+      disableFooter: true,
       GridProps: {
         xs: 12,
         md: 12,
@@ -533,6 +537,8 @@ export const CFTermSheetMetadata: MetaDataType = {
       label: "Escrow Sweep Details",
       rowValidator: "",
       dataTransformer: "",
+      //@ts-ignore
+      disableFooter: true,
       GridProps: {
         xs: 12,
         md: 12,
