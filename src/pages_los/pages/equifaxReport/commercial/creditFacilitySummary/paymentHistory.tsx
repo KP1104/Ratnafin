@@ -9,9 +9,9 @@ export const PaymentHistory = () => {
                 colSpan={15}
                 style={{
                   padding: "0",
-                  border: "none !important",
                   verticalAlign: "top",
                 }}
+                className="borrower-table-bro-one"
               >
                 <table
                   className="table borrower-table-sec"
@@ -19,27 +19,27 @@ export const PaymentHistory = () => {
                 >
                   <tbody>
                     <tr>
-                      <td colSpan={3} style={{ border: "none !important" }}>
+                      <td colSpan={3} className="borrower-table-bro-one">
                         Payment History 48 months :
                       </td>
                     </tr>
                     <tr>
-                      <td colSpan={3} style={{ border: "none !important" }}>
+                      <td colSpan={3} className="borrower-table-bro-one">
                         Overdue Bucket :
                       </td>
                     </tr>
                     <tr>
-                      <td colSpan={3} style={{ border: "none !important" }}>
+                      <td colSpan={3} className="borrower-table-bro-one">
                         Asset Classification :
                       </td>
                     </tr>
                     <tr>
-                      <td colSpan={3} style={{ border: "none !important" }}>
+                      <td colSpan={3} className="borrower-table-bro-one">
                         Suit Filed Status :
                       </td>
                     </tr>
                     <tr>
-                      <td colSpan={3} style={{ border: "none !important" }}>
+                      <td colSpan={3} className="borrower-table-bro-one">
                         Months :
                       </td>
                     </tr>
@@ -51,32 +51,27 @@ export const PaymentHistory = () => {
         </table>
       </td>
       <td style={{ width: "85%" }}>
-        <table className="table history-monthly" style={{ marginBottom: " 0" }}>
+        <table className="table history-monthly" style={{ marginBottom: "0" }}>
           <tbody>
             <tr>
-              <td
-                style={{ border: "none !important", padding: "0 !important" }}
-              >
+              <td className="borrower-table-bro-one borrower-table-padding-one">
                 <table
                   className="table monthly-sec"
                   style={{ marginBottom: "0" }}
                 >
                   <tbody>
                     <tr>
-                      <td
-                        colSpan={12}
-                        style={{ border: "none !important" }}
-                      ></td>
+                      <td colSpan={12} className="borrower-table-bro-one"></td>
                     </tr>
                   </tbody>
                 </table>
               </td>
             </tr>
             <tr>
-              <td style={{ border: "none !important", padding: "0" }}>
+              <td style={{ padding: "0" }} className="borrower-table-bro-one">
                 <table
                   className="table monthly-sec"
-                  style={{ marginBottom: 0, textAlign: "center" }}
+                  style={{ marginBottom: "0", textAlign: "center" }}
                 >
                   <tbody>
                     <tr></tr>
@@ -99,7 +94,7 @@ export const PaymentHistory = () => {
               </td>
             </tr>
             <tr>
-              <td style={{ border: "none !important", padding: "0" }}>
+              <td style={{ padding: "0" }} className="borrower-table-bro-one">
                 <table
                   className="table monthly-sec"
                   style={{ marginBottom: "0" }}
@@ -125,7 +120,7 @@ export const PaymentHistory = () => {
               </td>
             </tr>
             <tr>
-              <td style={{ border: "none !important", padding: "0" }}>
+              <td style={{ padding: "0" }} className="borrower-table-bro-one">
                 <table
                   className="table monthly-sec"
                   style={{ marginBottom: "0" }}
@@ -152,7 +147,7 @@ export const PaymentHistory = () => {
             </tr>
 
             <tr>
-              <td style={{ border: "none !important", padding: "0" }}>
+              <td style={{ padding: "0" }} className="borrower-table-bro-one">
                 <table
                   className="table monthly-sec"
                   style={{ marginBottom: "0" }}
@@ -183,26 +178,21 @@ export const PaymentHistory = () => {
         <table className="table history-monthly" style={{ marginBottom: "0" }}>
           <tbody>
             <tr>
-              <td
-                style={{ border: "none !important", padding: "0 !important" }}
-              >
+              <td className="entity-bro-none" style={{ padding: "0" }}>
                 <table
                   className="table monthly-sec"
                   style={{ marginBottom: "0" }}
                 >
                   <tbody>
                     <tr>
-                      <td
-                        colSpan={12}
-                        style={{ border: "none !important" }}
-                      ></td>
+                      <td colSpan={12} className="entity-bro-none"></td>
                     </tr>
                   </tbody>
                 </table>
               </td>
             </tr>
             <tr>
-              <td style={{ border: "none !important", padding: "0" }}>
+              <td className="entity-bro-none" style={{ padding: "0" }}>
                 <table
                   className="table monthly-sec"
                   style={{ marginBottom: "0" }}
@@ -228,7 +218,7 @@ export const PaymentHistory = () => {
               </td>
             </tr>
             <tr>
-              <td style={{ border: "none !important", padding: "0" }}>
+              <td className="entity-bro-none" style={{ padding: "0" }}>
                 <table
                   className="table monthly-sec"
                   style={{ marginBottom: "0" }}
@@ -254,7 +244,7 @@ export const PaymentHistory = () => {
               </td>
             </tr>
             <tr>
-              <td style={{ border: "none !important", padding: "0" }}>
+              <td className="entity-bro-none" style={{ padding: "0" }}>
                 <table
                   className="table monthly-sec"
                   style={{ marginBottom: "0" }}
@@ -281,7 +271,7 @@ export const PaymentHistory = () => {
             </tr>
 
             <tr>
-              <td style={{ border: "none !important", padding: "0" }}>
+              <td className="entity-bro-none" style={{ padding: "0" }}>
                 <table
                   className="table monthly-sec"
                   style={{ marginBottom: "0" }}

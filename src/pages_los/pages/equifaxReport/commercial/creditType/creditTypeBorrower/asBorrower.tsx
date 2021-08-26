@@ -30,13 +30,19 @@ export const AsBorrower = () => {
               >
                 <tbody>
                   <tr>
-                    <td colSpan={3}>
+                    <td scope="col" style={{ width: "17.8%" }}>
                       <b style={{ fontWeight: "normal", float: "right" }}>
                         CF Group-&gt;
                       </b>
-                      <br />
                       Asset Class
                     </td>
+                    {/* <td colSpan={3}>
+                      <b style={{ fontWeight: "normal", float: "right" }}>
+                        CF Group-&gt;
+                      </b>
+                      {/* <br /> */}
+                    {/* Asset Class
+                    </td>  */}
                     <td>WC</td>
                     <td>NF</td>
                     <td>TL</td>

@@ -1,10 +1,10 @@
-import { Header } from "../header";
+import { Header } from "../../header";
 import { AsGuarantor } from "./asGuarantor";
 
-export const CreditTypeGuarantor = () => {
+export const CreditTypeGuarantor = ({ header }) => {
   return (
     <article id="contents">
-      <Header />
+      <Header header={header} />
       <hr />
       <AsGuarantor />
     </article>

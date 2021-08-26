@@ -7,27 +7,28 @@ export const BalanceHistory = () => {
             <tr>
               <td
                 colSpan={15}
-                style={{ padding: 0, border: "none !important" }}
+                style={{ padding: 0 }}
+                className="entity-bro-none"
               >
                 <table className="table" style={{ marginBottom: "0" }}>
                   <tbody>
                     <tr>
-                      <td colSpan={3} style={{ border: "none !important" }}>
+                      <td colSpan={3} className="entity-bro-none">
                         Balance History 48 Months :
                       </td>
                     </tr>
                     <tr>
-                      <td colSpan={3} style={{ border: "none !important" }}>
+                      <td colSpan={3} className="entity-bro-none">
                         Months :
                       </td>
                     </tr>
                     <tr>
-                      <td colSpan={3} style={{ border: "none !important" }}>
+                      <td colSpan={3} className="entity-bro-none">
                         Current Balance (INR) :
                       </td>
                     </tr>
                     <tr>
-                      <td colSpan={3} style={{ border: "none !important" }}>
+                      <td colSpan={3} className="entity-bro-none">
                         Overdue Amt.(INR) :
                       </td>
                     </tr>
@@ -43,7 +44,8 @@ export const BalanceHistory = () => {
           <tbody>
             <tr>
               <td
-                style={{ border: "none !important", padding: "0 !important" }}
+                className="entity-bro-none"
+                style={{ padding: "0 !important" }}
               >
                 <table
                   className="table monthly-sec"
@@ -51,17 +53,14 @@ export const BalanceHistory = () => {
                 >
                   <tbody>
                     <tr>
-                      <td
-                        colSpan={12}
-                        style={{ border: " none !important" }}
-                      ></td>
+                      <td colSpan={12} className="entity-bro-none"></td>
                     </tr>
                   </tbody>
                 </table>
               </td>
             </tr>
             <tr>
-              <td style={{ border: "none !important", padding: "0" }}>
+              <td className="entity-bro-none" style={{ padding: "0" }}>
                 <table
                   className="table monthly-sec"
                   style={{ marginBottom: "0" }}
@@ -87,7 +86,7 @@ export const BalanceHistory = () => {
               </td>
             </tr>
             <tr>
-              <td style={{ border: "none !important", padding: "0" }}>
+              <td className="entity-bro-none" style={{ padding: "0" }}>
                 <table
                   className="table monthly-sec"
                   style={{ marginBottom: "0" }}
@@ -113,7 +112,7 @@ export const BalanceHistory = () => {
               </td>
             </tr>
             <tr>
-              <td style={{ border: "none !important", padding: "0" }}>
+              <td className="entity-bro-none" style={{ padding: "0" }}>
                 <table
                   className="table monthly-sec"
                   style={{ marginBottom: "0" }}

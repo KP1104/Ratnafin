@@ -2,10 +2,10 @@ import { Header } from "../header";
 import { BorrowerEntityDetails } from "./entityDetailsBorrower";
 import { DelinquencyDetails } from "../delinquencyDetails";
 
-export const EntityDetails = () => {
+export const EntityDetails = ({ header }) => {
   return (
     <article id="contents">
-      <Header />
+      <Header header={header} />
       <hr />
       <BorrowerEntityDetails />
       <hr />

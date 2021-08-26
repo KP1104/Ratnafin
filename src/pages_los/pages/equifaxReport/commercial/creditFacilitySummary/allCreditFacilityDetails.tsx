@@ -1,6 +1,8 @@
 import { AccountDetails } from "./accountDetails";
 import { GuarantorIndividual } from "./guarantorsIndividuals";
 import { GuarantorEntities } from "./guarantorsEntities";
+import { DishonouredChequeDetails } from "./dishonorChequeDetails";
+import { SecurityCollateralDetails } from "./securityCollateralDetails";
 
 export const AllCreditFacilityDetails = () => {
   return (
@@ -36,7 +38,9 @@ export const AllCreditFacilityDetails = () => {
             </th>
           </tr>
         </thead>
-        <AccountDetails />
+        <tbody>
+          <AccountDetails />
+        </tbody>
       </table>
       <GuarantorIndividual />
       <GuarantorEntities />

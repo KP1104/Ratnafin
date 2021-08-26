@@ -3,12 +3,12 @@ import { DerogatoryBorrower } from "./derogatoryBorrower";
 import { DerogatoryGuarantor } from "./derogatoryGuarantor";
 import { GuarantorRelatedInd } from "./gurantorRelatedInd";
 
-import { CreditType } from "../creditTypeBorrower";
+import { CreditType } from "../creditType/creditTypeBorrower";
 
-export const DerogatoryDetails = () => {
+export const DerogatoryDetails = ({ header }) => {
   return (
     <article id="contents">
-      <Header />
+      <Header header={header} />
       <hr />
       <div className="entity-details-borrower-sec">
         <h2>

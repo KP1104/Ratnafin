@@ -1,9 +1,9 @@
 import { Header } from "../header";
 
-export const GlossaryTermsExplanation = () => {
+export const GlossaryTermsExplanation = ({ header }) => {
   return (
     <article id="contents">
-      <Header />
+      <Header header={header} />
       <hr />
       <div className="entity-details-borrower-sec">
         <h2 style={{ marginBottom: "20px" }}>

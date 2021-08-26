@@ -2,7 +2,7 @@ export const EquifaxCreditSummary = () => {
   return (
     <>
       <h2>
-        <strong>1.2</strong> Overall Ceardit Summary
+        <strong>1.2</strong> Overall Credit Summary
       </h2>
       <table className="table">
         <thead className="thead-dark">
@@ -31,31 +31,31 @@ export const EquifaxCreditSummary = () => {
           </tr>
           <tr>
             <td colSpan={2}>Number of Creadit Facilities(CF)</td>
-            <td>27</td>
-            <td>2</td>
-            <td>27</td>
-            <td>2</td>
-            <td>24</td>
-            <td>2</td>
+            <td style={{ textAlign: "center" }}>27</td>
+            <td style={{ textAlign: "center" }}>2</td>
+            <td style={{ textAlign: "center" }}>27</td>
+            <td style={{ textAlign: "center" }}>2</td>
+            <td style={{ textAlign: "center" }}>24</td>
+            <td style={{ textAlign: "center" }}>2</td>
           </tr>
           <tr>
             <td colSpan={2}>Number of Open Creadit Facilities*</td>
-            <td>22</td>
-            <td></td>
-            <td>22</td>
-            <td></td>
-            <td>21</td>
-            <td>2</td>
+            <td style={{ textAlign: "center" }}>22</td>
+            <td style={{ textAlign: "center" }}></td>
+            <td style={{ textAlign: "center" }}>22</td>
+            <td style={{ textAlign: "center" }}></td>
+            <td style={{ textAlign: "center" }}>21</td>
+            <td style={{ textAlign: "center" }}>2</td>
           </tr>
 
           <tr>
             <td colSpan={2}>Number of Closed Term Loans'</td>
-            <td>4</td>
-            <td>2</td>
-            <td>4</td>
-            <td>2</td>
-            <td>2</td>
-            <td>2</td>
+            <td style={{ textAlign: "center" }}>4</td>
+            <td style={{ textAlign: "center" }}>2</td>
+            <td style={{ textAlign: "center" }}>4</td>
+            <td style={{ textAlign: "center" }}>2</td>
+            <td style={{ textAlign: "center" }}>2</td>
+            <td style={{ textAlign: "center" }}>2</td>
           </tr>
         </tbody>
       </table>

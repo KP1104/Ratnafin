@@ -20,8 +20,8 @@ export const EnquiryInputDetails = () => {
                 width: "33%",
                 display: "inline-block",
                 verticalAlign: "top",
-                border: "none !important",
               }}
+              className="entity-bro-none"
             >
               <table className="table" style={{ marginBottom: "0" }}>
                 <thead className="thead-dark">
@@ -74,9 +74,9 @@ export const EnquiryInputDetails = () => {
                 width: "33%",
                 display: "inline-block",
                 verticalAlign: "top",
-                border: "none !important",
                 height: "100%",
               }}
+              className="entity-bro-none"
             >
               <table
                 className="table"
@@ -140,8 +140,8 @@ export const EnquiryInputDetails = () => {
                 width: "34%",
                 display: "inline-block",
                 verticalAlign: "top",
-                border: "none !important",
               }}
+              className="entity-bro-none"
             >
               <table
                 className="table"

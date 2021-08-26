@@ -1,6 +1,6 @@
 import logo from "assets/images/logo.svg";
 
-export const Header = () => {
+export const Header = ({ header }) => {
   return (
     <div className="header-top">
       <div className="logo">
@@ -15,10 +15,12 @@ export const Header = () => {
         </ul>
         <ul>
           <li>
-            <strong>Member Name (Client ID):</strong>999AA00007
+            <strong>Member Name (Client ID):</strong>
+            {header?.clientID}
           </li>
           <li>
-            <strong>Report Order No:</strong>332750859
+            <strong>Report Order No:</strong>
+            {header?.reportOrderNo}
           </li>
           <li>
             <strong>Reference Number:</strong>
@@ -26,10 +28,12 @@ export const Header = () => {
         </ul>
         <ul>
           <li>
-            <strong>DATE:</strong>18-07-2017
+            <strong>DATE:</strong>
+            {header?.reportDate}
           </li>
           <li>
-            <strong>TIME:</strong>13:44:41
+            <strong>TIME:</strong>
+            {header?.reportTime}
           </li>
           <li>
             <strong>Tran ID:</strong>271211

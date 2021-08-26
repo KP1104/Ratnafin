@@ -5,9 +5,9 @@ import { SecurityCollateralDetails } from "./securityCollateralDetails";
 
 export const AccountDetails = () => {
   return (
-    <tbody>
+    <>
       <tr>
-        <td colSpan={15} style={{ padding: 0, border: "none !important" }}>
+        <td colSpan={15} style={{ padding: 0 }} className="align-left-sec">
           <table
             className="table bro-none"
             style={{ marginBottom: "0", border: "solid 1px #dee2e6" }}
@@ -15,28 +15,25 @@ export const AccountDetails = () => {
             <tbody>
               <tr>
                 <td
+                  className="align-left-sec"
                   style={{
                     width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
                   }}
                 >
                   Acct# : ***
                 </td>
                 <td
+                  className="align-left-sec"
                   style={{
                     width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
                   }}
                 >
                   Institution :
                 </td>
                 <td
+                  className="align-left-sec"
                   style={{
                     width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
                   }}
                 >
                   Loan Activation/Sanctioned Date : 09-05-2014
@@ -44,28 +41,25 @@ export const AccountDetails = () => {
               </tr>
               <tr>
                 <td
+                  className="align-left-sec"
                   style={{
                     width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
                   }}
                 >
                   Loan Expiry/Maturity Date : 10-05-2014
                 </td>
                 <td
+                  className="align-left-sec"
                   style={{
                     width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
                   }}
                 >
                   Current Balance/Limit Utilized/Mark to Market : 0
                 </td>
                 <td
+                  className="align-left-sec"
                   style={{
                     width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
                   }}
                 >
                   Credit Type : Medium term loan (period abobve 1 year and up to
@@ -77,7 +71,12 @@ export const AccountDetails = () => {
         </td>
       </tr>
       <tr>
-        <td colSpan={15} style={{ padding: 0, border: "none !important" }}>
+        <td
+          colSpan={15}
+          style={{ padding: 0 }}
+          className="align-left-sec"
+          borrower-table-bro-one
+        >
           <table
             className="table bro-none"
             style={{ marginBottom: 0, border: "solid 1px #dee2e6" }}
@@ -85,28 +84,25 @@ export const AccountDetails = () => {
             <tbody>
               <tr>
                 <td
+                  className="align-left-sec"
                   style={{
                     width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
                   }}
                 >
                   Date Reportd : 28-02-2019
                 </td>
                 <td
+                  className="align-left-sec"
                   style={{
                     width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
                   }}
                 >
                   Currency : INR
                 </td>
                 <td
+                  className="align-left-sec"
                   style={{
                     width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
                   }}
                 >
                   Past Due Amount : 0
@@ -114,28 +110,25 @@ export const AccountDetails = () => {
               </tr>
               <tr>
                 <td
+                  className="align-left-sec"
                   style={{
                     width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
                   }}
                 >
                   Last Payment : 6,532
                 </td>
                 <td
+                  className="align-left-sec"
                   style={{
                     width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
                   }}
                 >
                   High Creadit :
                 </td>
                 <td
+                  className="align-left-sec"
                   style={{
                     width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
                   }}
                 >
                   Guarantee Coverage :
@@ -143,28 +136,25 @@ export const AccountDetails = () => {
               </tr>
               <tr>
                 <td
+                  className="align-left-sec"
                   style={{
                     width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
                   }}
                 >
                   Written Off Amount :
                 </td>
                 <td
+                  className="align-left-sec"
                   style={{
                     width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
                   }}
                 >
                   Loan Renewal Date :
                 </td>
                 <td
+                  className="align-left-sec"
                   style={{
                     width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
                   }}
                 >
                   Drawing Power : 0
@@ -172,28 +162,25 @@ export const AccountDetails = () => {
               </tr>
               <tr>
                 <td
+                  className="align-left-sec"
                   style={{
                     width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
                   }}
                 >
                   Settled Amount :
                 </td>
                 <td
+                  className="align-left-sec"
                   style={{
                     width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
                   }}
                 >
                   Sanction Amount/NAOC : 56,00,000
                 </td>
                 <td
+                  className="align-left-sec"
                   style={{
                     width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
                   }}
                 >
                   Amt.of NPA Contracts :
@@ -201,28 +188,25 @@ export const AccountDetails = () => {
               </tr>
               <tr>
                 <td
+                  className="align-left-sec"
                   style={{
                     width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
                   }}
                 >
                   Tenure/WAMPOC : 1
                 </td>
                 <td
+                  className="align-left-sec"
                   style={{
                     width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
                   }}
                 >
                   Repayment Frequency : Monthly
                 </td>
                 <td
+                  className="align-left-sec"
                   style={{
                     width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
                   }}
                 >
                   Monthly Payment Amount : 56,00,00
@@ -233,132 +217,64 @@ export const AccountDetails = () => {
         </td>
       </tr>
       <tr>
-        <td colSpan={15} style={{ padding: 0, border: "none !important" }}>
+        <td
+          colSpan={15}
+          style={{ padding: 0 }}
+          className="borrower-table-bro-one"
+        >
           <table
             className="table bro-none"
             style={{ marginBottom: 0, border: "solid 1px #dee2e6" }}
           >
             <tbody>
               <tr>
-                <td
-                  style={{
-                    width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
-                  }}
-                >
+                <td style={{ width: "33%" }} className="align-left-sec">
                   Account Status : Open
                 </td>
-                <td
-                  style={{
-                    width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
-                  }}
-                >
+                <td style={{ width: "33%" }} className="align-left-sec">
                   Status Date :
                 </td>
-                <td
-                  style={{
-                    width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
-                  }}
-                >
+                <td style={{ width: "33%" }} className="align-left-sec">
                   Suit Filed Status : Not a Suit Filed Case
                 </td>
               </tr>
               <tr>
-                <td
-                  style={{
-                    width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
-                  }}
-                >
+                <td style={{ width: "33%" }} className="align-left-sec">
                   Suit Filed Date :
                 </td>
-                <td
-                  style={{
-                    width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
-                  }}
-                >
+                <td style={{ width: "33%" }} className="align-left-sec">
                   Wilful Default Status : Not Wilful Defaulte
                 </td>
-                <td
-                  style={{
-                    width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
-                  }}
-                >
+                <td style={{ width: "33%" }} className="align-left-sec">
                   Wilfu Default Date :
                 </td>
               </tr>
               <tr>
-                <td
-                  style={{
-                    width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
-                  }}
-                >
+                <td style={{ width: "33%" }} className="align-left-sec">
                   Restructuring Reason :
                 </td>
-                <td
-                  style={{
-                    width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
-                  }}
-                >
+                <td style={{ width: "33%" }} className="align-left-sec">
                   Dispute Code :
                 </td>
-                <td
-                  style={{
-                    width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
-                  }}
-                >
+                <td style={{ width: "33%" }} className="align-left-sec">
                   NOARC :
                 </td>
               </tr>
               <tr>
-                <td
-                  style={{
-                    width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
-                  }}
-                >
+                <td style={{ width: "33%" }} className="align-left-sec">
                   Asset Based Security Coverage :
                 </td>
-                <td
-                  style={{
-                    width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
-                  }}
-                ></td>
-                <td
-                  style={{
-                    width: "33%",
-                    //@ts-ignore
-                    textAlign: "left !important",
-                  }}
-                ></td>
+                <td style={{ width: "33%" }} className="align-left-sec"></td>
+                <td style={{ width: "33%" }} className="align-left-sec"></td>
               </tr>
-              <PaymentHistory />
-              <BalanceHistory />
-              <DishonouredChequeDetails />
-              <SecurityCollateralDetails />
             </tbody>
           </table>
         </td>
       </tr>
-    </tbody>
+      <PaymentHistory />
+      <BalanceHistory />
+      <DishonouredChequeDetails />
+      <SecurityCollateralDetails />
+    </>
   );
 };

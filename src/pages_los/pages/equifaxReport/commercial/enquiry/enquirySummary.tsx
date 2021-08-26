@@ -14,18 +14,18 @@ export const EnquirySummary = () => {
         </thead>
         <tbody>
           <tr>
-            <td style={{ border: "none !important" }}>Purpose</td>
-            <td style={{ border: "none !important" }}>: All</td>
-            <td style={{ border: "none !important" }}>Total</td>
-            <td style={{ border: "none !important" }}>: 0</td>
-            <td style={{ border: "none !important" }}>Past 30 days</td>
-            <td style={{ border: "none !important" }}>: 0</td>
+            <td className="entity-bro-none">Purpose</td>
+            <td className="entity-bro-none">: All</td>
+            <td className="entity-bro-none">Total</td>
+            <td className="entity-bro-none">: 0</td>
+            <td className="entity-bro-none">Past 30 days</td>
+            <td className="entity-bro-none">: 0</td>
           </tr>
           <tr>
-            <td style={{ border: "none !important" }}>Past 12 Months</td>
-            <td style={{ border: "none !important" }}>: 0</td>
-            <td style={{ border: "none !important" }}>Past 24 Months</td>
-            <td style={{ border: "none !important" }}>: 0</td>
+            <td className="entity-bro-none">Past 12 Months</td>
+            <td className="entity-bro-none">: 0</td>
+            <td className="entity-bro-none">Past 24 Months</td>
+            <td className="entity-bro-none">: 0</td>
           </tr>
         </tbody>
       </table>
