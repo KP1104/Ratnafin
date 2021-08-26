@@ -532,6 +532,29 @@ const MiscAPI = () => {
     }
   };
 
+  const getSecondaryPartnerProduct = async (
+    dependentFields: any
+  ): Promise<OptionsProps[]> => {
+    const dependentVaue = dependentFields["primaryProduct"].value;
+    const { status, data } = await internalFetcher(
+      `./data/PARTNER_PRODUCT`,
+      {}
+    );
+    if (status === "success" && Array.isArray(data?.response_data)) {
+      const newArray = data.response_data.map((one) => ({
+        value: one?.data_val,
+        label: one?.display_val,
+      }));
+      if (newArray?.value.indexOf(dependentVaue) >= 0) {
+        return newArray.filter((one) => one.value !== dependentVaue);
+      } else {
+        return newArray;
+      }
+    } else {
+      throw data?.error_data;
+    }
+  };
+
   return {
     inititateAPI,
     getMiscVal,
@@ -556,6 +579,7 @@ const MiscAPI = () => {
     getMainProductCode,
     getProductTypeForMoveToInquiry,
     getEmployementCodeForMoveToInquiry,
+    getSecondaryPartnerProduct,
   };
 };
 
