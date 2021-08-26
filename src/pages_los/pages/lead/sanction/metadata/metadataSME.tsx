@@ -496,6 +496,8 @@ export const SMESanctionMetadata: MetaDataType = {
       label: "Collateral Details",
       rowValidator: "",
       dataTransformer: "",
+      //@ts-ignore
+      disableFooter: true,
       GridProps: {
         xs: 12,
         md: 12,
@@ -584,6 +586,8 @@ export const SMESanctionMetadata: MetaDataType = {
       label: "Pre Disbursement Conditions",
       rowValidator: "",
       dataTransformer: "",
+      //@ts-ignore
+      disableFooter: true,
       GridProps: {
         xs: 12,
         md: 12,
@@ -611,6 +615,8 @@ export const SMESanctionMetadata: MetaDataType = {
       label: "Guarantors Names",
       rowValidator: "",
       dataTransformer: "",
+      //@ts-ignore
+      disableFooter: true,
       GridProps: {
         xs: 12,
         md: 12,

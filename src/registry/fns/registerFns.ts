@@ -32,7 +32,7 @@ registerFn("getEducationDtl", miscSDK.getMiscVal("EDUCATION"));
 registerFn("getSecurityOffered", miscSDK.getMiscVal("SECURITY_OFF"));
 registerFn("getYouAre", miscSDK.getMiscVal("YOU_ARE"));
 registerFn("getAccountType", miscSDK.getMiscVal("ACCT_TYPE"));
-registerFn("getChannelType", miscSDK.getMiscVal("CHANNEL_TYPE"));
+registerFn("getIDCType", miscSDK.getMiscVal("IDC_TYPE"));
 registerFn("getBusinessInterest", miscSDK.getMiscVal("BUSI_INTREST"));
 registerFn("getLeadPriority", miscSDK.getMiscVal("LEAD_PRIORITY"));
 registerFn("getIndividualAddressType", miscSDK.getMiscVal("IND_ADD_TYPE"));
@@ -60,6 +60,9 @@ registerFn("getTargetMonth", miscSDK.getMiscVal("TARGET_MONTH"));
 registerFn("getNewTakeover", miscSDK.getMiscVal("NEW_TAKEOVER"));
 registerFn("getFinancialSource", miscSDK.getMiscVal("FIN_SOURCE"));
 registerFn("getBusinessAddressType", miscSDK.getMiscVal("BUSSIN_ADD_TYPE"));
+registerFn("getOccupation", miscSDK.getMiscVal("OCCUPATION"));
+registerFn("getPrimaryPartnerProduct", miscSDK.getMiscVal("PARTNER_PRODUCT"));
+registerFn("getSecondaryPartnerProduct", miscSDK.getSecondaryPartnerProduct);
 
 registerFn("getCCODFacilityProposed", miscSDK.getMiscVal("PROPOSEDFACILIT"));
 registerFn("getPurposeOfLoanForSME", miscSDK.getMiscVal("SMEPURPOSE"));

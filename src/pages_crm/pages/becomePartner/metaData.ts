@@ -47,7 +47,7 @@ export const becomePartnerMetaData: MetaDataType = {
         componentType: "toggleButtonGroup",
         group: 0,
       },
-      name: "partner_type",
+      name: "partnerType",
       label: "Partner Type",
       defaultValue: "I",
       GridProps: {
@@ -86,7 +86,7 @@ export const becomePartnerMetaData: MetaDataType = {
         componentType: "select",
       },
       name: "salutation",
-      label: "Salutation",
+      label: "Title",
       placeholder: "Select Salutation",
       required: true,
       defaultValue: "00",
@@ -172,7 +172,7 @@ export const becomePartnerMetaData: MetaDataType = {
         md: 3,
         sm: 3,
       },
-      dependentFields: ["partner_type"],
+      dependentFields: ["partnerType"],
       shouldExclude: "shouldExcludeBecomePartner",
     },
 
@@ -180,7 +180,7 @@ export const becomePartnerMetaData: MetaDataType = {
       render: {
         componentType: "textField",
       },
-      name: "companyName",
+      name: "legalEntityName",
       type: "text",
       label: "Company Name",
       placeholder: "Company Name",
@@ -192,7 +192,7 @@ export const becomePartnerMetaData: MetaDataType = {
         md: 3,
         sm: 3,
       },
-      dependentFields: ["partner_type"],
+      dependentFields: ["partnerType"],
       shouldExclude: "shouldExcludeBecomePartner",
     },
 
@@ -237,7 +237,6 @@ export const becomePartnerMetaData: MetaDataType = {
       label: "Residence Pincode",
       placeholder: "Residence pincode",
       required: true,
-      defaultValue: "00",
       validate: "getValidateValue",
       runPostValidationHookAlways: true,
       //@ts-ignore
@@ -334,7 +333,7 @@ export const becomePartnerMetaData: MetaDataType = {
       render: {
         componentType: "datePicker",
       },
-      name: "inception_date",
+      name: "inceptionDate",
       label: "Date of Incorporation",
       // required: true,
       placeholder: "dd/mm/yyyy",
@@ -351,7 +350,7 @@ export const becomePartnerMetaData: MetaDataType = {
         md: 3,
         sm: 3,
       },
-      dependentFields: ["partner_type"],
+      dependentFields: ["partnerType"],
       shouldExclude: "shouldExcludeBecomePartner",
     },
 
@@ -360,7 +359,7 @@ export const becomePartnerMetaData: MetaDataType = {
         //@ts-ignore
         componentType: "dob",
       },
-      name: "birthdate",
+      name: "birthDate",
       label: "Date Of Birth",
       required: true,
       placeholder: "dd/mm/yyyy",
@@ -371,7 +370,7 @@ export const becomePartnerMetaData: MetaDataType = {
         md: 3,
         sm: 3,
       },
-      dependentFields: ["partner_type"],
+      dependentFields: ["partnerType"],
       shouldExclude: "shouldExcludeBecomePartnerIndividual",
     },
 
@@ -379,7 +378,7 @@ export const becomePartnerMetaData: MetaDataType = {
       render: {
         componentType: "datePicker",
       },
-      name: "marraige_date",
+      name: "marriedDate",
       label: "Marriage Anniversary",
       placeholder: "dd/mm/yyyy",
       format: "dd/MM/yyyy",
@@ -414,7 +413,7 @@ export const becomePartnerMetaData: MetaDataType = {
         componentType: "textField",
       },
       name: "email",
-      type: "text",
+      type: "email",
       label: "Email",
       placeholder: "Email",
       required: true,
@@ -436,7 +435,7 @@ export const becomePartnerMetaData: MetaDataType = {
         //@ts-ignore
         componentType: "panCard",
       },
-      name: "pan_no",
+      name: "panNo",
       type: "text",
       label: "Pan Card Number",
       placeholder: "PAN Card number",
@@ -449,28 +448,27 @@ export const becomePartnerMetaData: MetaDataType = {
       },
     },
 
-    // {
-    //   render: {
-    //     //@ts-ignore
-    //     componentType: "aadharCard",
-    //   },
-    //   name: "aadharNumber",
-    //   type: "text",
-    //   label: "Aadhar Card Number",
-    //   required: true,
-    //   GridProps: {
-    //     xs: 12,
-    //     md: 3,
-    //     sm: 3,
-    //   },
-    // },
+    {
+      render: {
+        //@ts-ignore
+        componentType: "aadharCard",
+      },
+      name: "aadharNumber",
+      type: "text",
+      label: "Aadhar Card Number",
+      required: true,
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
 
     {
       render: {
         componentType: "textField",
       },
-      name: "ifsc_code",
-      type: "text",
+      name: "ifscCode",
       label: "IFSC Code",
       placeholder: "IFSC code",
       required: true,
@@ -486,7 +484,7 @@ export const becomePartnerMetaData: MetaDataType = {
       render: {
         componentType: "textField",
       },
-      name: "bank_name",
+      name: "bankName",
       type: "text",
       label: "Bank Name",
       placeholder: "Bank name",
@@ -498,29 +496,11 @@ export const becomePartnerMetaData: MetaDataType = {
         sm: 3,
       },
     },
-
-    {
-      render: {
-        componentType: "textField",
-      },
-      name: "acct_no",
-      type: "text",
-      label: "Bank Account No",
-      placeholder: "A/C number",
-      required: true,
-      validate: "getValidateValue",
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-    },
-
     {
       render: {
         componentType: "select",
       },
-      name: "bank_acct_type",
+      name: "bankAcctType",
       label: "Bank Account Type",
       placeholder: "A/C type",
       required: true,
@@ -539,7 +519,24 @@ export const becomePartnerMetaData: MetaDataType = {
       render: {
         componentType: "textField",
       },
-      name: "acct_holdr_name",
+      name: "acctNo",
+      type: "text",
+      label: "Bank Account No",
+      placeholder: "A/C number",
+      required: true,
+      validate: "getValidateValue",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+
+    {
+      render: {
+        componentType: "textField",
+      },
+      name: "acctHoldrName",
       type: "text",
       label: "Account Holder Name",
       placeholder: "A/C holder name",
@@ -556,7 +553,7 @@ export const becomePartnerMetaData: MetaDataType = {
       render: {
         componentType: "select",
       },
-      name: "education_qualifi",
+      name: "educationQualifi",
       label: "Education Qualification",
       placeholder: "Education qualification",
       required: true,
@@ -569,7 +566,7 @@ export const becomePartnerMetaData: MetaDataType = {
         md: 3,
         sm: 3,
       },
-      dependentFields: ["partner_type"],
+      dependentFields: ["partnerType"],
       shouldExclude: "shouldExcludeBecomePartnerIndividual",
     },
 
@@ -577,13 +574,13 @@ export const becomePartnerMetaData: MetaDataType = {
       render: {
         componentType: "select",
       },
-      name: "channelType",
-      label: "Select Channel Type",
-      placeholder: "Select channel type",
+      name: "idcType",
+      label: "Type of IDC",
+      placeholder: "Type of IDC",
       required: true,
       defaultValue: "00",
       //@ts-ignore
-      options: "getChannelType",
+      options: "getIDCType",
       validate: "getValidateValue",
       GridProps: {
         xs: 12,
@@ -596,7 +593,7 @@ export const becomePartnerMetaData: MetaDataType = {
       render: {
         componentType: "select",
       },
-      name: "primary_busi_intrest",
+      name: "primaryBusiIntrest",
       label: "Primary Business Interest",
       placeholder: "Primary business interest",
       required: true,
@@ -617,7 +614,65 @@ export const becomePartnerMetaData: MetaDataType = {
       render: {
         componentType: "select",
       },
-      name: "nominee_flag",
+      name: "primaryProduct",
+      label: "Primary Category",
+      placeholder: "Primary Category",
+      required: true,
+      defaultValue: "00",
+      showCheckbox: true,
+      disableCaching: true,
+      //@ts-ignore
+      options: "getPrimaryPartnerProduct",
+      validate: "getValidateValue",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+
+    {
+      render: {
+        componentType: "select",
+      },
+      name: "secondaryProduct",
+      label: "Secondry Category",
+      placeholder: "Secondry Category",
+      defaultValue: "00",
+      multiple: true,
+      showCheckbox: true,
+      dependentFields: ["primaryProduct"],
+      //@ts-ignore
+      options: "getSecondaryPartnerProduct",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+
+    {
+      render: {
+        componentType: "select",
+      },
+      name: "occupation",
+      label: "Current Occupation",
+      placeholder: "Current Occupation",
+      defaultValue: "00",
+      //@ts-ignore
+      options: "getOccupation",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+
+    {
+      render: {
+        componentType: "select",
+      },
+      name: "nomineeFlag",
       label: "Do you want to add Nominee Details",
       placeholder: "Add nominee",
       defaultValue: "00",
@@ -628,7 +683,7 @@ export const becomePartnerMetaData: MetaDataType = {
       },
       //@ts-ignore
       options: "getYesOrNoOptions",
-      dependentFields: ["partner_type"],
+      dependentFields: ["partnerType"],
       shouldExclude: "shouldExcludeBecomePartnerIndividual",
       runPostValidationHookAlways: true,
     },
@@ -637,7 +692,7 @@ export const becomePartnerMetaData: MetaDataType = {
       render: {
         componentType: "textField",
       },
-      name: "nominee_name",
+      name: "nomineeName",
       type: "text",
       label: "Nominee Name",
       placeholder: "Nominee name",
@@ -648,7 +703,7 @@ export const becomePartnerMetaData: MetaDataType = {
         sm: 3,
       },
       validate: "getValidateValue",
-      dependentFields: ["nominee_flag", "partner_type"],
+      dependentFields: ["nomineeFlag", "partnerType"],
       shouldExclude: "shouldExcludeBecomePartnerNominee",
     },
 
@@ -657,7 +712,7 @@ export const becomePartnerMetaData: MetaDataType = {
         //@ts-ignore
         componentType: "dob",
       },
-      name: "nomi_birth_date",
+      name: "nomiBirthDate",
       label: "Date of Birth",
       required: true,
       placeholder: "dd/mm/yyyy",
@@ -667,7 +722,7 @@ export const becomePartnerMetaData: MetaDataType = {
         md: 3,
         sm: 3,
       },
-      dependentFields: ["nominee_flag", "partner_type"],
+      dependentFields: ["nomineeFlag", "partnerType"],
       shouldExclude: "shouldExcludeBecomePartnerNominee",
     },
 
@@ -675,7 +730,7 @@ export const becomePartnerMetaData: MetaDataType = {
       render: {
         componentType: "select",
       },
-      name: "nomi_relation",
+      name: "nomiRelation",
       label: "Relationship",
       placeholder: "relationship with nominee",
       required: true,
@@ -688,7 +743,7 @@ export const becomePartnerMetaData: MetaDataType = {
       //@ts-ignore
       options: "getRelationship",
       validate: "getValidateValue",
-      dependentFields: ["nominee_flag", "partner_type"],
+      dependentFields: ["nomineeFlag", "partnerType"],
       shouldExclude: "shouldExcludeBecomePartnerNominee",
     },
     {
@@ -716,7 +771,7 @@ export const becomePartnerMetaData: MetaDataType = {
         md: 3,
         sm: 3,
       },
-      dependentFields: ["nominee_flag", "partner_type"],
+      dependentFields: ["nomineeFlag", "partnerType"],
       shouldExclude: "shouldExcludeBecomePartnerNominee",
     },
   ],

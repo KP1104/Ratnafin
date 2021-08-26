@@ -1,19 +1,19 @@
 export const becomePartner = (_, dependentValues) => {
-  if (dependentValues?.partner_type?.value === "C") {
+  if (dependentValues?.partnerType?.value === "C") {
     return false;
   }
   return true;
 };
 export const becomePartnerIndividual = (_, dependentValues) => {
-  if (dependentValues?.partner_type?.value === "I") {
+  if (dependentValues?.partnerType?.value === "I") {
     return false;
   }
   return true;
 };
 export const becomePartnerNominee = (_, dependentValues) => {
   if (
-    dependentValues?.nominee_flag?.value === "Y" &&
-    dependentValues?.partner_type?.value === "I"
+    dependentValues?.nomineeFlag?.value === "Y" &&
+    dependentValues?.partnerType?.value === "I"
   ) {
     return false;
   }
