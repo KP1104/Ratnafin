@@ -17,7 +17,7 @@ export const calculatePercentage = (value, dependentField) => {
   if (isNaN(total)) {
     return "";
   }
-  return total;
+  return total.toFixed(2);
 };
 
 export const visaversaValidateValue = async (fieldData, dependentFields) => {
