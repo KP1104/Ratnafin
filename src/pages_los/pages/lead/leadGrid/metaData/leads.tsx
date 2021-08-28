@@ -239,6 +239,7 @@ export const leadGridMetaData = {
       alignment: "left",
       componentType: "default",
       disableSortBy: true,
+      showTooltip: true,
       isVisible: true,
     },
     {
