@@ -545,7 +545,7 @@ const MiscAPI = () => {
         value: one?.data_val,
         label: one?.display_val,
       }));
-      if (newArray?.value.indexOf(dependentVaue) >= 0) {
+      if (["01", "02", "03", "04", "05"].indexOf(dependentVaue) >= 0) {
         return newArray.filter((one) => one.value !== dependentVaue);
       } else {
         return newArray;

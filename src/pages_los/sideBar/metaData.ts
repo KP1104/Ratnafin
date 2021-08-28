@@ -221,6 +221,18 @@ export const metaData: NavBarMetaDataType = {
       ],
     },
     {
+      label: "Partner Management",
+      icon: "users",
+      children: [
+        {
+          label: "Partner",
+          href: "./partner",
+          isRouterLink: true,
+          icon: "users",
+        },
+      ],
+    },
+    {
       label: "Inquiry Management",
       icon: "question",
       children: [
