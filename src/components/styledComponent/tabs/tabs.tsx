@@ -11,7 +11,6 @@ const StyledTabs = withStyles({
   indicator: {
     background:
       "linear-gradient(-90deg, rgba(94,231,131,1) 0%, rgba(74,205,159,1) 35%, rgba(33,150,218,1) 100%)",
-
     top: 0,
   },
 })(Tabs);

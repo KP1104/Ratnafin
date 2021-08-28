@@ -277,6 +277,7 @@ export const ArrayFieldRow = ({
           } catch (e) {
             console.log(e);
             setLoading(false);
+            //@ts-ignore
             setError(e?.error_msg ?? "Unkown error occured");
           }
         } else {
