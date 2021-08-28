@@ -1,0 +1,488 @@
+@charset "UTF-8";
+
+@page {
+  @top-left {
+    background: #fbc847;
+    content: counter(page);
+    height: 1cm;
+    text-align: center;
+    width: 1cm;
+  }
+  @top-center {
+    background: #fbc847;
+    content: "";
+    display: block;
+    height: 0.05cm;
+    opacity: 0.5;
+    width: 100%;
+  }
+  @top-right {
+    content: string(heading);
+    font-size: 9pt;
+    height: 1cm;
+    vertical-align: middle;
+    width: 100%;
+  }
+}
+
+@page :blank {
+  @top-left {
+    background: none;
+    content: "";
+  }
+  @top-center {
+    content: none;
+  }
+  @top-right {
+    content: none;
+  }
+}
+
+@page no-chapter {
+  @top-left {
+    background: none;
+    content: none;
+  }
+  @top-center {
+    content: none;
+  }
+  @top-right {
+    content: none;
+  }
+}
+
+@page :first {
+  /* background: url(report-cover.jpg) no-repeat center; */
+  background-size: cover;
+  margin: 0;
+}
+
+@page chapter {
+  background: #fbc847;
+  margin: 0;
+  @top-left {
+    content: none;
+  }
+  @top-center {
+    content: none;
+  }
+  @top-right {
+    content: none;
+  }
+}
+
+html {
+  color: #393939;
+  font-family: Fira Sans;
+  font-size: 11pt;
+  font-weight: 300;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+html body h1 {
+  color: #fbc847;
+  font-size: 38pt;
+  margin: 0;
+  page: no-chapter;
+  width: 100%;
+}
+html body h2,
+html body h3,
+html body h4 {
+  color: black;
+  font-weight: 400;
+}
+html body h2 {
+  break-before: always;
+  font-size: 28pt;
+  string-set: heading content();
+}
+html body h3 {
+  font-weight: 300;
+  font-size: 15pt;
+}
+html body h4 {
+  font-size: 13pt;
+}
+
+html body hr {
+  border-bottom: solid 2px #10b158;
+  width: 100%;
+  border-top: none;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+html body article {
+  padding: 50px;
+}
+
+html body article .header-top {
+  width: 100%;
+  display: inline-block;
+  position: relative;
+  overflow-x: hidden;
+}
+
+html body article .header-top h1 {
+  position: absolute;
+  text-align: center;
+  color: #10b158;
+  top: -15px;
+}
+
+html body article .header-top .logo {
+  text-align: left;
+  position: relative;
+  z-index: 9999;
+}
+
+html body article .header-top .top-sec {
+  width: 100%;
+  padding-top: 15px;
+}
+
+html body article .header-top .top-sec ul {
+  list-style: none;
+  padding-left: 0;
+  width: 25%;
+  display: inline-block;
+  margin: 0;
+  vertical-align: top;
+}
+
+html body article .header-top .top-sec ul li {
+  margin: 0;
+  line-height: normal;
+  width: 100%;
+}
+
+html body article .header-top .top-sec ul li strong {
+  color: #10b158;
+  margin-right: 10px;
+}
+
+html body article .header-top .top-sec ul li b {
+  color: #10b158;
+  margin-right: 10px;
+}
+
+html body article .header-top .top-sec ul:last-child {
+  float: right;
+  width: auto;
+}
+
+html body .footer-sec {
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+  padding-top: 20px;
+}
+
+html body article#cover {
+  align-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
+  /* height: 297mm; */
+  position: relative;
+  overflow: hidden;
+}
+
+html body article#cover .middle-top-part-sec {
+  width: 100%;
+  display: inline-block;
+}
+
+html body article#cover .middle-top-part-sec .entity-part {
+  width: 100%;
+  display: inline-block;
+}
+
+html body article#cover .middle-top-part-sec .entity-part ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+html body article#cover .middle-top-part-sec .entity-part ul li {
+  width: 50%;
+  display: inline-block;
+  font-size: 20px;
+  color: #10b158;
+}
+
+html body article#cover .middle-top-part-sec .entity-part ul li:last-child {
+  width: auto;
+  float: right;
+  font-size: 16px;
+}
+
+html body article#cover .middle-top-part-sec .top-middle-part {
+  width: 100%;
+  display: inline-block;
+}
+
+html body article#cover .middle-top-part-sec .top-middle-part h2 {
+  width: 100%;
+  display: inline-block;
+  background-color: #10b158;
+  color: #fff;
+  font-size: 15px;
+  text-align: center;
+  padding: 5px 0;
+}
+
+html body article#cover .middle-top-part-sec .top-middle-part ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 33%;
+  display: inline-block;
+}
+
+html body article#cover .middle-top-part-sec .top-middle-part ul li {
+  width: 100%;
+  display: inline-block;
+}
+
+html body article#cover .middle-top-part-sec .top-middle-part .table td {
+  border: 1px solid #dee2e6;
+  vertical-align: middle;
+  text-align: center;
+}
+
+html body article#cover .middle-top-part-sec .equifax-sex {
+  width: 100%;
+  display: inline-block;
+}
+html body article#cover .middle-top-part-sec .equifax-sex h2 {
+  width: 100%;
+  display: inline-block;
+  background-color: #10b158;
+  color: #fff;
+  font-size: 18px;
+  padding: 8px 3px;
+  margin-bottom: 0;
+}
+
+html body article#cover .middle-top-part-sec .equifax-sex h2 strong {
+  margin-right: 10px;
+  font-weight: normal;
+}
+html body article#cover .middle-top-part-sec .equifax-sex .table {
+  margin-bottom: 15px;
+}
+
+html
+  body
+  article#cover
+  .middle-top-part-sec
+  .equifax-sex
+  .table
+  .thead-dark
+  th {
+  border-bottom: none;
+  background-color: #10b158;
+}
+html body article#cover .middle-top-part-sec .equifax-sex .table th,
+.table td {
+  border: 1px solid #dee2e6 !important;
+  vertical-align: middle;
+  text-align: center;
+}
+
+html
+  body
+  article#cover
+  .middle-top-part-sec
+  .equifax-sex
+  .table
+  td:first-child {
+  text-align: left;
+}
+
+html body article#contents {
+  break-before: right;
+  break-after: left;
+  page: no-chapter;
+  overflow: hidden;
+  position: relative;
+}
+
+html body article#contents .entity-details-borrower-sec {
+  width: 100%;
+  display: inline-block;
+}
+
+html body article#contents .entity-details-borrower-sec {
+  width: 100%;
+  display: inline-block;
+}
+html body article#contents .entity-details-borrower-sec h2 {
+  width: 100%;
+  display: inline-block;
+  background-color: #10b158;
+  color: #fff;
+  font-size: 18px;
+  padding: 8px 3px;
+  margin-bottom: 0;
+}
+
+html body article#contents .entity-details-borrower-sec h2 strong {
+  margin-right: 10px;
+  font-weight: normal;
+}
+html body article#contents .entity-details-borrower-sec .table {
+  margin-bottom: 15px;
+}
+
+html body article#contents .entity-details-borrower-sec .table .thead-dark th {
+  border-bottom: none;
+  background-color: #10b158;
+  text-align: left;
+}
+html body article#contents .entity-details-borrower-sec .table th,
+.table td {
+  border: none;
+  vertical-align: middle;
+  text-align: left;
+}
+
+html body article#contents .entity-details-borrower-sec .table td:first-child {
+  text-align: left;
+}
+
+html body article#contents .entity-details-borrower-sec .table td,
+.table th {
+  padding: 0.3rem;
+}
+
+html body article#contents .bro-none td {
+  border: none !important;
+  padding: 0.1rem 0.4rem;
+}
+
+html body article#contents .borrower-table-sec th {
+  border: solid 1px #dee2e6 !important;
+  text-align: center !important;
+}
+
+html body article#contents .borrower-table-sec th:first-child {
+  text-align: left !important;
+}
+
+html body article#contents .borrower-table-sec td {
+  text-align: left !important;
+}
+
+html body article#contents .borrower-table-sec td:first-child {
+  text-align: left !important;
+}
+
+html body article#contents .bro-none td {
+  border: none;
+  border-bottom: solid 1px;
+}
+
+html body article#contents .entity-details-borrower-sec .history-monthly td {
+  width: 36px;
+}
+
+html
+  body
+  article#contents
+  .entity-details-borrower-sec
+  .borrower-table-sec
+  .table
+  td {
+  vertical-align: top !important;
+  width: 79.2px;
+  border-bottom: none !important;
+  border-top: none !important;
+}
+
+html
+  body
+  article#contents
+  .entity-details-borrower-sec
+  .borrower-table-one
+  .table
+  td {
+  vertical-align: top !important;
+  width: 55px;
+  padding: 0;
+  vertical-align: middle !important;
+}
+
+html body article#contents .entity-bro-none {
+  border: none !important;
+}
+
+html body article#contents .entity-bro-none {
+  border: none !important;
+}
+
+html body article#contents td .borrower-align-center {
+  text-align: center !important;
+}
+
+html body article#contents .borrower-table-bro-one {
+  border: none !important;
+}
+
+html body article#contents .borrower-table-bro-two {
+  border-bottom: none !important;
+  border-top: none !important;
+}
+
+html body article#contents .borrower-table-bro-three {
+  border-top: solid 1px #dee2e6 !important;
+  border-bottom: solid 1px #dee2e6 !important;
+}
+
+html body article#contents .borrower-table-bro-four {
+  border: none !important;
+}
+
+html body article#contents .borrower-table-bro-five {
+  border-left: none !important;
+  border-bottom: none !important;
+}
+
+html body article#contents .borrower-table-bro-six {
+  border-left: none !important;
+  border-top: none !important;
+}
+
+html body article#contents .borrower-table-bro-saven {
+  border-top: none !important;
+}
+
+html body article#contents .borrower-table-bro-eight {
+  border-top: solid 1px #dee2e6 !important;
+}
+
+html body article#contents .borrower-table-bro-nine {
+  border-left: none !important;
+  border-bottom: none !important;
+  border-right: none !important;
+}
+
+.html body article#contents .align-left-sec {
+  text-align: left !important;
+}
+
+.html body article#contents .align-center-sec {
+  text-align: center !important;
+}
+
+.html
+  body
+  article#contents
+  .entity-details-borrower-sec
+  .borrower-table-padding-one {
+  border: none !important;
+}
+
+html body article#contents .borrower-table-bro-left {
+  border-right: solid 1px #dee2e6 !important;
+}
