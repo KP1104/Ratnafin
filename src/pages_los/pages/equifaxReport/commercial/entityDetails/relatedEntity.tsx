@@ -1,4 +1,4 @@
-export const RelatedEntity = () => {
+export const RelatedEntity = ({ relatedEntity }) => {
   return (
     <>
       <h2>2.2 Related Entity(ies)</h2>
@@ -17,15 +17,22 @@ export const RelatedEntity = () => {
         </thead>
         <tbody>
           <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            {typeof relatedEntity === "object" && Boolean(relatedEntity)
+              ? Object.keys(relatedEntity).map((key, index) => (
+                  <>
+                    <td>{index + 1}</td>
+                    <td>{relatedEntity[key]}</td>
+                    <td></td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                  </>
+                ))
+              : null}
           </tr>
+          <tr>Not coming from DB</tr>
         </tbody>
       </table>
     </>

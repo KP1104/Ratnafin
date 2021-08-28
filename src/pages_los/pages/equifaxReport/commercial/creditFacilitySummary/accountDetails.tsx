@@ -3,7 +3,7 @@ import { BalanceHistory } from "./balanceHistory";
 import { DishonouredChequeDetails } from "./dishonorChequeDetails";
 import { SecurityCollateralDetails } from "./securityCollateralDetails";
 
-export const AccountDetails = () => {
+export const AccountDetails = ({ accountDetails }) => {
   return (
     <>
       <tr>
@@ -20,7 +20,7 @@ export const AccountDetails = () => {
                     width: "33%",
                   }}
                 >
-                  Acct# : ***
+                  Acct# : {accountDetails?.accountNumber}
                 </td>
                 <td
                   className="align-left-sec"
@@ -36,7 +36,8 @@ export const AccountDetails = () => {
                     width: "33%",
                   }}
                 >
-                  Loan Activation/Sanctioned Date : 09-05-2014
+                  Loan Activation/Sanctioned Date :{" "}
+                  {accountDetails?.sanctionDateLoanActivation}
                 </td>
               </tr>
               <tr>
@@ -46,7 +47,8 @@ export const AccountDetails = () => {
                     width: "33%",
                   }}
                 >
-                  Loan Expiry/Maturity Date : 10-05-2014
+                  Loan Expiry/Maturity Date :{" "}
+                  {accountDetails?.loanExpiryMaturityDate}
                 </td>
                 <td
                   className="align-left-sec"
@@ -54,7 +56,8 @@ export const AccountDetails = () => {
                     width: "33%",
                   }}
                 >
-                  Current Balance/Limit Utilized/Mark to Market : 0
+                  Current Balance/Limit Utilized/Mark to Market :{" "}
+                  {accountDetails?.currentBalanceLimitUtilizedMarkToMarket}
                 </td>
                 <td
                   className="align-left-sec"
@@ -62,8 +65,7 @@ export const AccountDetails = () => {
                     width: "33%",
                   }}
                 >
-                  Credit Type : Medium term loan (period abobve 1 year and up to
-                  3 years)
+                  Credit Type :{accountDetails?.creditType}
                 </td>
               </tr>
             </tbody>
@@ -89,7 +91,7 @@ export const AccountDetails = () => {
                     width: "33%",
                   }}
                 >
-                  Date Reportd : 28-02-2019
+                  Date Reportd : {accountDetails?.dtReportedLst}
                 </td>
                 <td
                   className="align-left-sec"
@@ -97,7 +99,7 @@ export const AccountDetails = () => {
                     width: "33%",
                   }}
                 >
-                  Currency : INR
+                  Currency : {accountDetails?.currencyCode}
                 </td>
                 <td
                   className="align-left-sec"
@@ -105,7 +107,8 @@ export const AccountDetails = () => {
                     width: "33%",
                   }}
                 >
-                  Past Due Amount : 0
+                  Past Due Amount :{" "}
+                  {accountDetails?.assetClassificationDaysPastDue}
                 </td>
               </tr>
               <tr>
@@ -123,7 +126,7 @@ export const AccountDetails = () => {
                     width: "33%",
                   }}
                 >
-                  High Creadit :
+                  High Credit :
                 </td>
                 <td
                   className="align-left-sec"
@@ -131,7 +134,7 @@ export const AccountDetails = () => {
                     width: "33%",
                   }}
                 >
-                  Guarantee Coverage :
+                  Guarantee Coverage :{accountDetails?.guaranteeCoverage}
                 </td>
               </tr>
               <tr>
@@ -157,7 +160,7 @@ export const AccountDetails = () => {
                     width: "33%",
                   }}
                 >
-                  Drawing Power : 0
+                  Drawing Power : {accountDetails?.drawingPower}
                 </td>
               </tr>
               <tr>
@@ -175,7 +178,8 @@ export const AccountDetails = () => {
                     width: "33%",
                   }}
                 >
-                  Sanction Amount/NAOC : 56,00,000
+                  Sanction Amount/NAOC :{" "}
+                  {accountDetails?.sanctionedAmountNotionalAmountOfContract}
                 </td>
                 <td
                   className="align-left-sec"
@@ -193,7 +197,8 @@ export const AccountDetails = () => {
                     width: "33%",
                   }}
                 >
-                  Tenure/WAMPOC : 1
+                  Tenure/WAMPOC :{" "}
+                  {accountDetails?.tenureWeightedAvgMaturityPeriod}
                 </td>
                 <td
                   className="align-left-sec"
@@ -201,7 +206,7 @@ export const AccountDetails = () => {
                     width: "33%",
                   }}
                 >
-                  Repayment Frequency : Monthly
+                  Repayment Frequency : {accountDetails?.repaymentFrequency}
                 </td>
                 <td
                   className="align-left-sec"
@@ -209,7 +214,7 @@ export const AccountDetails = () => {
                     width: "33%",
                   }}
                 >
-                  Monthly Payment Amount : 56,00,00
+                  Monthly Payment Amount : {accountDetails?.installmentAmount}
                 </td>
               </tr>
             </tbody>
@@ -229,7 +234,7 @@ export const AccountDetails = () => {
             <tbody>
               <tr>
                 <td style={{ width: "33%" }} className="align-left-sec">
-                  Account Status : Open
+                  Account Status : {accountDetails?.accountStatus}
                 </td>
                 <td style={{ width: "33%" }} className="align-left-sec">
                   Status Date :
@@ -243,7 +248,7 @@ export const AccountDetails = () => {
                   Suit Filed Date :
                 </td>
                 <td style={{ width: "33%" }} className="align-left-sec">
-                  Wilful Default Status : Not Wilful Defaulte
+                  Wilful Default Status : {accountDetails?.wilfulDefaultStatus}
                 </td>
                 <td style={{ width: "33%" }} className="align-left-sec">
                   Wilfu Default Date :
@@ -263,6 +268,7 @@ export const AccountDetails = () => {
               <tr>
                 <td style={{ width: "33%" }} className="align-left-sec">
                   Asset Based Security Coverage :
+                  {accountDetails?.assetBasedSecurityCoverage}
                 </td>
                 <td style={{ width: "33%" }} className="align-left-sec"></td>
                 <td style={{ width: "33%" }} className="align-left-sec"></td>
@@ -271,7 +277,7 @@ export const AccountDetails = () => {
           </table>
         </td>
       </tr>
-      <PaymentHistory />
+      <PaymentHistory paymentHistory={accountDetails?.history48Months} />
       <BalanceHistory />
       <DishonouredChequeDetails />
       <SecurityCollateralDetails />

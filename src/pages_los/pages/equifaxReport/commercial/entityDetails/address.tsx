@@ -1,4 +1,4 @@
-export const Address = () => {
+export const Address = ({ addressDetails }) => {
   return (
     <>
       <h2>Address details</h2>
@@ -15,15 +15,19 @@ export const Address = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Registered Office</td>
-            <td>H</td>
-            <td>Rupnagar</td>
-            <td>Punjab</td>
-            <td>160055</td>
-            <td>31-102019</td>
-          </tr>
+          {addressDetails?.map((addressInfo, index) => {
+            return (
+              <tr>
+                <td>{index + 1}</td>
+                <td>{addressInfo?.type ?? "-"}</td>
+                <td>{addressInfo?.address ?? "-"}</td>
+                <td>{addressInfo?.district ?? "-"}</td>
+                <td>{addressInfo?.state ?? "-"}</td>
+                <td>{addressInfo?.postal ?? "-"}</td>
+                <td>{addressInfo?.reportedDate ?? "-"}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
       <p style={{ fontStyle: "italic" }}>

@@ -371,7 +371,7 @@ html body article#contents .borrower-table-sec th:first-child {
 }
 
 html body article#contents .borrower-table-sec td {
-  text-align: center !important;
+  text-align: left !important;
 }
 
 html body article#contents .borrower-table-sec td:first-child {

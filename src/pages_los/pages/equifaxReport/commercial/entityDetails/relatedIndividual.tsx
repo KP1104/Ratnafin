@@ -1,7 +1,7 @@
-export const RelatedIndividuals = () => {
+export const RelatedIndividuals = ({ individualDetails }) => {
   return (
     <>
-      <h2>2.1 Releted Individual(s)</h2>
+      <h2>2.1 Related Individual(s)</h2>
       <table className="table">
         <thead className="thead-dark">
           <tr>
@@ -15,12 +15,23 @@ export const RelatedIndividuals = () => {
         </thead>
         <tbody>
           <tr>
-            <td>1</td>
-            <td>Others</td>
-            <td>Hitesh</td>
-            <td>H</td>
-            <td></td>
-            <td></td>
+            {typeof individualDetails === "object" && Boolean(individualDetails)
+              ? Object.keys(individualDetails).map((key, index) => (
+                  <>
+                    <td>{index + 1}</td>
+                    <td>{individualDetails[key]}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </>
+                ))
+              : null}
+          </tr>
+          <tr>
+            <td>Not coming from DB</td>
           </tr>
         </tbody>
       </table>

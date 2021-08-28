@@ -2,7 +2,7 @@ export const HitAndNonHitSummary = () => {
   return (
     <>
       <h2 style={{ marginBottom: "20px" }}>
-        <strong>11</strong> Hit/No-hit summary for Guarantors / Releted
+        <strong>11</strong> Hit/No-hit summary for Guarantors / Related
         Individual / Related Entity
       </h2>
       <table className="table" style={{ border: "solid 1px #dee2e6" }}>

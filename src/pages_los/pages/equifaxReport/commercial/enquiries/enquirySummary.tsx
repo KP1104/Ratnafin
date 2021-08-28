@@ -1,4 +1,4 @@
-export const EnquirySummary = () => {
+export const EnquirySummary = ({ enquirySummaryDetails }) => {
   return (
     <>
       <h2 style={{ marginBottom: "20px" }}>
@@ -15,17 +15,27 @@ export const EnquirySummary = () => {
         <tbody>
           <tr>
             <td className="entity-bro-none">Purpose</td>
-            <td className="entity-bro-none">: All</td>
+            <td className="entity-bro-none">
+              : {enquirySummaryDetails?.Purpose}
+            </td>
             <td className="entity-bro-none">Total</td>
-            <td className="entity-bro-none">: 0</td>
+            <td className="entity-bro-none">
+              : {enquirySummaryDetails?.Total}
+            </td>
             <td className="entity-bro-none">Past 30 days</td>
-            <td className="entity-bro-none">: 0</td>
+            <td className="entity-bro-none">
+              : {enquirySummaryDetails?.Past30Days}
+            </td>
           </tr>
           <tr>
             <td className="entity-bro-none">Past 12 Months</td>
-            <td className="entity-bro-none">: 0</td>
+            <td className="entity-bro-none">
+              : {enquirySummaryDetails?.Past12Months}
+            </td>
             <td className="entity-bro-none">Past 24 Months</td>
-            <td className="entity-bro-none">: 0</td>
+            <td className="entity-bro-none">
+              : {enquirySummaryDetails?.past24Months}
+            </td>
           </tr>
         </tbody>
       </table>

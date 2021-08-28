@@ -1,4 +1,12 @@
-export const DelinquencyGuarantor = () => {
+export const DelinquencyGuarantor = ({ guarantorDelinquency = {} }: any) => {
+  const asGuarantor = guarantorDelinquency;
+  const allGuarantorsType = Object.keys(asGuarantor);
+  const flatMapGuarantor: any = [];
+  for (let i = 0; i < allGuarantorsType.length; i++) {
+    for (const one of asGuarantor[allGuarantorsType[i]]) {
+      flatMapGuarantor.push({ ...one, source: allGuarantorsType[i] });
+    }
+  }
   return (
     <>
       <h2>
@@ -46,18 +54,30 @@ export const DelinquencyGuarantor = () => {
           </tr>
 
           <tr>
-            <td>NBFC-1</td>
-            <td></td>
-            <td>Others</td>
-            <td>DPD-Others</td>
-            <td>Others</td>
-            <td>2018-01-08</td>
-            <td>2017-02-28</td>
-            <td>13</td>
-            <td>DPD &gt; 180/Others</td>
-            <td>7</td>
-            <td>10,63,850</td>
-            <td>0</td>
+            {Array.isArray(flatMapGuarantor)
+              ? flatMapGuarantor.map((guarantrDetail) => (
+                  <>
+                    <td>{guarantrDetail?.source}</td>
+                    <td>{guarantrDetail?.name}</td>
+                    <td>{guarantrDetail?.CF_Type}</td>
+                    <td>{guarantrDetail?.CurrentOverdueBucket}</td>
+                    <td>{guarantrDetail?.CurrentAccountClassification}</td>
+                    <td>{guarantrDetail?.MostRecentDelinquencyDate}</td>
+                    <td>
+                      {guarantrDetail?.EarliestDelinquencyDate_Lst_48_Mths}
+                    </td>
+                    <td>{guarantrDetail?.Delinquent_Count}</td>
+                    <td>
+                      {guarantrDetail?.MostSevere_DPD_AssetClass_Lst_48_Mths}
+                    </td>
+                    <td>
+                      {guarantrDetail?.MaxConsecutive_OverduePeriod_In_Mths}
+                    </td>
+                    <td>{guarantrDetail?.HighestOverdue_Amt_Lst_48_Mths}</td>
+                    <td>{guarantrDetail?.CurrentOverdue_Amt}</td>
+                  </>
+                ))
+              : null}
           </tr>
         </tbody>
       </table>

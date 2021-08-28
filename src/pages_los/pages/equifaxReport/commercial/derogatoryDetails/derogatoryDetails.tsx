@@ -5,7 +5,11 @@ import { GuarantorRelatedInd } from "./gurantorRelatedInd";
 
 import { CreditType } from "../creditType/creditTypeBorrower";
 
-export const DerogatoryDetails = ({ header }) => {
+export const DerogatoryDetails = ({
+  header,
+  derogatorDetails,
+  creditTypeSummary,
+}) => {
   return (
     <article id="contents">
       <Header header={header} />
@@ -17,7 +21,7 @@ export const DerogatoryDetails = ({ header }) => {
         <DerogatoryBorrower />
         <DerogatoryGuarantor />
         <GuarantorRelatedInd />
-        <CreditType />
+        <CreditType creditTypeSummary={creditTypeSummary} />
       </div>
     </article>
   );

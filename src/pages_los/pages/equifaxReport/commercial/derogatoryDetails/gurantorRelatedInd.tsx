@@ -16,8 +16,8 @@ export const GuarantorRelatedInd = () => {
               Name
             </th>
             <th scope="col">Reletion Type</th>
-            <th scope="col">Sanctionned Amount</th>
-            <th scope="col">Wilful Defaults</th>
+            <th scope="col">Sanctioned Amount</th>
+            <th scope="col">Willful Defaults</th>
             <th scope="col">Suit filed</th>
             <th scope="col">Write-offs + Settled</th>
             <th scope="col">Invpked/Devolved</th>

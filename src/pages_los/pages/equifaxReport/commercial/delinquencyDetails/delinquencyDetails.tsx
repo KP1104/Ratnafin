@@ -2,12 +2,20 @@ import { DelinquencyBorrower } from "./delinquencyBorrower";
 import { DelinquencyGuarantor } from "./delinquencyGuarantor";
 import { GurantorRelatedIndividuals } from "./guarantorRelatedIndi";
 
-export const DelinquencyDetails = () => {
+export const DelinquencyDetails = ({ delinquencyDetails }) => {
   return (
     <>
-      <DelinquencyBorrower />
-      <DelinquencyGuarantor />
-      <GurantorRelatedIndividuals />
+      <DelinquencyBorrower
+        borrowerDelinquency={delinquencyDetails?.AsBorrower}
+      />
+      <DelinquencyGuarantor
+        guarantorDelinquency={delinquencyDetails?.AsGuarantor}
+      />
+      <GurantorRelatedIndividuals
+        relatedIndDeliquincy={
+          delinquencyDetails?.ForGuarantorRelatedEntitiesIndividuals
+        }
+      />
     </>
   );
 };

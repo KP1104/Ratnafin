@@ -1,10 +1,8 @@
 import { AccountDetails } from "./accountDetails";
 import { GuarantorIndividual } from "./guarantorsIndividuals";
 import { GuarantorEntities } from "./guarantorsEntities";
-import { DishonouredChequeDetails } from "./dishonorChequeDetails";
-import { SecurityCollateralDetails } from "./securityCollateralDetails";
 
-export const AllCreditFacilityDetails = () => {
+export const AllCreditFacilityDetails = ({ creditFacilityDetails, count }) => {
   return (
     <div className="entity-details-borrower-sec">
       <h2 style={{ marginBottom: "20px" }}>
@@ -16,30 +14,13 @@ export const AllCreditFacilityDetails = () => {
       <table className="table">
         <thead className="thead-dark">
           <tr>
-            <th scope="col">7.1.1 Credit Facility Details</th>
-
-            <th style={{ padding: "0" }} scope="col">
-              <table
-                className="table borrower-table-sec"
-                style={{ marginBottom: 0, width: "45%", float: "right" }}
-              >
-                <thead className="thead-dark">
-                  <tr>
-                    <th style={{ backgroundColor: "#2f03f3", width: "30%" }}>
-                      Go to Section 4
-                    </th>
-                    <th style={{ backgroundColor: "#2f03f3", width: "30%" }}>
-                      Go to Section 5
-                    </th>
-                    <th style={{ width: "30%" }}>Open</th>
-                  </tr>
-                </thead>
-              </table>
+            <th scope="col" colSpan={15}>
+              7.1.1 Credit Facility Details
             </th>
           </tr>
         </thead>
         <tbody>
-          <AccountDetails />
+          <AccountDetails accountDetails={creditFacilityDetails} />
         </tbody>
       </table>
       <GuarantorIndividual />

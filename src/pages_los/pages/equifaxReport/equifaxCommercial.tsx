@@ -1,13 +1,12 @@
 import { useQuery } from "react-query";
 import loaderGif from "assets/images/loader.gif";
-import { EntityNameDetails } from "./commercial/entityNameDetails";
+import { EntityNameDetails } from "./commercial/entityName";
 import { EntityDetails } from "./commercial/entityDetails";
 import { DerogatoryDetails } from "./commercial/derogatoryDetails";
-import { CreditTypeGuarantor } from "./commercial/creditType/creditTypeGuarantor";
 import { CreditFacilitySummary } from "./commercial/creditFacilitySummary";
 import { GlossaryTermsExplanation } from "./commercial/glossaryTermsExplanation";
 import { MiddlewareSDK } from "registry/fns/middleware";
-import { Enquiry } from "./commercial/enquiry";
+import { Enquiry } from "./commercial/enquiries";
 import "./commercial/style.css";
 
 const tokenID = "C3ECF0CE052775C3E05500000000000104062021012914";
@@ -23,12 +22,33 @@ export const CommercialReport = () => {
     <img src={loaderGif} alt="loader" width="50px" height="50px" />
   ) : (
     <>
-      <EntityNameDetails header={data?.header} />
-      <EntityDetails header={data?.header} />
-      <DerogatoryDetails header={data?.header} />
-      <CreditTypeGuarantor header={data?.header} />
-      <CreditFacilitySummary header={data?.header} />
-      <Enquiry header={data?.header} />
+      <EntityNameDetails
+        header={data?.header}
+        severityGrid={data?.severityGrid}
+        creditScore={data?.equifaxScoresCommercial}
+        overallCreditSummary={data?.overallCreditSummary}
+      />
+      <EntityDetails
+        header={data?.header}
+        entityDetails={data?.entityDetailsBorrower}
+        openCreditFacility={data?.openCreditFacilitySummary}
+        delinquencySummary={data?.delinquencySummary}
+      />
+      <DerogatoryDetails
+        header={data?.header}
+        derogatorDetails={data?.derogSummary}
+        creditTypeSummary={data?.creditTypeSummary}
+      />
+      <CreditFacilitySummary
+        header={data?.header}
+        creditFacilityDetails={data?.creditFacilityDetails}
+      />
+      <Enquiry
+        header={data?.header}
+        enquirySummary={data?.enquirySummary}
+        enquiriesDetails={data?.enquiriesDetails}
+        inquiryInputDetails={data?.inquiryInputDetails}
+      />
       <GlossaryTermsExplanation header={data?.header} />
     </>
   );

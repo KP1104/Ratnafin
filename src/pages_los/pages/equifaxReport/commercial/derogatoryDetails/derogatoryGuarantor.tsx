@@ -1,3 +1,5 @@
+import { DerogatoryLabel } from "./derogatoryLabel";
+
 export const DerogatoryGuarantor = () => {
   return (
     <>
@@ -9,28 +11,16 @@ export const DerogatoryGuarantor = () => {
       </h2>
 
       <table className="table borrower-table-sec">
-        <thead className="thead-dark">
-          <tr>
-            <th scope="col">Derogatory Status-&gt;</th>
-            <th scope="col" style={{ textAlign: "center" }}>
-              Sanctioned Amount
-            </th>
-            <th scope="col">Wilful Defaults</th>
-            <th scope="col">Suit Filed</th>
-            <th scope="col">Write-offs + Settled</th>
-            <th scope="col">Invoked/Devolved</th>
-            <th scope="col">Dishonored Cheque</th>
-          </tr>
-        </thead>
+        <DerogatoryLabel />
         <tbody>
           <tr>
-            <td>NBFC-1</td>
-            <td>14,57,024</td>
-            <td>N</td>
-            <td>N</td>
-            <td>Y</td>
-            <td>N</td>
-            <td>N</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
           </tr>
         </tbody>
       </table>

@@ -1,4 +1,13 @@
-export const DelinquencyBorrower = () => {
+export const DelinquencyBorrower = ({ borrowerDelinquency = {} }) => {
+  const asBorrower = borrowerDelinquency;
+  const allBorrowersType = Object.keys(asBorrower);
+  const flatMapBorrowers: any = [];
+  for (let i = 0; i < allBorrowersType.length; i++) {
+    for (const one of asBorrower[allBorrowersType[i]]) {
+      flatMapBorrowers.push({ ...one, source: allBorrowersType[i] });
+    }
+  }
+
   return (
     <>
       <h2>
@@ -12,38 +21,7 @@ export const DelinquencyBorrower = () => {
         </span>
       </h2>
       <table className="table borrower-table-sec">
-        <thead className="thead-dark">
-          <tr>
-            <th scope="col">Lender</th>
-            <th scope="col" style={{ textAlign: "center" }}>
-              Open CF#
-            </th>
-            <th scope="col">Delinquent CF#</th>
-            <th scope="col">Sanctioned Amount</th>
-            <th scope="col">Current Balance</th>
-            <th scope="col">Overdue Amount</th>
-            <th scope="col">
-              CF Opened in Last <br />
-              12 Months#
-            </th>
-            <th scope="col">
-              CF Opened in Last 12-48 <br />
-              Months#
-            </th>
-            <th scope="col">
-              CF Opened in Last 12-48 <br />
-              Months#
-            </th>
-            <th scope="col">
-              CF Opened in Last 12-48 <br />
-              Months#
-            </th>
-            <th scope="col">
-              CF Opened in Last 12-48 <br />
-              Months#
-            </th>
-          </tr>
-        </thead>
+        <DeliquencyLabel />
         <tbody>
           <tr>
             <td colSpan={11}>On Member</td>
@@ -64,34 +42,46 @@ export const DelinquencyBorrower = () => {
           </tr>
 
           <tr>
-            <td>Other</td>
-            <td>Other</td>
-            <td>DPD-Others</td>
-            <td>Other</td>
-            <td>2017-01-31</td>
-            <td>2017-01-31</td>
-            <td>1</td>
-            <td>DPD-Others/SUB</td>
-            <td>1</td>
-            <td></td>
-            <td>0</td>
-          </tr>
-
-          <tr>
-            <td>PSU Bank-1</td>
-            <td>Other</td>
-            <td>DPD-Others</td>
-            <td>Other</td>
-            <td>2019-02-28</td>
-            <td>2017-09-30</td>
-            <td>18</td>
-            <td>DPD-Others/LOS</td>
-            <td>18</td>
-            <td>38,48,504</td>
-            <td>0</td>
+            {Array.isArray(flatMapBorrowers)
+              ? flatMapBorrowers?.map((data) => (
+                  <>
+                    <td>{data?.source}</td>
+                    <td>{data?.CF_Type}</td>
+                    <td>{data?.CurrentOverdueBucket}</td>
+                    <td>{data?.CurrentAccountClassification}</td>
+                    <td>{data?.MostRecentDelinquencyDate}</td>
+                    <td>{data?.EarliestDelinquencyDate_Lst_48_Mths}</td>
+                    <td>{data?.Delinquent_Count}</td>
+                    <td>{data?.MostSevere_DPD_AssetClass_Lst_48_Mths}</td>
+                    <td>{data?.MaxConsecutive_OverduePeriod_In_Mths}</td>
+                    <td>{data?.HighestOverdue_Amt_Lst_48_Mths}</td>
+                    <td>{data?.CurrentOverdue_Amt}</td>
+                  </>
+                ))
+              : null}
           </tr>
         </tbody>
       </table>
     </>
+  );
+};
+
+const DeliquencyLabel = () => {
+  return (
+    <thead className="thead-dark">
+      <tr>
+        <th scope="col">Lender</th>
+        <th scope="col">Credit Facility Type</th>
+        <th scope="col">Current Overdue Bucket</th>
+        <th scope="col">Current Account Classification</th>
+        <th scope="col">Most recent Delinquency Date</th>
+        <th scope="col">Earliest Delinquency Date(Last 48 months)</th>
+        <th scope="col">No of times Delinquent</th>
+        <th scope="col">Most severe DPD/ Asset Class (last 48 Months)</th>
+        <th scope="col">Max Consecutive Overdue Period (In months)</th>
+        <th scope="col">Highest Overdue Amount (In last 48 months)</th>
+        <th scope="col">Current Overdue Amount</th>
+      </tr>
+    </thead>
   );
 };

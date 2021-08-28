@@ -1,4 +1,12 @@
-export const GurantorRelatedIndividuals = () => {
+export const GurantorRelatedIndividuals = ({ relatedIndDeliquincy = {} }) => {
+  const relatedIndividual = relatedIndDeliquincy;
+  const allRelatedIndividualType = Object.keys(relatedIndividual);
+  const flatMap: any = [];
+  for (let i = 0; i < allRelatedIndividualType.length; i++) {
+    for (const one of relatedIndividual[allRelatedIndividualType[i]]) {
+      flatMap.push({ ...one, source: allRelatedIndividualType[i] });
+    }
+  }
   return (
     <>
       <h2>
@@ -46,18 +54,24 @@ export const GurantorRelatedIndividuals = () => {
             <td colSpan={12}>Off Member</td>
           </tr>
           <tr>
-            <td>PSU Bank-1</td>
-            <td></td>
-            <td>Entity Guarantor</td>
-            <td>DPD-Other</td>
-            <td>Other</td>
-            <td>2019-04-30</td>
-            <td>2017-05-31</td>
-            <td>13</td>
-            <td>DPD &gt;180/Others</td>
-            <td>10</td>
-            <td>29,417</td>
-            <td>0</td>
+            {Array.isArray(flatMap)
+              ? flatMap?.map((data) => (
+                  <>
+                    <td>{data?.source}</td>
+                    <td>{data?.name}</td>
+                    <td>{data?.relationType}</td>
+                    <td>{data?.CurrentOverdueBucket}</td>
+                    <td>{data?.CurrentAccountClassification}</td>
+                    <td>{data?.MostRecentDelinquencyDate}</td>
+                    <td>{data?.EarliestDelinquencyDate_Lst_48_Mths}</td>
+                    <td>{data?.Delinquent_Count}</td>
+                    <td>{data?.MostSevere_DPD_AssetClass_Lst_48_Mths}</td>
+                    <td>{data?.MaxConsecutive_OverduePeriod_In_Mths}</td>
+                    <td>{data?.HighestOverdue_Amt_Lst_48_Mths}</td>
+                    <td>{data?.CurrentOverdue_Amt}</td>
+                  </>
+                ))
+              : null}
           </tr>
         </tbody>
       </table>
