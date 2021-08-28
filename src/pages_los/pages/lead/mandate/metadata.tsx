@@ -74,7 +74,7 @@ export const mandateMetaData: MetaDataType = {
         {
           accessor: "facilityType",
           alignment: "left",
-          width: 100,
+          width: 250,
           Cell: "selectField",
           columnName: "Type of Facility",
           footer: false,
@@ -112,7 +112,7 @@ export const mandateMetaData: MetaDataType = {
           accessor: "fundFeeInAmount",
           alignment: "right",
           Cell: "visaversa",
-          width: 150,
+          width: 300,
           columnName: "Fund Fee",
           ViceVersaProps: {
             leftTransform: calculateAmount,

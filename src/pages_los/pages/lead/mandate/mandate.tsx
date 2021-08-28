@@ -46,17 +46,17 @@ const Mandate: FC<any> = ({
   const moveToViewMode = useCallback(() => setFormMode("view"), [setFormMode]);
   const moveToEditMode = useCallback(() => setFormMode("edit"), [setFormMode]);
 
+  const result = useQuery(
+    ["getMandateFormData", moduleType, productType, refID],
+    () => API.getMandateFormData({ moduleType, productType, refID })()
+  );
+
   //mandate download
   const downloadMandate = () => {
     const tranCD = result?.data?.tranCD;
     let url = API.generateDocumentDownloadURL(tranCD);
     downloadFile(url, tranCD);
   };
-
-  const result = useQuery(
-    ["getMandateFormData", moduleType, productType, refID],
-    () => API.getMandateFormData({ moduleType, productType, refID })()
-  );
 
   const mutation = useMutation(
     MandateFormDataFnWrapper(
