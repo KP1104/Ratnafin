@@ -58,7 +58,7 @@ export const generateDocumentDownloadURL = (moduleType, docUUID) => {
   ).href;
 };
 
-export const reSendMessage = async (requestType, transactionID) => {
+export const reSendMessage = async ({ requestType, transactionID }) => {
   let currentURL: any = undefined;
   currentURL =
     requestType === "CREDIT"

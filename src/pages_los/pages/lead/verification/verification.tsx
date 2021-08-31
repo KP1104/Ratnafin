@@ -84,8 +84,12 @@ export const Verification = ({ refID, moduleType }) => {
       />
       <Dialog
         open={Boolean(currentAction)}
-        maxWidth="xl"
-        PaperProps={{ style: { width: "100%", height: "100%" } }}
+        maxWidth={currentAction?.name === "resend" ? false : "xl"}
+        PaperProps={
+          currentAction?.name === "resend"
+            ? {}
+            : { style: { width: "100%", height: "100%" } }
+        }
       >
         {(currentAction?.name ?? "") === "inititate" ? (
           <APIInterfaceForm
