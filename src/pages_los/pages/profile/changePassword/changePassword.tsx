@@ -69,8 +69,6 @@ export const ChangePassword = ({ onClose }) => {
           initialValues={{}}
           onSubmitHandler={onSubmitHandler}
           displayMode={"new"}
-          disableGroupErrorDetection={true}
-          disableGroupExclude={true}
           hideDisplayModeInTitle={true}
           formStyle={{
             background: "white",

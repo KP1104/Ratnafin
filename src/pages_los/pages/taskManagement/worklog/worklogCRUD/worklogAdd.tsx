@@ -60,8 +60,6 @@ export const WorklogAdd = ({ moduleType, isDataChangedRef, closeDialog }) => {
       initialValues={""}
       onSubmitHandler={onSubmitHandler}
       displayMode={"new"}
-      disableGroupErrorDetection={true}
-      disableGroupExclude={true}
       hideDisplayModeInTitle={true}
     >
       {({ isSubmitting, handleSubmit }) => {

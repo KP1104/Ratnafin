@@ -159,8 +159,6 @@ const Mandate: FC<any> = ({
       onSubmitHandler={onSubmitHandler}
       //@ts-ignore
       displayMode={formMode}
-      disableGroupErrorDetection={false}
-      disableGroupExclude={true}
     >
       {!readOnly ? (
         <>
@@ -177,7 +175,6 @@ const Mandate: FC<any> = ({
       onSubmitHandler={onSubmitHandler}
       //@ts-ignore
       displayMode={formMode}
-      disableGroupErrorDetection={false}
     >
       {({ isSubmitting, handleSubmit }) => (
         <>

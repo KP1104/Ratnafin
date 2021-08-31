@@ -75,8 +75,6 @@ const APIInterface = ({ refID, moduleType, closeDialog, isDataChangedRef }) => {
           setShowDocs(true);
         }}
         displayMode={"new"}
-        disableGroupErrorDetection={true}
-        disableGroupExclude={true}
         hideTitleBar={false}
         hideDisplayModeInTitle={true}
       >

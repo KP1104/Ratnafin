@@ -68,8 +68,6 @@ export const LeadAssignTask = ({
       initialValues={{ taskFor: taskFor, leadID: leadNo, refID: trancdCode }}
       onSubmitHandler={onSubmitHandler}
       displayMode={"new"}
-      disableGroupErrorDetection={true}
-      disableGroupExclude={true}
       hideDisplayModeInTitle={true}
     >
       {({ isSubmitting, handleSubmit }) => {

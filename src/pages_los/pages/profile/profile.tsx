@@ -44,8 +44,6 @@ export const Profile = () => {
         initialValues={queryData.data}
         onSubmitHandler={() => {}}
         displayMode={"view"}
-        disableGroupErrorDetection={true}
-        disableGroupExclude={true}
         hideDisplayModeInTitle={true}
       >
         <Button onClick={() => setShowProfile(true)}>Change Password</Button>

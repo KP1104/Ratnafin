@@ -133,8 +133,6 @@ export const FormNew: FC<{
       initialValues={{}}
       onSubmitHandler={onSubmitHandler}
       displayMode={"new"}
-      disableGroupErrorDetection={true}
-      disableGroupExclude={true}
     >
       {({ isSubmitting, handleSubmit }) => {
         return (

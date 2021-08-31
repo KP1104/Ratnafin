@@ -234,8 +234,6 @@ export interface FormWrapperProps {
   onSubmitHandler: SubmitFnType;
   hidden?: boolean;
   displayMode?: "new" | "view" | "edit";
-  disableGroupExclude?: boolean;
-  disableGroupErrorDetection?: boolean;
   hideTitleBar?: boolean;
   hideDisplayModeInTitle?: boolean;
   formStyle?: any;
@@ -245,8 +243,6 @@ export interface FormProps {
   fields: GroupWiseRenderedFieldsType;
   formRenderConfig: FormRenderConfigType;
   formName: string;
-  disableGroupExclude?: boolean;
-  disableGroupErrorDetection?: boolean;
   handleSubmitPartial?: any;
   handleSubmit?: any;
 }

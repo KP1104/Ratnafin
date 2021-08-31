@@ -153,8 +153,6 @@ export const MoveToInquiry: FC<{
       onSubmitHandler={onSubmitHandler}
       //@ts-ignore
       displayMode={defaultView}
-      disableGroupErrorDetection={false}
-      disableGroupExclude={true}
     >
       {({ isSubmitting, handleSubmit }) => (
         <>

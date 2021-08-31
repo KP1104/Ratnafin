@@ -151,8 +151,6 @@ export const FormNew: FC<{
               setIsSubmitting(true);
             }}
             displayMode={"new"}
-            disableGroupErrorDetection={true}
-            disableGroupExclude={true}
             hideTitleBar={true}
           />
         ) : null}

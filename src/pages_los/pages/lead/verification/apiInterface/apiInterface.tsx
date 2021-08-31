@@ -55,8 +55,6 @@ export const APIInterfaceForm = ({
       initialValues={{}}
       onSubmitHandler={formHandleSubmit}
       displayMode={"new"}
-      disableGroupErrorDetection={true}
-      disableGroupExclude={true}
     >
       {({ isSubmitting, handleSubmit }) => {
         return (

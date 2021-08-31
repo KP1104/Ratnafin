@@ -59,7 +59,6 @@ export const EligibilityCalculator: FC<any> = ({
       onSubmitHandler={() => {}}
       //@ts-ignore
       displayMode={"new"}
-      disableGroupErrorDetection={false}
     ></FormWrapper>
   );
   return renderResult;

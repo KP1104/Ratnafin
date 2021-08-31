@@ -83,8 +83,6 @@ export const ReInitiateExternalAPI = ({
         initialValues={formData ?? {}}
         onSubmitHandler={() => null}
         displayMode={"view"}
-        disableGroupErrorDetection={true}
-        disableGroupExclude={true}
       >
         <Button
           onClick={() =>
