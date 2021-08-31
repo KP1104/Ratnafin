@@ -1,9 +1,13 @@
+import { useState } from "react";
 import Button from "@material-ui/core/Button";
 import { useStyles } from "./style";
 import { format } from "date-fns";
+import { LeadReject } from "../leadReject";
 
 export const HeaderDetails = ({ rowData, handleDialogClose }) => {
   const classes = useStyles();
+  const [showDialog, setShowDialog] = useState(Boolean);
+
   let dateValue;
   try {
     dateValue = format(new Date(rowData?.data?.generation_dt), "dd/MM/yyyy");
@@ -42,8 +46,20 @@ export const HeaderDetails = ({ rowData, handleDialogClose }) => {
           <div className={classes.valueText}>{rowData?.data?.sub_stage_cd}</div>
         </div>
         <div style={{ flexGrow: 1 }} />
+        <Button onClick={() => setShowDialog(true)} style={{ color: "red" }}>
+          Reject
+        </Button>
         <Button onClick={handleDialogClose}>Close</Button>
       </div>
+
+      {/* Reject Lead code */}
+      {Boolean(showDialog) ? (
+        <LeadReject
+          open={showDialog}
+          setShowDialog={setShowDialog}
+          closeDialog={handleDialogClose}
+        />
+      ) : null}
     </div>
   );
 };
