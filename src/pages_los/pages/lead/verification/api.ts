@@ -57,3 +57,31 @@ export const generateDocumentDownloadURL = (moduleType, docUUID) => {
     LOSSDK.getBaseURL() as URL
   ).href;
 };
+
+export const reSendMessage = async (requestType, transactionID) => {
+  let currentURL: any = undefined;
+  currentURL =
+    requestType === "CREDIT"
+      ? "./lead/external/equifax-consent/link/resend"
+      : requestType === "MOBILE-VERIFY"
+      ? "./lead/external/mobile-verification/link/resend"
+      : requestType === "EMAIL-VERIFY"
+      ? "./lead/external/email-verification/link/resend"
+      : undefined;
+  if (currentURL === undefined) {
+    throw { error_msg: "Invalid API Type" };
+  }
+  const { data, status } = await LOSSDK.internalFetcher(currentURL, {
+    body: JSON.stringify({
+      request_data: {
+        transactionID: transactionID,
+      },
+      channel: "W",
+    }),
+  });
+  if (status === "success") {
+    return data?.response_data;
+  } else {
+    throw data?.error_data;
+  }
+};
