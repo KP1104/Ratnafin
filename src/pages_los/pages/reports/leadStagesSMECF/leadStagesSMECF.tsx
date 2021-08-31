@@ -25,7 +25,7 @@ export const LeadStagesSMECF = () => {
     <Report
       columns={columns}
       disableFilters
-      maxHeight={595}
+      maxHeight={window.innerHeight - 250}
       data={myData}
       title="Lead Stages SME & CF"
       initialState={{

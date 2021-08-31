@@ -10,35 +10,35 @@ import { AppBar } from "./appBar";
 import { MySideBar } from "./sideBar";
 import { Drawer } from "./drawer";
 import { Content } from "./content";
-import { Dashboard } from "./pages/dashboard";
-import { Profile } from "./pages/profile";
+import { AuthProvider, AuthLoginController, ProtectedRoutes } from "auth";
 import {
   CrossInquiry,
   AssignedInquiry,
   IncomingInquiry,
   UnmappedInqiry,
-} from "./pages/inquiry";
-import { BecomePartnerFormWrapper } from "./pages/partner";
+} from "pages_los/pages/inquiry";
+import { BecomePartnerFormWrapper } from "pages_los/pages/partner";
 import {
   MandateLeads,
   BankLoginLeads,
   Leads,
   SanctionLeads,
   DisbursementLeads,
-} from "./pages/lead";
-import { UserManagement } from "./pages/config/userManagement";
-import { NewInquiry } from "./pages/newInquiry";
-import { AuthProvider, AuthLoginController, ProtectedRoutes } from "auth";
-import "react-perfect-scrollbar/dist/css/styles.css";
-import { useStyles } from "./style";
-import TestForm from "components/dyanmicForm/test";
+} from "pages_los/pages/lead";
+import { Profile } from "pages_los/pages/profile";
+import { Dashboard } from "pages_los/pages/dashboard";
+import { NewInquiry } from "pages_los/pages/newInquiry";
+import { UserManagement } from "pages_los/pages/config/userManagement";
 import { AssignTask, AssignedTask } from "pages_los/pages/taskManagement/task";
 import { Worklog } from "pages_los/pages/taskManagement/worklog";
 import { ColdCalling } from "pages_los/pages/taskManagement/coldCalling";
-import { BankConfigWrapper } from "./pages/config/bankConfig";
+import { BankConfigWrapper } from "pages_los/pages/config/bankConfig";
 import { BankMasterWrapper } from "pages_los/pages/config/bankMaster";
 import { LeadStagesSMECF, LeadInquiry } from "pages_los/pages/reports";
+import TestForm from "components/dyanmicForm/test";
 import Editor from "components/editor";
+import "react-perfect-scrollbar/dist/css/styles.css";
+import { useStyles } from "./style";
 
 const DashbordPages = () => {
   const classes = useStyles();

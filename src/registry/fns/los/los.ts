@@ -617,6 +617,12 @@ const LOSAPI = () => {
     }
   };
   const getEntityType = async (dependentField, formState) => {
+    if (
+      !Boolean(dependentField?.apiType?.value) ||
+      dependentField?.apiType?.value === "00"
+    ) {
+      throw new Error("processType not found");
+    }
     const { status, data } = await LOSSDK.internalFetcher(
       "./lead/options/getEntityType",
       {
@@ -639,6 +645,12 @@ const LOSAPI = () => {
     }
   };
   const getApplicants = async (dependentField, formState) => {
+    if (
+      !Boolean(dependentField?.entityType?.value) ||
+      dependentField?.entityType?.value === "00"
+    ) {
+      throw new Error("entityType not found");
+    }
     const { status, data } = await LOSSDK.internalFetcher(
       "./lead/options/getApplicants",
       {

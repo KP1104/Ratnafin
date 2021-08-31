@@ -24,7 +24,7 @@ export const LeadInquiry = () => {
     <Report
       columns={columns}
       disableFilters
-      maxHeight={595}
+      maxHeight={window.innerHeight - 200}
       data={myData}
       title="Lead Inquiry Details"
       options={{

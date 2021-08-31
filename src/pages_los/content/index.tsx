@@ -1,4 +1,3 @@
-import Container from "@material-ui/core/Container";
 import { useStyles } from "./style";
 import ScrollBar from "react-perfect-scrollbar";
 
@@ -8,7 +7,7 @@ export const Content = ({ children }) => {
     <main className={classes.content}>
       <ScrollBar>
         <div className={classes.appBarSpacer} />
-        <Container className={classes.container}>{children}</Container>
+        <div className={classes.container}>{children}</div>
       </ScrollBar>
     </main>
   );

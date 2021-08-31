@@ -8,7 +8,7 @@ export const useStyles = makeStyles((theme) => ({
     overflowY: "auto",
   },
   container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
+    padding: theme.spacing(2),
+    height: `calc(100vh - 70px)`,
   },
 }));

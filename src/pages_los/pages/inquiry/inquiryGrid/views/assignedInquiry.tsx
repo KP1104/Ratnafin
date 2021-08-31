@@ -62,9 +62,9 @@ export const AssignedInquiry = () => {
       multiple: false,
       rowDoubleClick: false,
       shouldExclude: (rows) => {
-        let exclude = false;
-        if (["12300003", "12300004"].indexOf(rows[0].data?.product_type) >= 0) {
-          exclude = true;
+        let exclude = true;
+        if (["12300001", "12300002"].indexOf(rows[0].data?.product_type) >= 0) {
+          exclude = false;
         }
         return exclude;
       },

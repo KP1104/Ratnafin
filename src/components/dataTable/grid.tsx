@@ -280,8 +280,8 @@ export const DataGrid = forwardRef<any, any>(
             position: "relative",
             display: "inline-block",
             overflow: "auto",
-            maxHeight: "calc(100vh - 35*8px)",
-            minHeight: "40vh",
+            maxHeight: "calc(100vh - 33*8px)",
+            minHeight: "calc(100vh - 33*8px)",
           }}
         >
           <Table
