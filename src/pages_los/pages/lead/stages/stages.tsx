@@ -49,7 +49,7 @@ export const Stage = ({ refID, moduleType, isDataChangedRef }) => {
       <Dialog
         open={Boolean(currentAction)}
         maxWidth="sm"
-        PaperProps={{ style: { height: "100%", width: "100%" } }}
+        PaperProps={{ style: { width: "100%" } }}
       >
         {(currentAction?.name ?? "") === "stages" ? (
           <UpdatePriority

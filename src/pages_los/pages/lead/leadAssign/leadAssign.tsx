@@ -122,8 +122,6 @@ export const LeadAssign = ({
       initialValues={queryData.data}
       onSubmitHandler={onSubmitHandler}
       displayMode={"new"}
-      disableGroupErrorDetection={true}
-      disableGroupExclude={true}
       hideDisplayModeInTitle={true}
     >
       {({ isSubmitting, handleSubmit }) => {

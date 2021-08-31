@@ -72,8 +72,6 @@ export const InquiryAssignTask = ({
       }}
       onSubmitHandler={onSubmitHandler}
       displayMode={"new"}
-      disableGroupErrorDetection={true}
-      disableGroupExclude={true}
       hideDisplayModeInTitle={true}
     >
       {({ isSubmitting, handleSubmit }) => {

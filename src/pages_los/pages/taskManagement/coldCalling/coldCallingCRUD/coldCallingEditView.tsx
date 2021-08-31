@@ -167,8 +167,6 @@ export const ColdCallingViewEdit: FC<{
       onSubmitHandler={onSubmitHandler}
       //@ts-ignore
       displayMode={formMode}
-      disableGroupErrorDetection={false}
-      disableGroupExclude={true}
     >
       {!readOnly ? <Button onClick={moveToEditMode}>Edit</Button> : null}
     </FormWrapper>
@@ -180,8 +178,6 @@ export const ColdCallingViewEdit: FC<{
       onSubmitHandler={onSubmitHandler}
       //@ts-ignore
       displayMode={formMode}
-      disableGroupErrorDetection={false}
-      disableGroupExclude={true}
     >
       {({ isSubmitting, handleSubmit }) => (
         <>

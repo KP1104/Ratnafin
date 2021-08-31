@@ -27,8 +27,6 @@ export const FormWrapper = forwardRef<FormWrapperProps, any>(
       initialValues,
       onSubmitHandler,
       hidden = false,
-      disableGroupExclude,
-      disableGroupErrorDetection,
       displayMode,
       hideTitleBar = false,
       hideDisplayModeInTitle = false,

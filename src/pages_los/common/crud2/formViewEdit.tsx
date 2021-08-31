@@ -219,8 +219,6 @@ export const FormViewEdit: FC<{
       onSubmitHandler={onSubmitHandler}
       //@ts-ignore
       displayMode={formMode}
-      disableGroupErrorDetection={false}
-      disableGroupExclude={true}
     >
       {!readOnly ? <Button onClick={moveToEditMode}>Edit</Button> : null}
       {typeof closeDialog === "function" ? (
@@ -235,8 +233,6 @@ export const FormViewEdit: FC<{
       onSubmitHandler={onSubmitHandler}
       //@ts-ignore
       displayMode={formMode}
-      disableGroupErrorDetection={false}
-      disableGroupExclude={true}
     >
       {({ isSubmitting, handleSubmit }) => (
         <>

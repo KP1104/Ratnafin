@@ -154,7 +154,6 @@ const Termsheet: FC<any> = ({
       onSubmitHandler={onSubmitHandler}
       //@ts-ignore
       displayMode={formMode}
-      disableGroupErrorDetection={false}
     >
       {({ isSubmitting, handleSubmit }) => (
         <>
@@ -177,7 +176,6 @@ const Termsheet: FC<any> = ({
       onSubmitHandler={onSubmitHandler}
       //@ts-ignore
       displayMode={formMode}
-      disableGroupErrorDetection={false}
     >
       {({ isSubmitting, handleSubmit }) => (
         <>

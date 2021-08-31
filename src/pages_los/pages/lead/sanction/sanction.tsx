@@ -158,7 +158,6 @@ const Sanction: FC<any> = ({
       onSubmitHandler={onSubmitHandler}
       //@ts-ignore
       displayMode={formMode}
-      disableGroupErrorDetection={false}
     >
       {({ isSubmitting, handleSubmit }) => (
         <>
@@ -181,7 +180,6 @@ const Sanction: FC<any> = ({
       onSubmitHandler={onSubmitHandler}
       //@ts-ignore
       displayMode={formMode}
-      disableGroupErrorDetection={false}
     >
       {({ isSubmitting, handleSubmit }) => (
         <>
