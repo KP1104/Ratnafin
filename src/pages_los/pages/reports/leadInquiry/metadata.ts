@@ -97,6 +97,7 @@ export const columns = [
   {
     columnName: "Desire Loan Amount",
     accessor: "desireLoanAmt",
+    Cell: components.NumberCell,
     width: 120,
     alignment: "right",
   },
