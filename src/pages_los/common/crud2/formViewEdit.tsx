@@ -42,6 +42,7 @@ export const FormViewEdit: FC<{
   setEditFormStateFromInitValues?: any;
   readOnly?: boolean;
   disableCache?: boolean;
+  formStyle?: any;
 }> = ({
   isDataChangedRef,
   closeDialog,
@@ -50,6 +51,7 @@ export const FormViewEdit: FC<{
   setEditFormStateFromInitValues,
   readOnly = false,
   disableCache = false,
+  formStyle,
 }) => {
   const { updateFormData, getFormData, getFormMetaData, context } = useContext(
     CRUDContext
@@ -219,6 +221,7 @@ export const FormViewEdit: FC<{
       onSubmitHandler={onSubmitHandler}
       //@ts-ignore
       displayMode={formMode}
+      formStyle={formStyle}
     >
       {!readOnly ? <Button onClick={moveToEditMode}>Edit</Button> : null}
       {typeof closeDialog === "function" ? (
@@ -233,6 +236,7 @@ export const FormViewEdit: FC<{
       onSubmitHandler={onSubmitHandler}
       //@ts-ignore
       displayMode={formMode}
+      formStyle={formStyle}
     >
       {({ isSubmitting, handleSubmit }) => (
         <>

@@ -10,8 +10,8 @@ export const bankBranchMasterMetadataEditView = {
       gridConfig: {
         item: {
           xs: 12,
-          sm: 4,
-          md: 4,
+          sm: 12,
+          md: 12,
         },
         container: {
           direction: "row",
@@ -32,21 +32,18 @@ export const bankBranchMasterMetadataEditView = {
       name: "branchName",
       label: "Branch Name",
       placeholder: "Branch Name",
-      GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {
       render: { componentType: "textField" },
       name: "ifsc",
       label: "IFSC Code",
       placeholder: "IFSC Code",
-      GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {
       render: { componentType: "textField" },
       name: "city",
       label: "City",
       placeholder: "City",
-      GridProps: { xs: 12, md: 3, sm: 3 },
     },
   ],
 };

@@ -167,6 +167,11 @@ export const ColdCallingViewEdit: FC<{
       onSubmitHandler={onSubmitHandler}
       //@ts-ignore
       displayMode={formMode}
+      formStyle={{
+        background: "white",
+        overflowY: "auto",
+        overflowX: "hidden",
+      }}
     >
       {!readOnly ? <Button onClick={moveToEditMode}>Edit</Button> : null}
     </FormWrapper>
@@ -178,6 +183,11 @@ export const ColdCallingViewEdit: FC<{
       onSubmitHandler={onSubmitHandler}
       //@ts-ignore
       displayMode={formMode}
+      formStyle={{
+        background: "white",
+        overflowY: "auto",
+        overflowX: "hidden",
+      }}
     >
       {({ isSubmitting, handleSubmit }) => (
         <>

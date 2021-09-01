@@ -22,6 +22,7 @@ export const FormNewExistsIfNotCreate = ({
   successAction,
   readOnly,
   closeDialog,
+  formStyle,
 }) => {
   const removeCache = useContext(ClearCacheContext);
   const { checkFormDataExist } = useContext(CRUDContext);
@@ -91,6 +92,7 @@ export const FormNewExistsIfNotCreate = ({
       isDataChangedRef={isDataChangedRef}
       readOnly={readOnly}
       closeDialog={closeDialog}
+      formStyle={formStyle}
     />
   ) : null;
 };
@@ -100,6 +102,7 @@ export const CreateFormConfirmation = ({
   isDataChangedRef,
   readOnly,
   closeDialog,
+  formStyle,
 }) => {
   const [showAsk, setShowAsk] = useState(true);
   const cancleFormSubmit = useCallback(() => {
@@ -120,6 +123,7 @@ export const CreateFormConfirmation = ({
       isDataChangedRef={isDataChangedRef}
       cancelAction={cancleFormSubmit}
       successAction={successAction}
+      formStyle={formStyle}
     />
   );
 };

@@ -111,6 +111,12 @@ export const UpdatePriority = ({ isDataChangedRef, closeDialog }) => {
       onSubmitHandler={onSubmitHandler}
       displayMode={"new"}
       hideDisplayModeInTitle={true}
+      formStyle={{
+        background: "white",
+        overflowY: "auto",
+        overflowX: "hidden",
+      }}
+      controlsAtBottom={true}
     >
       {({ isSubmitting, handleSubmit }) => {
         return (

@@ -1,3 +1,4 @@
+import { useContext, useEffect } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
 import FormWrapper, { MetaDataType } from "components/dyanmicForm";
@@ -5,9 +6,8 @@ import { useMutation } from "react-query";
 import { useSnackbar } from "notistack";
 import { inquiryTaskAssignMetadata } from "./metadata";
 import * as API from "./api";
-import { AssignTaskAPIProvider, generateAssignTaskAPIContext } from "./context";
 import { SubmitFnType } from "packages/form";
-
+import { ClearCacheContext, queryClient } from "cache";
 interface TaskAssignFormDataFnType {
   data: object;
   displayData?: object;
@@ -30,6 +30,16 @@ export const InquiryAssignTask = ({
   trancdCode,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
+
+  const removeCache = useContext(ClearCacheContext);
+  useEffect(() => {
+    return () => {
+      let entries = removeCache?.getEntries() as any[];
+      entries.forEach((one) => {
+        queryClient.removeQueries(one);
+      });
+    };
+  }, [removeCache]);
 
   const mutation = useMutation(
     taskAssignFormDataFnWrapper(API.assignTask({ moduleType })),
@@ -73,6 +83,12 @@ export const InquiryAssignTask = ({
       onSubmitHandler={onSubmitHandler}
       displayMode={"new"}
       hideDisplayModeInTitle={true}
+      controlsAtBottom={true}
+      formStyle={{
+        background: "white",
+        overflowY: "auto",
+        overflowX: "hidden",
+      }}
     >
       {({ isSubmitting, handleSubmit }) => {
         return (
@@ -91,27 +107,5 @@ export const InquiryAssignTask = ({
         );
       }}
     </FormWrapper>
-  );
-};
-
-export const InquiryAssignTaskWrapper = ({
-  moduleType,
-  isDataChangedRef,
-  closeDialog,
-  inquiryNo,
-  taskFor,
-  trancdCode,
-}) => {
-  return (
-    <AssignTaskAPIProvider {...generateAssignTaskAPIContext({ moduleType })}>
-      <InquiryAssignTask
-        inquiryNo={inquiryNo}
-        moduleType={moduleType}
-        isDataChangedRef={isDataChangedRef}
-        closeDialog={closeDialog}
-        taskFor={taskFor}
-        trancdCode={trancdCode}
-      />
-    </AssignTaskAPIProvider>
   );
 };

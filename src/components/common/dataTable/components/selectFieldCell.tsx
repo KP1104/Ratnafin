@@ -2,7 +2,10 @@ import { useState, useContext } from "react";
 import { SelectWithoutOptions } from "../../select/render2";
 import { RowContext } from "./rowContext";
 import Typography from "@material-ui/core/Typography";
-import { getLabelFromValues, useOptionsFetcherSimple } from "../../utils";
+import {
+  getLabelFromValues,
+  useOptionsFetcherSimpleWithRemoveCache,
+} from "../../utils";
 
 export const SelectFieldCell = (props) => {
   const {
@@ -20,7 +23,7 @@ export const SelectFieldCell = (props) => {
 
   const [myOptions, setMyOptions] = useState([]);
 
-  const { loadingOptions } = useOptionsFetcherSimple(
+  const { loadingOptions } = useOptionsFetcherSimpleWithRemoveCache(
     options,
     setMyOptions,
     _optionsKey,

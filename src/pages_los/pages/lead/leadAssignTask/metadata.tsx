@@ -16,8 +16,8 @@ export const leadTaskAssignMetadata = {
       gridConfig: {
         item: {
           xs: 12,
-          sm: 4,
-          md: 4,
+          sm: 12,
+          md: 12,
         },
         container: {
           direction: "row",
@@ -53,7 +53,6 @@ export const leadTaskAssignMetadata = {
       label: "Task For",
       placeholder: "Task For",
       disableCaching: true,
-      GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {
       render: { componentType: "hidden" },
@@ -62,7 +61,6 @@ export const leadTaskAssignMetadata = {
       placeholder: "Lead Number",
       dependentFields: ["taskFor"],
       shouldExclude: showTaskManagementFieldForLeadID,
-      GridProps: { xs: 12, md: 3, sm: 3 },
       required: true,
       validate: "getValidateValue",
       searchComponent: "leadSearchComponent",
@@ -72,7 +70,6 @@ export const leadTaskAssignMetadata = {
       render: { componentType: "hidden" },
       name: "refID",
       label: "Ref ID",
-      GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {
       render: { componentType: "textField" },
@@ -81,7 +78,6 @@ export const leadTaskAssignMetadata = {
       placeholder: "Subject",
       required: true,
       validate: "getValidateValue",
-      GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {
       render: { componentType: "select" },
@@ -92,7 +88,6 @@ export const leadTaskAssignMetadata = {
       defaultValue: "00",
       required: true,
       validate: "getValidateValue",
-      GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {
       render: { componentType: "textField" },
@@ -102,7 +97,6 @@ export const leadTaskAssignMetadata = {
       options: "getRetailEmployee",
       required: true,
       validate: "getValidateValue",
-      GridProps: { xs: 12, md: 3, sm: 3 },
       dependentFields: ["type"],
       shouldExclude: showOtherTaskTypeField,
     },
@@ -120,7 +114,6 @@ export const leadTaskAssignMetadata = {
           { name: "required", params: ["This Field is required"] },
         ],
       },
-      GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {
       render: { componentType: "autocomplete" },
@@ -133,7 +126,6 @@ export const leadTaskAssignMetadata = {
       options: getWorkerListForTaskManag,
       disableCaching: true,
       enableVirtualized: true,
-      GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {
       render: { componentType: "select" },
@@ -142,12 +134,6 @@ export const leadTaskAssignMetadata = {
       placeholder: "Status",
       options: "getTaskStatus",
       defaultValue: "00",
-      GridProps: { xs: 12, md: 3, sm: 3 },
-    },
-    {
-      render: { componentType: "spacer" },
-      name: "spacer",
-      GridProps: { xs: 12, md: 6, sm: 6 },
     },
     {
       render: { componentType: "textField" },
@@ -157,7 +143,6 @@ export const leadTaskAssignMetadata = {
       rowsMax: 4,
       rows: 3,
       placeholder: "Description",
-      GridProps: { xs: 12, md: 6, sm: 6 },
     },
   ],
 };

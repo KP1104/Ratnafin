@@ -55,6 +55,14 @@ export const APIInterfaceForm = ({
       initialValues={{}}
       onSubmitHandler={formHandleSubmit}
       displayMode={"new"}
+      formStyle={{
+        background: "white",
+        overflowY: "auto",
+        overflowX: "hidden",
+        minHeight: "20vh",
+      }}
+      controlsAtBottom={true}
+      hideDisplayModeInTitle={true}
     >
       {({ isSubmitting, handleSubmit }) => {
         return (

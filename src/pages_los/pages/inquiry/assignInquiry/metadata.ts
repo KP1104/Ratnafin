@@ -11,8 +11,8 @@ export const inquiryAssignMetadata: MetaDataType = {
       gridConfig: {
         item: {
           xs: 12,
-          sm: 4,
-          md: 4,
+          sm: 12,
+          md: 12,
         },
         container: {
           direction: "row",
@@ -59,9 +59,9 @@ export const inquiryAssignMetadata: MetaDataType = {
           },
           name: "lineNo",
           GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
+            xs: 6,
+            md: 6,
+            sm: 6,
           },
         },
         {
@@ -76,9 +76,9 @@ export const inquiryAssignMetadata: MetaDataType = {
           validate: "getValidateValue",
           defaultValue: "00",
           GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
+            xs: 6,
+            md: 6,
+            sm: 6,
           },
         },
         {
@@ -95,9 +95,9 @@ export const inquiryAssignMetadata: MetaDataType = {
           validate: "getValidateValue",
           disableCaching: true,
           GridProps: {
-            xs: 12,
-            md: 3,
-            sm: 3,
+            xs: 6,
+            md: 6,
+            sm: 6,
           },
         },
       ],

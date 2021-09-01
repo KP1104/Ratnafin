@@ -57,10 +57,15 @@ export const AssignTask = ({ moduleType, isDataChangedRef, closeDialog }) => {
     <FormWrapper
       key="assign"
       metaData={taskAssignMetadata as MetaDataType}
-      initialValues={""}
       onSubmitHandler={onSubmitHandler}
       displayMode={"new"}
       hideDisplayModeInTitle={true}
+      controlsAtBottom={true}
+      formStyle={{
+        background: "white",
+        overflowY: "auto",
+        overflowX: "hidden",
+      }}
     >
       {({ isSubmitting, handleSubmit }) => {
         return (

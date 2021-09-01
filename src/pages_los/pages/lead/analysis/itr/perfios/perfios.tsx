@@ -75,8 +75,8 @@ const APIInterface = ({ refID, moduleType, closeDialog, isDataChangedRef }) => {
           setShowDocs(true);
         }}
         displayMode={"new"}
-        hideTitleBar={false}
         hideDisplayModeInTitle={true}
+        controlsAtBottom={true}
       >
         <Button
           onClick={(e) => {
@@ -86,9 +86,6 @@ const APIInterface = ({ refID, moduleType, closeDialog, isDataChangedRef }) => {
           endIcon={disabled ? <CircularProgress size={20} /> : null}
         >
           Proceed
-        </Button>
-        <Button onClick={closeDialog} disabled={inititateAPIMutation.isLoading}>
-          Close
         </Button>
       </FormWrapper>
       <Dialog

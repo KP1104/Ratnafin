@@ -160,6 +160,11 @@ export const WorklogViewEdit: FC<{
       onSubmitHandler={onSubmitHandler}
       //@ts-ignore
       displayMode={formMode}
+      formStyle={{
+        background: "white",
+        overflowY: "auto",
+        overflowX: "hidden",
+      }}
     >
       {!readOnly ? <Button onClick={moveToEditMode}>Edit</Button> : null}
       {typeof closeDialog === "function" ? (
@@ -174,6 +179,11 @@ export const WorklogViewEdit: FC<{
       onSubmitHandler={onSubmitHandler}
       //@ts-ignore
       displayMode={formMode}
+      formStyle={{
+        background: "white",
+        overflowY: "auto",
+        overflowX: "hidden",
+      }}
     >
       {({ isSubmitting, handleSubmit }) => (
         <>

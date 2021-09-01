@@ -11,8 +11,8 @@ export const branchAssignMetadata: MetaDataType = {
       gridConfig: {
         item: {
           xs: 12,
-          sm: 4,
-          md: 4,
+          sm: 12,
+          md: 12,
         },
         container: {
           direction: "row",

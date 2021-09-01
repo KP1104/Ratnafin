@@ -11,8 +11,8 @@ export const moveToLeadMetaData: MetaDataType = {
       gridConfig: {
         item: {
           xs: 12,
-          sm: 4,
-          md: 4,
+          sm: 12,
+          md: 12,
         },
         container: {
           direction: "row",
@@ -50,9 +50,9 @@ export const moveToLeadMetaData: MetaDataType = {
       options: "getProductCategoryList",
       required: true,
       GridProps: {
-        xs: 6,
-        md: 6,
-        sm: 6,
+        xs: 12,
+        md: 12,
+        sm: 12,
       },
       schemaValidation: {
         type: "string",
@@ -67,10 +67,12 @@ export const moveToLeadMetaData: MetaDataType = {
       label: "Remarks",
       required: true,
       GridProps: {
-        xs: 6,
-        md: 6,
-        sm: 6,
+        xs: 12,
+        md: 12,
+        sm: 12,
       },
+      multiline: true,
+      rows: 4,
       schemaValidation: {
         type: "string",
         rules: [{ name: "required", params: ["This is a required field"] }],

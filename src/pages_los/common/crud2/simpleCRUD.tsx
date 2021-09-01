@@ -8,12 +8,14 @@ export const SimpleCRUD: FC<{
   closeDialog?: any;
   readOnly?: boolean;
   disableCache?: boolean;
+  formStyle?: any;
 }> = ({
   isDataChangedRef,
   closeDialog,
   dataAlwaysExists,
   readOnly,
   disableCache,
+  formStyle,
 }) => {
   const [dataExist, setDataExist] = useState(Boolean(dataAlwaysExists));
 
@@ -23,6 +25,7 @@ export const SimpleCRUD: FC<{
       closeDialog={closeDialog}
       readOnly={readOnly}
       disableCache={disableCache}
+      formStyle={formStyle}
     />
   ) : (
     <FormNewExistsIfNotCreate
@@ -30,6 +33,7 @@ export const SimpleCRUD: FC<{
       successAction={() => setDataExist(true)}
       readOnly={readOnly}
       closeDialog={closeDialog}
+      formStyle={formStyle}
     />
   );
 };

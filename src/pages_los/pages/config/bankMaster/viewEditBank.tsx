@@ -137,6 +137,12 @@ export const ViewEditBank: FC<{
       initialValues={result?.data}
       //@ts-ignore
       displayMode={formMode}
+      formStyle={{
+        background: "white",
+        overflowY: "auto",
+        overflowX: "hidden",
+        height: "20vh",
+      }}
     >
       {!readOnly ? <Button onClick={moveToEditMode}>Edit</Button> : null}
       {typeof closeDialog === "function" ? (
@@ -151,6 +157,12 @@ export const ViewEditBank: FC<{
       initialValues={result?.data}
       //@ts-ignore
       displayMode={formMode}
+      formStyle={{
+        background: "white",
+        overflowY: "auto",
+        overflowX: "hidden",
+        height: "20vh",
+      }}
     >
       {({ isSubmitting, handleSubmit }) => (
         <>

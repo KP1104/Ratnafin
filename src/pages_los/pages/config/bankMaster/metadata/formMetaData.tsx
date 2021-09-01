@@ -33,14 +33,14 @@ export const bankMasterMetadata = {
       placeholder: "Enter Bank Name",
       maxLength: 250,
       showMaxLength: false,
-      GridProps: { xs: 12, md: 3, sm: 3 },
+      GridProps: { xs: 12, md: 12, sm: 12 },
     },
     {
       render: { componentType: "hidden" },
       name: "rbiCode",
       label: "RBI Code",
       placeholder: "RBI Code",
-      GridProps: { xs: 12, md: 3, sm: 3 },
+      GridProps: { xs: 12, md: 12, sm: 12 },
     },
   ],
 };

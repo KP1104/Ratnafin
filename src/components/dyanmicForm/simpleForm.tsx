@@ -55,6 +55,7 @@ export const SimpleFormWrapper = ({
   isSubmitting,
   classes,
   handleSubmit,
+  controlsAtBottom,
 }) => (
   <Container component="main" style={{ display: hidden ? "none" : "block" }}>
     <SimpleFormTitle
@@ -67,9 +68,9 @@ export const SimpleFormWrapper = ({
       isSubmitting={isSubmitting}
       classes={classes}
       handleSubmit={handleSubmit}
+      controlsAtBottom={controlsAtBottom}
     />
     <div style={{ ...formStyle, paddingTop: "10px" }}>
-      {/* <div style={{ paddingTop: "10px" }}> */}
       <SimpleForm
         key={`${formName}-simple`}
         fields={fields}
@@ -86,8 +87,30 @@ export const SimpleFormWrapper = ({
           </div>
         )}
       </SimpleForm>
+      {controlsAtBottom && (
+        <BottomControl
+          wrapperChild={wrapperChild}
+          isSubmitting={isSubmitting}
+          handleSubmit={handleSubmit}
+          classes={classes}
+        />
+      )}
     </div>
   </Container>
+);
+
+export const BottomControl = ({
+  wrapperChild,
+  isSubmitting,
+  handleSubmit,
+  classes,
+}) => (
+  <Toolbar variant="dense" disableGutters>
+    <div className={classes.formControlLabelSpacer} />
+    {typeof wrapperChild === "function"
+      ? wrapperChild({ isSubmitting, handleSubmit })
+      : wrapperChild}
+  </Toolbar>
 );
 
 export const SimpleFormTitle = ({
@@ -100,6 +123,7 @@ export const SimpleFormTitle = ({
   isSubmitting,
   classes,
   handleSubmit,
+  controlsAtBottom,
 }) => (
   <AppBar position="relative" color="secondary">
     <Toolbar variant="dense">
@@ -118,9 +142,11 @@ export const SimpleFormTitle = ({
         )}
       </Typography>
       <div className={classes.formControlLabelSpacer} />
-      {typeof wrapperChild === "function"
-        ? wrapperChild({ isSubmitting, handleSubmit })
-        : wrapperChild}
+      {!controlsAtBottom
+        ? typeof wrapperChild === "function"
+          ? wrapperChild({ isSubmitting, handleSubmit })
+          : wrapperChild
+        : null}
     </Toolbar>
     {!isSubmitting && Boolean(serverSentError) ? (
       <Alert

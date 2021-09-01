@@ -88,89 +88,86 @@ export const CorpositoryAPIInterface = ({
   }, [companyName.isSuccess]);
 
   return (
-    <Fragment>
+    <Container>
       <AppBar position="relative" color="secondary">
-        <Toolbar>
+        <Toolbar variant="dense">
           <Typography component="div" variant="h6">
-            Analysis
+            MCA Analysis
           </Typography>
-          <div style={{ flexGrow: 1 }} />
-          <Button onClick={closeDialog}>Close</Button>
         </Toolbar>
       </AppBar>
       <br />
-      <Container>
-        <SearchBar2
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Search Company By Name"
-          onKeyDown={(e) => e.keyCode === 13 && handleQuery()}
-          error={Boolean(error)}
-          helperText={error}
-          fullWidth
-          disabled={
-            searchQuery.isLoading ||
-            searchQuery.isFetching ||
-            searchQuery.isLoading
-          }
+
+      <SearchBar2
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        placeholder="Search Company By Name"
+        onKeyDown={(e) => e.keyCode === 13 && handleQuery()}
+        error={Boolean(error)}
+        helperText={error}
+        fullWidth
+        disabled={
+          searchQuery.isLoading ||
+          searchQuery.isFetching ||
+          searchQuery.isLoading
+        }
+      />
+      <br />
+      {searchQuery.isIdle ? null : searchQuery.isLoading ||
+        searchQuery.isFetching ? (
+        <span>Loading Data...</span>
+      ) : searchQuery.isError ? (
+        <span>{searchQuery.error?.error_msg ?? "unknown error occured"}</span>
+      ) : (
+        <GridWrapper
+          key={`corpositoryCompanyListing`}
+          finalMetaData={CompanyListGrid as GridMetaDataType}
+          data={searchQuery.data ?? []}
+          setData={() => null}
+          actions={actions}
+          setAction={setCurrentAction}
         />
-        <br />
-        {searchQuery.isIdle ? null : searchQuery.isLoading ||
-          searchQuery.isFetching ? (
-          <span>Loading Data...</span>
-        ) : searchQuery.isError ? (
-          <span>{searchQuery.error?.error_msg ?? "unknown error occured"}</span>
-        ) : (
-          <GridWrapper
-            key={`corpositoryCompanyListing`}
-            finalMetaData={CompanyListGrid as GridMetaDataType}
-            data={searchQuery.data ?? []}
-            setData={() => null}
-            actions={actions}
-            setAction={setCurrentAction}
-          />
-        )}
-        <Dialog
-          open={Boolean(currentAction)}
-          maxWidth="sm"
-          PaperProps={{ style: { width: "100%" } }}
-        >
-          {initializeAPI.isError ? (
-            <Alert severity="error">
-              {initializeAPI.error?.error_msg ?? "Unkown error occured"}
-            </Alert>
-          ) : null}
-          <DialogTitle>Confirmation</DialogTitle>
-          <DialogContent>
-            Would like to proceed with API Inititalization
-          </DialogContent>
-          <DialogActions>
-            <Button
-              onClick={cancelInitialization}
-              color="primary"
-              autoFocus
-              disabled={initializeAPI.isLoading}
-            >
-              No
-            </Button>
-            <Button
-              onClick={() => {
-                initializeAPI.mutate({
-                  companyID: currentAction?.rows[0]?.data?.["company-id"],
-                  companyName: currentAction?.rows[0]?.data?.["company-name"],
-                });
-              }}
-              color="primary"
-              disabled={initializeAPI.isLoading}
-              endIcon={
-                initializeAPI.isLoading ? <CircularProgress size={20} /> : null
-              }
-            >
-              Yes
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </Container>
-    </Fragment>
+      )}
+      <Dialog
+        open={Boolean(currentAction)}
+        maxWidth="sm"
+        PaperProps={{ style: { width: "100%" } }}
+      >
+        {initializeAPI.isError ? (
+          <Alert severity="error">
+            {initializeAPI.error?.error_msg ?? "Unkown error occured"}
+          </Alert>
+        ) : null}
+        <DialogTitle>Confirmation</DialogTitle>
+        <DialogContent>
+          Would like to proceed with API Inititalization
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={cancelInitialization}
+            color="primary"
+            autoFocus
+            disabled={initializeAPI.isLoading}
+          >
+            No
+          </Button>
+          <Button
+            onClick={() => {
+              initializeAPI.mutate({
+                companyID: currentAction?.rows[0]?.data?.["company-id"],
+                companyName: currentAction?.rows[0]?.data?.["company-name"],
+              });
+            }}
+            color="primary"
+            disabled={initializeAPI.isLoading}
+            endIcon={
+              initializeAPI.isLoading ? <CircularProgress size={20} /> : null
+            }
+          >
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Container>
   );
 };

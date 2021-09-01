@@ -16,8 +16,8 @@ export const inquiryTaskAssignMetadata = {
       gridConfig: {
         item: {
           xs: 12,
-          sm: 4,
-          md: 4,
+          sm: 12,
+          md: 12,
         },
         container: {
           direction: "row",
@@ -53,6 +53,11 @@ export const inquiryTaskAssignMetadata = {
       label: "Task For",
       placeholder: "Task For",
       disableCaching: true,
+    },
+    {
+      render: { componentType: "hidden" },
+      name: "refID",
+      label: "Ref ID",
       GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {
@@ -62,17 +67,10 @@ export const inquiryTaskAssignMetadata = {
       placeholder: "Inquiry Number",
       dependentFields: ["taskFor"],
       shouldExclude: showTaskManagementFieldForInquiryID,
-      GridProps: { xs: 12, md: 3, sm: 3 },
       required: true,
       validate: "getValidateValue",
       searchComponent: "inquirySearchComponent",
       postValidationSetCrossFieldValues: postValidationSetRefID,
-    },
-    {
-      render: { componentType: "hidden" },
-      name: "refID",
-      label: "Ref ID",
-      GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {
       render: { componentType: "textField" },
@@ -81,7 +79,6 @@ export const inquiryTaskAssignMetadata = {
       placeholder: "Subject",
       required: true,
       validate: "getValidateValue",
-      GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {
       render: { componentType: "select" },
@@ -92,7 +89,6 @@ export const inquiryTaskAssignMetadata = {
       defaultValue: "00",
       required: true,
       validate: "getValidateValue",
-      GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {
       render: { componentType: "textField" },
@@ -102,7 +98,6 @@ export const inquiryTaskAssignMetadata = {
       options: "getRetailEmployee",
       required: true,
       validate: "getValidateValue",
-      GridProps: { xs: 12, md: 3, sm: 3 },
       dependentFields: ["type"],
       shouldExclude: showOtherTaskTypeField,
     },
@@ -120,7 +115,6 @@ export const inquiryTaskAssignMetadata = {
           { name: "required", params: ["This Field is required"] },
         ],
       },
-      GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {
       render: { componentType: "autocomplete" },
@@ -133,7 +127,6 @@ export const inquiryTaskAssignMetadata = {
       options: getWorkerListForTaskManag,
       disableCaching: true,
       enableVirtualized: true,
-      GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {
       render: { componentType: "select" },
@@ -142,12 +135,6 @@ export const inquiryTaskAssignMetadata = {
       placeholder: "Status",
       options: "getTaskStatus",
       defaultValue: "00",
-      GridProps: { xs: 12, md: 3, sm: 3 },
-    },
-    {
-      render: { componentType: "spacer" },
-      name: "spacer",
-      GridProps: { xs: 12, md: 6, sm: 6 },
     },
     {
       render: { componentType: "textField" },
@@ -157,7 +144,6 @@ export const inquiryTaskAssignMetadata = {
       rowsMax: 4,
       rows: 3,
       placeholder: "Description",
-      GridProps: { xs: 12, md: 6, sm: 6 },
     },
   ],
 };

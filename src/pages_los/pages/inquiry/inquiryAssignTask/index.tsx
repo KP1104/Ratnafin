@@ -1,1 +1,1 @@
-export { InquiryAssignTaskWrapper as InquiryAssignTask } from "./inquiryAssignTask";
+export * from "./inquiryAssignTask";

@@ -6,6 +6,7 @@ import { ClearCacheContext, queryClient } from "cache";
 import { PriorityGrid } from "./grid";
 import { PriorityAPIProvider, generatePriorityAPIContext } from "./context";
 import { UpdatePriority } from "./updatePriorirty";
+import { useDialogStyles } from "pages_los/common/dialogStyles";
 
 const actions: ActionTypes[] = [
   {
@@ -21,6 +22,7 @@ export const Priority = ({ refID, moduleType, isDataChangedRef }) => {
   const removeCache = useContext(ClearCacheContext);
   const gridRef = useRef<any>(null);
   const isMyDataChangedRef = useRef(false);
+  const classes = useDialogStyles();
   const closeMyDialog = () => {
     setCurrentAction(null);
     if (isMyDataChangedRef.current === true) {
@@ -48,8 +50,12 @@ export const Priority = ({ refID, moduleType, isDataChangedRef }) => {
       />
       <Dialog
         open={Boolean(currentAction)}
-        maxWidth="sm"
-        PaperProps={{ style: { height: "100%", width: "100%" } }}
+        maxWidth="xs"
+        PaperProps={{ style: { width: "100%" } }}
+        classes={{
+          scrollPaper: classes.topScrollPaper,
+          paperScrollBody: classes.topPaperScrollBody,
+        }}
       >
         {(currentAction?.name ?? "") === "priority" ? (
           <UpdatePriority

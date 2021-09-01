@@ -268,6 +268,7 @@ export const GridTable: FC<GridTableType> = ({
                 itemCount={rows.length}
                 itemSize={35}
                 width={totalColumnsWidth + 10}
+                overscanCount={10}
               >
                 {RenderRows}
               </FixedSizeList>
