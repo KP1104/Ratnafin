@@ -5,6 +5,7 @@ import { ActionTypes } from "components/dataTable";
 import { InvalidAction } from "pages_los/common/invalidAction";
 import { Download } from "./download";
 import { ResendMessage } from "./resendMessage";
+import { ReInitiate } from "./reInitiate";
 import { APIGrid } from "./apiGrid";
 import { APIInterfaceForm } from "./apiInterface";
 import { generateVerificationAPIContext, ExternalAPIProvider } from "./context";
@@ -41,7 +42,22 @@ const actions: ActionTypes[] = [
     shouldExclude: (rows: any) => {
       let exclude = false;
       for (let i = 0; i < rows.length; i++) {
-        if (["PENDING"].indexOf(rows[i].data?.status) < 0) {
+        if (["PENDING", "INITIATED"].indexOf(rows[i].data?.status) < 0) {
+          exclude = true;
+          break;
+        }
+      }
+      return exclude;
+    },
+  },
+  {
+    actionName: "reinitiate",
+    actionLabel: "Re-Initiate",
+    multiple: false,
+    shouldExclude: (rows: any) => {
+      let exclude = false;
+      for (let i = 0; i < rows.length; i++) {
+        if (["FAILED"].indexOf(rows[i].data?.status) < 0) {
           exclude = true;
           break;
         }
@@ -109,6 +125,14 @@ export const Verification = ({ refID, moduleType }) => {
             moduleType={moduleType}
             closeDialog={closeMyDialog}
             row={currentAction?.rows[0] ?? undefined}
+            isDataChangedRef={isMyDataChangedRef}
+          />
+        ) : (currentAction?.name ?? "") === "reinitiate" ? (
+          <ReInitiate
+            moduleType={moduleType}
+            closeDialog={closeMyDialog}
+            row={currentAction?.rows[0] ?? undefined}
+            isDataChangedRef={isMyDataChangedRef}
           />
         ) : (
           <InvalidAction closeDialog={closeMyDialog} />
