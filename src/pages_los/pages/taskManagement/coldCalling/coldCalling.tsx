@@ -15,6 +15,7 @@ import {
   Header,
 } from "./coldCallingCRUD";
 import { MoveToInquiry } from "./moveToInquiry";
+import { useDialogStyles } from "pages_los/common/dialogStyles";
 
 const actions: ActionTypes[] = [
   {
@@ -57,6 +58,7 @@ export const ColdCalling = ({ gridCode, actions }) => {
       isDataChangedRef.current = false;
     }
   };
+  const classes = useDialogStyles();
 
   return (
     <Fragment>
@@ -73,7 +75,11 @@ export const ColdCalling = ({ gridCode, actions }) => {
           ["moveToInquiry"].indexOf(currentAction?.name) >= 0 ? true : false
         }
         open={Boolean(currentAction)}
-        maxWidth="lg"
+        maxWidth="md"
+        classes={{
+          scrollBody: classes.topPaperScrollBody,
+          scrollPaper: classes.topScrollPaper,
+        }}
       >
         <ClearCacheProvider>
           <ColdCallingActions

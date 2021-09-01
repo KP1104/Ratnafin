@@ -45,7 +45,14 @@ export const LeadGrid = ({ gridCode, actions }) => {
         />
       </ServerGridContextProvider>
       <Dialog
-        fullScreen
+        fullScreen={
+          ["leadAssign", "taskAssign"].indexOf(currentAction?.name) < 0
+        }
+        maxWidth={
+          ["leadAssign", "taskAssign"].indexOf(currentAction?.name) >= 0
+            ? "sm"
+            : undefined
+        }
         open={Boolean(currentAction)}
         //@ts-ignore
         TransitionComponent={Transition}

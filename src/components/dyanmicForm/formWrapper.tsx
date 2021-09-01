@@ -36,6 +36,7 @@ export const FormWrapper = forwardRef<FormWrapperProps, any>(
         overflowY: "auto",
         overflowX: "hidden",
       },
+      controlsAtBottom = false,
       children,
     },
     ref
@@ -85,6 +86,7 @@ export const FormWrapper = forwardRef<FormWrapperProps, any>(
             hideDisplayModeInTitle={hideDisplayModeInTitle}
             wrapperChild={children}
             formStyle={formStyle}
+            controlsAtBottom={controlsAtBottom}
           />
         </FormContext.Provider>
       </MuiPickersUtilsProvider>
@@ -107,6 +109,7 @@ const ChildFormWrapper = forwardRef<any, any>(
       hideDisplayModeInTitle,
       wrapperChild,
       formStyle,
+      controlsAtBottom,
     },
     ref
   ) => {
@@ -179,6 +182,7 @@ const ChildFormWrapper = forwardRef<any, any>(
         isSubmitting={isSubmitting}
         classes={classes}
         handleSubmit={handleSubmit}
+        controlsAtBottom={controlsAtBottom}
       />
     ) : (
       <div>RenderType {formRenderType} not available</div>

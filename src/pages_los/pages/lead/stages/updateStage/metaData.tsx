@@ -11,8 +11,8 @@ export const stageChangeMetaData: MetaDataType = {
       gridConfig: {
         item: {
           xs: 12,
-          sm: 4,
-          md: 4,
+          sm: 12,
+          md: 12,
         },
         container: {
           direction: "row",
@@ -46,11 +46,6 @@ export const stageChangeMetaData: MetaDataType = {
       name: "stageCode",
       label: "Lead Stage",
       required: true,
-      GridProps: {
-        xs: 6,
-        md: 6,
-        sm: 6,
-      },
       //@ts-ignore
       options: "getLeadStage",
       validate: "getValidateValue",
@@ -61,11 +56,6 @@ export const stageChangeMetaData: MetaDataType = {
       },
       name: "subStageCode",
       label: "Lead Sub Stages",
-      GridProps: {
-        xs: 12,
-        md: 6,
-        sm: 6,
-      },
       disableCaching: true,
       //@ts-ignore
       dependentFields: ["stageCode"],
@@ -79,11 +69,9 @@ export const stageChangeMetaData: MetaDataType = {
       },
       name: "remarks",
       label: "Remarks",
-      GridProps: {
-        xs: 12,
-        md: 6,
-        sm: 6,
-      },
+      multiline: true,
+
+      rows: 3,
     },
   ],
 };

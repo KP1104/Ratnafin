@@ -11,19 +11,20 @@ import { DeleteBank } from "./deleteBank";
 import { BankBranchMaster } from "./branchMst";
 import { bankMasterGridMetaData } from "./metadata";
 import * as API from "./api";
+import { useDialogStyles } from "pages_los/common/dialogStyles";
 
 const actions: ActionTypes[] = [
   {
     actionName: "ViewBranch",
     actionLabel: "View Branches",
     multiple: false,
-    rowDoubleClick: false,
+    rowDoubleClick: true,
   },
   {
     actionName: "EditBank",
     actionLabel: "Edit Details",
     multiple: false,
-    rowDoubleClick: true,
+    rowDoubleClick: false,
   },
   {
     actionName: "DeleteBank",
@@ -65,6 +66,7 @@ export const BankMaster = () => {
   const result = useQuery(["getGridData", "bank"], () =>
     API.getGridData({ moduleType: "bank" })
   );
+  const classes = useDialogStyles();
 
   let selectedAction = currentAction?.name ?? "";
 
@@ -86,13 +88,16 @@ export const BankMaster = () => {
         //@ts-ignore
         onClose={handleDialogClose}
         fullScreen={selectedAction === "ViewBranch" ? true : false}
-        maxWidth="md"
+        maxWidth="xs"
         PaperProps={{
           style:
-            selectedAction.indexOf("AddBank") >= 0 ||
-            selectedAction === "EditBank"
-              ? { width: "100%", height: "70%" }
+            ["AddBank", "EditBank"].indexOf(selectedAction) >= 0
+              ? { width: "100%" }
               : {},
+        }}
+        classes={{
+          scrollPaper: classes.topScrollPaper,
+          paperScrollBody: classes.topPaperScrollBody,
         }}
       >
         {selectedAction === "AddBank" ? (

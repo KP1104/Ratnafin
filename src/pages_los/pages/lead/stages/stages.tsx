@@ -6,6 +6,7 @@ import { ClearCacheContext, queryClient } from "cache";
 import { StagesGrid } from "./grid";
 import { StagesAPIProvider, generateStagesAPIContext } from "./context";
 import { UpdatePriority } from "./updateStage";
+import { useDialogStyles } from "pages_los/common/dialogStyles";
 
 const actions: ActionTypes[] = [
   {
@@ -37,6 +38,7 @@ export const Stage = ({ refID, moduleType, isDataChangedRef }) => {
       });
     };
   }, [removeCache]);
+  const classes = useDialogStyles();
 
   return (
     <StagesAPIProvider {...generateStagesAPIContext({ refID, moduleType })}>
@@ -48,8 +50,12 @@ export const Stage = ({ refID, moduleType, isDataChangedRef }) => {
       />
       <Dialog
         open={Boolean(currentAction)}
-        maxWidth="sm"
-        PaperProps={{ style: { width: "100%" } }}
+        maxWidth="xs"
+        PaperProps={{ style: { width: "100%", minHeight: "20vh" } }}
+        classes={{
+          scrollPaper: classes.topScrollPaper,
+          paperScrollBody: classes.topPaperScrollBody,
+        }}
       >
         {(currentAction?.name ?? "") === "stages" ? (
           <UpdatePriority

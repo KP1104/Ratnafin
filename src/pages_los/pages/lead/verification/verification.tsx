@@ -8,6 +8,7 @@ import { ResendMessage } from "./resendMessage";
 import { APIGrid } from "./apiGrid";
 import { APIInterfaceForm } from "./apiInterface";
 import { generateVerificationAPIContext, ExternalAPIProvider } from "./context";
+import { useDialogStyles } from "pages_los/common/dialogStyles";
 
 const actions: ActionTypes[] = [
   {
@@ -63,6 +64,7 @@ export const Verification = ({ refID, moduleType }) => {
       isMyDataChangedRef.current = false;
     }
   };
+  const classes = useDialogStyles();
   useEffect(() => {
     return () => {
       let entries = removeCache?.getEntries() as any[];
@@ -84,12 +86,16 @@ export const Verification = ({ refID, moduleType }) => {
       />
       <Dialog
         open={Boolean(currentAction)}
-        maxWidth={currentAction?.name === "resend" ? false : "xl"}
-        PaperProps={
-          currentAction?.name === "resend"
-            ? {}
-            : { style: { width: "100%", height: "100%" } }
-        }
+        maxWidth="xs"
+        PaperProps={{
+          style: {
+            width: "100%",
+          },
+        }}
+        classes={{
+          scrollPaper: classes.topScrollPaper,
+          paperScrollBody: classes.topPaperScrollBody,
+        }}
       >
         {(currentAction?.name ?? "") === "inititate" ? (
           <APIInterfaceForm

@@ -29,7 +29,8 @@ export const FormNew: FC<{
   isDataChangedRef: any;
   successAction: any;
   cancelAction: any;
-}> = ({ isDataChangedRef, successAction, cancelAction }) => {
+  formStyle?: any;
+}> = ({ isDataChangedRef, successAction, cancelAction, formStyle }) => {
   const { insertFormData, getFormMetaData, context } = useContext(CRUDContext);
   const { enqueueSnackbar } = useSnackbar();
   const removeCache = useContext(ClearCacheContext);
@@ -133,6 +134,7 @@ export const FormNew: FC<{
       initialValues={{}}
       onSubmitHandler={onSubmitHandler}
       displayMode={"new"}
+      formStyle={formStyle}
     >
       {({ isSubmitting, handleSubmit }) => {
         return (

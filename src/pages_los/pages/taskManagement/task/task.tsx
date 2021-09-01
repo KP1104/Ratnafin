@@ -9,6 +9,7 @@ import { serverGridContextGenerator } from "../context";
 import { AssignTask, TaskViewEdit } from "./taskCRUD";
 import { HistoryGrid } from "pages_los/pages/taskManagement/task/history";
 import { InvalidAction } from "pages_los/common/invalidAction";
+import { useDialogStyles } from "pages_los/common/dialogStyles";
 
 export const Task = ({ gridCode, actions }: any) => {
   const [currentAction, setCurrentAction] = useState<null | any>(null);
@@ -22,6 +23,7 @@ export const Task = ({ gridCode, actions }: any) => {
       isDataChangedRef.current = false;
     }
   };
+  const classes = useDialogStyles();
 
   return (
     <Fragment>
@@ -36,9 +38,11 @@ export const Task = ({ gridCode, actions }: any) => {
       <ClearCacheProvider>
         <Dialog
           open={Boolean(currentAction)}
-          maxWidth="md"
-          fullWidth
-          PaperProps={{ style: { height: "80%" } }}
+          maxWidth={currentAction?.name === "TaskHistory" ? "md" : "xs"}
+          classes={{
+            scrollBody: classes.topPaperScrollBody,
+            scrollPaper: classes.topScrollPaper,
+          }}
         >
           <TaskActions
             currentAction={currentAction}

@@ -7,7 +7,7 @@ import {
 export const taskEditViewMetadata = {
   form: {
     name: "taskAssign",
-    label: "Assign Task",
+    label: "Assigned Task",
     resetFieldOnUmnount: false,
     validationRun: "onBlur",
     render: {
@@ -16,8 +16,8 @@ export const taskEditViewMetadata = {
       gridConfig: {
         item: {
           xs: 12,
-          sm: 4,
-          md: 4,
+          sm: 12,
+          md: 12,
         },
         container: {
           direction: "row",
@@ -55,7 +55,6 @@ export const taskEditViewMetadata = {
       defaultValue: "00",
       isReadOnly: true,
       options: "getTaskList",
-      GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {
       render: { componentType: "searchField" },
@@ -64,7 +63,6 @@ export const taskEditViewMetadata = {
       placeholder: "Lead Number",
       dependentFields: ["taskFor"],
       shouldExclude: showTaskManagementFieldForLeadID,
-      GridProps: { xs: 12, md: 3, sm: 3 },
       required: true,
       isReadOnly: true,
       validate: "getValidateValue",
@@ -78,7 +76,6 @@ export const taskEditViewMetadata = {
       placeholder: "Inquiry Number",
       dependentFields: ["taskFor"],
       shouldExclude: showTaskManagementFieldForInquiryID,
-      GridProps: { xs: 12, md: 3, sm: 3 },
       required: true,
       isReadOnly: true,
       validate: "getValidateValue",
@@ -89,7 +86,6 @@ export const taskEditViewMetadata = {
       render: { componentType: "hidden" },
       name: "refID",
       label: "Ref ID",
-      GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {
       render: { componentType: "textField" },
@@ -99,7 +95,6 @@ export const taskEditViewMetadata = {
       required: true,
       isReadOnly: true,
       validate: "getValidateValue",
-      GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {
       render: { componentType: "select" },
@@ -111,7 +106,6 @@ export const taskEditViewMetadata = {
       required: true,
       isReadOnly: true,
       validate: "getValidateValue",
-      GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {
       render: { componentType: "textField" },
@@ -121,7 +115,6 @@ export const taskEditViewMetadata = {
       required: true,
       isReadOnly: true,
       validate: "getValidateValue",
-      GridProps: { xs: 12, md: 3, sm: 3 },
       dependentFields: ["type"],
       shouldExclude: showOtherTaskTypeField,
     },
@@ -133,7 +126,6 @@ export const taskEditViewMetadata = {
       placeholder: "DD/MM/YYYY",
       required: true,
       isReadOnly: true,
-      GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {
       render: { componentType: "select" },
@@ -142,7 +134,6 @@ export const taskEditViewMetadata = {
       placeholder: "Status",
       options: "getTaskStatus",
       defaultValue: "00",
-      GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {
       render: { componentType: "textField" },
@@ -152,7 +143,6 @@ export const taskEditViewMetadata = {
       rowsMax: 4,
       rows: 3,
       placeholder: "Description",
-      GridProps: { xs: 12, md: 12, sm: 12 },
     },
   ],
 };

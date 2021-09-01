@@ -12,6 +12,7 @@ import { WorklogViewEdit } from "./worklogCRUD/worklogViewEdit";
 import { DeleteAction } from "./worklogCRUD/worklogDelete";
 import { InvalidAction } from "pages_los/common/invalidAction";
 import dateFormat from "date-fns/format";
+import { useDialogStyles } from "pages_los/common/dialogStyles";
 
 const actions: ActionTypes[] = [
   {
@@ -47,6 +48,7 @@ export const Worklog = ({ gridCode, actions }) => {
       isDataChangedRef.current = false;
     }
   };
+  const classes = useDialogStyles();
 
   return (
     <Fragment>
@@ -72,10 +74,11 @@ export const Worklog = ({ gridCode, actions }) => {
       </ServerGridContextProvider>
       <Dialog
         open={Boolean(currentAction)}
-        //@ts-ignore
-        fullWidth
-        maxWidth="md"
-        PaperProps={{ style: { height: "70%" } }}
+        maxWidth="sm"
+        classes={{
+          scrollBody: classes.topPaperScrollBody,
+          scrollPaper: classes.topScrollPaper,
+        }}
       >
         <ClearCacheProvider>
           <WorkLogActionSelector

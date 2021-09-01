@@ -16,8 +16,7 @@ import { Priority } from "../priority";
 import { MoveToLead } from "../moveToLead";
 import { EligibilityCalculator } from "../eligibilityCalculator";
 import { InvalidAction } from "pages_los/common/invalidAction";
-
-//All actions = [ViewDetails,ViewDetailsReadOnly,AssignBranch,Priority,MoveToLead,AssignInquiry]
+import { useDialogStyles } from "pages_los/common/dialogStyles";
 
 export const Inquiry = ({ gridCode, actions }) => {
   const [currentAction, setCurrentAction] = useState<null | any>(null);
@@ -30,6 +29,7 @@ export const Inquiry = ({ gridCode, actions }) => {
       isDataChangedRef.current = false;
     }
   };
+  const dialogClasses = useDialogStyles();
   return (
     <Fragment>
       <ServerGridContextProvider {...serverGridContextGenerator(gridCode)}>
@@ -57,8 +57,23 @@ export const Inquiry = ({ gridCode, actions }) => {
         TransitionComponent={Transition}
         onClose={handleDialogClose}
         key={currentAction?.rows[0].id}
-        maxWidth="md"
-        PaperProps={{ style: { width: "100%", height: "100%" } }}
+        PaperProps={{
+          style: {
+            width: "100%",
+            minHeight: "20vh",
+          },
+        }}
+        maxWidth={
+          ["AssignBranch", "AssignTask", "MoveToLead", "AssignInquiry"].indexOf(
+            currentAction?.name
+          ) >= 0
+            ? "sm"
+            : undefined
+        }
+        classes={{
+          scrollPaper: dialogClasses.topScrollPaper,
+          paperScrollBody: dialogClasses.topPaperScrollBody,
+        }}
       >
         <ClearCacheProvider key={currentAction?.rows[0].id}>
           {(currentAction?.name ?? "") === "ViewDetails" ? (
@@ -87,15 +102,25 @@ export const Inquiry = ({ gridCode, actions }) => {
               />
             </Fragment>
           ) : (currentAction?.name ?? "") === "AssignBranch" ? (
-            <AssignBranch
-              key={currentAction?.rows[0].id}
-              moduleType="inquiry"
-              rowsData={currentAction?.rows}
-              isDataChangedRef={isDataChangedRef}
-              closeDialog={handleDialogClose}
-            />
+            <Fragment key={currentAction?.rows[0].id}>
+              <HeaderDetails
+                productData={currentAction?.rows[0]}
+                handleDialogClose={handleDialogClose}
+              />
+              <AssignBranch
+                key={currentAction?.rows[0].id}
+                moduleType="inquiry"
+                rowsData={currentAction?.rows}
+                isDataChangedRef={isDataChangedRef}
+                closeDialog={handleDialogClose}
+              />
+            </Fragment>
           ) : (currentAction?.name ?? "") === "AssignTask" ? (
             <Fragment key={currentAction?.rows[0].id}>
+              <HeaderDetails
+                productData={currentAction?.rows[0]}
+                handleDialogClose={handleDialogClose}
+              />
               <InquiryAssignTask
                 inquiryNo={currentAction?.rows[0]?.data?.inquiry_no}
                 trancdCode={currentAction?.rows[0]?.data?.tran_cd}

@@ -12,8 +12,8 @@ export const ITRAnalysisMetaData: MetaDataType = {
       gridConfig: {
         item: {
           xs: 12,
-          sm: 3,
-          md: 3,
+          sm: 12,
+          md: 12,
         },
         container: {
           direction: "row",

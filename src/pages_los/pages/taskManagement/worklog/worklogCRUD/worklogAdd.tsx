@@ -61,6 +61,12 @@ export const WorklogAdd = ({ moduleType, isDataChangedRef, closeDialog }) => {
       onSubmitHandler={onSubmitHandler}
       displayMode={"new"}
       hideDisplayModeInTitle={true}
+      controlsAtBottom={true}
+      formStyle={{
+        background: "white",
+        overflowY: "auto",
+        overflowX: "hidden",
+      }}
     >
       {({ isSubmitting, handleSubmit }) => {
         return (

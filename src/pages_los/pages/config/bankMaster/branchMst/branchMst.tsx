@@ -71,7 +71,17 @@ export const BankBranchMaster = ({ bankCode }) => {
       <CRUDContextProvider
         {...BranchMasterCrudAPIArgs("bank-branch", bankCode)}
       >
-        <GridCRUD isDataChangedRef={isDataEditedRef} />
+        <GridCRUD
+          isDataChangedRef={isDataEditedRef}
+          maxWidth="xs"
+          dialogAlignTop={true}
+          formStyle={{
+            background: "white",
+            overflowY: "auto",
+            overflowX: "hidden",
+            minHeight: "30vh",
+          }}
+        />
       </CRUDContextProvider>
     </div>
   );
@@ -83,15 +93,14 @@ export const BankBranchMasterWrapper: FC<BankBranchFnType> = ({
   bankName,
 }) => (
   <ClearCacheProvider>
-    <AppBar position="relative" color="secondary">
-      <Toolbar>
-        <Typography component="h3" variant="h6">
-          Bank: {bankName}
-        </Typography>
-        <div style={{ flexGrow: 1 }} />
-        <Button onClick={closeDialog}>Close</Button>
-      </Toolbar>
-    </AppBar>
+    <Toolbar variant="dense">
+      <Typography component="h3" variant="h4" color="primary">
+        Bank: {bankName}
+      </Typography>
+      <div style={{ flexGrow: 1 }} />
+      <Button onClick={closeDialog}>Close</Button>
+    </Toolbar>
+
     <BankBranchMaster bankCode={bankCode} />
   </ClearCacheProvider>
 );

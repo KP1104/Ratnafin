@@ -75,8 +75,8 @@ const APIInterface = ({ refID, moduleType, closeDialog, isDataChangedRef }) => {
           setShowDocs(true);
         }}
         displayMode={"new"}
-        hideTitleBar={false}
         hideDisplayModeInTitle={true}
+        controlsAtBottom={true}
       >
         <Button
           onClick={(e) => {

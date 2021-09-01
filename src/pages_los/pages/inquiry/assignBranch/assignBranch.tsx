@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
 import { useMutation } from "react-query";
@@ -7,6 +7,7 @@ import { SubmitFnType } from "packages/form";
 import FormWrapper, { MetaDataType } from "components/dyanmicForm";
 import { branchAssignMetadata } from "./metadata";
 import * as API from "./api";
+import { ClearCacheContext, queryClient } from "cache";
 
 interface InsertFormDataFnType {
   data: object;
@@ -28,6 +29,15 @@ export const AssignBranch = ({
   closeDialog,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
+  const removeCache = useContext(ClearCacheContext);
+  useEffect(() => {
+    return () => {
+      let entries = removeCache?.getEntries() as any[];
+      entries.forEach((one) => {
+        queryClient.removeQueries(one);
+      });
+    };
+  }, [removeCache]);
   const inquiriesRef = useRef(null);
   if (inquiriesRef.current === null) {
     inquiriesRef.current = rowsData.map((one) => one.id);
@@ -75,6 +85,12 @@ export const AssignBranch = ({
       onSubmitHandler={onSubmitHandler}
       displayMode={"new"}
       hideDisplayModeInTitle={true}
+      controlsAtBottom={true}
+      formStyle={{
+        background: "white",
+        overflowY: "auto",
+        overflowX: "hidden",
+      }}
     >
       {({ isSubmitting, handleSubmit }) => {
         return (

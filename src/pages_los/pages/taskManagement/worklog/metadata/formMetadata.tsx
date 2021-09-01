@@ -9,7 +9,7 @@ export const worklogFormMetaData = {
       ordering: "auto",
       renderType: "simple",
       gridConfig: {
-        item: { xs: 12, sm: 4, md: 4 },
+        item: { xs: 12, sm: 12, md: 12 },
         container: { direction: "row", spacing: 2 },
       },
     },
@@ -40,7 +40,7 @@ export const worklogFormMetaData = {
         type: "date",
         rules: [{ name: "required", params: ["This Field is required"] }],
       },
-      GridProps: { xs: 12, md: 3, sm: 3 },
+      GridProps: { xs: 12, md: 12, sm: 12 },
     },
     {
       render: { componentType: "select" },
@@ -51,7 +51,7 @@ export const worklogFormMetaData = {
       defaultValue: "00",
       required: true,
       validate: "getValidateValue",
-      GridProps: { xs: 12, md: 3, sm: 3 },
+      GridProps: { xs: 12, md: 12, sm: 12 },
     },
     {
       render: { componentType: "select" },
@@ -62,12 +62,7 @@ export const worklogFormMetaData = {
       options: "getWorkBillable",
       required: true,
       validate: "getValidateValue",
-      GridProps: { xs: 12, md: 3, sm: 3 },
-    },
-    {
-      render: { componentType: "spacer" },
-      name: "spacer",
-      GridProps: { xs: 12, md: 3, sm: 3 },
+      GridProps: { xs: 12, md: 12, sm: 12 },
     },
     {
       render: { componentType: "timePicker" },
@@ -83,7 +78,7 @@ export const worklogFormMetaData = {
           { name: "typeError", params: ["Not a valid time"] },
         ],
       },
-      GridProps: { xs: 12, md: 3, sm: 3 },
+      GridProps: { xs: 6, md: 6, sm: 6 },
     },
     {
       render: { componentType: "timePicker" },
@@ -119,12 +114,7 @@ export const worklogFormMetaData = {
         success: "",
         failure: "Start Time should be greater than to End Time",
       },
-      GridProps: { xs: 12, md: 3, sm: 3 },
-    },
-    {
-      render: { componentType: "spacer" },
-      name: "spacer1",
-      GridProps: { xs: 12, md: 3, sm: 3 },
+      GridProps: { xs: 6, md: 6, sm: 6 },
     },
     {
       render: { componentType: "textField" },

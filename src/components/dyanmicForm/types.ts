@@ -237,6 +237,7 @@ export interface FormWrapperProps {
   hideTitleBar?: boolean;
   hideDisplayModeInTitle?: boolean;
   formStyle?: any;
+  controlsAtBottom?: boolean;
 }
 
 export interface FormProps {

@@ -41,7 +41,6 @@ const Mandate: FC<any> = ({
   readOnly,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
-  const removeCache = useContext(ClearCacheContext);
   const [formMode, setFormMode] = useState(defaultView);
   const moveToViewMode = useCallback(() => setFormMode("view"), [setFormMode]);
   const moveToEditMode = useCallback(() => setFormMode("edit"), [setFormMode]);
@@ -94,21 +93,6 @@ const Mandate: FC<any> = ({
   ) => {
     mutation.mutate({ data, displayData, endSubmit, setFieldError });
   };
-
-  useEffect(() => {
-    return () => {
-      let entries = removeCache?.getEntries() as any[];
-      entries.forEach((one) => {
-        queryClient.removeQueries(one);
-      });
-      queryClient.removeQueries([
-        "getMandateFormData",
-        moduleType,
-        productType,
-        refID,
-      ]);
-    };
-  }, [refID]);
 
   const dataUniqueKey = `${result.dataUpdatedAt}`;
   const loading = result.isLoading || result.isFetching;
@@ -203,6 +187,21 @@ export const MandateWrapper = ({
   branchID,
   readOnly,
 }) => {
+  const removeCache = useContext(ClearCacheContext);
+  useEffect(() => {
+    return () => {
+      let entries = removeCache?.getEntries() as any[];
+      entries.forEach((one) => {
+        queryClient.removeQueries(one);
+      });
+      queryClient.removeQueries([
+        "getMandateFormData",
+        moduleType,
+        productType,
+        refID,
+      ]);
+    };
+  }, []);
   return (
     <>
       <Grid container>

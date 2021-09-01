@@ -113,7 +113,9 @@ export const Analysis = ({ refID, moduleType }) => {
       </AnalysisAPIProvider>
       <Dialog
         open={Boolean(currentAction)}
-        maxWidth="xl"
+        maxWidth={
+          ["GST", "Financial"].indexOf(currentAction?.name) >= 0 ? "sm" : "md"
+        }
         PaperProps={{ style: { width: "100%", height: "100%" } }}
       >
         {(currentAction?.name ?? "") === "Bank" ? (

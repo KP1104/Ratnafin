@@ -11,8 +11,8 @@ export const priorityChangeMetaData: MetaDataType = {
       gridConfig: {
         item: {
           xs: 12,
-          sm: 4,
-          md: 4,
+          sm: 12,
+          md: 12,
         },
         container: {
           direction: "row",
@@ -46,26 +46,9 @@ export const priorityChangeMetaData: MetaDataType = {
       name: "priority",
       label: "Priority",
       required: true,
-      GridProps: {
-        xs: 6,
-        md: 6,
-        sm: 6,
-      },
       //@ts-ignore
       options: "getLeadPriority",
       validate: "getValidateValue",
-    },
-    {
-      render: {
-        componentType: "textField",
-      },
-      name: "priorityRemarks",
-      label: "Remarks",
-      GridProps: {
-        xs: 12,
-        md: 6,
-        sm: 6,
-      },
     },
     {
       render: {
@@ -73,16 +56,12 @@ export const priorityChangeMetaData: MetaDataType = {
       },
       name: "enableHoldDays",
       label: "Change Priority Hold Days",
-      GridProps: {
-        xs: 12,
-        md: 6,
-        sm: 6,
-      },
       defaultValue: "N",
       options: [
         { label: "Yes", value: "Y" },
         { label: "No", value: "N" },
       ],
+      _optionsKey: "enableHoldDaysOptions",
     },
     {
       render: {
@@ -91,11 +70,6 @@ export const priorityChangeMetaData: MetaDataType = {
       name: "priorityDays",
       label: "Priority Hold Days",
       required: true,
-      GridProps: {
-        xs: 12,
-        md: 6,
-        sm: 6,
-      },
       FormatProps: {
         format: "##",
         isAllowed: (values) => {
@@ -107,6 +81,15 @@ export const priorityChangeMetaData: MetaDataType = {
       },
       dependentFields: ["enableHoldDays"],
       shouldExclude: "readOnlyPriorityHoldDays",
+    },
+    {
+      render: {
+        componentType: "textField",
+      },
+      name: "priorityRemarks",
+      label: "Remarks",
+      multiline: true,
+      rows: 3,
     },
   ],
 };

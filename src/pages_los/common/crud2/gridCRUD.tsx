@@ -1,5 +1,5 @@
 import { useContext, useRef, useState, Fragment, FC } from "react";
-import Dialog from "@material-ui/core/Dialog";
+import Dialog, { DialogProps } from "@material-ui/core/Dialog";
 import { ActionTypes } from "components/dataTable";
 import { FormNew } from "./formNew";
 import { FormViewEdit } from "./formViewEdit";
@@ -10,6 +10,7 @@ import { DocumentGridCRUD } from "../documents/documentsTab";
 import { SimpleCRUD } from "./simpleCRUD";
 import { InvalidAction } from "pages_los/common/invalidAction";
 import { CRUDContextProvider, crudAPIContextGenerator } from "./context";
+import { useDialogStyles } from "../dialogStyles";
 const actions: ActionTypes[] = [
   {
     actionName: "View",
@@ -39,6 +40,9 @@ export const GridCRUD: FC<{
   secondaryProduct?: string;
   secondaryProductDataExist?: boolean;
   secondaryProductDisableCache?: boolean;
+  maxWidth?: DialogProps["maxWidth"];
+  dialogAlignTop?: boolean;
+  formStyle?: any;
 }> = ({
   isDataChangedRef,
   showDocuments,
@@ -47,6 +51,9 @@ export const GridCRUD: FC<{
   secondaryProduct,
   secondaryProductDataExist,
   secondaryProductDisableCache,
+  maxWidth = "xl",
+  dialogAlignTop = false,
+  formStyle,
 }) => {
   let allActions = useRef<any>(null);
   if (allActions.current === null) {
@@ -93,6 +100,11 @@ export const GridCRUD: FC<{
       isMyDataChangedRef.current = false;
     }
   };
+  const classes = useDialogStyles();
+  const dialogClasses = {
+    scrollPaper: classes.topScrollPaper,
+    paperScrollBody: classes.topPaperScrollBody,
+  };
   return (
     <Fragment>
       <MyGridWrapper
@@ -103,18 +115,25 @@ export const GridCRUD: FC<{
       />
       <Dialog
         open={Boolean(currentAction)}
-        maxWidth="xl"
+        maxWidth={maxWidth}
         PaperProps={
           currentAction?.name === "Delete"
             ? {}
-            : { style: { width: "100%", height: "100%" } }
+            : {
+                style: {
+                  width: "100%",
+                  height: dialogAlignTop ? undefined : "100%",
+                },
+              }
         }
+        classes={dialogAlignTop ? dialogClasses : {}}
       >
         {(currentAction?.name ?? "") === "Add" ? (
           <FormNew
             successAction={closeMyDialog}
             cancelAction={closeMyDialog}
             isDataChangedRef={isMyDataChangedRef}
+            formStyle={formStyle}
           />
         ) : (currentAction?.name ?? "") === "View" ? (
           <FormViewEdit
@@ -122,6 +141,7 @@ export const GridCRUD: FC<{
             closeDialog={closeMyDialog}
             serialNo={currentAction?.rows[0]?.id}
             setEditFormStateFromInitValues={setEditFormStateFromInitValues}
+            formStyle={formStyle}
           />
         ) : (currentAction?.name ?? "") === "Delete" ? (
           <DeleteAction

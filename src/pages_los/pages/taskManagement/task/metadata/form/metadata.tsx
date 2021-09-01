@@ -8,7 +8,7 @@ import {
 export const taskAssignMetadata = {
   form: {
     name: "taskAssign",
-    label: "Assign Task",
+    label: "Assign New Task",
     resetFieldOnUmnount: false,
     validationRun: "onBlur",
     render: {
@@ -17,8 +17,8 @@ export const taskAssignMetadata = {
       gridConfig: {
         item: {
           xs: 12,
-          sm: 4,
-          md: 4,
+          sm: 12,
+          md: 12,
         },
         container: {
           direction: "row",
@@ -56,7 +56,6 @@ export const taskAssignMetadata = {
       disableCaching: true,
       defaultValue: "00",
       options: "getTaskList",
-      GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {
       render: { componentType: "searchField" },
@@ -65,7 +64,6 @@ export const taskAssignMetadata = {
       placeholder: "Lead Number",
       dependentFields: ["taskFor"],
       shouldExclude: showTaskManagementFieldForLeadID,
-      GridProps: { xs: 12, md: 3, sm: 3 },
       required: true,
       validate: "getValidateValue",
       searchComponent: "leadSearchComponent",
@@ -78,7 +76,6 @@ export const taskAssignMetadata = {
       placeholder: "Inquiry Number",
       dependentFields: ["taskFor"],
       shouldExclude: showTaskManagementFieldForInquiryID,
-      GridProps: { xs: 12, md: 3, sm: 3 },
       required: true,
       validate: "getValidateValue",
       searchComponent: "inquirySearchComponent",
@@ -88,7 +85,6 @@ export const taskAssignMetadata = {
       render: { componentType: "hidden" },
       name: "refID",
       label: "Ref ID",
-      GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {
       render: { componentType: "select" },
@@ -99,7 +95,6 @@ export const taskAssignMetadata = {
       defaultValue: "00",
       required: true,
       validate: "getValidateValue",
-      GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {
       render: { componentType: "textField" },
@@ -109,7 +104,6 @@ export const taskAssignMetadata = {
       options: "getRetailEmployee",
       required: true,
       validate: "getValidateValue",
-      GridProps: { xs: 12, md: 3, sm: 3 },
       dependentFields: ["type"],
       shouldExclude: showOtherTaskTypeField,
     },
@@ -120,7 +114,6 @@ export const taskAssignMetadata = {
       placeholder: "Subject",
       required: true,
       validate: "getValidateValue",
-      GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {
       render: { componentType: "datePicker" },
@@ -129,7 +122,6 @@ export const taskAssignMetadata = {
       format: "dd/MM/yyyy",
       placeholder: "DD/MM/YYYY",
       required: true,
-      GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {
       render: { componentType: "autocomplete" },
@@ -142,13 +134,11 @@ export const taskAssignMetadata = {
       options: getWorkerListForTaskManag,
       disableCaching: true,
       enableVirtualized: true,
-      GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {
       render: { componentType: "hidden" },
       name: "status",
       defaultValue: "01",
-      GridProps: { xs: 12, md: 3, sm: 3 },
     },
     {
       render: { componentType: "textField" },
@@ -158,7 +148,6 @@ export const taskAssignMetadata = {
       rowsMax: 4,
       rows: 3,
       placeholder: "Description",
-      GridProps: { xs: 12, md: 12, sm: 12 },
     },
   ],
 };

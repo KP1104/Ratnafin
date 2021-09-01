@@ -1,1 +1,1 @@
-export { LeadAssignTaskWrapper as LeadAssignTask } from "./leadAssignTask";
+export * from "./leadAssignTask";
