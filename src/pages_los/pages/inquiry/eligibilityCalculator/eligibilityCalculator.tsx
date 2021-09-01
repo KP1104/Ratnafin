@@ -4,6 +4,10 @@ import { cloneDeep } from "lodash-es";
 import loaderGif from "assets/images/loader.gif";
 import FormWrapper, { MetaDataType } from "components/dyanmicForm";
 import * as API from "./api";
+import { Transition } from "pages_los/common";
+import { useLocation } from "react-router-dom";
+import Dialog from "@material-ui/core/Dialog";
+import { HeaderDetails } from "../headerDetails";
 
 export const EligibilityCalculator: FC<any> = ({
   employeentType,
@@ -62,4 +66,25 @@ export const EligibilityCalculator: FC<any> = ({
     ></FormWrapper>
   );
   return renderResult;
+};
+
+export const EligibilityCalculatorWrapper = ({ closeDialog }) => {
+  const { state: rows }: any = useLocation();
+  return (
+    <Dialog
+      fullScreen
+      open={true}
+      //@ts-ignore
+      TransitionComponent={Transition}
+      onClose={closeDialog}
+    >
+      <HeaderDetails productData={rows?.[0]} handleDialogClose={closeDialog} />
+      <EligibilityCalculator
+        employeentType={rows[0].data?.empl_value}
+        loanAmount={rows[0].data?.desire_loan_amt}
+        productId={rows[0].data?.product_type}
+        employeeCode={rows[0].data?.empl_cd}
+      />
+    </Dialog>
+  );
 };

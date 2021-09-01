@@ -1,7 +1,10 @@
 import { FC, useEffect, useContext, Suspense } from "react";
 import { ClearCacheContext, queryClient } from "cache";
-
 import { CRUD } from "./crud";
+import Dialog from "@material-ui/core/Dialog";
+import { HeaderDetails } from "../headerDetails";
+import { Transition } from "pages_los/common";
+import { useLocation } from "react-router-dom";
 
 export const DetailsTabView: FC<{
   refID: string;
@@ -30,5 +33,33 @@ export const DetailsTabView: FC<{
         readOnly={isReadOnly}
       />
     </Suspense>
+  );
+};
+
+export const DetailsTabViewWrapper = ({
+  handleDialogClose,
+  isDataChangedRef,
+  isReadOnly = false,
+}) => {
+  const { state: rows }: any = useLocation();
+  return (
+    <Dialog
+      fullScreen
+      open={true}
+      //@ts-ignore
+      TransitionComponent={Transition}
+      onClose={handleDialogClose}
+    >
+      <HeaderDetails
+        productData={rows?.[0]}
+        handleDialogClose={handleDialogClose}
+      />
+      <DetailsTabView
+        moduleType="inquiry"
+        refID={rows[0]?.id}
+        isDataChangedRef={isDataChangedRef}
+        isReadOnly={isReadOnly}
+      />
+    </Dialog>
   );
 };

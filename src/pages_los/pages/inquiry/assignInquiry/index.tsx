@@ -1,1 +1,1 @@
-export { AssignInquiryWrapper as AssignInquiry } from "./assignInquiry";
+export * from "./assignInquiry";

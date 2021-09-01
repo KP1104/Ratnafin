@@ -1,35 +1,39 @@
-import { useState, useRef, Fragment } from "react";
+import { useState, useRef, Fragment, useEffect } from "react";
 import Dialog from "@material-ui/core/Dialog";
 import {
   ServerGrid,
   ServerGridContextProvider,
 } from "pages_los/common/serverGrid";
 import { ClearCacheProvider } from "cache";
-import { Transition } from "pages_los/common";
 import { serverGridContextGenerator } from "./context";
-import { HeaderDetails } from "../headerDetails";
-import { DetailsTabView } from "../detailsTabView";
-import { InquiryAssignTask } from "../inquiryAssignTask";
-import { AssignBranch } from "../assignBranch";
-import { AssignInquiry } from "../assignInquiry";
-import { Priority } from "../priority";
-import { MoveToLead } from "../moveToLead";
-import { EligibilityCalculator } from "../eligibilityCalculator";
-import { InvalidAction } from "pages_los/common/invalidAction";
-import { useDialogStyles } from "pages_los/common/dialogStyles";
+import { DetailsTabViewWrapper } from "../detailsTabView";
+import { InquiryAssignTaskWrapper } from "../inquiryAssignTask";
+import { AssignBranchWrapper } from "../assignBranch";
+import { AssignInquiryWrapper } from "../assignInquiry";
+import { PriorityWrapper } from "../priority";
+import { MoveToLeadWrapper } from "../moveToLead";
+import { EligibilityCalculatorWrapper } from "../eligibilityCalculator";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 export const Inquiry = ({ gridCode, actions }) => {
-  const [currentAction, setCurrentAction] = useState<null | any>(null);
+  let navigate = useNavigate();
+  const setCurrentAction = (data) => {
+    navigate(data?.name, {
+      state: data?.rows,
+    });
+  };
   const isDataChangedRef = useRef(false);
   const myGridRef = useRef<any>(null);
+
   const handleDialogClose = () => {
-    setCurrentAction(null);
+    navigate("./");
     if (isDataChangedRef.current) {
       myGridRef?.current?.fetchData?.();
       isDataChangedRef.current = false;
     }
   };
-  const dialogClasses = useDialogStyles();
+
+  //const dialogClasses = useDialogStyles();
   return (
     <Fragment>
       <ServerGridContextProvider {...serverGridContextGenerator(gridCode)}>
@@ -41,151 +45,60 @@ export const Inquiry = ({ gridCode, actions }) => {
           defaultSortOrder={[{ id: "tran_cd", desc: true }]}
         />
       </ServerGridContextProvider>
-      <Dialog
-        fullScreen={
-          [
-            "ViewDetails",
-            "ViewDetailsReadOnly",
-            "Priority",
-            "calculator",
-          ].indexOf(currentAction?.name) >= 0
-            ? true
-            : false
-        }
-        open={currentAction !== null}
-        //@ts-ignore
-        TransitionComponent={Transition}
-        onClose={handleDialogClose}
-        key={currentAction?.rows[0].id}
-        PaperProps={{
-          style: {
-            width: "100%",
-            minHeight: "20vh",
-          },
-        }}
-        maxWidth={
-          ["AssignBranch", "AssignTask", "MoveToLead", "AssignInquiry"].indexOf(
-            currentAction?.name
-          ) >= 0
-            ? "sm"
-            : undefined
-        }
-        classes={{
-          scrollPaper: dialogClasses.topScrollPaper,
-          paperScrollBody: dialogClasses.topPaperScrollBody,
-        }}
-      >
-        <ClearCacheProvider key={currentAction?.rows[0].id}>
-          {(currentAction?.name ?? "") === "ViewDetails" ? (
-            <Fragment key={currentAction?.rows[0].id}>
-              <HeaderDetails
-                productData={currentAction?.rows[0]}
-                handleDialogClose={handleDialogClose}
-              />
-              <DetailsTabView
-                moduleType="inquiry"
-                refID={currentAction?.rows[0].id}
-                isDataChangedRef={isDataChangedRef}
-              />
-            </Fragment>
-          ) : (currentAction?.name ?? "") === "ViewDetailsReadOnly" ? (
-            <Fragment key={currentAction?.rows[0].id}>
-              <HeaderDetails
-                productData={currentAction?.rows[0]}
-                handleDialogClose={handleDialogClose}
-              />
-              <DetailsTabView
-                moduleType="inquiry"
-                refID={currentAction?.rows[0].id}
-                isDataChangedRef={isDataChangedRef}
-                isReadOnly={true}
-              />
-            </Fragment>
-          ) : (currentAction?.name ?? "") === "AssignBranch" ? (
-            <Fragment key={currentAction?.rows[0].id}>
-              <HeaderDetails
-                productData={currentAction?.rows[0]}
-                handleDialogClose={handleDialogClose}
-              />
-              <AssignBranch
-                key={currentAction?.rows[0].id}
-                moduleType="inquiry"
-                rowsData={currentAction?.rows}
-                isDataChangedRef={isDataChangedRef}
-                closeDialog={handleDialogClose}
-              />
-            </Fragment>
-          ) : (currentAction?.name ?? "") === "AssignTask" ? (
-            <Fragment key={currentAction?.rows[0].id}>
-              <HeaderDetails
-                productData={currentAction?.rows[0]}
-                handleDialogClose={handleDialogClose}
-              />
-              <InquiryAssignTask
-                inquiryNo={currentAction?.rows[0]?.data?.inquiry_no}
-                trancdCode={currentAction?.rows[0]?.data?.tran_cd}
-                taskFor="inquiry"
-                moduleType="task"
-                isDataChangedRef={isDataChangedRef}
-                closeDialog={handleDialogClose}
-              />
-            </Fragment>
-          ) : (currentAction?.name ?? "") === "Priority" ? (
-            <Fragment key={currentAction?.rows[0].id}>
-              <HeaderDetails
-                productData={currentAction?.rows[0]}
-                handleDialogClose={handleDialogClose}
-              />
-              <Priority
-                moduleType="inquiry"
-                refID={currentAction?.rows[0].id}
-                isDataChangedRef={isDataChangedRef}
-              />
-            </Fragment>
-          ) : (currentAction?.name ?? "") === "MoveToLead" ? (
-            <Fragment key={currentAction?.rows[0].id}>
-              <HeaderDetails
-                productData={currentAction?.rows[0]}
-                handleDialogClose={handleDialogClose}
-              />
-              <MoveToLead
-                moduleType="inquiry"
-                refID={currentAction?.rows[0].id}
-                isDataChangedRef={isDataChangedRef}
-                closeDialog={handleDialogClose}
-              />
-            </Fragment>
-          ) : (currentAction?.name ?? "") === "AssignInquiry" ? (
-            <Fragment key={currentAction?.rows[0].id}>
-              <HeaderDetails
-                productData={currentAction?.rows[0]}
-                handleDialogClose={handleDialogClose}
-              />
-              <AssignInquiry
-                moduleType="inquiry"
-                refID={currentAction?.rows[0].id}
-                isDataChangedRef={isDataChangedRef}
-                closeDialog={handleDialogClose}
-              />
-            </Fragment>
-          ) : (currentAction?.name ?? "") === "calculator" ? (
-            <Fragment key={currentAction?.rows[0].id}>
-              <HeaderDetails
-                productData={currentAction?.rows[0]}
-                handleDialogClose={handleDialogClose}
-              />
-              <EligibilityCalculator
-                employeentType={currentAction?.rows[0].data?.empl_value}
-                loanAmount={currentAction?.rows[0].data?.desire_loan_amt}
-                productId={currentAction?.rows[0].data?.product_type}
-                employeeCode={currentAction?.rows[0].data?.empl_cd}
-              />
-            </Fragment>
-          ) : (
-            <InvalidAction closeDialog={handleDialogClose} />
-          )}
-        </ClearCacheProvider>
-      </Dialog>
+      <ClearCacheProvider>
+        <Routes>
+          <Route path="/ViewDetails">
+            <DetailsTabViewWrapper
+              handleDialogClose={handleDialogClose}
+              isDataChangedRef={isDataChangedRef}
+            />
+          </Route>
+          <Route path="/ViewDetailsReadOnly">
+            <DetailsTabViewWrapper
+              handleDialogClose={handleDialogClose}
+              isDataChangedRef={isDataChangedRef}
+              isReadOnly={true}
+            />
+          </Route>
+          <Route path="/AssignBranch">
+            <AssignBranchWrapper
+              moduleType="inquiry"
+              isDataChangedRef={isDataChangedRef}
+              closeDialog={handleDialogClose}
+            />
+          </Route>
+          <Route path="/AssignInquiry">
+            <AssignInquiryWrapper
+              moduleType="inquiry"
+              isDataChangedRef={isDataChangedRef}
+              closeDialog={handleDialogClose}
+            />
+          </Route>
+          <Route path="/AssignTask">
+            <InquiryAssignTaskWrapper
+              closeDialog={handleDialogClose}
+              isDataChangedRef={isDataChangedRef}
+            />
+          </Route>
+          <Route path="/Priority">
+            <PriorityWrapper
+              moduleType="inquiry"
+              isDataChangedRef={isDataChangedRef}
+              closeDialog={handleDialogClose}
+            />
+          </Route>
+          <Route path="/MoveToLead">
+            <MoveToLeadWrapper
+              moduleType="inquiry"
+              isDataChangedRef={isDataChangedRef}
+              closeDialog={handleDialogClose}
+            />
+          </Route>
+          <Route path="/calculator">
+            <EligibilityCalculatorWrapper closeDialog={handleDialogClose} />
+          </Route>
+        </Routes>
+      </ClearCacheProvider>
     </Fragment>
   );
 };

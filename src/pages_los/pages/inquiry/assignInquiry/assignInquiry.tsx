@@ -16,6 +16,11 @@ import {
   generateAssignInquiryAPIContext,
 } from "./context";
 import loaderGif from "assets/images/loader.gif";
+import Dialog from "@material-ui/core/Dialog";
+import { HeaderDetails } from "../headerDetails";
+import { Transition } from "pages_los/common";
+import { useLocation } from "react-router-dom";
+import { useDialogStyles } from "pages_los/common/dialogStyles";
 
 interface InsertFormDataFnType {
   data: object;
@@ -146,20 +151,43 @@ export const AssignInquiry = ({
 
 export const AssignInquiryWrapper = ({
   moduleType,
-  refID,
   isDataChangedRef,
   closeDialog,
 }) => {
+  const dialogClasses = useDialogStyles();
+  const { state: rows }: any = useLocation();
   return (
     <AssignInquiryAPIProvider
-      {...generateAssignInquiryAPIContext({ refID, moduleType })}
+      {...generateAssignInquiryAPIContext({ refID: rows[0].id, moduleType })}
     >
-      <AssignInquiry
-        moduleType={moduleType}
-        refID={refID}
-        isDataChangedRef={isDataChangedRef}
-        closeDialog={closeDialog}
-      />
+      <Dialog
+        open={true}
+        //@ts-ignore
+        TransitionComponent={Transition}
+        onClose={closeDialog}
+        PaperProps={{
+          style: {
+            width: "100%",
+            minHeight: "20vh",
+          },
+        }}
+        maxWidth="sm"
+        classes={{
+          scrollPaper: dialogClasses.topScrollPaper,
+          paperScrollBody: dialogClasses.topPaperScrollBody,
+        }}
+      >
+        <HeaderDetails
+          productData={rows?.[0]}
+          handleDialogClose={closeDialog}
+        />
+        <AssignInquiry
+          moduleType={moduleType}
+          refID={rows[0].id}
+          isDataChangedRef={isDataChangedRef}
+          closeDialog={closeDialog}
+        />
+      </Dialog>
     </AssignInquiryAPIProvider>
   );
 };

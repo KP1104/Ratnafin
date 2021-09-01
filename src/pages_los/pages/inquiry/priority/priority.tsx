@@ -6,6 +6,9 @@ import { ClearCacheContext, queryClient } from "cache";
 import { PriorityGrid } from "./grid";
 import { PriorityAPIProvider, generatePriorityAPIContext } from "./context";
 import { UpdatePriority } from "./updatePriorirty";
+import { HeaderDetails } from "../headerDetails";
+import { Transition } from "pages_los/common";
+import { useLocation } from "react-router-dom";
 import { useDialogStyles } from "pages_los/common/dialogStyles";
 
 const actions: ActionTypes[] = [
@@ -67,5 +70,29 @@ export const Priority = ({ refID, moduleType, isDataChangedRef }) => {
         )}
       </Dialog>
     </PriorityAPIProvider>
+  );
+};
+
+export const PriorityWrapper = ({
+  moduleType,
+  isDataChangedRef,
+  closeDialog,
+}) => {
+  const { state: rows }: any = useLocation();
+  return (
+    <Dialog
+      fullScreen
+      open={true}
+      //@ts-ignore
+      TransitionComponent={Transition}
+      onClose={closeDialog}
+    >
+      <HeaderDetails productData={rows?.[0]} handleDialogClose={closeDialog} />
+      <Priority
+        moduleType={moduleType}
+        refID={rows[0].id}
+        isDataChangedRef={isDataChangedRef}
+      />
+    </Dialog>
   );
 };

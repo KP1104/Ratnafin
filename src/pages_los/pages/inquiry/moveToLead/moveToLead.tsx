@@ -6,6 +6,11 @@ import { SubmitFnType } from "packages/form";
 import FormWrapper, { MetaDataType } from "components/dyanmicForm";
 import { moveToLeadMetaData } from "./metadata";
 import * as API from "./api";
+import Dialog from "@material-ui/core/Dialog";
+import { HeaderDetails } from "../headerDetails";
+import { Transition } from "pages_los/common";
+import { useLocation } from "react-router-dom";
+import { useDialogStyles } from "pages_los/common/dialogStyles";
 
 interface InsertFormDataFnType {
   data: object;
@@ -98,5 +103,41 @@ export const MoveToLead = ({
         );
       }}
     </FormWrapper>
+  );
+};
+
+export const MoveToLeadWrapper = ({
+  moduleType,
+  isDataChangedRef,
+  closeDialog,
+}) => {
+  const dialogClasses = useDialogStyles();
+  const { state: rows }: any = useLocation();
+  return (
+    <Dialog
+      open={true}
+      //@ts-ignore
+      TransitionComponent={Transition}
+      onClose={closeDialog}
+      PaperProps={{
+        style: {
+          width: "100%",
+          minHeight: "20vh",
+        },
+      }}
+      maxWidth="sm"
+      classes={{
+        scrollPaper: dialogClasses.topScrollPaper,
+        paperScrollBody: dialogClasses.topPaperScrollBody,
+      }}
+    >
+      <HeaderDetails productData={rows?.[0]} handleDialogClose={closeDialog} />
+      <MoveToLead
+        moduleType={moduleType}
+        refID={rows[0].id}
+        isDataChangedRef={isDataChangedRef}
+        closeDialog={closeDialog}
+      />
+    </Dialog>
   );
 };

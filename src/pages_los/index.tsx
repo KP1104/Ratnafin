@@ -68,7 +68,7 @@ const DashbordPages = () => {
 
             {/* Inquiries */}
             <Route
-              path="/inquiry/assignedInquiries"
+              path="/inquiry/assignedInquiries/*"
               element={<AssignedInquiry />}
             />
             <Route path="/inquiry/crossInquiries" element={<CrossInquiry />} />
