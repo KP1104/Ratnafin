@@ -1,5 +1,4 @@
-import { useState, useRef, Fragment, useEffect } from "react";
-import Dialog from "@material-ui/core/Dialog";
+import { useRef, Fragment, useCallback } from "react";
 import {
   ServerGrid,
   ServerGridContextProvider,
@@ -17,11 +16,14 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 
 export const Inquiry = ({ gridCode, actions }) => {
   let navigate = useNavigate();
-  const setCurrentAction = (data) => {
-    navigate(data?.name, {
-      state: data?.rows,
-    });
-  };
+  const setCurrentAction = useCallback(
+    (data) => {
+      navigate(data?.name, {
+        state: data?.rows,
+      });
+    },
+    [navigate]
+  );
   const isDataChangedRef = useRef(false);
   const myGridRef = useRef<any>(null);
 

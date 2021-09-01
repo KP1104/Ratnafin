@@ -5,6 +5,10 @@ import { useQuery } from "react-query";
 import { queryClient, ClearCacheContext } from "cache";
 import { API } from "pages_los/common/crud2";
 import loaderGif from "assets/images/loader.gif";
+import Dialog from "@material-ui/core/Dialog";
+import { HeaderDetails } from "../headerDetails";
+import { Transition } from "pages_los/common";
+import { useLocation } from "react-router-dom";
 import { CRUDComponentPicker } from "./crud";
 import { useStyles } from "./style";
 
@@ -91,4 +95,32 @@ export const DetailsTabView: FC<{
     </Fragment>
   );
   return result;
+};
+
+export const DetailsTabViewWrapper = ({
+  handleDialogClose,
+  isDataChangedRef,
+  moduleType,
+}) => {
+  const { state: rows }: any = useLocation();
+  return (
+    <Dialog
+      fullScreen
+      open={true}
+      //@ts-ignore
+      TransitionComponent={Transition}
+      onClose={handleDialogClose}
+    >
+      <HeaderDetails
+        rowData={rows?.[0]}
+        handleDialogClose={handleDialogClose}
+      />
+      <DetailsTabView
+        key={rows[0].id}
+        moduleType={moduleType}
+        refID={rows[0].id}
+        isDataChangedRef={isDataChangedRef}
+      />
+    </Dialog>
+  );
 };

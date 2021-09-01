@@ -17,6 +17,10 @@ import {
   DOCContextProvider,
   DocAPICrudProviderGenerator,
 } from "../documentUpload/context";
+import Dialog from "@material-ui/core/Dialog";
+import { HeaderDetails } from "../headerDetails";
+import { Transition } from "pages_los/common";
+import { useLocation } from "react-router-dom";
 
 interface MandateFormDataFnType {
   data: object;
@@ -227,5 +231,35 @@ export const MandateWrapper = ({
         </DOCContextProvider>
       </Grid>
     </>
+  );
+};
+
+export const MandateMetaWrapper = ({
+  handleDialogClose,
+  isDataChangedRef,
+  moduleType,
+}) => {
+  const { state: rows }: any = useLocation();
+  return (
+    <Dialog
+      fullScreen
+      open={true}
+      //@ts-ignore
+      TransitionComponent={Transition}
+      onClose={handleDialogClose}
+    >
+      <HeaderDetails
+        rowData={rows?.[0]}
+        handleDialogClose={handleDialogClose}
+      />
+      <Mandate
+        moduleType={moduleType}
+        productType="mandate"
+        refID={rows[0].id}
+        branchID={rows[0]?.data.branch_id}
+        isDataChangedRef={isDataChangedRef}
+        readOnly={false}
+      />
+    </Dialog>
   );
 };

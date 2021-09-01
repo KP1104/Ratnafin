@@ -10,6 +10,9 @@ import { Download } from "./download";
 import { BankAPIInterface } from "./bank";
 import { GSTAPIInterface } from "./gst";
 import { ITRInterface } from "./itr";
+import { useLocation } from "react-router-dom";
+import { HeaderDetails } from "../headerDetails";
+import { Transition } from "pages_los/common";
 
 const actions: ActionTypes[] = [
   {
@@ -158,5 +161,24 @@ export const Analysis = ({ refID, moduleType }) => {
         )}
       </Dialog>
     </Fragment>
+  );
+};
+
+export const AnalysisWrapper = ({ moduleType, handleDialogClose }) => {
+  const { state: rows }: any = useLocation();
+  return (
+    <Dialog
+      fullScreen
+      open={true}
+      //@ts-ignore
+      TransitionComponent={Transition}
+      onClose={handleDialogClose}
+    >
+      <HeaderDetails
+        rowData={rows?.[0]}
+        handleDialogClose={handleDialogClose}
+      />
+      <Analysis moduleType={moduleType} refID={rows[0].id} />
+    </Dialog>
   );
 };

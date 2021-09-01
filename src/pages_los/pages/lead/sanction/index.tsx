@@ -1,1 +1,1 @@
-export { SanctionWrapper as Sanction } from "./sanction";
+export * from "./sanction";

@@ -82,11 +82,14 @@ const DashbordPages = () => {
             />
             <Route path="/partner" element={<BecomePartnerFormWrapper />} />
 
-            <Route path="/lead/details" element={<Leads />} />
-            <Route path="/lead/mandate" element={<MandateLeads />} />
-            <Route path="/lead/bankLogin" element={<BankLoginLeads />} />
-            <Route path="/lead/sanction" element={<SanctionLeads />} />
-            <Route path="/lead/disbursement" element={<DisbursementLeads />} />
+            <Route path="/lead/details/*" element={<Leads />} />
+            <Route path="/lead/mandate/*" element={<MandateLeads />} />
+            <Route path="/lead/bankLogin/*" element={<BankLoginLeads />} />
+            <Route path="/lead/sanction/*" element={<SanctionLeads />} />
+            <Route
+              path="/lead/disbursement/*"
+              element={<DisbursementLeads />}
+            />
             <Route path="/task/assign" element={<AssignTask />} />
             <Route path="/task/assigned" element={<AssignedTask />} />
             <Route path="/task/worklog" element={<Worklog />} />

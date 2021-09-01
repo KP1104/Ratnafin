@@ -8,6 +8,11 @@ import { leadTaskAssignMetadata } from "./metadata";
 import * as API from "./api";
 import { SubmitFnType } from "packages/form";
 import { ClearCacheContext, queryClient } from "cache";
+import Dialog from "@material-ui/core/Dialog";
+import { HeaderDetails } from "../headerDetails";
+import { Transition } from "pages_los/common";
+import { useLocation } from "react-router-dom";
+import { useDialogStyles } from "pages_los/common/dialogStyles";
 interface TaskAssignFormDataFnType {
   data: object;
   displayData?: object;
@@ -102,5 +107,45 @@ export const LeadAssignTask = ({
         );
       }}
     </FormWrapper>
+  );
+};
+
+export const LeadAssignTaskWrapper = ({
+  handleDialogClose,
+  isDataChangedRef,
+}) => {
+  const dialogClasses = useDialogStyles();
+  const { state: rows }: any = useLocation();
+  return (
+    <Dialog
+      open={true}
+      //@ts-ignore
+      TransitionComponent={Transition}
+      onClose={handleDialogClose}
+      PaperProps={{
+        style: {
+          width: "100%",
+          minHeight: "20vh",
+        },
+      }}
+      maxWidth="sm"
+      classes={{
+        scrollPaper: dialogClasses.topScrollPaper,
+        paperScrollBody: dialogClasses.topPaperScrollBody,
+      }}
+    >
+      <HeaderDetails
+        rowData={rows?.[0]}
+        handleDialogClose={handleDialogClose}
+      />
+      <LeadAssignTask
+        leadNo={rows[0]?.data?.lead_no}
+        trancdCode={rows[0]?.data?.tran_cd}
+        taskFor="lead"
+        moduleType="task"
+        isDataChangedRef={isDataChangedRef}
+        closeDialog={handleDialogClose}
+      />
+    </Dialog>
   );
 };

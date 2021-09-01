@@ -9,6 +9,9 @@ import { APIGrid } from "./apiGrid";
 import { APIInterfaceForm } from "./apiInterface";
 import { generateVerificationAPIContext, ExternalAPIProvider } from "./context";
 import { useDialogStyles } from "pages_los/common/dialogStyles";
+import { HeaderDetails } from "../headerDetails";
+import { Transition } from "pages_los/common";
+import { useLocation } from "react-router-dom";
 
 const actions: ActionTypes[] = [
   {
@@ -121,5 +124,24 @@ export const Verification = ({ refID, moduleType }) => {
         )}
       </Dialog>
     </ExternalAPIProvider>
+  );
+};
+
+export const VerificationWrapper = ({ moduleType, handleDialogClose }) => {
+  const { state: rows }: any = useLocation();
+  return (
+    <Dialog
+      fullScreen
+      open={true}
+      //@ts-ignore
+      TransitionComponent={Transition}
+      onClose={handleDialogClose}
+    >
+      <HeaderDetails
+        rowData={rows?.[0]}
+        handleDialogClose={handleDialogClose}
+      />
+      <Verification moduleType={moduleType} refID={rows[0].id} />
+    </Dialog>
   );
 };

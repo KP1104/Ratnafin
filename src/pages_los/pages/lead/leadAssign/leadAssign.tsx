@@ -15,7 +15,12 @@ import {
   LeadAssignAPIProvider,
   generateLeadAssignAPIContext,
 } from "./context";
+import Dialog from "@material-ui/core/Dialog";
+import { useLocation } from "react-router-dom";
+import { HeaderDetails } from "../headerDetails";
+import { Transition } from "pages_los/common";
 import loaderGif from "assets/images/loader.gif";
+import { useDialogStyles } from "pages_los/common/dialogStyles";
 
 interface InsertFormDataFnType {
   data: object;
@@ -146,20 +151,38 @@ export const LeadAssign = ({
 
 export const LeadAssignWrapper = ({
   moduleType,
-  refID,
   isDataChangedRef,
-  closeDialog,
+  handleDialogClose,
 }) => {
+  const { state: rows }: any = useLocation();
+  const classes = useDialogStyles();
   return (
     <LeadAssignAPIProvider
-      {...generateLeadAssignAPIContext({ refID, moduleType })}
+      {...generateLeadAssignAPIContext({ refID: rows?.[0].id, moduleType })}
     >
-      <LeadAssign
-        moduleType={moduleType}
-        refID={refID}
-        isDataChangedRef={isDataChangedRef}
-        closeDialog={closeDialog}
-      />
+      <Dialog
+        maxWidth="sm"
+        open={true}
+        //@ts-ignore
+        TransitionComponent={Transition}
+        onClose={handleDialogClose}
+        PaperProps={{ style: { width: "100%", minHeight: "20vh" } }}
+        classes={{
+          scrollPaper: classes.topScrollPaper,
+          paperScrollBody: classes.topPaperScrollBody,
+        }}
+      >
+        <HeaderDetails
+          rowData={rows?.[0]}
+          handleDialogClose={handleDialogClose}
+        />
+        <LeadAssign
+          moduleType={moduleType}
+          refID={rows[0].id}
+          isDataChangedRef={isDataChangedRef}
+          closeDialog={handleDialogClose}
+        />
+      </Dialog>
     </LeadAssignAPIProvider>
   );
 };

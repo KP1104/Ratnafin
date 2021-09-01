@@ -15,6 +15,10 @@ import {
   DOCContextProvider,
   DocAPICrudProviderGenerator,
 } from "../documentUpload/context";
+import Dialog from "@material-ui/core/Dialog";
+import { HeaderDetails } from "../headerDetails";
+import { Transition } from "pages_los/common";
+import { useLocation } from "react-router-dom";
 
 interface SanctionFormDataFnType {
   data: object;
@@ -235,5 +239,36 @@ export const SanctionWrapper = ({
         </DOCContextProvider>
       </Grid>
     </>
+  );
+};
+
+export const SanctionMetaWrapper = ({
+  handleDialogClose,
+  isDataChangedRef,
+  moduleType,
+}) => {
+  const { state: rows }: any = useLocation();
+  return (
+    <Dialog
+      fullScreen
+      open={true}
+      //@ts-ignore
+      TransitionComponent={Transition}
+      onClose={handleDialogClose}
+    >
+      <HeaderDetails
+        rowData={rows?.[0]}
+        handleDialogClose={handleDialogClose}
+      />
+      <Sanction
+        moduleType={moduleType}
+        productType="sanction"
+        refID={rows[0].id}
+        product={rows[0]?.data.category_id}
+        branchID={rows[0]?.data.branch_id}
+        isDataChangedRef={isDataChangedRef}
+        readOnly={false}
+      />
+    </Dialog>
   );
 };

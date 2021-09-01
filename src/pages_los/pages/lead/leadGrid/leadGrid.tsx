@@ -1,32 +1,36 @@
-import { useState, useRef, Fragment } from "react";
-import Dialog from "@material-ui/core/Dialog";
+import { useRef, Fragment, useCallback } from "react";
 import {
   ServerGrid,
   ServerGridContextProvider,
 } from "pages_los/common/serverGrid";
 import { ClearCacheProvider } from "cache";
-import { Transition } from "pages_los/common";
-import { InvalidAction } from "pages_los/common/invalidAction";
 import { serverGridContextGenerator } from "./context";
-import { LeadAssignTask } from "../leadAssignTask";
-import { HeaderDetails } from "../headerDetails";
-import { DetailsTabView } from "../detailsTabView";
-import { Analysis } from "../analysis";
-import { Stage } from "../stages";
-import { CAM } from "../cam";
+import { LeadAssignTaskWrapper } from "../leadAssignTask";
+import { DetailsTabViewWrapper } from "../detailsTabView";
+import { AnalysisWrapper } from "../analysis";
+import { StageWrapper } from "../stages";
+import { CAMWrapper } from "../cam";
 import { LeadAssign } from "../leadAssign";
-import { Verification } from "../verification";
-import { BankLogin } from "../bankLogin";
-import { Mandate } from "../mandate";
-import { Sanction } from "../sanction";
-import { Disbursement } from "../disbursement";
+import { VerificationWrapper } from "../verification";
+import { BankLoginWrapper } from "../bankLogin";
+import { MandateMetaWrapper } from "../mandate";
+import { SanctionMetaWrapper } from "../sanction";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 export const LeadGrid = ({ gridCode, actions }) => {
-  const [currentAction, setCurrentAction] = useState<null | any>(null);
+  let navigate = useNavigate();
+  const setCurrentAction = useCallback(
+    (data) => {
+      navigate(data?.name, {
+        state: data?.rows,
+      });
+    },
+    [navigate]
+  );
   const isDataEditedRef = useRef(false);
   const myGridRef = useRef<any>(null);
   const handleDialogClose = () => {
-    setCurrentAction(null);
+    navigate("./");
     if (isDataEditedRef.current) {
       myGridRef?.current?.fetchData?.();
       isDataEditedRef.current = false;
@@ -44,114 +48,76 @@ export const LeadGrid = ({ gridCode, actions }) => {
           defaultSortOrder={[{ id: "tran_cd", desc: true }]}
         />
       </ServerGridContextProvider>
-      <Dialog
-        fullScreen={
-          ["leadAssign", "taskAssign"].indexOf(currentAction?.name) < 0
-        }
-        maxWidth={
-          ["leadAssign", "taskAssign"].indexOf(currentAction?.name) >= 0
-            ? "sm"
-            : undefined
-        }
-        open={Boolean(currentAction)}
-        //@ts-ignore
-        TransitionComponent={Transition}
-        key={currentAction?.rows[0].id}
-      >
-        <ClearCacheProvider>
-          <HeaderDetails
-            rowData={currentAction?.rows[0]}
-            handleDialogClose={handleDialogClose}
-          />
-          {(currentAction?.name ?? "") === "detailView" ? (
-            <DetailsTabView
-              key={currentAction?.rows[0].id}
+      <ClearCacheProvider>
+        <Routes>
+          <Route path="/detailView">
+            <DetailsTabViewWrapper
               moduleType="lead"
-              refID={currentAction?.rows[0].id}
               isDataChangedRef={isDataEditedRef}
+              handleDialogClose={handleDialogClose}
             />
-          ) : (currentAction?.name ?? "") === "cam" ? (
-            <CAM
-              key={currentAction?.rows[0].id}
+          </Route>
+          <Route path="/cam">
+            <CAMWrapper
               moduleType="lead"
-              refID={currentAction?.rows[0].id}
               isDataChangedRef={isDataEditedRef}
+              handleDialogClose={handleDialogClose}
             />
-          ) : (currentAction?.name ?? "") === "analysis" ? (
-            <Analysis
-              key={currentAction?.rows[0].id}
+          </Route>
+          <Route path="/analysis">
+            <AnalysisWrapper
               moduleType="lead"
-              refID={currentAction?.rows[0].id}
+              handleDialogClose={handleDialogClose}
             />
-          ) : (currentAction?.name ?? "") === "stages" ? (
-            <Stage
-              key={currentAction?.rows[0].id}
+          </Route>
+          <Route path="/stages">
+            <StageWrapper
               moduleType="lead"
-              refID={currentAction?.rows[0].id}
               isDataChangedRef={isDataEditedRef}
+              handleDialogClose={handleDialogClose}
             />
-          ) : (currentAction?.name ?? "") === "leadAssign" ? (
+          </Route>
+          <Route path="/leadAssign">
             <LeadAssign
-              closeDialog={handleDialogClose}
+              handleDialogClose={handleDialogClose}
               moduleType="lead"
-              refID={currentAction?.rows[0].id}
               isDataChangedRef={isDataEditedRef}
             />
-          ) : (currentAction?.name ?? "") === "taskAssign" ? (
-            <LeadAssignTask
-              leadNo={currentAction?.rows[0]?.data?.lead_no}
-              trancdCode={currentAction?.rows[0]?.data?.tran_cd}
-              taskFor="lead"
-              moduleType="task"
+          </Route>
+          <Route path="/taskAssign">
+            <LeadAssignTaskWrapper
+              handleDialogClose={handleDialogClose}
               isDataChangedRef={isDataEditedRef}
-              closeDialog={handleDialogClose}
             />
-          ) : (currentAction?.name ?? "") === "verification" ? (
-            <Verification
-              key={currentAction?.rows[0].id}
+          </Route>
+          <Route path="/verification">
+            <VerificationWrapper
+              handleDialogClose={handleDialogClose}
               moduleType="lead"
-              refID={currentAction?.rows[0].id}
             />
-          ) : (currentAction?.name ?? "") === "bankLogin" ? (
-            <BankLogin
-              key={currentAction?.rows[0].id}
+          </Route>
+          <Route path="/bankLogin">
+            <BankLoginWrapper
+              handleDialogClose={handleDialogClose}
               moduleType="lead"
-              refID={currentAction?.rows[0].id}
-              otherDetails={currentAction?.rows[0].data}
-              closeDialog={handleDialogClose}
             />
-          ) : (currentAction?.name ?? "") === "viewMandate" ? (
-            <Mandate
-              key={currentAction?.rows[0].id}
+          </Route>
+          <Route path="/viewMandate">
+            <MandateMetaWrapper
+              handleDialogClose={handleDialogClose}
               moduleType="lead"
-              productType="mandate"
-              refID={currentAction?.rows[0].id}
-              branchID={currentAction?.rows[0]?.data.branch_id}
               isDataChangedRef={isDataEditedRef}
-              readOnly={false}
             />
-          ) : (currentAction?.name ?? "") === "sanction" ? (
-            <Sanction
-              key={currentAction?.rows[0].id}
+          </Route>
+          <Route path="/sanction">
+            <SanctionMetaWrapper
+              handleDialogClose={handleDialogClose}
               moduleType="lead"
-              productType="sanction"
-              refID={currentAction?.rows[0].id}
-              product={currentAction?.rows[0]?.data.category_id}
-              branchID={currentAction?.rows[0]?.data.branch_id}
               isDataChangedRef={isDataEditedRef}
-              readOnly={false}
             />
-          ) : (currentAction?.name ?? "") === "disbursement" ? (
-            <Disbursement
-              key={currentAction?.rows[0].id}
-              moduleType="lead"
-              refID={currentAction?.rows[0].id}
-            />
-          ) : (
-            <InvalidAction closeDialog={handleDialogClose} />
-          )}
-        </ClearCacheProvider>
-      </Dialog>
+          </Route>
+        </Routes>
+      </ClearCacheProvider>
     </Fragment>
   );
 };

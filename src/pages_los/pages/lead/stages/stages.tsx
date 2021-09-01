@@ -7,6 +7,9 @@ import { StagesGrid } from "./grid";
 import { StagesAPIProvider, generateStagesAPIContext } from "./context";
 import { UpdatePriority } from "./updateStage";
 import { useDialogStyles } from "pages_los/common/dialogStyles";
+import { useLocation } from "react-router-dom";
+import { HeaderDetails } from "../headerDetails";
+import { Transition } from "pages_los/common";
 
 const actions: ActionTypes[] = [
   {
@@ -67,5 +70,32 @@ export const Stage = ({ refID, moduleType, isDataChangedRef }) => {
         )}
       </Dialog>
     </StagesAPIProvider>
+  );
+};
+
+export const StageWrapper = ({
+  moduleType,
+  isDataChangedRef,
+  handleDialogClose,
+}) => {
+  const { state: rows }: any = useLocation();
+  return (
+    <Dialog
+      fullScreen
+      open={true}
+      //@ts-ignore
+      TransitionComponent={Transition}
+      onClose={handleDialogClose}
+    >
+      <HeaderDetails
+        rowData={rows?.[0]}
+        handleDialogClose={handleDialogClose}
+      />
+      <Stage
+        moduleType={moduleType}
+        refID={rows[0].id}
+        isDataChangedRef={isDataChangedRef}
+      />
+    </Dialog>
   );
 };

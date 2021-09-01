@@ -11,6 +11,9 @@ import { PreviewCAM } from "./preview";
 import { InvalidAction } from "pages_los/common/invalidAction";
 import { generateCAMAPIContext } from "./context";
 import { MoveToBankSelection } from "./moveToBankSelection/moveToBankSelection";
+import { useLocation } from "react-router-dom";
+import { HeaderDetails } from "../headerDetails";
+import { Transition } from "pages_los/common";
 
 const actions: ActionTypes[] = [
   {
@@ -139,5 +142,32 @@ export const CAM = ({ refID, moduleType, isDataChangedRef }) => {
         )}
       </Dialog>
     </CAMContextProvider>
+  );
+};
+
+export const CAMWrapper = ({
+  moduleType,
+  isDataChangedRef,
+  handleDialogClose,
+}) => {
+  const { state: rows }: any = useLocation();
+  return (
+    <Dialog
+      fullScreen
+      open={true}
+      //@ts-ignore
+      TransitionComponent={Transition}
+      onClose={handleDialogClose}
+    >
+      <HeaderDetails
+        rowData={rows?.[0]}
+        handleDialogClose={handleDialogClose}
+      />
+      <CAM
+        moduleType={moduleType}
+        refID={rows[0].id}
+        isDataChangedRef={isDataChangedRef}
+      />
+    </Dialog>
   );
 };
