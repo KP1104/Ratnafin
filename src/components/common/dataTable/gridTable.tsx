@@ -224,7 +224,7 @@ export const GridTable: FC<GridTableType> = ({
             </Button>
           ) : null}
         </Toolbar>
-        <TableContainer>
+        <TableContainer style={disabled ? { opacity: 0.5 } : {}}>
           <Table {...getTableProps()} size="small" component="div">
             <TableHead component="div">
               {headerGroups.map((headerGroup) => (
@@ -330,7 +330,9 @@ export const GridTable: FC<GridTableType> = ({
             )}
           </Table>
         </TableContainer>
-        <Button onClick={addNewRow}>AddRow</Button>
+        <Button onClick={addNewRow} disabled={disabled}>
+          AddRow
+        </Button>
       </Paper>
 
       <DeleteRows
