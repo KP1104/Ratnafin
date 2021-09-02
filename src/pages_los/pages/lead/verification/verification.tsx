@@ -46,7 +46,7 @@ const actions: ActionTypes[] = [
     shouldExclude: (rows: any) => {
       let exclude = false;
       for (let i = 0; i < rows.length; i++) {
-        if (["PENDING", "INITIATED"].indexOf(rows[i].data?.status) < 0) {
+        if (["PENDING"].indexOf(rows[i].data?.status) < 0) {
           exclude = true;
           break;
         }
