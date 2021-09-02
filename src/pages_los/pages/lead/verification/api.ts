@@ -119,3 +119,31 @@ export const reInitiateVerificationAPI = async ({
     throw data?.error_data;
   }
 };
+
+export const expireLink = async ({ requestType, transactionID }) => {
+  let currentURL: any = undefined;
+  currentURL =
+    requestType === "EMAIL-VERIFY"
+      ? "./lead/external/email/token/expire"
+      : requestType === "MOBILE-VERIFY"
+      ? "./lead/external/mobile/token/expire"
+      : requestType === "CREDIT"
+      ? "./lead/external/equifax/token/expire"
+      : undefined;
+  if (currentURL === undefined) {
+    throw { error_msg: "Invalid API Type" };
+  }
+  const { data, status } = await LOSSDK.internalFetcher(currentURL, {
+    body: JSON.stringify({
+      request_data: {
+        transactionID: transactionID,
+      },
+      channel: "W",
+    }),
+  });
+  if (status === "success") {
+    return data?.response_data;
+  } else {
+    throw data?.error_data;
+  }
+};
