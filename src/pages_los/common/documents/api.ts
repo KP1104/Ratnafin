@@ -23,6 +23,7 @@ import {
   KYCManagementUpload,
 } from "./metaData/kyc";
 import { othersEdit, othersGrid, OthersUpload } from "./metaData/others";
+import { partnerEdit, partnerGrid, partnerUpload } from "./metaData/partner";
 
 export const uploadDocuments = ({
   moduleType,
@@ -295,7 +296,11 @@ export const getDocumentMetaData = ({
       case "gst":
         return GSTGrid;
       case "other":
-        return othersGrid;
+        if (productType === "partner") {
+          return partnerGrid;
+        } else {
+          return othersGrid;
+        }
       case "kyc":
         return KYCGrid;
       default:
@@ -315,7 +320,11 @@ export const getDocumentMetaData = ({
       case "gstOther":
         return GSTOtherUpload;
       case "other":
-        return OthersUpload;
+        if (productType === "partner") {
+          return partnerUpload;
+        } else {
+          return OthersUpload;
+        }
       case "kyc":
         if (productType === "management") {
           return KYCManagementUpload;
@@ -338,7 +347,11 @@ export const getDocumentMetaData = ({
       case "gstOther":
         return GSTOtherEdit;
       case "other":
-        return othersEdit;
+        if (productType === "partner") {
+          return partnerEdit;
+        } else {
+          return othersEdit;
+        }
       case "kyc":
         if (productType === "management") {
           return KYCManagementEdit;
