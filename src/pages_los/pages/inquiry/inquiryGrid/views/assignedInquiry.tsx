@@ -69,6 +69,12 @@ export const AssignedInquiry = () => {
         return exclude;
       },
     },
+    {
+      actionName: "documentUpload",
+      actionLabel: "Document Details",
+      multiple: false,
+      rowDoubleClick: false,
+    },
   ];
   return <Inquiry gridCode="TRN/006" actions={actions} />;
 };

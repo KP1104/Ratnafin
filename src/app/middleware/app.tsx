@@ -37,7 +37,10 @@ export const App = () => {
           <Route path="/lead/:refID" element={<CAMMiddlewareWrapper />} />
           <Route path="/mandate" element={<Mandate />} />
           <Route path="/credit/:tokenID" element={<Credit />} />
-          <Route path="/creditCommercial" element={<CreditCommercial />} />
+          <Route
+            path="/creditCommercial/:tokenID"
+            element={<CreditCommercial />}
+          />
         </Routes>
       </QueryClientProvider>
     </ThemeProvider>

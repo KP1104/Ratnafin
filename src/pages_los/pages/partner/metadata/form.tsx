@@ -121,7 +121,7 @@ export const becomePartnerMetaData: MetaDataType = {
       render: {
         componentType: "textField",
       },
-      name: "firstname",
+      name: "firstName",
       type: "text",
       label: "First Name[As Per PAN Card]",
       placeholder: "First Name[As Per PAN Card]",
@@ -139,7 +139,7 @@ export const becomePartnerMetaData: MetaDataType = {
       render: {
         componentType: "textField",
       },
-      name: "middlename",
+      name: "middleName",
       label: "Middle Name",
       placeholder: "Middle Name",
       type: "text",
@@ -154,7 +154,7 @@ export const becomePartnerMetaData: MetaDataType = {
       render: {
         componentType: "textField",
       },
-      name: "lastname",
+      name: "lastName",
       label: "Last Name",
       placeholder: "Last Name",
       required: true,
@@ -191,7 +191,7 @@ export const becomePartnerMetaData: MetaDataType = {
       render: {
         componentType: "datePicker",
       },
-      name: "marriedDate",
+      name: "marraigeDate",
       label: "Marriage Anniversary",
       placeholder: "dd/mm/yyyy",
       format: "dd/MM/yyyy",
@@ -367,7 +367,6 @@ export const becomePartnerMetaData: MetaDataType = {
         componentType: "phoneNumber",
       },
       name: "mobile",
-      type: "text",
       label: "Mobile No",
       placeholder: "Mobile number",
       required: true,
@@ -384,7 +383,7 @@ export const becomePartnerMetaData: MetaDataType = {
         //@ts-ignore
         componentType: "textField",
       },
-      name: "email",
+      name: "emailID",
       type: "email",
       label: "Email",
       placeholder: "Email",
@@ -407,8 +406,7 @@ export const becomePartnerMetaData: MetaDataType = {
         //@ts-ignore
         componentType: "panCard",
       },
-      name: "panNo",
-      type: "text",
+      name: "pan",
       label: "Pan Card Number",
       placeholder: "PAN Card number",
       required: true,
@@ -488,8 +486,7 @@ export const becomePartnerMetaData: MetaDataType = {
       render: {
         componentType: "textField",
       },
-      name: "acctNo",
-      type: "text",
+      name: "accountNo",
       label: "Bank Account No",
       placeholder: "A/C number",
       required: true,
@@ -505,7 +502,7 @@ export const becomePartnerMetaData: MetaDataType = {
       render: {
         componentType: "textField",
       },
-      name: "acctHoldrName",
+      name: "acctHolderName",
       type: "text",
       label: "Account Holder Name",
       placeholder: "A/C holder name",
@@ -525,10 +522,10 @@ export const becomePartnerMetaData: MetaDataType = {
       type: "text",
       label: "GST No",
       placeholder: "Enter GST number",
-      required: true,
+      // required: true,
       defaultValue: "",
       //@ts-ignore
-      validate: "getValidateValue",
+      // validate: "getValidateValue",
       runPostValidationHookAlways: true,
       //need to move in LOS
       //@ts-ignore
@@ -550,9 +547,9 @@ export const becomePartnerMetaData: MetaDataType = {
       type: "text",
       label: "Company Name",
       placeholder: "Company Name",
-      required: true,
+      // required: true,
       //@ts-ignore
-      validate: "getValidateValue",
+      // validate: "getValidateValue",
       GridProps: {
         xs: 12,
         md: 3,
@@ -597,7 +594,7 @@ export const becomePartnerMetaData: MetaDataType = {
       render: {
         componentType: "select",
       },
-      name: "educationQualifi",
+      name: "educationQualification",
       label: "Education Qualification",
       placeholder: "Education qualification",
       required: true,
@@ -637,7 +634,7 @@ export const becomePartnerMetaData: MetaDataType = {
       render: {
         componentType: "select",
       },
-      name: "primaryBusiIntrest",
+      name: "primaryBussInt",
       label: "Primary Business Interest",
       placeholder: "Primary business interest",
       required: true,
@@ -755,7 +752,7 @@ export const becomePartnerMetaData: MetaDataType = {
         //@ts-ignore
         componentType: "dob",
       },
-      name: "nomiBirthDate",
+      name: "nomineeBirthDate",
       label: "Date of Birth",
       required: true,
       placeholder: "dd/mm/yyyy",
@@ -773,7 +770,7 @@ export const becomePartnerMetaData: MetaDataType = {
       render: {
         componentType: "select",
       },
-      name: "nomiRelation",
+      name: "nomineeRelation",
       label: "Relationship",
       placeholder: "relationship with nominee",
       required: true,

@@ -58,7 +58,10 @@ export const generateDocumentDownloadURL = (moduleType, docUUID) => {
   ).href;
 };
 
-export const reSendMessage = async ({ requestType, transactionID }) => {
+export const reSendVerificationMessage = async ({
+  requestType,
+  transactionID,
+}) => {
   let currentURL: any = undefined;
   currentURL =
     requestType === "CREDIT"
@@ -67,6 +70,65 @@ export const reSendMessage = async ({ requestType, transactionID }) => {
       ? "./lead/external/mobile-verification/link/resend"
       : requestType === "EMAIL-VERIFY"
       ? "./lead/external/email-verification/link/resend"
+      : undefined;
+  if (currentURL === undefined) {
+    throw { error_msg: "Invalid API Type" };
+  }
+  const { data, status } = await LOSSDK.internalFetcher(currentURL, {
+    body: JSON.stringify({
+      request_data: {
+        transactionID: transactionID,
+      },
+      channel: "W",
+    }),
+  });
+  if (status === "success") {
+    return data?.response_data;
+  } else {
+    throw data?.error_data;
+  }
+};
+
+export const reInitiateVerificationAPI = async ({
+  requestType,
+  transactionID,
+}) => {
+  let currentURL: any = undefined;
+  currentURL =
+    requestType === "EMAIL-VERIFY"
+      ? "./lead/external/otp/email/re-initiate"
+      : requestType === "MOBILE-VERIFY"
+      ? "./lead/external/otp/mobile/re-initiate"
+      : requestType === "CREDIT"
+      ? "./lead/external/equifax/request/re-initiate"
+      : undefined;
+  if (currentURL === undefined) {
+    throw { error_msg: "Invalid API Type" };
+  }
+  const { data, status } = await LOSSDK.internalFetcher(currentURL, {
+    body: JSON.stringify({
+      request_data: {
+        transactionID: transactionID,
+      },
+      channel: "W",
+    }),
+  });
+  if (status === "success") {
+    return data?.response_data;
+  } else {
+    throw data?.error_data;
+  }
+};
+
+export const expireLink = async ({ requestType, transactionID }) => {
+  let currentURL: any = undefined;
+  currentURL =
+    requestType === "EMAIL-VERIFY"
+      ? "./lead/external/email/token/expire"
+      : requestType === "MOBILE-VERIFY"
+      ? "./lead/external/mobile/token/expire"
+      : requestType === "CREDIT"
+      ? "./lead/external/equifax/token/expire"
       : undefined;
   if (currentURL === undefined) {
     throw { error_msg: "Invalid API Type" };

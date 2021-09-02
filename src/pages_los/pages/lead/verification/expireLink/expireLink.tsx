@@ -1,21 +1,21 @@
 import { useEffect } from "react";
 import { useSnackbar } from "notistack";
 import { useMutation } from "react-query";
-import { reSendVerificationMessage } from "../api";
+import { expireLink } from "../api";
 
-interface ResendSMSAPIType {
+interface ExpireLinkType {
   requestType: any;
   transactionID: any;
 }
 
-const ReSendSmsAPIWrapper = (resendMsgAPI) => async ({
+const ExpireLinkWrapper = (expireLink) => async ({
   requestType,
   transactionID,
-}: ResendSMSAPIType) => {
-  return resendMsgAPI({ requestType, transactionID });
+}: ExpireLinkType) => {
+  return expireLink({ requestType, transactionID });
 };
 
-export const ResendMessage = ({
+export const ExpireLink = ({
   moduleType,
   closeDialog,
   row,
@@ -29,7 +29,7 @@ export const ResendMessage = ({
     mutation.mutate({ requestType, transactionID });
   }, [requestType, transactionID]);
 
-  const mutation = useMutation(ReSendSmsAPIWrapper(reSendVerificationMessage), {
+  const mutation = useMutation(ExpireLinkWrapper(expireLink), {
     onError: (error: any) => {
       let errorMsg = "Unknown Error occured";
       if (typeof error === "object") {
@@ -41,7 +41,7 @@ export const ResendMessage = ({
     },
     onSuccess: (data) => {
       isDataChangedRef.current = true;
-      enqueueSnackbar("SMS has been Re-send", {
+      enqueueSnackbar("Link has been expired", {
         variant: "success",
       });
       closeDialog();

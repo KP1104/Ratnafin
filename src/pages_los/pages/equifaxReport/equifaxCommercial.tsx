@@ -1,5 +1,6 @@
 import { useQuery } from "react-query";
 import loaderGif from "assets/images/loader.gif";
+import { useParams } from "react-router-dom";
 import { EntityNameDetails } from "./commercial/entityName";
 import { EntityDetails } from "./commercial/entityDetails";
 import { DerogatoryDetails } from "./commercial/derogatoryDetails";
@@ -9,9 +10,8 @@ import { MiddlewareSDK } from "registry/fns/middleware";
 import { Enquiry } from "./commercial/enquiries";
 import "./commercial/style.css";
 
-const tokenID = "C3ECF0CE052775C3E05500000000000104062021012914";
-
 export const CommercialReport = () => {
+  const { tokenID } = useParams();
   const result = useQuery(["getMandateFormData", tokenID], () =>
     MiddlewareSDK.getEqifaxReportData({ tokenID })
   );
@@ -27,6 +27,7 @@ export const CommercialReport = () => {
         severityGrid={data?.severityGrid}
         creditScore={data?.equifaxScoresCommercial}
         overallCreditSummary={data?.overallCreditSummary}
+        entityName={data?.entityName}
       />
       <EntityDetails
         header={data?.header}

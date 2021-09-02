@@ -1,82 +1,116 @@
-import CircularProgress from "@material-ui/core/CircularProgress";
-import { useMutation } from "react-query";
-import { useSnackbar } from "notistack";
-import Button from "@material-ui/core/Button";
-import FormWrapper, { MetaDataType } from "components/dyanmicForm";
-import { SubmitFnType } from "packages/form";
-import { becomePartnerMetaData } from "./metadata/form";
+import { Fragment, useState, useEffect, useContext, useRef } from "react";
+import Dialog from "@material-ui/core/Dialog";
+import { useQuery } from "react-query";
+import { ClearCacheProvider, ClearCacheContext, queryClient } from "cache";
+import { InvalidAction } from "pages_los/common/invalidAction";
+import { AddPartner, UpdatePartnerDetails } from "./partnerAddEdit";
+import { ActionTypes } from "components/dataTable";
+import { GridMetaDataType } from "components/dataTable/types";
+import GridWrapper from "components/dataTableStatic";
+import { DocumentGridCRUD } from "./docUpload";
+import { partnerGridMetaData } from "./metadata";
 import * as API from "./api";
 
-interface BecomePartnerFormProps {
-  data: object;
-  displayData?: object;
-  endSubmit?: any;
-  setFieldError?: any;
-}
+const actions: ActionTypes[] = [
+  {
+    actionName: "AddPartner",
+    actionLabel: "Add Partner",
+    multiple: undefined,
+    rowDoubleClick: false,
+    alwaysAvailable: true,
+  },
+  {
+    actionName: "editDetails",
+    actionLabel: "Edit",
+    multiple: false,
+    rowDoubleClick: true,
+  },
+  {
+    actionName: "Document",
+    actionLabel: "Document Details",
+    multiple: false,
+    rowDoubleClick: false,
+  },
+];
 
-const partnerFormDataFnWrapper = (partnerFn) => async ({
-  data,
-}: BecomePartnerFormProps) => {
-  return partnerFn(data);
-};
-
-const BecomePartnerForm = ({ metaData }) => {
-  const { enqueueSnackbar } = useSnackbar();
-
-  const mutation = useMutation(
-    partnerFormDataFnWrapper(API.submitBecomePartnerData()),
-    {
-      onError: (error: any, { endSubmit }) => {
-        let errorMsg = "Unknown Error occured";
-        if (typeof error === "object") {
-          errorMsg = error?.error_msg ?? errorMsg;
-        }
-        endSubmit(false, errorMsg, error?.error_details ?? "");
-      },
-      onSuccess: (data, { endSubmit }) => {
-        endSubmit(true, "");
-        enqueueSnackbar("Task Assign Successfully", {
-          variant: "success",
-        });
-      },
+export const BecomePartner = () => {
+  const [currentAction, setCurrentAction] = useState<null | any>(null);
+  const isDataChangedRef = useRef(false);
+  const myGridRef = useRef<any>(null);
+  const handleDialogClose = () => {
+    setCurrentAction(null);
+    if (isDataChangedRef.current === true) {
+      isDataChangedRef.current = true;
+      myGridRef?.current?.fetchData?.();
+      isDataChangedRef.current = false;
     }
-  );
-
-  const onSubmitHandler: SubmitFnType = (
-    data,
-    displayData,
-    endSubmit,
-    setFieldError
-  ) => {
-    mutation.mutate({ data, displayData, endSubmit, setFieldError });
   };
+  useEffect(() => {
+    return () => {
+      queryClient.removeQueries(["getPartnerGridData"]);
+    };
+  }, []);
+
+  const result = useQuery<any, any>(["getPartnerGridData"], () =>
+    API.getPartnerGridData()
+  );
 
   return (
-    <FormWrapper
-      key="becomePartner"
-      metaData={becomePartnerMetaData as MetaDataType}
-      initialValues={""}
-      onSubmitHandler={onSubmitHandler}
-      displayMode={"new"}
-      hideDisplayModeInTitle={true}
-    >
-      {({ isSubmitting, handleSubmit }) => {
-        return (
-          <>
-            <Button
-              onClick={handleSubmit}
-              disabled={isSubmitting}
-              endIcon={isSubmitting ? <CircularProgress size={20} /> : null}
-            >
-              Save
-            </Button>
-          </>
-        );
-      }}
-    </FormWrapper>
+    <Fragment>
+      <GridWrapper
+        key={`externalAPIGridStatusListing`}
+        finalMetaData={partnerGridMetaData as GridMetaDataType}
+        data={result.data ?? []}
+        setData={() => null}
+        loading={result.isLoading || result.isFetching}
+        actions={actions}
+        setAction={setCurrentAction}
+      />
+      <ClearCacheProvider>
+        <Dialog open={Boolean(currentAction)} fullScreen>
+          <PartnerActions
+            currentAction={currentAction}
+            handleDialogClose={handleDialogClose}
+            isDataChangedRef={isDataChangedRef}
+          />
+        </Dialog>
+      </ClearCacheProvider>
+    </Fragment>
   );
 };
 
-export const BecomePartnerFormWrapper = () => {
-  return <BecomePartnerForm metaData={becomePartnerMetaData} />;
+const PartnerActions = ({
+  currentAction,
+  handleDialogClose,
+  isDataChangedRef,
+}) => {
+  const removeCache = useContext(ClearCacheContext);
+  useEffect(() => {
+    return () => {
+      let entries = removeCache?.getEntries() as any[];
+      entries.forEach((one) => {
+        queryClient.removeQueries(one);
+      });
+    };
+  }, [removeCache]);
+  return (currentAction?.name ?? "") === "AddPartner" ? (
+    <AddPartner
+      isDataChangedRef={isDataChangedRef}
+      closeDialog={handleDialogClose}
+    />
+  ) : (currentAction?.name ?? "") === "editDetails" ? (
+    <UpdatePartnerDetails
+      defaultView="view"
+      isDataChangedRef={isDataChangedRef}
+      closeDialog={handleDialogClose}
+      tranCD={currentAction?.rows[0].id}
+    />
+  ) : (currentAction?.name ?? "") === "Document" ? (
+    <DocumentGridCRUD
+      tranCD={currentAction?.rows[0].id}
+      closeDialog={handleDialogClose}
+    />
+  ) : (
+    <InvalidAction closeDialog={handleDialogClose} />
+  );
 };

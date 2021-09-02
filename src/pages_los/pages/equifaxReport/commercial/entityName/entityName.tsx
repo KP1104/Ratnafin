@@ -6,6 +6,7 @@ export const EntityNameDetails = ({
   severityGrid,
   creditScore,
   overallCreditSummary,
+  entityName,
 }) => {
   return (
     <article id="cover">
@@ -15,6 +16,7 @@ export const EntityNameDetails = ({
         severityGrid={severityGrid}
         creditScore={creditScore}
         overallCreditSummary={overallCreditSummary}
+        entityName={entityName}
       />
     </article>
   );

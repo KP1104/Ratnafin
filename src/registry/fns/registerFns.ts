@@ -51,6 +51,7 @@ registerFn("getKYCDocTypeLegal", miscSDK.getMiscVal("KYC_DOC_TYPE_CO"));
 registerFn("getOtherDocType", miscSDK.getMiscVal("OTHER_DOC_TYPE"));
 registerFn("getGSTDocType", miscSDK.getMiscVal("GST_DOC_TYPE"));
 registerFn("getGSTDocTypeOther", miscSDK.getMiscVal("GST_DOC_TYPE_O"));
+registerFn("getPartnerDocType", miscSDK.getMiscVal("PARTN_DOC_TYPE"));
 registerFn("getLeadStage", miscSDK.getMiscVal("LEAD_STAGE"));
 registerFn("getNomineeRelation", miscSDK.getMiscVal("NOMINI_RELATION"));
 registerFn("getSMEDepartment", miscSDK.getMiscVal("SME_DEPARTMENT"));

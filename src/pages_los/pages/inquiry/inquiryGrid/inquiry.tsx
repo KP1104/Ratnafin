@@ -1,4 +1,4 @@
-import { useRef, Fragment, useCallback } from "react";
+import { useRef, Fragment, useCallback, lazy } from "react";
 import {
   ServerGrid,
   ServerGridContextProvider,
@@ -13,6 +13,7 @@ import { PriorityWrapper } from "../priority";
 import { MoveToLeadWrapper } from "../moveToLead";
 import { EligibilityCalculatorWrapper } from "../eligibilityCalculator";
 import { Routes, Route, useNavigate } from "react-router-dom";
+import { DocumentUploadWrapper } from "../documentUpload";
 
 export const Inquiry = ({ gridCode, actions }) => {
   let navigate = useNavigate();
@@ -98,6 +99,12 @@ export const Inquiry = ({ gridCode, actions }) => {
           </Route>
           <Route path="/calculator">
             <EligibilityCalculatorWrapper closeDialog={handleDialogClose} />
+          </Route>
+          <Route path="/documentUpload">
+            <DocumentUploadWrapper
+              moduleType="inquiry"
+              closeDialog={handleDialogClose}
+            />
           </Route>
         </Routes>
       </ClearCacheProvider>
