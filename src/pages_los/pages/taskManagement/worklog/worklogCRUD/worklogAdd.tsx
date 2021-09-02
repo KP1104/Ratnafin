@@ -6,6 +6,10 @@ import { useMutation } from "react-query";
 import { useSnackbar } from "notistack";
 import { worklogFormMetaData } from "../metadata";
 import * as API from "./api";
+import { useState } from "react";
+import { cloneDeep } from "lodash-es";
+import Drawer from "@material-ui/core/Drawer";
+import { Typography } from "@material-ui/core";
 
 interface AddWorkLogFormDataFnType {
   data: object;
@@ -20,8 +24,9 @@ const addWorklogFormDataFnWrapper = (insertWorkLogDataFn) => async ({
   return insertWorkLogDataFn(data);
 };
 
-export const WorklogAdd = ({ moduleType, isDataChangedRef, closeDialog }) => {
+export const WorklogAdd = ({ moduleType, closeDialog, refetchData }) => {
   const { enqueueSnackbar } = useSnackbar();
+  const [odd, setOdd] = useState(1);
 
   const mutation = useMutation(
     addWorklogFormDataFnWrapper(API.insertWorkLogData({ moduleType })),
@@ -33,13 +38,15 @@ export const WorklogAdd = ({ moduleType, isDataChangedRef, closeDialog }) => {
         }
         endSubmit(false, errorMsg, error?.error_details ?? "");
       },
-      onSuccess: (data, { endSubmit }) => {
+      onSuccess: (result, { endSubmit }) => {
         endSubmit(true, "");
-        isDataChangedRef.current = true;
         enqueueSnackbar("Worklog Added Successfully", {
           variant: "success",
         });
-        closeDialog();
+        setOdd((old) => {
+          return old + 1;
+        });
+        typeof refetchData === "function" && refetchData();
       },
     }
   );
@@ -52,11 +59,15 @@ export const WorklogAdd = ({ moduleType, isDataChangedRef, closeDialog }) => {
   ) => {
     mutation.mutate({ data, displayData, endSubmit, setFieldError });
   };
+  let oddMetaData = cloneDeep(worklogFormMetaData);
+  let evenMetaData = cloneDeep(worklogFormMetaData);
+  oddMetaData.form.name = "worklogFormOdd";
+  evenMetaData.form.name = "worklogFormEven";
 
-  return (
+  return odd % 2 ? (
     <FormWrapper
-      key="worklog"
-      metaData={worklogFormMetaData as MetaDataType}
+      key="worklog-odd"
+      metaData={oddMetaData as MetaDataType}
       initialValues={""}
       onSubmitHandler={onSubmitHandler}
       displayMode={"new"}
@@ -78,12 +89,66 @@ export const WorklogAdd = ({ moduleType, isDataChangedRef, closeDialog }) => {
             >
               Save
             </Button>
-            <Button onClick={closeDialog} disabled={isSubmitting}>
-              Cancel
+          </>
+        );
+      }}
+    </FormWrapper>
+  ) : (
+    <FormWrapper
+      key="worklog-even"
+      metaData={evenMetaData as MetaDataType}
+      initialValues={""}
+      onSubmitHandler={onSubmitHandler}
+      displayMode={"new"}
+      hideDisplayModeInTitle={true}
+      controlsAtBottom={true}
+      formStyle={{
+        background: "white",
+        overflowY: "auto",
+        overflowX: "hidden",
+      }}
+    >
+      {({ isSubmitting, handleSubmit }) => {
+        return (
+          <>
+            <Button
+              onClick={handleSubmit}
+              disabled={isSubmitting}
+              endIcon={isSubmitting ? <CircularProgress size={20} /> : null}
+            >
+              Save
             </Button>
           </>
         );
       }}
     </FormWrapper>
+  );
+};
+
+export const WorklogAddWrapper = ({ handleDialogClose, refetchData }) => {
+  return (
+    <Drawer
+      open={true}
+      anchor="right"
+      variant="temporary"
+      PaperProps={{
+        style: { maxWidth: "465px" },
+      }}
+      onClose={handleDialogClose}
+    >
+      <WorklogAdd
+        moduleType="worklog"
+        closeDialog={handleDialogClose}
+        refetchData={refetchData}
+      />
+      <Typography
+        variant="subtitle2"
+        component="i"
+        style={{ padding: "8px 24px" }}
+      >
+        Note : You can keep adding worklogs and when you want to exit just click
+        outside this form
+      </Typography>
+    </Drawer>
   );
 };

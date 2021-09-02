@@ -45,6 +45,7 @@ export const DataGrid = forwardRef<any, any>(
       dense,
       columns,
       defaultColumn,
+      setData,
       data,
       onFetchData,
       loading,
@@ -207,6 +208,7 @@ export const DataGrid = forwardRef<any, any>(
     useImperativeHandle(ref, () => ({
       fetchData: () =>
         onFetchDataDebounced({ pageIndex, pageSize, sortBy, filters }),
+      setData: setData,
     }));
 
     const handleChangePage = (_, newPage) => {

@@ -103,6 +103,7 @@ export const GirdController = forwardRef<GridControllerType, any>(
         defaultSortOrder={myDefaultSortOrder}
         loading={loading}
         data={data}
+        setData={setData}
         onFetchData={fetchData}
         pageCount={pageCount}
         totalRecords={totalRecords}

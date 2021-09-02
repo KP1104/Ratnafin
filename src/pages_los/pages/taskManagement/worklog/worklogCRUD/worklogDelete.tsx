@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import { Alert } from "components/common/alert";
 import DialogContent from "@material-ui/core/DialogContent";
 import * as API from "./api";
+import Dialog from "@material-ui/core/Dialog";
 
 interface DeleteFormDataType {
   worklogID?: string;
@@ -17,7 +18,7 @@ const DeleteFormDataFnWrapper = (deleteFormData) => async ({
   return deleteFormData(worklogID);
 };
 
-export const DeleteAction = ({
+export const WorklogDelete = ({
   isDataChangedRef,
   closeDialog,
   worklogID,
@@ -79,5 +80,22 @@ export const DeleteAction = ({
         </DialogActions>
       )}
     </Fragment>
+  );
+};
+
+export const WorklogDeleteWrapper = ({
+  handleDialogClose,
+  isDataChangedRef,
+  currentAction,
+}) => {
+  return (
+    <Dialog open={true} maxWidth="sm">
+      <WorklogDelete
+        worklogID={currentAction?.rows.map((one) => one.id)}
+        moduleType="worklog"
+        closeDialog={handleDialogClose}
+        isDataChangedRef={isDataChangedRef}
+      />
+    </Dialog>
   );
 };

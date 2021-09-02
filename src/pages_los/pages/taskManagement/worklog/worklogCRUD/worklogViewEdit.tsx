@@ -12,6 +12,8 @@ import { useSnackbar } from "notistack";
 import { cloneDeep } from "lodash-es";
 import * as API from "./api";
 import { worklogFormMetaData } from "../metadata";
+import { useDialogStyles } from "pages_los/common/dialogStyles";
+import Dialog from "@material-ui/core/Dialog";
 
 interface updateWorklogDataType {
   data: object;
@@ -202,4 +204,32 @@ export const WorklogViewEdit: FC<{
     </FormWrapper>
   ) : null;
   return renderResult;
+};
+
+export const WorklogViewEditWrapper = ({
+  handleDialogClose,
+  isDataChangedRef,
+  currentAction,
+}) => {
+  const classes = useDialogStyles();
+  return (
+    <Dialog
+      open={true}
+      maxWidth="sm"
+      classes={{
+        scrollBody: classes.topPaperScrollBody,
+        scrollPaper: classes.topScrollPaper,
+      }}
+      style={{ width: "100%", minHeight: "20vh" }}
+    >
+      <WorklogViewEdit
+        serialNo={currentAction?.rows[0]?.id}
+        moduleType="worklog"
+        isDataChangedRef={isDataChangedRef}
+        closeDialog={handleDialogClose}
+        readOnly={false}
+        disableCache={false}
+      />
+    </Dialog>
+  );
 };

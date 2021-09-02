@@ -1,18 +1,17 @@
 import { useState, useRef, Fragment, useContext, useEffect } from "react";
 import { ActionTypes } from "components/dataTable";
-import Dialog from "@material-ui/core/Dialog";
 import {
   ServerGrid,
   ServerGridContextProvider,
 } from "pages_los/common/serverGrid";
 import { ClearCacheProvider, ClearCacheContext, queryClient } from "cache";
 import { serverGridContextGenerator } from "../context";
-import { WorklogAdd } from "./worklogCRUD";
-import { WorklogViewEdit } from "./worklogCRUD/worklogViewEdit";
-import { DeleteAction } from "./worklogCRUD/worklogDelete";
-import { InvalidAction } from "pages_los/common/invalidAction";
+import {
+  WorklogAddWrapper,
+  WorklogViewEditWrapper,
+  WorklogDeleteWrapper,
+} from "./worklogCRUD";
 import dateFormat from "date-fns/format";
-import { useDialogStyles } from "pages_los/common/dialogStyles";
 
 const actions: ActionTypes[] = [
   {
@@ -48,7 +47,15 @@ export const Worklog = ({ gridCode, actions }) => {
       isDataChangedRef.current = false;
     }
   };
-  const classes = useDialogStyles();
+  const removeCache = useContext(ClearCacheContext);
+  useEffect(() => {
+    return () => {
+      let entries = removeCache?.getEntries() as any[];
+      entries.forEach((one) => {
+        queryClient.removeQueries(one);
+      });
+    };
+  }, [removeCache]);
 
   return (
     <Fragment>
@@ -72,22 +79,12 @@ export const Worklog = ({ gridCode, actions }) => {
           ]}
         />
       </ServerGridContextProvider>
-      <Dialog
-        open={Boolean(currentAction)}
-        maxWidth="sm"
-        classes={{
-          scrollBody: classes.topPaperScrollBody,
-          scrollPaper: classes.topScrollPaper,
-        }}
-      >
-        <ClearCacheProvider>
-          <WorkLogActionSelector
-            currentAction={currentAction}
-            isDataChangedRef={isDataChangedRef}
-            handleDialogClose={handleDialogClose}
-          />
-        </ClearCacheProvider>
-      </Dialog>
+      <WorkLogActionSelector
+        refetchData={myGridRef?.current?.fetchData}
+        currentAction={currentAction}
+        isDataChangedRef={isDataChangedRef}
+        handleDialogClose={handleDialogClose}
+      />
     </Fragment>
   );
 };
@@ -96,49 +93,32 @@ const WorkLogActionSelector = ({
   currentAction,
   isDataChangedRef,
   handleDialogClose,
+  refetchData,
 }) => {
-  const removeCache = useContext(ClearCacheContext);
-  useEffect(() => {
-    return () => {
-      let entries = removeCache?.getEntries() as any[];
-      entries.forEach((one) => {
-        queryClient.removeQueries(one);
-      });
-    };
-  }, [removeCache]);
   return (currentAction?.name ?? "") === "AddWorklog" ? (
-    <Fragment>
-      <WorklogAdd
-        moduleType="worklog"
-        isDataChangedRef={isDataChangedRef}
-        closeDialog={handleDialogClose}
-      />
-    </Fragment>
+    <WorklogAddWrapper
+      handleDialogClose={handleDialogClose}
+      refetchData={refetchData}
+    />
   ) : (currentAction?.name ?? "") === "ViewDetails" ? (
-    <Fragment>
-      <WorklogViewEdit
-        serialNo={currentAction?.rows[0]?.id}
-        moduleType="worklog"
-        isDataChangedRef={isDataChangedRef}
-        closeDialog={handleDialogClose}
-        readOnly={false}
-        disableCache={false}
-      />
-    </Fragment>
+    <WorklogViewEditWrapper
+      currentAction={currentAction}
+      isDataChangedRef={isDataChangedRef}
+      handleDialogClose={handleDialogClose}
+    />
   ) : (currentAction?.name ?? "") === "Delete" ? (
-    <Fragment>
-      <DeleteAction
-        worklogID={currentAction?.rows.map((one) => one.id)}
-        moduleType="worklog"
-        closeDialog={handleDialogClose}
-        isDataChangedRef={isDataChangedRef}
-      />
-    </Fragment>
-  ) : (
-    <InvalidAction closeDialog={handleDialogClose} />
-  );
+    <WorklogDeleteWrapper
+      currentAction={currentAction}
+      handleDialogClose={handleDialogClose}
+      isDataChangedRef={isDataChangedRef}
+    />
+  ) : null;
 };
 
 export const WorklogWrapper = () => {
-  return <Worklog gridCode="TRN/014" actions={actions} />;
+  return (
+    <ClearCacheProvider>
+      <Worklog gridCode="TRN/014" actions={actions} />;
+    </ClearCacheProvider>
+  );
 };
