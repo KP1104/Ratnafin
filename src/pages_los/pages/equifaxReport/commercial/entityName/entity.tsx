@@ -1,10 +1,15 @@
 import { EntityYearWiseDesc } from "./entityYearWiseDesc";
 import { EquifaxScoreCredit } from "../equifaxScoreCreditSummary";
 
-export const Entity = ({ severityGrid, creditScore, overallCreditSummary }) => {
+export const Entity = ({
+  severityGrid,
+  creditScore,
+  overallCreditSummary,
+  entityName,
+}) => {
   return (
     <div className="middle-top-part-sec">
-      <EntityNameLabel />
+      <EntityNameLabel entityName={entityName} />
       <hr />
       <EntityYearWiseDesc severityGrid={severityGrid} />
       <EquifaxScoreCredit
@@ -15,14 +20,14 @@ export const Entity = ({ severityGrid, creditScore, overallCreditSummary }) => {
   );
 };
 
-export const EntityNameLabel = () => {
+export const EntityNameLabel = ({ entityName }) => {
   return (
     <div className="entity-part">
       <ul>
         <li>
-          <strong>Entity Name : </strong>
+          <strong>Entity Name : {entityName} </strong>
         </li>
-        <li>(Last updated on:)</li>
+        <li></li>
       </ul>
     </div>
   );

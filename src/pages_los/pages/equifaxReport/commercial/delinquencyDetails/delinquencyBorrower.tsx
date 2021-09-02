@@ -11,7 +11,7 @@ export const DelinquencyBorrower = ({ borrowerDelinquency = {} }) => {
   return (
     <>
       <h2>
-        <strong>4</strong>Delinquency Summry
+        <strong>4</strong>Delinquency Summary
       </h2>
       <p style={{ textAlign: "right" }}>*Based on last 48 months data.</p>
       <h2>

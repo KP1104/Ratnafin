@@ -34,7 +34,7 @@ export const Header = ({ header }) => {
             {header?.reportTime}
           </li>
           <li>
-            <strong>Tran ID:</strong>271211
+            <strong>Tran ID:</strong>
           </li>
         </ul>
       </div>
