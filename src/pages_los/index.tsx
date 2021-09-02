@@ -17,7 +17,7 @@ import {
   IncomingInquiry,
   UnmappedInqiry,
 } from "pages_los/pages/inquiry";
-import { BecomePartnerFormWrapper } from "pages_los/pages/partner";
+import { BecomePartner } from "pages_los/pages/partner";
 import {
   MandateLeads,
   BankLoginLeads,
@@ -80,7 +80,7 @@ const DashbordPages = () => {
               path="/inquiry/unmappedInquiries"
               element={<UnmappedInqiry />}
             />
-            <Route path="/partner" element={<BecomePartnerFormWrapper />} />
+            <Route path="/partner" element={<BecomePartner />} />
 
             <Route path="/lead/details/*" element={<Leads />} />
             <Route path="/lead/mandate/*" element={<MandateLeads />} />

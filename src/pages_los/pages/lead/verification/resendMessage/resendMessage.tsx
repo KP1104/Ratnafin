@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSnackbar } from "notistack";
 import { useMutation } from "react-query";
-import { reSendMessage } from "../api";
+import { reSendVerificationMessage } from "../api";
 
 interface ResendSMSAPIType {
   requestType: any;
@@ -15,7 +15,12 @@ const ReSendSmsAPIWrapper = (resendMsgAPI) => async ({
   return resendMsgAPI({ requestType, transactionID });
 };
 
-export const ResendMessage = ({ moduleType, closeDialog, row }) => {
+export const ResendMessage = ({
+  moduleType,
+  closeDialog,
+  row,
+  isDataChangedRef,
+}) => {
   const { enqueueSnackbar } = useSnackbar();
   const requestType = row?.data?.requestType;
   const transactionID = row?.data?.tokenID;
@@ -24,7 +29,7 @@ export const ResendMessage = ({ moduleType, closeDialog, row }) => {
     mutation.mutate({ requestType, transactionID });
   }, [requestType, transactionID]);
 
-  const mutation = useMutation(ReSendSmsAPIWrapper(reSendMessage), {
+  const mutation = useMutation(ReSendSmsAPIWrapper(reSendVerificationMessage), {
     onError: (error: any) => {
       let errorMsg = "Unknown Error occured";
       if (typeof error === "object") {
@@ -35,6 +40,7 @@ export const ResendMessage = ({ moduleType, closeDialog, row }) => {
       closeDialog();
     },
     onSuccess: (data) => {
+      isDataChangedRef.current = true;
       enqueueSnackbar("SMS has been Re-send", {
         variant: "success",
       });
