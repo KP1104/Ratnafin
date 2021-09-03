@@ -1,16 +1,17 @@
 import { useQuery } from "react-query";
 import loaderGif from "assets/images/loader.gif";
 import { useParams } from "react-router-dom";
-import { EntityNameDetails } from "./commercial/entityName";
-import { EntityDetails } from "./commercial/entityDetails";
-import { DerogatoryDetails } from "./commercial/derogatoryDetails";
-import { CreditFacilitySummary } from "./commercial/creditFacilitySummary";
-import { GlossaryTermsExplanation } from "./commercial/glossaryTermsExplanation";
+import { EntityNameDetails } from "./entityName";
+import { EntityDetails } from "./entityDetails";
+import { DerogatoryDetails } from "./derogatoryDetails";
+import { CreditFacilitySummary } from "./creditFacilitySummary";
+import { GlossaryTermsExplanation } from "./glossaryTermsExplanation";
+import { Enquiry } from "./enquiries";
 import { MiddlewareSDK } from "registry/fns/middleware";
-import { Enquiry } from "./commercial/enquiries";
-import "./commercial/style.css";
+import "assets/css/bootstrap.min.css";
+import "./style.css";
 
-export const CommercialReport = () => {
+export const CommercialEquifaxReport = () => {
   const { tokenID } = useParams();
   const result = useQuery(["getMandateFormData", tokenID], () =>
     MiddlewareSDK.getEqifaxReportData({ tokenID })

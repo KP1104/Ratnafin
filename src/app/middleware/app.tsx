@@ -12,14 +12,12 @@ const CAMMiddlewareWrapper = lazy(() =>
   }))
 );
 
-const Mandate = lazy(() =>
-  import("./mandate/").then((module) => ({
-    default: module.Mandate,
-  }))
+const IndividualEquifaxReport = lazy(
+  () => import("./equifaxReport/individual")
 );
-
-const Credit = lazy(() => import("./creditReport"));
-const CreditCommercial = lazy(() => import("./creditCommercial"));
+const CommercialEquifaxReport = lazy(
+  () => import("./equifaxReport/commercial")
+);
 
 MiddlewareSDK.inititateAPI(
   `${new URL("./middleware/", process.env.REACT_APP_API_URL).href}` ?? ""
@@ -35,11 +33,13 @@ export const App = () => {
       <QueryClientProvider client={queryClient}>
         <Routes>
           <Route path="/lead/:refID" element={<CAMMiddlewareWrapper />} />
-          <Route path="/mandate" element={<Mandate />} />
-          <Route path="/credit/:tokenID" element={<Credit />} />
+          <Route
+            path="/credit/:tokenID"
+            element={<IndividualEquifaxReport />}
+          />
           <Route
             path="/creditCommercial/:tokenID"
-            element={<CreditCommercial />}
+            element={<CommercialEquifaxReport />}
           />
         </Routes>
       </QueryClientProvider>

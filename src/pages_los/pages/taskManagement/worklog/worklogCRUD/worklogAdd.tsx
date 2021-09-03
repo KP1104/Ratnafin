@@ -9,7 +9,7 @@ import * as API from "./api";
 import { useState } from "react";
 import { cloneDeep } from "lodash-es";
 import Drawer from "@material-ui/core/Drawer";
-import { Typography } from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
 
 interface AddWorkLogFormDataFnType {
   data: object;
@@ -147,7 +147,7 @@ export const WorklogAddWrapper = ({ handleDialogClose, refetchData }) => {
         style={{ padding: "8px 24px" }}
       >
         Note : You can keep adding worklogs and when you want to exit just click
-        outside this form
+        outside this form or press <i>ESC</i>
       </Typography>
     </Drawer>
   );

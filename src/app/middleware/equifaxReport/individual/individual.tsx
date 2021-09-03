@@ -1,14 +1,15 @@
 import { useQuery } from "react-query";
 import loaderGif from "assets/images/loader.gif";
 import { useParams } from "react-router-dom";
-import { AccountsInfo } from "./components/accountsInfo";
-import { PersonalInfo } from "./components/personalInfo";
-import { EnquiryInfo } from "./components/enquiryInfo";
-import { GlossaryTermsExplanation } from "./components/glossaryTermExplanation";
+import { AccountsInfo } from "./accountsInfo";
+import { PersonalInfo } from "./personalInfo";
+import { EnquiryInfo } from "./enquiryInfo";
+import { GlossaryTermsExplanation } from "./glossaryTermExplanation";
 import { MiddlewareSDK } from "registry/fns/middleware";
+import "assets/css/bootstrap.min.css";
 import "./styles.css";
 
-export const EquifaxReportWrapper = () => {
+export const IndividualEquifaxReport = () => {
   const { tokenID } = useParams();
   const result = useQuery(["getMandateFormData", tokenID], () =>
     MiddlewareSDK.getEqifaxReportData({ tokenID })

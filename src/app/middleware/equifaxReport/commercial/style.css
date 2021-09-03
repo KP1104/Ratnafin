@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
 @page {
+  size: A4;
   @top-left {
     background: #fbc847;
     content: counter(page);
