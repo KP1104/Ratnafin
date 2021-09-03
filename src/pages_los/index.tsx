@@ -29,11 +29,13 @@ import { Profile } from "pages_los/pages/profile";
 import { Dashboard } from "pages_los/pages/dashboard";
 import { NewInquiry } from "pages_los/pages/newInquiry";
 import { UserManagement } from "pages_los/pages/config/userManagement";
-import { MyTask, AssignedTask } from "pages_los/pages/taskManagement/task";
-import { Worklog } from "pages_los/pages/taskManagement/worklog";
-import { ColdCalling } from "pages_los/pages/taskManagement/coldCalling";
-import { BankConfigWrapper } from "pages_los/pages/config/bankConfig";
-import { BankMasterWrapper } from "pages_los/pages/config/bankMaster";
+import {
+  MyTask,
+  AssignedTask,
+  Worklog,
+  ColdCalling,
+} from "pages_los/pages/taskManagement";
+import { BankConfigWrapper, BankMasterWrapper } from "pages_los/pages/config";
 import { LeadStagesSMECF, LeadInquiry } from "pages_los/pages/reports";
 import TestForm from "components/dyanmicForm/test";
 import Editor from "components/editor";

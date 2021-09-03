@@ -11,13 +11,12 @@ import { useSnackbar } from "notistack";
 import { cloneDeep } from "lodash-es";
 import { queryClient } from "cache";
 import FormWrapper, { MetaDataType } from "components/dyanmicForm";
-import { ClearCacheProvider, ClearCacheContext } from "cache";
+import { ClearCacheContext } from "cache";
 import { useDialogStyles } from "pages_los/common/dialogStyles";
 import { Transition } from "pages_los/common/transition";
 import { useLocation } from "react-router-dom";
 import { moveToInquiryMetaData } from "./metadata";
-import * as API from "../coldCallingCRUD/api";
-import * as API2 from "./api";
+import * as API from "../api";
 
 interface MoveToInquiryFnDataType {
   data: object;
@@ -54,10 +53,19 @@ const MoveToInquiry: FC<{
   const result = useQuery(["getColdCallingFormData", moduleType, tran_cd], () =>
     API.getColdCallingFormData({ moduleType })(tran_cd)
   );
+  useEffect(() => {
+    return () => {
+      queryClient.removeQueries([
+        "getColdCallingFormData",
+        moduleType,
+        tran_cd,
+      ]);
+    };
+  }, []);
 
   const mutation = useMutation(
     moveToInquiryDataFnWrapper(
-      API2.moveColdCallingToInquiry({ moduleType, tranCD: tran_cd })
+      API.moveColdCallingToInquiry({ moduleType, tranCD: tran_cd })
     ),
     {
       onError: (error: any, { endSubmit }) => {
@@ -166,13 +174,13 @@ const MoveToInquiry: FC<{
   return renderResult;
 };
 
-export const MoveToInquiryWrapper: FC<any> = ({
-  moduleType,
+export const MoveToInquiryWrapper = ({
+  handleDialogClose,
   isDataChangedRef,
-  closeDialog,
-  defaultView,
-  tran_cd,
+  moduleType,
 }) => {
+  const { state: rows }: any = useLocation();
+  const classes = useDialogStyles();
   const removeCache = useContext(ClearCacheContext);
   useEffect(() => {
     return () => {
@@ -180,57 +188,31 @@ export const MoveToInquiryWrapper: FC<any> = ({
       entries.forEach((one) => {
         queryClient.removeQueries(one);
       });
-      queryClient.removeQueries([
-        "getColdCallingFormData",
-        moduleType,
-        tran_cd,
-      ]);
     };
   }, []);
   return (
-    <MoveToInquiry
-      moduleType={moduleType}
-      isDataChangedRef={isDataChangedRef}
-      closeDialog={closeDialog}
-      tran_cd={tran_cd}
-      defaultView={defaultView}
-    />
-  );
-};
-
-export const MoveToInquiryMetaWrapper = ({
-  handleDialogClose,
-  isDataChangedRef,
-  moduleType,
-}) => {
-  const { state: rows }: any = useLocation();
-  const classes = useDialogStyles();
-
-  return (
-    <ClearCacheProvider>
-      <Dialog
-        open={true}
-        //@ts-ignore
-        TransitionComponent={Transition}
-        PaperProps={{
-          style: {
-            width: "100%",
-            minHeight: "20vh",
-          },
-        }}
-        maxWidth="lg"
-        classes={{
-          scrollPaper: classes.topScrollPaper,
-          paperScrollBody: classes.topPaperScrollBody,
-        }}
-      >
-        <MoveToInquiryWrapper
-          moduleType={moduleType}
-          isDataChangedRef={isDataChangedRef}
-          closeDialog={handleDialogClose}
-          tran_cd={rows[0]?.id}
-        />
-      </Dialog>
-    </ClearCacheProvider>
+    <Dialog
+      open={true}
+      //@ts-ignore
+      TransitionComponent={Transition}
+      PaperProps={{
+        style: {
+          width: "100%",
+          minHeight: "20vh",
+        },
+      }}
+      maxWidth="lg"
+      classes={{
+        scrollPaper: classes.topScrollPaper,
+        paperScrollBody: classes.topPaperScrollBody,
+      }}
+    >
+      <MoveToInquiry
+        moduleType={moduleType}
+        isDataChangedRef={isDataChangedRef}
+        closeDialog={handleDialogClose}
+        tran_cd={rows[0]?.id}
+      />
+    </Dialog>
   );
 };

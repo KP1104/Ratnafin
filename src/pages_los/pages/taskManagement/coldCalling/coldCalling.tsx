@@ -6,12 +6,13 @@ import {
 } from "pages_los/common/serverGrid";
 import { serverGridContextGenerator } from "../context";
 import {
-  ColdCallingDeleteMetaWrapper,
-  ColdCallingEditViewMetaWrapper,
-  ColdCallingAddMetaWrapper,
+  ColdCallingDeleteWrapper,
+  ColdCallingEditViewWrapper,
+  ColdCallingAddWrapper,
 } from "./coldCallingCRUD";
-import { MoveToInquiryMetaWrapper } from "./moveToInquiry";
+import { MoveToInquiryWrapper } from "./moveToInquiry";
 import { Routes, Route, useNavigate } from "react-router-dom";
+import { ClearCacheProvider } from "cache";
 
 const actions: ActionTypes[] = [
   {
@@ -71,36 +72,38 @@ export const ColdCalling = ({ gridCode, actions }) => {
           ref={myGridRef}
         />
       </ServerGridContextProvider>
-      <Routes>
-        <Route path="/AddColdCalling">
-          <ColdCallingAddMetaWrapper
-            handleDialogClose={handleDialogClose}
-            moduleType="cold-calling"
-            isDataChangedRef={isDataEditedRef}
-          />
-        </Route>
-        <Route path="/viewDetails">
-          <ColdCallingEditViewMetaWrapper
-            handleDialogClose={handleDialogClose}
-            moduleType="cold-calling"
-            isDataChangedRef={isDataEditedRef}
-          />
-        </Route>
-        <Route path="/delete">
-          <ColdCallingDeleteMetaWrapper
-            handleDialogClose={handleDialogClose}
-            moduleType="cold-calling"
-            isDataChangedRef={isDataEditedRef}
-          />
-        </Route>
-        <Route path="/moveToInquiry">
-          <MoveToInquiryMetaWrapper
-            moduleType="cold-calling"
-            isDataChangedRef={isDataEditedRef}
-            handleDialogClose={handleDialogClose}
-          />
-        </Route>
-      </Routes>
+      <ClearCacheProvider>
+        <Routes>
+          <Route path="/AddColdCalling">
+            <ColdCallingAddWrapper
+              handleDialogClose={handleDialogClose}
+              moduleType="cold-calling"
+              isDataChangedRef={isDataEditedRef}
+            />
+          </Route>
+          <Route path="/viewDetails">
+            <ColdCallingEditViewWrapper
+              handleDialogClose={handleDialogClose}
+              moduleType="cold-calling"
+              isDataChangedRef={isDataEditedRef}
+            />
+          </Route>
+          <Route path="/delete">
+            <ColdCallingDeleteWrapper
+              handleDialogClose={handleDialogClose}
+              moduleType="cold-calling"
+              isDataChangedRef={isDataEditedRef}
+            />
+          </Route>
+          <Route path="/moveToInquiry">
+            <MoveToInquiryWrapper
+              moduleType="cold-calling"
+              isDataChangedRef={isDataEditedRef}
+              handleDialogClose={handleDialogClose}
+            />
+          </Route>
+        </Routes>
+      </ClearCacheProvider>
     </Fragment>
   );
 };

@@ -1,2 +1,3 @@
-export * from "./task/view";
+export * from "./task";
 export * from "./worklog";
+export * from "./coldCalling";

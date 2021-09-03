@@ -6,11 +6,11 @@ import { useSnackbar } from "notistack";
 import Button from "@material-ui/core/Button";
 import { useMutation } from "react-query";
 import FormWrapper, { MetaDataType } from "components/dyanmicForm";
-import { coldCallingMetadata } from "../metadata";
-import { ClearCacheContext, queryClient, ClearCacheProvider } from "cache";
+import { coldCallingMetadata } from "./metadata";
+import { ClearCacheContext, queryClient } from "cache";
 import { useDialogStyles } from "pages_los/common/dialogStyles";
 import { Transition } from "pages_los/common";
-import * as API from "./api";
+import * as API from "../api";
 
 interface ColdCallingFormDataFnType {
   data: object;
@@ -92,10 +92,10 @@ const AddColdCalling = ({ moduleType, isDataChangedRef, closeDialog }) => {
   );
 };
 
-export const ColdCallingAddWrapper: FC<any> = ({
-  moduleType,
+export const ColdCallingAddWrapper = ({
+  handleDialogClose,
   isDataChangedRef,
-  closeDialog,
+  moduleType,
 }) => {
   const removeCache = useContext(ClearCacheContext);
   useEffect(() => {
@@ -106,45 +106,29 @@ export const ColdCallingAddWrapper: FC<any> = ({
       });
     };
   }, []);
-  return (
-    <AddColdCalling
-      moduleType={moduleType}
-      isDataChangedRef={isDataChangedRef}
-      closeDialog={closeDialog}
-    />
-  );
-};
-
-export const ColdCallingAddMetaWrapper = ({
-  handleDialogClose,
-  isDataChangedRef,
-  moduleType,
-}) => {
   const classes = useDialogStyles();
   return (
-    <ClearCacheProvider>
-      <Dialog
-        open={true}
-        //@ts-ignore
-        TransitionComponent={Transition}
-        PaperProps={{
-          style: {
-            width: "100%",
-            minHeight: "20vh",
-          },
-        }}
-        maxWidth="lg"
-        classes={{
-          scrollPaper: classes.topScrollPaper,
-          paperScrollBody: classes.topPaperScrollBody,
-        }}
-      >
-        <ColdCallingAddWrapper
-          moduleType={moduleType}
-          isDataChangedRef={isDataChangedRef}
-          closeDialog={handleDialogClose}
-        />
-      </Dialog>
-    </ClearCacheProvider>
+    <Dialog
+      open={true}
+      //@ts-ignore
+      TransitionComponent={Transition}
+      PaperProps={{
+        style: {
+          width: "100%",
+          minHeight: "20vh",
+        },
+      }}
+      maxWidth="lg"
+      classes={{
+        scrollPaper: classes.topScrollPaper,
+        paperScrollBody: classes.topPaperScrollBody,
+      }}
+    >
+      <AddColdCalling
+        moduleType={moduleType}
+        isDataChangedRef={isDataChangedRef}
+        closeDialog={handleDialogClose}
+      />
+    </Dialog>
   );
 };

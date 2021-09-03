@@ -13,9 +13,9 @@ import { cloneDeep } from "lodash-es";
 import { useLocation } from "react-router-dom";
 import { useDialogStyles } from "pages_los/common/dialogStyles";
 import { Transition } from "pages_los/common/transition";
-import { ClearCacheProvider, ClearCacheContext, queryClient } from "cache";
-import * as API from "./api";
-import { coldCallingMetadata } from "../metadata";
+import { ClearCacheContext, queryClient } from "cache";
+import * as API from "../api";
+import { coldCallingMetadata } from "./metadata";
 
 interface updateColdCallingDataType {
   data: object;
@@ -210,15 +210,13 @@ const ColdCallingViewEdit: FC<{
   return renderResult;
 };
 
-export const ColdCallingEditViewWrapper: FC<any> = ({
-  moduleType,
+export const ColdCallingEditViewWrapper = ({
+  handleDialogClose,
   isDataChangedRef,
-  closeDialog,
-  defaultView,
-  readOnly,
-  setEditFormStateFromInitValues,
-  tran_cd,
+  moduleType,
 }) => {
+  const classes = useDialogStyles();
+  const { state: rows }: any = useLocation();
   const removeCache = useContext(ClearCacheContext);
   useEffect(() => {
     return () => {
@@ -226,59 +224,32 @@ export const ColdCallingEditViewWrapper: FC<any> = ({
       entries.forEach((one) => {
         queryClient.removeQueries(one);
       });
-      queryClient.removeQueries([
-        "getColdCallingFormData",
-        moduleType,
-        tran_cd,
-      ]);
     };
   }, []);
   return (
-    <ColdCallingViewEdit
-      moduleType={moduleType}
-      isDataChangedRef={isDataChangedRef}
-      closeDialog={closeDialog}
-      defaultView={defaultView}
-      setEditFormStateFromInitValues={setEditFormStateFromInitValues}
-      readOnly={readOnly}
-      tran_cd={tran_cd}
-    />
-  );
-};
-
-export const ColdCallingEditViewMetaWrapper = ({
-  handleDialogClose,
-  isDataChangedRef,
-  moduleType,
-}) => {
-  const classes = useDialogStyles();
-  const { state: rows }: any = useLocation();
-  return (
-    <ClearCacheProvider>
-      <Dialog
-        open={true}
-        //@ts-ignore
-        TransitionComponent={Transition}
-        PaperProps={{
-          style: {
-            width: "100%",
-            minHeight: "20vh",
-          },
-        }}
-        maxWidth="lg"
-        classes={{
-          scrollPaper: classes.topScrollPaper,
-          paperScrollBody: classes.topPaperScrollBody,
-        }}
-      >
-        <ColdCallingEditViewWrapper
-          tran_cd={rows[0]?.id}
-          moduleType={moduleType}
-          isDataChangedRef={isDataChangedRef}
-          closeDialog={handleDialogClose}
-          readOnly={false}
-        />
-      </Dialog>
-    </ClearCacheProvider>
+    <Dialog
+      open={true}
+      //@ts-ignore
+      TransitionComponent={Transition}
+      PaperProps={{
+        style: {
+          width: "100%",
+          minHeight: "20vh",
+        },
+      }}
+      maxWidth="lg"
+      classes={{
+        scrollPaper: classes.topScrollPaper,
+        paperScrollBody: classes.topPaperScrollBody,
+      }}
+    >
+      <ColdCallingViewEdit
+        tran_cd={rows[0]?.id}
+        moduleType={moduleType}
+        isDataChangedRef={isDataChangedRef}
+        closeDialog={handleDialogClose}
+        readOnly={false}
+      />
+    </Dialog>
   );
 };

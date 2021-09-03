@@ -3,10 +3,11 @@ import {
   ServerGrid,
   ServerGridContextProvider,
 } from "pages_los/common/serverGrid";
-import { AssignTaskMetaWrapper, ViewEditTaskMetaWrapper } from "./taskCRUD";
+import { AssignTaskWrapper, ViewEditTaskWrapper } from "./taskCRUD";
 import { HistoryMetaWrapper } from "./history";
 import { serverGridContextGenerator } from "../context";
 import { Routes, Route, useNavigate } from "react-router-dom";
+import { ClearCacheProvider } from "cache";
 
 export const Task = ({ gridCode, actions }) => {
   let navigate = useNavigate();
@@ -38,29 +39,31 @@ export const Task = ({ gridCode, actions }) => {
           ref={myGridRef}
         />
       </ServerGridContextProvider>
-      <Routes>
-        <Route path="/AddTask">
-          <AssignTaskMetaWrapper
-            handleDialogClose={handleDialogClose}
-            moduleType="task"
-            isDataChangedRef={isDataEditedRef}
-          />
-        </Route>
-        <Route path="/ViewDetails">
-          <ViewEditTaskMetaWrapper
-            handleDialogClose={handleDialogClose}
-            moduleType="task"
-            isDataChangedRef={isDataEditedRef}
-          />
-        </Route>
-        <Route path="/TaskHistory">
-          <HistoryMetaWrapper
-            handleDialogClose={handleDialogClose}
-            moduleType="task"
-            isDataChangedRef={isDataEditedRef}
-          />
-        </Route>
-      </Routes>
+      <ClearCacheProvider>
+        <Routes>
+          <Route path="/AddTask">
+            <AssignTaskWrapper
+              handleDialogClose={handleDialogClose}
+              moduleType="task"
+              isDataChangedRef={isDataEditedRef}
+            />
+          </Route>
+          <Route path="/ViewDetails">
+            <ViewEditTaskWrapper
+              handleDialogClose={handleDialogClose}
+              moduleType="task"
+              isDataChangedRef={isDataEditedRef}
+            />
+          </Route>
+          <Route path="/TaskHistory">
+            <HistoryMetaWrapper
+              handleDialogClose={handleDialogClose}
+              moduleType="task"
+              isDataChangedRef={isDataEditedRef}
+            />
+          </Route>
+        </Routes>
+      </ClearCacheProvider>
     </Fragment>
   );
 };

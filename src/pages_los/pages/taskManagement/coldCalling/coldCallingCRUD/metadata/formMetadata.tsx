@@ -1,4 +1,4 @@
-import { showLocationField } from "../fns";
+import { showLocationField } from "../../fns";
 
 export const coldCallingMetadata = {
   form: {
