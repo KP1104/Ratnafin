@@ -2,11 +2,11 @@ import Button from "@material-ui/core/Button";
 import { useStyles } from "./style";
 import { format } from "date-fns";
 
-export const Header = ({ headerDetail, closeDialog }) => {
+export const HeaderDetails = ({ rowData, handleDialogClose }) => {
   const classes = useStyles();
   let dateValue;
   try {
-    dateValue = format(new Date(headerDetail[0]?.data?.tran_dt), "dd/MM/yyyy");
+    dateValue = format(new Date(rowData?.tran_dt), "dd/MM/yyyy");
   } catch (e) {
     dateValue = "Invalid Date";
   }
@@ -22,15 +22,11 @@ export const Header = ({ headerDetail, closeDialog }) => {
       <div className={classes.innerWrapper}>
         <div className={classes.spacing}>
           <div className={classes.labelText}>Cold Calling No.</div>
-          <div className={classes.valueText}>
-            {headerDetail[0]?.data?.tran_cd}
-          </div>
+          <div className={classes.valueText}>{rowData?.tran_cd}</div>
         </div>
         <div className={classes.spacing}>
           <div className={classes.labelText}>Product Category</div>
-          <div className={classes.valueText}>
-            {headerDetail[0]?.data?.category_id}
-          </div>
+          <div className={classes.valueText}>{rowData?.category_id}</div>
         </div>
         <div className={classes.spacing}>
           <div className={classes.labelText}>Generated On</div>
@@ -39,17 +35,15 @@ export const Header = ({ headerDetail, closeDialog }) => {
         <div className={classes.spacing}>
           <div className={classes.labelText}>Loan Amount</div>
           <div className={classes.valueText}>
-            {currencyFormatter.format(headerDetail[0]?.data?.loan_amt)}
+            {currencyFormatter.format(rowData?.loan_amt)}
           </div>
         </div>
         <div className={classes.spacing}>
           <div className={classes.labelText}>Status</div>
-          <div className={classes.valueText}>
-            {headerDetail[0]?.data?.status}
-          </div>
+          <div className={classes.valueText}>{rowData?.status}</div>
         </div>
         <div style={{ flexGrow: 1 }} />
-        <Button onClick={closeDialog}>Close</Button>
+        <Button onClick={handleDialogClose}>Close</Button>
       </div>
     </div>
   );

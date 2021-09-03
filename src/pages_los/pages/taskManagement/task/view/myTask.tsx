@@ -1,7 +1,7 @@
 import { ActionTypes } from "components/dataTable";
 import { Task } from "../task";
 
-export const AssignTask = () => {
+export const MyTask = () => {
   const actions: ActionTypes[] = [
     {
       actionName: "ViewDetails",

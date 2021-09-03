@@ -1,2 +1,2 @@
-export { AssignTask } from "./assignTask";
+export * from "./assignTask";
 export * from "./viewEditTask";
