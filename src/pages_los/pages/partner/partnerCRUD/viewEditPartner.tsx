@@ -11,8 +11,8 @@ import Button from "@material-ui/core/Button";
 import FormWrapper, { MetaDataType } from "components/dyanmicForm";
 import { InitialValuesType, SubmitFnType } from "packages/form";
 import { cloneDeep } from "lodash-es";
-import { becomePartnerMetaData } from "../metadata/form";
-import * as API from "../api";
+import { becomePartnerMetaData } from "./metadata/form";
+import * as API from "./api";
 
 interface updatePartnerDetailsType {
   data: object;
@@ -29,7 +29,7 @@ const updatePartnerDetailsWrapperFn = (updateTaskData) => async ({
   return updateTaskData(data, tranCD);
 };
 
-export const UpdatePartnerDetails: FC<any> = ({
+export const ViewEditPartnerDetails: FC<any> = ({
   isDataChangedRef,
   closeDialog,
   defaultView,
@@ -42,9 +42,15 @@ export const UpdatePartnerDetails: FC<any> = ({
   const moveToViewMode = useCallback(() => setFormMode("view"), [setFormMode]);
   const moveToEditMode = useCallback(() => setFormMode("edit"), [setFormMode]);
 
-  const result = useQuery(["getPartnerData", tranCD], () =>
-    API.getBecomePartnerData(tranCD)
+  const result = useQuery(["getPartnerFormData", tranCD], () =>
+    API.getBecomePartnerFormData(tranCD)
   );
+
+  useEffect(() => {
+    return () => {
+      queryClient.removeQueries(["getPartnerFormData", tranCD]);
+    };
+  }, []);
 
   const mutation = useMutation(
     updatePartnerDetailsWrapperFn(
@@ -83,12 +89,6 @@ export const UpdatePartnerDetails: FC<any> = ({
   ) => {
     mutation.mutate({ data, displayData, endSubmit, setFieldError });
   };
-
-  useEffect(() => {
-    return () => {
-      queryClient.removeQueries(["getPartnerData", tranCD]);
-    };
-  }, []);
 
   const dataUniqueKey = `${result.dataUpdatedAt}`;
   const loading = result.isLoading || result.isFetching;

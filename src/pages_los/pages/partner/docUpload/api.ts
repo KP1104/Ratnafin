@@ -1,28 +1,10 @@
 import { LOSSDK, DOCCRUDTYPE } from "registry/fns/los";
-import { tabsLegal, tabsManagement } from "./metaData/tabs";
-import { bankEdit, bankGrid, bankUpload } from "./metaData/bank";
+import { documentType } from "../docUpload/metadata";
 import {
-  GSTEdit,
-  GSTGrid,
-  GSTUpload,
-  GSTOtherEdit,
-  GSTOtherUpload,
-} from "./metaData/gst";
-import {
-  ITREdit,
-  ITRGrid,
-  ITRUpload,
-  ITROtherEdit,
-  ITROtherUpload,
-} from "./metaData/itr";
-import {
-  KYCLegalEdit,
-  KYCGrid,
-  KYCLegalUpload,
-  KYCManagementEdit,
-  KYCManagementUpload,
-} from "./metaData/kyc";
-import { othersEdit, othersGrid, OthersUpload } from "./metaData/others";
+  partnerEdit,
+  partnerGrid,
+  partnerUpload,
+} from "./partnerDocumentsMetadata";
 
 export const uploadDocuments = ({
   moduleType,
@@ -44,8 +26,8 @@ export const uploadDocuments = ({
   }
   const newURL = new URL(
     Boolean(productType)
-      ? `./${moduleType}/${productType}/document/${docCategory}/data/post`
-      : `./${moduleType}/document/${docCategory}/data/post`,
+      ? `http://10.55.6.95:8081/los/${productType}/document/${docCategory}/data/post`
+      : `http://10.55.6.95:8081/los/document/${docCategory}/data/post`,
     LOSSDK.getBaseURL() as URL
   ).href;
   let xhr = new XMLHttpRequest();
@@ -88,8 +70,8 @@ export const listDocuments = ({
 }: DOCCRUDTYPE) => async (docCategory) => {
   const { data, status } = await LOSSDK.internalFetcher(
     Boolean(productType)
-      ? `./${moduleType}/${productType}/document/${docCategory}/data/get`
-      : `./${moduleType}/document/${docCategory}/data/get`,
+      ? `./${productType}/document/${docCategory}/data/get`
+      : `./document/${docCategory}/data/get`,
     {
       body: JSON.stringify({
         request_data: {
@@ -114,8 +96,8 @@ export const deleteDocuments = ({
 }: DOCCRUDTYPE) => async (docCategory: any, docUUID: any) => {
   const { data, status } = await LOSSDK.internalFetcher(
     Boolean(productType)
-      ? `./${moduleType}/${productType}/document/${docCategory}/data/delete`
-      : `./${moduleType}/document/${docCategory}/data/delete`,
+      ? `http://10.55.6.95:8081/los/${productType}/document/${docCategory}/data/delete`
+      : `http://10.55.6.95:8081/los/document/${docCategory}/data/delete`,
     {
       body: JSON.stringify({
         request_data: {
@@ -142,8 +124,8 @@ export const updateDocuments = ({
 }: DOCCRUDTYPE) => async (docCategory: any, updateData: any) => {
   const { data, status } = await LOSSDK.internalFetcher(
     Boolean(productType)
-      ? `./${moduleType}/${productType}/document/${docCategory}/data/put`
-      : `./${moduleType}/document/${docCategory}/data/put`,
+      ? `http://10.55.6.95:8081/los/${productType}/document/${docCategory}/data/put`
+      : `http://10.55.6.95:8081/los/document/${docCategory}/data/put`,
     {
       body: JSON.stringify({
         request_data: {
@@ -175,8 +157,8 @@ export const verifyDocuments = ({
 ) => {
   const { data, status } = await LOSSDK.internalFetcher(
     Boolean(productType)
-      ? `./${moduleType}/${productType}/document/${docCategory}/data/verification`
-      : `./${moduleType}/document/${docCategory}/data/verification`,
+      ? `http://10.55.6.95:8081/los/${productType}/document/${docCategory}/data/verification`
+      : `http://10.55.6.95:8081/los/document/${docCategory}/data/verification`,
     {
       body: JSON.stringify({
         request_data: {
@@ -208,8 +190,8 @@ export const generateDocumentDownloadURL = ({ moduleType, productType }) => (
   let docs = docUUID.join(",");
   return new URL(
     Boolean(productType)
-      ? `./${moduleType}/${productType}/document/${docCategory}/data/download?docUUID=${docs}&tokenID=${LOSSDK.getToken()}`
-      : `./${moduleType}/document/${docCategory}/data/download?docUUID=${docs}&tokenID=${LOSSDK.getToken()}`,
+      ? `http://10.55.6.95:8081/los/${productType}/document/${docCategory}/data/download?docUUID=${docs}&tokenID=${LOSSDK.getToken()}`
+      : `http://10.55.6.95:8081/los/document/${docCategory}/data/download?docUUID=${docs}&tokenID=${LOSSDK.getToken()}`,
     LOSSDK.getBaseURL() as URL
   ).href;
 };
@@ -223,8 +205,8 @@ export const previewDocument = ({ moduleType, productType }) => async (
   }
   const url = new URL(
     Boolean(productType)
-      ? `./${moduleType}/${productType}/document/${docCategory}/data/preview`
-      : `./${moduleType}/document/${docCategory}/data/preview`,
+      ? `http://10.55.6.95:8081/los/${productType}/document/${docCategory}/data/preview`
+      : `http://10.55.6.95:8081/los/document/${docCategory}/data/preview`,
     LOSSDK.getBaseURL() as URL
   ).href;
   try {
@@ -251,103 +233,21 @@ export const previewDocument = ({ moduleType, productType }) => async (
   }
 };
 
-export const getDocumentCRUDTabsMetadata = async ({
-  moduleType,
-  productType,
-  refID,
-}) => {
-  return Boolean(productType) ? tabsManagement : tabsLegal;
+export const getDocumentCRUDTabsMetadata = async () => {
+  return documentType;
 };
-
-// export const getDocumentMetaData = async ({
-//   moduleType,
-//   productType,
-//   docCategory,
-//   metaDataType,
-// }) => {
-//   const { data, status } = await LOSSDK.internalFetcher(
-//     `./${moduleType}/document/${docCategory}/metaData/${metaDataType}`,
-//     {
-//       body: JSON.stringify({
-//         request_data: {},
-//         channel: "W",
-//       }),
-//     }
-//   );
-//   if (status === "success") {
-//     return data?.response_data;
-//   } else {
-//     throw data?.error_data;
-//   }
-// };
 
 export const getDocumentMetaData = ({
   moduleType,
   productType,
   metaDataType,
-}) => async (docCategory) => {
+}) => async () => {
   if (metaDataType === "grid") {
-    switch (docCategory) {
-      case "bank":
-        return bankGrid;
-      case "itr":
-        return ITRGrid;
-      case "gst":
-        return GSTGrid;
-      case "other":
-        return othersGrid;
-      case "kyc":
-        return KYCGrid;
-      default:
-        /*eslint-disable no-throw-literal*/
-        throw { error_msg: "Invalid docCategory" };
-    }
+    return partnerGrid;
   } else if (metaDataType === "upload") {
-    switch (docCategory) {
-      case "bank":
-        return bankUpload;
-      case "itr":
-        return ITRUpload;
-      case "itrOther":
-        return ITROtherUpload;
-      case "gst":
-        return GSTUpload;
-      case "gstOther":
-        return GSTOtherUpload;
-      case "other":
-        return OthersUpload;
-      case "kyc":
-        if (productType === "management") {
-          return KYCManagementUpload;
-        } else {
-          return KYCLegalUpload;
-        }
-      default:
-        throw { error_msg: "Invalid docCategory" };
-    }
+    return partnerUpload;
   } else if (metaDataType === "edit") {
-    switch (docCategory) {
-      case "bank":
-        return bankEdit;
-      case "itr":
-        return ITREdit;
-      case "itrOther":
-        return ITROtherEdit;
-      case "gst":
-        return GSTEdit;
-      case "gstOther":
-        return GSTOtherEdit;
-      case "other":
-        return othersEdit;
-      case "kyc":
-        if (productType === "management") {
-          return KYCManagementEdit;
-        } else {
-          return KYCLegalEdit;
-        }
-      default:
-        throw { error_msg: "Invalid docCategory" };
-    }
+    return partnerEdit;
   } else {
     throw { error_msg: "Invalid MetaData Type requested" };
   }

@@ -7,7 +7,7 @@ export const documentType = [
         label: "Add Documents",
         type: "other",
         primary: true,
-        categoryCD: "OTHER_DOC_TYPE",
+        categoryCD: "PARTN_DOC_TYPE",
       },
     ],
   },

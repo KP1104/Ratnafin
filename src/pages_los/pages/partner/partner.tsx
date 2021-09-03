@@ -3,13 +3,13 @@ import Dialog from "@material-ui/core/Dialog";
 import { useQuery } from "react-query";
 import { ClearCacheProvider, ClearCacheContext, queryClient } from "cache";
 import { InvalidAction } from "pages_los/common/invalidAction";
-import { AddPartner, UpdatePartnerDetails } from "./partnerAddEdit";
+import { AddPartner, ViewEditPartnerDetails } from "./partnerCRUD";
 import { ActionTypes } from "components/dataTable";
 import { GridMetaDataType } from "components/dataTable/types";
 import GridWrapper from "components/dataTableStatic";
 import { DocumentGridCRUD } from "./docUpload";
-import { partnerGridMetaData } from "./metadata";
-import * as API from "./api";
+import { partnerGridMetaData } from "./partnerCRUD/metadata";
+import * as API from "./partnerCRUD/api";
 
 const actions: ActionTypes[] = [
   {
@@ -37,23 +37,24 @@ export const BecomePartner = () => {
   const [currentAction, setCurrentAction] = useState<null | any>(null);
   const isDataChangedRef = useRef(false);
   const myGridRef = useRef<any>(null);
+
   const handleDialogClose = () => {
     setCurrentAction(null);
     if (isDataChangedRef.current === true) {
-      isDataChangedRef.current = true;
-      myGridRef?.current?.fetchData?.();
+      myGridRef.current?.refetch?.();
       isDataChangedRef.current = false;
     }
   };
+
+  const result = useQuery<any, any>(["getPartnerGridData"], () =>
+    API.getPartnerGridData()
+  );
+
   useEffect(() => {
     return () => {
       queryClient.removeQueries(["getPartnerGridData"]);
     };
   }, []);
-
-  const result = useQuery<any, any>(["getPartnerGridData"], () =>
-    API.getPartnerGridData()
-  );
 
   return (
     <Fragment>
@@ -65,6 +66,7 @@ export const BecomePartner = () => {
         loading={result.isLoading || result.isFetching}
         actions={actions}
         setAction={setCurrentAction}
+        ref={myGridRef}
       />
       <ClearCacheProvider>
         <Dialog open={Boolean(currentAction)} fullScreen>
@@ -99,7 +101,7 @@ const PartnerActions = ({
       closeDialog={handleDialogClose}
     />
   ) : (currentAction?.name ?? "") === "editDetails" ? (
-    <UpdatePartnerDetails
+    <ViewEditPartnerDetails
       defaultView="view"
       isDataChangedRef={isDataChangedRef}
       closeDialog={handleDialogClose}
