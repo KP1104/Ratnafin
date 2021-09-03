@@ -1,15 +1,20 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useContext } from "react";
 import loaderGif from "assets/images/loader.gif";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
+import Dialog from "@material-ui/core/Dialog";
 import { useMutation, useQuery } from "react-query";
 import { InitialValuesType, SubmitFnType } from "packages/form";
 import { useSnackbar } from "notistack";
 import { cloneDeep } from "lodash-es";
 import { queryClient } from "cache";
 import FormWrapper, { MetaDataType } from "components/dyanmicForm";
+import { ClearCacheProvider, ClearCacheContext } from "cache";
+import { useDialogStyles } from "pages_los/common/dialogStyles";
+import { Transition } from "pages_los/common/transition";
+import { useLocation } from "react-router-dom";
 import { moveToInquiryMetaData } from "./metadata";
 import * as API from "../coldCallingCRUD/api";
 import * as API2 from "./api";
@@ -27,11 +32,11 @@ const moveToInquiryDataFnWrapper = (moveToInquiryFn) => async ({
   return moveToInquiryFn(data);
 };
 
-export const MoveToInquiry: FC<{
+const MoveToInquiry: FC<{
   moduleType: any;
   isDataChangedRef: any;
   closeDialog?: any;
-  defaultView: "edit";
+  defaultView?: "edit";
   setEditFormStateFromInitValues?: any;
   readOnly?: boolean;
   disableCache?: boolean;
@@ -46,16 +51,9 @@ export const MoveToInquiry: FC<{
 }) => {
   const { enqueueSnackbar } = useSnackbar();
 
-  useEffect(() => {
-    return () => {
-      queryClient.removeQueries([
-        "getColdCallingFormData",
-        moduleType,
-        tran_cd,
-      ]);
-      queryClient.removeQueries(["getColdCallingFormMetaData", tran_cd]);
-    };
-  }, [tran_cd]);
+  const result = useQuery(["getColdCallingFormData", moduleType, tran_cd], () =>
+    API.getColdCallingFormData({ moduleType })(tran_cd)
+  );
 
   const mutation = useMutation(
     moveToInquiryDataFnWrapper(
@@ -70,6 +68,7 @@ export const MoveToInquiry: FC<{
         endSubmit(false, errorMsg, error?.error_detail ?? "");
       },
       onSuccess: (data, { endSubmit }) => {
+        result.refetch();
         endSubmit(true, "");
         enqueueSnackbar(
           `ColdCallingNo. ${tran_cd} moved to Inquiry with InquiryNo. ${data?.inquiryNo}`,
@@ -91,10 +90,6 @@ export const MoveToInquiry: FC<{
   ) => {
     mutation.mutate({ data, displayData, endSubmit, setFieldError });
   };
-
-  const result = useQuery(["getColdCallingFormData", moduleType, tran_cd], () =>
-    API.getColdCallingFormData({ moduleType })(tran_cd)
-  );
 
   const dataUniqueKey = `${result.dataUpdatedAt}`;
   const loading = result.isLoading || result.isFetching;
@@ -145,7 +140,7 @@ export const MoveToInquiry: FC<{
         </div>
       ) : null}
     </>
-  ) : defaultView === "edit" ? (
+  ) : (
     <FormWrapper
       key={`${dataUniqueKey}-${defaultView}`}
       metaData={metaData as MetaDataType}
@@ -163,9 +158,79 @@ export const MoveToInquiry: FC<{
           >
             Move
           </Button>
+          <Button onClick={closeDialog}>Cancel</Button>
         </>
       )}
     </FormWrapper>
-  ) : null;
+  );
   return renderResult;
+};
+
+export const MoveToInquiryWrapper: FC<any> = ({
+  moduleType,
+  isDataChangedRef,
+  closeDialog,
+  defaultView,
+  tran_cd,
+}) => {
+  const removeCache = useContext(ClearCacheContext);
+  useEffect(() => {
+    return () => {
+      let entries = removeCache?.getEntries() as any[];
+      entries.forEach((one) => {
+        queryClient.removeQueries(one);
+      });
+      queryClient.removeQueries([
+        "getColdCallingFormData",
+        moduleType,
+        tran_cd,
+      ]);
+    };
+  }, []);
+  return (
+    <MoveToInquiry
+      moduleType={moduleType}
+      isDataChangedRef={isDataChangedRef}
+      closeDialog={closeDialog}
+      tran_cd={tran_cd}
+      defaultView={defaultView}
+    />
+  );
+};
+
+export const MoveToInquiryMetaWrapper = ({
+  handleDialogClose,
+  isDataChangedRef,
+  moduleType,
+}) => {
+  const { state: rows }: any = useLocation();
+  const classes = useDialogStyles();
+
+  return (
+    <ClearCacheProvider>
+      <Dialog
+        open={true}
+        //@ts-ignore
+        TransitionComponent={Transition}
+        PaperProps={{
+          style: {
+            width: "100%",
+            minHeight: "20vh",
+          },
+        }}
+        maxWidth="lg"
+        classes={{
+          scrollPaper: classes.topScrollPaper,
+          paperScrollBody: classes.topPaperScrollBody,
+        }}
+      >
+        <MoveToInquiryWrapper
+          moduleType={moduleType}
+          isDataChangedRef={isDataChangedRef}
+          closeDialog={handleDialogClose}
+          tran_cd={rows[0]?.id}
+        />
+      </Dialog>
+    </ClearCacheProvider>
+  );
 };

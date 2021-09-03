@@ -438,7 +438,7 @@ export const coldCallingMetadata = {
       render: {
         componentType: "spacer",
       },
-      name: "spacer",
+      name: "spacer1",
       GridProps: {
         xs: 12,
         md: 12,

@@ -1,4 +1,3 @@
-export * from "./coldCallingNew";
-export * from "./coldCallingEditView";
-export * from "./coldCallingDelete";
-export * from "./headerDetails";
+export { ColdCallingAddMetaWrapper } from "./coldCallingNew";
+export { ColdCallingEditViewMetaWrapper } from "./coldCallingEditView";
+export { ColdCallingDeleteMetaWrapper } from "./coldCallingDelete";

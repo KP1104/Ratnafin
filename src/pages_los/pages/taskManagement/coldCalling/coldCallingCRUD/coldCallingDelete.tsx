@@ -1,10 +1,14 @@
-import { Fragment } from "react";
+import { Fragment, FC, useContext, useEffect } from "react";
 import { useMutation } from "react-query";
+import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import { Alert } from "components/common/alert";
 import DialogContent from "@material-ui/core/DialogContent";
+import { useLocation } from "react-router-dom";
+import { Transition } from "pages_los/common/transition";
+import { ClearCacheProvider, ClearCacheContext, queryClient } from "cache";
 import * as API from "./api";
 
 interface DeleteFormDataType {
@@ -17,7 +21,7 @@ const DeleteFormDataFnWrapper = (deleteFormData) => async ({
   return deleteFormData(tran_cd);
 };
 
-export const ColdCallingDelete = ({
+const ColdCallingDelete = ({
   isDataChangedRef,
   closeDialog,
   tran_cd,
@@ -77,5 +81,60 @@ export const ColdCallingDelete = ({
         </DialogActions>
       )}
     </Fragment>
+  );
+};
+
+export const ColdCallingDeleteWrapper: FC<any> = ({
+  moduleType,
+  isDataChangedRef,
+  closeDialog,
+  tran_cd,
+}) => {
+  const removeCache = useContext(ClearCacheContext);
+  useEffect(() => {
+    return () => {
+      let entries = removeCache?.getEntries() as any[];
+      entries.forEach((one) => {
+        queryClient.removeQueries(one);
+      });
+    };
+  }, []);
+  return (
+    <ColdCallingDelete
+      moduleType={moduleType}
+      isDataChangedRef={isDataChangedRef}
+      closeDialog={closeDialog}
+      tran_cd={tran_cd}
+    />
+  );
+};
+
+export const ColdCallingDeleteMetaWrapper = ({
+  handleDialogClose,
+  isDataChangedRef,
+  moduleType,
+}) => {
+  const { state: rows }: any = useLocation();
+  return (
+    <ClearCacheProvider>
+      <Dialog
+        open={true}
+        //@ts-ignore
+        TransitionComponent={Transition}
+        PaperProps={{
+          style: {
+            width: "100%",
+          },
+        }}
+        maxWidth="sm"
+      >
+        <ColdCallingDeleteWrapper
+          moduleType={moduleType}
+          isDataChangedRef={isDataChangedRef}
+          tran_cd={rows.map((one) => one.id)}
+          closeDialog={handleDialogClose}
+        />
+      </Dialog>
+    </ClearCacheProvider>
   );
 };

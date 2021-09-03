@@ -1,21 +1,17 @@
-import { useState, useRef, Fragment, useContext, useEffect } from "react";
-import { ClearCacheProvider, ClearCacheContext, queryClient } from "cache";
+import { useRef, Fragment, useCallback } from "react";
 import { ActionTypes } from "components/dataTable";
-import Dialog from "@material-ui/core/Dialog";
-import { InvalidAction } from "pages_los/common/invalidAction";
 import {
   ServerGrid,
   ServerGridContextProvider,
 } from "pages_los/common/serverGrid";
 import { serverGridContextGenerator } from "../context";
 import {
-  AddColdCalling,
-  ColdCallingViewEdit,
-  ColdCallingDelete,
-  Header,
+  ColdCallingDeleteMetaWrapper,
+  ColdCallingEditViewMetaWrapper,
+  ColdCallingAddMetaWrapper,
 } from "./coldCallingCRUD";
-import { MoveToInquiry } from "./moveToInquiry";
-import { useDialogStyles } from "pages_los/common/dialogStyles";
+import { MoveToInquiryMetaWrapper } from "./moveToInquiry";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 const actions: ActionTypes[] = [
   {
@@ -46,19 +42,24 @@ const actions: ActionTypes[] = [
 ];
 
 export const ColdCalling = ({ gridCode, actions }) => {
-  const [currentAction, setCurrentAction] = useState<null | any>(null);
-  const isDataChangedRef = useRef(false);
+  let navigate = useNavigate();
+  const setCurrentAction = useCallback(
+    (data) => {
+      navigate(data?.name, {
+        state: data?.rows,
+      });
+    },
+    [navigate]
+  );
+  const isDataEditedRef = useRef(false);
   const myGridRef = useRef<any>(null);
-
   const handleDialogClose = () => {
-    setCurrentAction(null);
-    if (isDataChangedRef.current === true) {
-      isDataChangedRef.current = true;
+    navigate("./");
+    if (isDataEditedRef.current) {
       myGridRef?.current?.fetchData?.();
-      isDataChangedRef.current = false;
+      isDataEditedRef.current = false;
     }
   };
-  const classes = useDialogStyles();
 
   return (
     <Fragment>
@@ -70,92 +71,37 @@ export const ColdCalling = ({ gridCode, actions }) => {
           ref={myGridRef}
         />
       </ServerGridContextProvider>
-      <Dialog
-        fullScreen={
-          ["moveToInquiry"].indexOf(currentAction?.name) >= 0 ? true : false
-        }
-        open={Boolean(currentAction)}
-        maxWidth="md"
-        classes={{
-          scrollBody: classes.topPaperScrollBody,
-          scrollPaper: classes.topScrollPaper,
-        }}
-      >
-        <ClearCacheProvider>
-          <ColdCallingActions
-            currentAction={currentAction}
-            isDataChangedRef={isDataChangedRef}
+      <Routes>
+        <Route path="/AddColdCalling">
+          <ColdCallingAddMetaWrapper
+            handleDialogClose={handleDialogClose}
+            moduleType="cold-calling"
+            isDataChangedRef={isDataEditedRef}
+          />
+        </Route>
+        <Route path="/viewDetails">
+          <ColdCallingEditViewMetaWrapper
+            handleDialogClose={handleDialogClose}
+            moduleType="cold-calling"
+            isDataChangedRef={isDataEditedRef}
+          />
+        </Route>
+        <Route path="/delete">
+          <ColdCallingDeleteMetaWrapper
+            handleDialogClose={handleDialogClose}
+            moduleType="cold-calling"
+            isDataChangedRef={isDataEditedRef}
+          />
+        </Route>
+        <Route path="/moveToInquiry">
+          <MoveToInquiryMetaWrapper
+            moduleType="cold-calling"
+            isDataChangedRef={isDataEditedRef}
             handleDialogClose={handleDialogClose}
           />
-        </ClearCacheProvider>
-      </Dialog>
+        </Route>
+      </Routes>
     </Fragment>
-  );
-};
-
-const ColdCallingActions = ({
-  currentAction,
-  isDataChangedRef,
-  handleDialogClose,
-}) => {
-  const removeCache = useContext(ClearCacheContext);
-  useEffect(() => {
-    return () => {
-      let entries = removeCache?.getEntries() as any[];
-      entries.forEach((one) => {
-        queryClient.removeQueries(one);
-      });
-    };
-  }, [removeCache]);
-  return (currentAction?.name ?? "") === "AddColdCalling" ? (
-    <Fragment>
-      <AddColdCalling
-        moduleType="cold-calling"
-        isDataChangedRef={isDataChangedRef}
-        closeDialog={handleDialogClose}
-      />
-    </Fragment>
-  ) : (currentAction?.name ?? "") === "viewDetails" ? (
-    <Fragment>
-      <Header
-        headerDetail={currentAction?.rows}
-        closeDialog={handleDialogClose}
-      />
-
-      <ColdCallingViewEdit
-        tran_cd={currentAction?.rows[0].id}
-        moduleType="cold-calling"
-        isDataChangedRef={isDataChangedRef}
-        closeDialog={handleDialogClose}
-        readOnly={false}
-        disableCache={false}
-      />
-    </Fragment>
-  ) : (currentAction?.name ?? "") === "delete" ? (
-    <Fragment>
-      <ColdCallingDelete
-        tran_cd={currentAction?.rows.map((one) => one.id)}
-        moduleType="cold-calling"
-        isDataChangedRef={isDataChangedRef}
-        closeDialog={handleDialogClose}
-      />
-    </Fragment>
-  ) : (currentAction?.name ?? "") === "moveToInquiry" ? (
-    <Fragment>
-      <Header
-        headerDetail={currentAction?.rows}
-        closeDialog={handleDialogClose}
-      />
-      <MoveToInquiry
-        defaultView="edit"
-        tran_cd={currentAction?.rows[0].id}
-        moduleType="cold-calling"
-        isDataChangedRef={isDataChangedRef}
-        closeDialog={handleDialogClose}
-      />
-    </Fragment>
-  ) : (
-    <InvalidAction closeDialog={handleDialogClose} />
   );
 };
 

@@ -29,7 +29,7 @@ import { Profile } from "pages_los/pages/profile";
 import { Dashboard } from "pages_los/pages/dashboard";
 import { NewInquiry } from "pages_los/pages/newInquiry";
 import { UserManagement } from "pages_los/pages/config/userManagement";
-import { AssignTask, AssignedTask } from "pages_los/pages/taskManagement/task";
+import { MyTask, AssignedTask } from "pages_los/pages/taskManagement/task";
 import { Worklog } from "pages_los/pages/taskManagement/worklog";
 import { ColdCalling } from "pages_los/pages/taskManagement/coldCalling";
 import { BankConfigWrapper } from "pages_los/pages/config/bankConfig";
@@ -90,10 +90,10 @@ const DashbordPages = () => {
               path="/lead/disbursement/*"
               element={<DisbursementLeads />}
             />
-            <Route path="/task/assign" element={<AssignTask />} />
-            <Route path="/task/assigned" element={<AssignedTask />} />
+            <Route path="/task/myTask/*" element={<MyTask />} />
+            <Route path="/task/assigned/*" element={<AssignedTask />} />
             <Route path="/task/worklog" element={<Worklog />} />
-            <Route path="/task/coldCalling" element={<ColdCalling />} />
+            <Route path="/task/coldCalling/*" element={<ColdCalling />} />
             <Route path="/config/bankMaster" element={<BankMasterWrapper />} />
             <Route path="/config/banks" element={<BankConfigWrapper />} />
             <Route path="/config/userManagement" element={<UserManagement />} />

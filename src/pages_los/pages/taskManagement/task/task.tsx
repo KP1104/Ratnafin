@@ -1,29 +1,32 @@
-import { useState, useRef, useContext, Fragment, useEffect } from "react";
-import Dialog from "@material-ui/core/Dialog";
+import { useRef, Fragment, useCallback } from "react";
 import {
   ServerGrid,
   ServerGridContextProvider,
 } from "pages_los/common/serverGrid";
-import { ClearCacheProvider, ClearCacheContext, queryClient } from "cache";
+import { AssignTaskMetaWrapper, ViewEditTaskMetaWrapper } from "./taskCRUD";
+import { HistoryMetaWrapper } from "./history";
 import { serverGridContextGenerator } from "../context";
-import { AssignTask, TaskViewEdit } from "./taskCRUD";
-import { HistoryGrid } from "pages_los/pages/taskManagement/task/history";
-import { InvalidAction } from "pages_los/common/invalidAction";
-import { useDialogStyles } from "pages_los/common/dialogStyles";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
-export const Task = ({ gridCode, actions }: any) => {
-  const [currentAction, setCurrentAction] = useState<null | any>(null);
-  const isDataChangedRef = useRef(false);
+export const Task = ({ gridCode, actions }) => {
+  let navigate = useNavigate();
+  const setCurrentAction = useCallback(
+    (data) => {
+      navigate(data?.name, {
+        state: data?.rows,
+      });
+    },
+    [navigate]
+  );
+  const isDataEditedRef = useRef(false);
   const myGridRef = useRef<any>(null);
   const handleDialogClose = () => {
-    setCurrentAction(null);
-    if (isDataChangedRef.current === true) {
-      isDataChangedRef.current = true;
+    navigate("./");
+    if (isDataEditedRef.current) {
       myGridRef?.current?.fetchData?.();
-      isDataChangedRef.current = false;
+      isDataEditedRef.current = false;
     }
   };
-  const classes = useDialogStyles();
 
   return (
     <Fragment>
@@ -35,72 +38,29 @@ export const Task = ({ gridCode, actions }: any) => {
           ref={myGridRef}
         />
       </ServerGridContextProvider>
-      <ClearCacheProvider>
-        <Dialog
-          open={Boolean(currentAction)}
-          maxWidth={currentAction?.name === "TaskHistory" ? "md" : "xs"}
-          classes={{
-            scrollBody: classes.topPaperScrollBody,
-            scrollPaper: classes.topScrollPaper,
-          }}
-        >
-          <TaskActions
-            currentAction={currentAction}
+      <Routes>
+        <Route path="/AddTask">
+          <AssignTaskMetaWrapper
             handleDialogClose={handleDialogClose}
-            isDataChangedRef={isDataChangedRef}
+            moduleType="task"
+            isDataChangedRef={isDataEditedRef}
           />
-        </Dialog>
-      </ClearCacheProvider>
+        </Route>
+        <Route path="/ViewDetails">
+          <ViewEditTaskMetaWrapper
+            handleDialogClose={handleDialogClose}
+            moduleType="task"
+            isDataChangedRef={isDataEditedRef}
+          />
+        </Route>
+        <Route path="/TaskHistory">
+          <HistoryMetaWrapper
+            handleDialogClose={handleDialogClose}
+            moduleType="task"
+            isDataChangedRef={isDataEditedRef}
+          />
+        </Route>
+      </Routes>
     </Fragment>
-  );
-};
-
-const TaskActions = ({
-  currentAction,
-  handleDialogClose,
-  isDataChangedRef,
-}) => {
-  const removeCache = useContext(ClearCacheContext);
-  useEffect(() => {
-    return () => {
-      let entries = removeCache?.getEntries() as any[];
-      entries.forEach((one) => {
-        queryClient.removeQueries(one);
-      });
-    };
-  }, [removeCache]);
-
-  return (currentAction?.name ?? "") === "AddTask" ? (
-    <Fragment>
-      <AssignTask
-        moduleType="task"
-        isDataChangedRef={isDataChangedRef}
-        closeDialog={handleDialogClose}
-      />
-    </Fragment>
-  ) : (currentAction?.name ?? "") === "ViewDetails" ? (
-    <Fragment>
-      <TaskViewEdit
-        taskID={currentAction?.rows[0].id}
-        inquiryFor={currentAction?.rows[0]?.data?.flag.toLocaleLowerCase()}
-        refID={currentAction?.rows[0].data?.ref_id}
-        moduleType="task"
-        isDataChangedRef={isDataChangedRef}
-        closeDialog={handleDialogClose}
-        readOnly={false}
-        disableCache={false}
-      />
-    </Fragment>
-  ) : (currentAction?.name ?? "") === "TaskHistory" ? (
-    <Fragment>
-      <HistoryGrid
-        taskID={currentAction?.rows[0].id}
-        moduleType="task"
-        closeDialog={handleDialogClose}
-        rowData={currentAction?.rows[0].data}
-      />
-    </Fragment>
-  ) : (
-    <InvalidAction closeDialog={handleDialogClose} />
   );
 };
