@@ -17,7 +17,6 @@ const dateFormatter = (date, withTime) => {
 };
 
 export const HeaderDetails = ({ rowData, handleDialogClose }) => {
-  console.log(rowData);
   const classes = useStyles();
 
   return (

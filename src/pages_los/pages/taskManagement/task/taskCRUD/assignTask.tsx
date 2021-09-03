@@ -1,8 +1,13 @@
+import { FC, useContext, useEffect } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
 import FormWrapper, { MetaDataType } from "components/dyanmicForm";
 import { useMutation } from "react-query";
 import { useSnackbar } from "notistack";
+import { ClearCacheContext, queryClient, ClearCacheProvider } from "cache";
+import { useDialogStyles } from "pages_los/common/dialogStyles";
+import { Transition } from "pages_los/common/transition";
 import { taskAssignMetadata } from "../metadata/form";
 import * as API from "./api";
 import { SubmitFnType } from "packages/form";
@@ -20,7 +25,7 @@ const taskAssignFormDataFnWrapper = (taskAssignFn) => async ({
   return taskAssignFn(data);
 };
 
-export const AssignTask = ({ moduleType, isDataChangedRef, closeDialog }) => {
+const AssignTask = ({ moduleType, isDataChangedRef, closeDialog }) => {
   const { enqueueSnackbar } = useSnackbar();
 
   const mutation = useMutation(
@@ -84,5 +89,62 @@ export const AssignTask = ({ moduleType, isDataChangedRef, closeDialog }) => {
         );
       }}
     </FormWrapper>
+  );
+};
+
+export const AssignTaskWrapper: FC<any> = ({
+  moduleType,
+  isDataChangedRef,
+  closeDialog,
+}) => {
+  const removeCache = useContext(ClearCacheContext);
+  useEffect(() => {
+    return () => {
+      let entries = removeCache?.getEntries() as any[];
+      entries.forEach((one) => {
+        queryClient.removeQueries(one);
+      });
+    };
+  }, []);
+  return (
+    <AssignTask
+      moduleType={moduleType}
+      isDataChangedRef={isDataChangedRef}
+      closeDialog={closeDialog}
+    />
+  );
+};
+
+export const AssignTaskMetaWrapper = ({
+  handleDialogClose,
+  isDataChangedRef,
+  moduleType,
+}) => {
+  const classes = useDialogStyles();
+  return (
+    <ClearCacheProvider>
+      <Dialog
+        open={true}
+        //@ts-ignore
+        TransitionComponent={Transition}
+        PaperProps={{
+          style: {
+            width: "100%",
+            minHeight: "20vh",
+          },
+        }}
+        maxWidth="sm"
+        classes={{
+          scrollPaper: classes.topScrollPaper,
+          paperScrollBody: classes.topPaperScrollBody,
+        }}
+      >
+        <AssignTaskWrapper
+          moduleType={moduleType}
+          isDataChangedRef={isDataChangedRef}
+          closeDialog={handleDialogClose}
+        />
+      </Dialog>
+    </ClearCacheProvider>
   );
 };

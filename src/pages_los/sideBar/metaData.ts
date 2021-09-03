@@ -298,7 +298,7 @@ export const metaData: NavBarMetaDataType = {
       children: [
         {
           label: "My Tasks",
-          href: "./task/assign",
+          href: "./task/myTask",
           isRouterLink: true,
           icon: "circle",
         },

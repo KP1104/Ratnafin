@@ -1,24 +1,24 @@
-import { Fragment, FC, useEffect } from "react";
-import { queryClient } from "cache";
+import { Fragment, FC, useEffect, useContext } from "react";
+import { queryClient, ClearCacheContext, ClearCacheProvider } from "cache";
 import { useQuery } from "react-query";
 import { GridMetaDataType } from "components/dataTable/types";
+import Dialog from "@material-ui/core/Dialog";
 import GridWrapper from "components/dataTableStatic";
+import { useDialogStyles } from "pages_los/common/dialogStyles";
+import { Transition } from "pages_los/common/transition";
 import * as API from "./api";
 import { Alert } from "components/common/alert";
+import { useLocation } from "react-router-dom";
 import { historyGridMetaData } from "./metaData";
 import { HeaderDetails } from "./headerDetails";
 
-export const HistoryGrid: FC<{
+const HistoryGrid: FC<{
   moduleType: any;
   closeDialog?: any;
   taskID: string;
   rowData: any;
+  isDataChangedRef: any;
 }> = ({ moduleType, closeDialog, taskID, rowData }) => {
-  useEffect(() => {
-    return () => {
-      queryClient.removeQueries(["getTaskHistoryGridData", moduleType, taskID]);
-    };
-  }, []);
   const result = useQuery<any, any>(
     ["getTaskHistoryGridData", moduleType, taskID],
     () => API.getTaskHistoryGridData({ moduleType, taskID })
@@ -26,8 +26,6 @@ export const HistoryGrid: FC<{
 
   const renderResult = (
     <Fragment>
-      <HeaderDetails handleDialogClose={closeDialog} rowData={rowData} />
-
       {result.isError ? (
         <Alert
           severity="error"
@@ -46,4 +44,75 @@ export const HistoryGrid: FC<{
   );
 
   return renderResult;
+};
+
+export const HistoryWrapper: FC<any> = ({
+  moduleType,
+  isDataChangedRef,
+  closeDialog,
+  taskID,
+  rowData,
+}) => {
+  const removeCache = useContext(ClearCacheContext);
+  useEffect(() => {
+    return () => {
+      let entries = removeCache?.getEntries() as any[];
+      entries.forEach((one) => {
+        queryClient.removeQueries(one);
+      });
+      queryClient.removeQueries(["getTaskHistoryGridData", moduleType, taskID]);
+    };
+  }, []);
+  return (
+    <HistoryGrid
+      moduleType={moduleType}
+      isDataChangedRef={isDataChangedRef}
+      closeDialog={closeDialog}
+      taskID={taskID}
+      rowData={rowData}
+    />
+  );
+};
+
+export const HistoryMetaWrapper = ({
+  handleDialogClose,
+  isDataChangedRef,
+  moduleType,
+}) => {
+  const classes = useDialogStyles();
+  const { state: rows }: any = useLocation();
+  return (
+    <ClearCacheProvider>
+      <Dialog
+        open={true}
+        //@ts-ignore
+        TransitionComponent={Transition}
+        onClose={handleDialogClose}
+        PaperProps={{
+          style: {
+            width: "100%",
+            minHeight: "20vh",
+          },
+        }}
+        maxWidth="md"
+        classes={{
+          scrollPaper: classes.topScrollPaper,
+          paperScrollBody: classes.topPaperScrollBody,
+        }}
+      >
+        <HeaderDetails
+          rowData={rows?.[0].data}
+          handleDialogClose={handleDialogClose}
+        />
+
+        <HistoryWrapper
+          moduleType={moduleType}
+          isDataChangedRef={isDataChangedRef}
+          closeDialog={handleDialogClose}
+          taskID={rows[0].id}
+          rowData={rows[0].data}
+        />
+      </Dialog>
+    </ClearCacheProvider>
+  );
 };
