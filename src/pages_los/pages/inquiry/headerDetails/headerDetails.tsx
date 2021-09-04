@@ -1,8 +1,11 @@
+import { useState } from "react";
 import Button from "@material-ui/core/Button";
 import { useStyles } from "./style";
 import { format } from "date-fns";
+import { InquiryReject } from "../inquiryReject";
 
 export const HeaderDetails = ({ productData, handleDialogClose }) => {
+  const [showDialog, setShowDialog] = useState(Boolean);
   const classes = useStyles();
   let dateValue;
   try {
@@ -40,8 +43,19 @@ export const HeaderDetails = ({ productData, handleDialogClose }) => {
           <div className={classes.valueText}>{productData?.data?.status}</div>
         </div>
         <div style={{ flexGrow: 1 }} />
+        <Button onClick={() => setShowDialog(true)} style={{ color: "red" }}>
+          Reject Inquiry
+        </Button>
         <Button onClick={handleDialogClose}>Close</Button>
       </div>
+      {Boolean(showDialog) ? (
+        <InquiryReject
+          open={showDialog}
+          setShowDialog={setShowDialog}
+          closeDialog={handleDialogClose}
+          inquiryNo={productData?.data?.inquiry_no}
+        />
+      ) : null}
     </div>
   );
 };

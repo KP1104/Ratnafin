@@ -251,6 +251,7 @@ export const MandateMetaWrapper = ({
       <HeaderDetails
         rowData={rows?.[0]}
         handleDialogClose={handleDialogClose}
+        isDataChangedRef={isDataChangedRef}
       />
       <Mandate
         moduleType={moduleType}

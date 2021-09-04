@@ -1,8 +1,15 @@
+import { useState } from "react";
 import Button from "@material-ui/core/Button";
 import { useStyles } from "./style";
 import { format } from "date-fns";
+import { ColdCallingReject } from "../coldCallingReject";
 
-export const HeaderDetails = ({ rowData, handleDialogClose }) => {
+export const HeaderDetails = ({
+  rowData,
+  handleDialogClose,
+  isDataChangedRef,
+}) => {
+  const [showDialog, setShowDialog] = useState(Boolean);
   const classes = useStyles();
   let dateValue;
   try {
@@ -43,8 +50,20 @@ export const HeaderDetails = ({ rowData, handleDialogClose }) => {
           <div className={classes.valueText}>{rowData?.status}</div>
         </div>
         <div style={{ flexGrow: 1 }} />
+        <Button onClick={() => setShowDialog(true)} style={{ color: "red" }}>
+          Reject Cold-Calling
+        </Button>
         <Button onClick={handleDialogClose}>Close</Button>
       </div>
+      {Boolean(showDialog) ? (
+        <ColdCallingReject
+          open={showDialog}
+          setShowDialog={setShowDialog}
+          closeDialog={handleDialogClose}
+          coldCallingNo={rowData?.tran_cd}
+          isDataChangedRef={isDataChangedRef}
+        />
+      ) : null}
     </div>
   );
 };

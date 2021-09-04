@@ -259,6 +259,7 @@ export const SanctionMetaWrapper = ({
       <HeaderDetails
         rowData={rows?.[0]}
         handleDialogClose={handleDialogClose}
+        isDataChangedRef={isDataChangedRef}
       />
       <Sanction
         moduleType={moduleType}

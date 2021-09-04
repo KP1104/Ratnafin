@@ -1,10 +1,10 @@
-import { LOSSDK } from "registry/fns/los";
+import { CRMSDK } from "registry/fns/crm";
 
-export const rejectLead = async ({ leadNo, remarks }: any) => {
-  const { data, status } = await LOSSDK.internalFetcher(`./lead/inactive`, {
+export const rejectInquiry = async ({ inquiryNo, remarks }) => {
+  const { data, status } = await CRMSDK.internalFetcher(`./inquiry/inactive`, {
     body: JSON.stringify({
       request_data: {
-        refID: leadNo,
+        refID: inquiryNo,
         remarks: remarks,
       },
       channel: "W",

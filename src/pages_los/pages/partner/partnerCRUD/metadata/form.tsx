@@ -3,7 +3,7 @@ import {
   becomePartner,
   becomePartnerIndividual,
   becomePartnerNominee,
-} from "../fns";
+} from "../../fns";
 
 export const becomePartnerMetaData: MetaDataType = {
   form: {
@@ -682,9 +682,11 @@ export const becomePartnerMetaData: MetaDataType = {
       multiple: true,
       showCheckbox: true,
       disableCaching: true,
+      required: true,
       dependentFields: ["primaryProduct"],
       //@ts-ignore
       options: "getSecondaryPartnerProduct",
+      validate: "getValidateValue",
       GridProps: {
         xs: 12,
         md: 3,
@@ -716,16 +718,18 @@ export const becomePartnerMetaData: MetaDataType = {
       label: "Do you want to add Nominee Details",
       placeholder: "Add nominee",
       defaultValue: "00",
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
+      required: true,
       //@ts-ignore
       options: "getYesOrNoOptions",
       dependentFields: ["partnerType"],
       shouldExclude: becomePartnerIndividual,
       runPostValidationHookAlways: true,
+      validate: "getValidateValue",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
     },
 
     {

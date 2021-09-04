@@ -1,17 +1,20 @@
-import { assignMetaData, assignedMetaData } from "./task/metadata/grid";
+import {
+  myTaskGridMetaData,
+  assignedTaskGridMetaData,
+} from "./task/metadata/grid";
 import { worklogGridMetaData } from "./worklog/metadata";
-import { coldCallingMetaData } from "./coldCalling/coldCallingCRUD/metadata";
+import { coldCallingGridMetaData } from "./coldCalling/gridMetadata";
 
 export const getGridFormMetaData = ({ gridCode }) => async () => {
   switch (gridCode) {
     case "TRN/009":
-      return assignMetaData;
+      return myTaskGridMetaData;
     case "TRN/008":
-      return assignedMetaData;
+      return assignedTaskGridMetaData;
     case "TRN/014":
       return worklogGridMetaData;
     case "TRN/015":
-      return coldCallingMetaData;
+      return coldCallingGridMetaData;
     default:
       throw { error_msg: "Invalid Product type" };
   }

@@ -1,14 +1,67 @@
 import { Fragment, useState, FC, useContext, useEffect } from "react";
 import { useQuery } from "react-query";
-import { ClearCacheContext } from "cache";
+import { ClearCacheContext, queryClient } from "cache";
 import loaderGif from "assets/images/loader.gif";
-import {
-  DOCCRUDContextProvider,
-  DocAPICrudProviderGenerator,
-} from "pages_los/common/documents/context";
+import { DOCCRUDContextProvider } from "pages_los/common/documents/context";
 import { DocumentGridCRUD as DocGrid } from "pages_los/common/documents/documentGridCRUD";
 import Button from "@material-ui/core/Button";
-import * as API from "../api";
+import * as API from "./api";
+
+export const DocAPICrudProviderGenerator = (
+  moduleType,
+  productType,
+  docCategory,
+  refID,
+  serialNo
+) => ({
+  context: {
+    moduleType,
+    productType,
+    docCategory,
+    refID,
+    serialNo,
+  },
+  uploadDocuments: {
+    fn: API.uploadDocuments,
+    args: { moduleType, productType, refID, serialNo },
+  },
+  getDocumentsGridData: {
+    fn: API.listDocuments,
+    args: { moduleType, productType, refID, serialNo },
+  },
+  deleteDocuments: {
+    fn: API.deleteDocuments,
+    args: { moduleType, productType, refID, serialNo },
+  },
+  updateDocument: {
+    fn: API.updateDocuments,
+    args: { moduleType, productType, refID, serialNo },
+  },
+  verifyDocuments: {
+    fn: API.verifyDocuments,
+    args: { moduleType, productType, refID, serialNo },
+  },
+  getDocumentListingGridMetaData: {
+    fn: API.getDocumentMetaData,
+    args: { moduleType, productType, metaDataType: "grid" },
+  },
+  getDocumentUploadAddtionalFieldsMetaData: {
+    fn: API.getDocumentMetaData,
+    args: { moduleType, productType, metaDataType: "upload" },
+  },
+  getDocumentEditGridMetaData: {
+    fn: API.getDocumentMetaData,
+    args: { moduleType, productType, metaDataType: "edit" },
+  },
+  generateDocumentDownloadURL: {
+    fn: API.generateDocumentDownloadURL,
+    args: { moduleType, productType },
+  },
+  previewDocument: {
+    fn: API.previewDocument,
+    args: { moduleType, productType },
+  },
+});
 
 export const DocumentGridCRUD: FC<{
   tranCD: string;
@@ -21,9 +74,8 @@ export const DocumentGridCRUD: FC<{
     removeCache?.addEntry(["getDocumentCRUDTabsMetadata"]);
   }, [removeCache, tranCD]);
 
-  const queryResult = useQuery(
-    ["getDocumentCRUDTabsMetadata"],
-    () => API.getDocumentCRUDTabsMetadata
+  const queryResult = useQuery(["getDocumentCRUDTabsMetadata"], () =>
+    API.getDocumentCRUDTabsMetadata()
   );
 
   let response: any[] = queryResult.data as any;
@@ -46,22 +98,23 @@ export const DocumentGridCRUD: FC<{
         ) : null}
       </div>
       <div>
-        {response.map((one) => {
-          return (
-            <DOCCRUDContextProvider
-              key={one.docType.filter((one) => one?.primary === true)[0].type}
-              {...DocAPICrudProviderGenerator(
-                "lead",
-                "partner",
-                one.docType,
-                tranCD,
-                ""
-              )}
-            >
-              <DocGrid />
-            </DOCCRUDContextProvider>
-          );
-        })}
+        {Array.isArray(response) &&
+          response.map((one) => {
+            return (
+              <DOCCRUDContextProvider
+                key={one.docType.filter((one) => one?.primary === true)[0].type}
+                {...DocAPICrudProviderGenerator(
+                  "",
+                  "partner",
+                  one.docType,
+                  tranCD,
+                  "1"
+                )}
+              >
+                <DocGrid />
+              </DOCCRUDContextProvider>
+            );
+          })}
       </div>
     </Fragment>
   );

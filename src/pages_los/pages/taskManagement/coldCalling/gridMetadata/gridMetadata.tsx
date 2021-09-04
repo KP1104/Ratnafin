@@ -1,4 +1,4 @@
-export const coldCallingMetaData = {
+export const coldCallingGridMetaData = {
   gridConfig: {
     dense: false,
     pageSize: [20, 30, 50],

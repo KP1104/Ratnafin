@@ -4,8 +4,8 @@ import { useSnackbar } from "notistack";
 import Button from "@material-ui/core/Button";
 import FormWrapper, { MetaDataType } from "components/dyanmicForm";
 import { SubmitFnType } from "packages/form";
-import { becomePartnerMetaData } from "../metadata/form";
-import * as API from "../api";
+import { becomePartnerMetaData } from "./metadata/form";
+import * as API from "./api";
 
 interface BecomePartnerFormProps {
   data: object;
