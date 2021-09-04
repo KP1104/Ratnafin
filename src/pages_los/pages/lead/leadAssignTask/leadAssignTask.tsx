@@ -137,6 +137,7 @@ export const LeadAssignTaskWrapper = ({
       <HeaderDetails
         rowData={rows?.[0]}
         handleDialogClose={handleDialogClose}
+        isDataChangedRef={isDataChangedRef}
       />
       <LeadAssignTask
         leadNo={rows[0]?.data?.lead_no}

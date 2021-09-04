@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useMutation } from "react-query";
 import { useSnackbar } from "notistack";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -10,23 +10,23 @@ import TextField from "@material-ui/core/TextField";
 import { Alert } from "components/common/alert";
 import * as API from "./api";
 
-interface RejectLeadFnType {
-  leadNo: any;
+interface RejectColdCallingFnType {
+  coldCallingNo: any;
   remarks?: string;
 }
 
-const rejectLeadFnWrapper = (rejectLeadFn) => async ({
-  leadNo,
+const rejectColdCallingFnWrapper = (rejectColdCallingFn) => async ({
+  coldCallingNo,
   remarks,
-}: RejectLeadFnType) => {
-  return rejectLeadFn({ leadNo, remarks });
+}: RejectColdCallingFnType) => {
+  return rejectColdCallingFn({ coldCallingNo, remarks });
 };
 
-export const LeadReject = ({
+export const ColdCallingReject = ({
   open,
   closeDialog,
   setShowDialog,
-  leadNo,
+  coldCallingNo,
   isDataChangedRef,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -37,22 +37,25 @@ export const LeadReject = ({
     setShowDialog(false);
   };
 
-  const mutation = useMutation(rejectLeadFnWrapper(API.rejectLead), {
-    onMutate: () => {
-      setError("");
-    },
-    onError: (error: any) => {},
-    onSuccess: (data) => {
-      setRemarks("");
-      setError("");
-      enqueueSnackbar("Lead has been Inactive", {
-        variant: "success",
-      });
-      isDataChangedRef.current = true;
-      closeDialog();
-    },
-  });
-
+  const mutation = useMutation(
+    rejectColdCallingFnWrapper(API.rejectColdCalling),
+    {
+      onMutate: () => {
+        setError("");
+      },
+      onError: (error: any) => {},
+      onSuccess: (data) => {
+        setRemarks("");
+        setError("");
+        enqueueSnackbar("Cold-Calling has been Rejected", {
+          variant: "success",
+        });
+        isDataChangedRef.current = true;
+        closeDialog();
+      },
+    }
+  );
+  console.log(mutation);
   return (
     <Dialog open={open} fullWidth>
       {mutation?.isError ? (
@@ -62,10 +65,10 @@ export const LeadReject = ({
           errorDetail={mutation.error?.error_detail ?? ""}
         />
       ) : null}
-      <DialogTitle id="simple-dialog-title">Reject Lead</DialogTitle>
+      <DialogTitle id="simple-dialog-title">Reject ColdCalling</DialogTitle>
       <DialogContent>
         <TextField
-          key="rejetLead"
+          key="rejetColdCalling"
           label="Remark"
           type="textarea"
           multiline={true}
@@ -99,7 +102,7 @@ export const LeadReject = ({
               setError("This is a required field");
             } else {
               mutation.mutate({
-                leadNo: leadNo,
+                coldCallingNo: coldCallingNo,
                 remarks: remarks,
               });
             }

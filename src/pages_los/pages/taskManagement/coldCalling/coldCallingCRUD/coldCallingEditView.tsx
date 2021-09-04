@@ -16,6 +16,7 @@ import { Transition } from "pages_los/common/transition";
 import { ClearCacheProvider, ClearCacheContext, queryClient } from "cache";
 import * as API from "./api";
 import { coldCallingMetadata } from "../metadata";
+import { HeaderDetails } from "../headerDetails";
 
 interface updateColdCallingDataType {
   data: object;
@@ -271,6 +272,12 @@ export const ColdCallingEditViewMetaWrapper = ({
           paperScrollBody: classes.topPaperScrollBody,
         }}
       >
+        <HeaderDetails
+          rowData={rows?.[0].data}
+          handleDialogClose={handleDialogClose}
+          isDataChangedRef={isDataChangedRef}
+        />
+
         <ColdCallingEditViewWrapper
           tran_cd={rows[0]?.id}
           moduleType={moduleType}

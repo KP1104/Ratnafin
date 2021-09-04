@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useMutation } from "react-query";
 import { useSnackbar } from "notistack";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -10,24 +10,23 @@ import TextField from "@material-ui/core/TextField";
 import { Alert } from "components/common/alert";
 import * as API from "./api";
 
-interface RejectLeadFnType {
-  leadNo: any;
+interface RejectInquiryFnType {
+  inquiryNo: any;
   remarks?: string;
 }
 
-const rejectLeadFnWrapper = (rejectLeadFn) => async ({
-  leadNo,
+const rejectInquiryFnWrapper = (rejectInquiryFn) => async ({
+  inquiryNo,
   remarks,
-}: RejectLeadFnType) => {
-  return rejectLeadFn({ leadNo, remarks });
+}: RejectInquiryFnType) => {
+  return rejectInquiryFn({ inquiryNo, remarks });
 };
 
-export const LeadReject = ({
+export const InquiryReject = ({
   open,
   closeDialog,
   setShowDialog,
-  leadNo,
-  isDataChangedRef,
+  inquiryNo,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [remarks, setRemarks] = useState("");
@@ -37,7 +36,7 @@ export const LeadReject = ({
     setShowDialog(false);
   };
 
-  const mutation = useMutation(rejectLeadFnWrapper(API.rejectLead), {
+  const mutation = useMutation(rejectInquiryFnWrapper(API.rejectInquiry), {
     onMutate: () => {
       setError("");
     },
@@ -45,10 +44,9 @@ export const LeadReject = ({
     onSuccess: (data) => {
       setRemarks("");
       setError("");
-      enqueueSnackbar("Lead has been Inactive", {
+      enqueueSnackbar("Inquiry has been Rejected", {
         variant: "success",
       });
-      isDataChangedRef.current = true;
       closeDialog();
     },
   });
@@ -62,10 +60,10 @@ export const LeadReject = ({
           errorDetail={mutation.error?.error_detail ?? ""}
         />
       ) : null}
-      <DialogTitle id="simple-dialog-title">Reject Lead</DialogTitle>
+      <DialogTitle id="simple-dialog-title">Reject Inquiry</DialogTitle>
       <DialogContent>
         <TextField
-          key="rejetLead"
+          key="rejetInquiry"
           label="Remark"
           type="textarea"
           multiline={true}
@@ -99,7 +97,7 @@ export const LeadReject = ({
               setError("This is a required field");
             } else {
               mutation.mutate({
-                leadNo: leadNo,
+                inquiryNo: inquiryNo,
                 remarks: remarks,
               });
             }

@@ -175,6 +175,7 @@ export const LeadAssignWrapper = ({
         <HeaderDetails
           rowData={rows?.[0]}
           handleDialogClose={handleDialogClose}
+          isDataChangedRef={isDataChangedRef}
         />
         <LeadAssign
           moduleType={moduleType}
