@@ -17,27 +17,27 @@ const PersonalInfo = ({ personalDetail }) => {
       </li>
       <li>
         <strong>Name:</strong>
-        {personalDetail?.fullName}
+        <b>{personalDetail?.fullName}</b>
       </li>
       <li>
         <strong>DOB:</strong>
-        {personalDetail?.dob}
+        <b>{personalDetail?.dob}</b>
       </li>
       <li>
         <strong>Age:</strong>
-        {personalDetail?.age}
+        <b>{personalDetail?.age}</b>
       </li>
       <li>
         <strong>Gender:</strong>
-        {personalDetail?.gender}
+        <b>{personalDetail?.gender}</b>
       </li>
       <li>
         <strong>Total Income:</strong>
-        {personalDetail?.totalIncome}
+        <b>{personalDetail?.totalIncome}</b>
       </li>
       <li>
         <strong>Occupation:</strong>
-        {personalDetail?.occupation}
+        <b>{personalDetail?.occupation}</b>
       </li>
     </ul>
   );
@@ -51,11 +51,11 @@ const Identification = ({ identificationDetail }) => {
       </li>
       <li>
         <strong>PAN:</strong>
-        {identificationDetail?.panID}
+        <b>{identificationDetail?.panID}</b>
       </li>
       <li>
         <strong>Voter ID:</strong>
-        {identificationDetail?.voterID}
+        <b>{identificationDetail?.voterID}</b>
       </li>
     </ul>
   );
@@ -69,18 +69,19 @@ const ContactDetails = ({ contactDetail }) => {
       </li>
       <li>
         <strong>Home:</strong>
-        {contactDetail?.homePhone}
+        <b>{contactDetail?.homePhone}</b>
       </li>
       <li>
         <strong>Office:</strong>
+        <b></b>
       </li>
       <li>
         <strong>Mobile:</strong>
-        {contactDetail?.mobilePhone}
+        <b>{contactDetail?.mobilePhone}</b>
       </li>
       <li>
         <strong>Email:</strong>
-        {contactDetail?.email}
+        <b>{contactDetail?.email}</b>
       </li>
     </ul>
   );

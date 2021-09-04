@@ -1,59 +1,6 @@
 @charset "UTF-8";
 
-@page {
-  size: A4;
-  @top-left {
-    background: #fbc847;
-    content: counter(page);
-    height: 1cm;
-    text-align: center;
-    width: 1cm;
-  }
-  @top-center {
-    background: #fbc847;
-    content: "";
-    display: block;
-    height: 0.05cm;
-    opacity: 0.5;
-    width: 100%;
-  }
-  @top-right {
-    content: string(heading);
-    font-size: 9pt;
-    height: 1cm;
-    vertical-align: middle;
-    width: 100%;
-  }
-}
-
-@page :blank {
-  @top-left {
-    background: none;
-    content: "";
-  }
-  @top-center {
-    content: none;
-  }
-  @top-right {
-    content: none;
-  }
-}
-
-@page no-chapter {
-  @top-left {
-    background: none;
-    content: none;
-  }
-  @top-center {
-    content: none;
-  }
-  @top-right {
-    content: none;
-  }
-}
-
 @page :first {
-  /* background: url(report-cover.jpg) no-repeat center; */
   background-size: cover;
   margin: 0;
 }
@@ -70,6 +17,19 @@
   @top-right {
     content: none;
   }
+}
+
+@page {
+  size: A4;
+  margin: 0;
+}
+@media print {
+  html,
+  body {
+    width: 210mm;
+    height: 297mm;
+  }
+  /* ... the rest of the rules ... */
 }
 
 html {
@@ -200,8 +160,9 @@ html body article#cover .middle-sec ul {
 html body article#cover .middle-sec ul li {
   width: 100%;
   display: inline-block;
-  margin-bottom: 2px;
+  margin-bottom: 5px;
   line-height: normal;
+  position: relative;
 }
 
 html body article#cover .middle-sec ul li span {
@@ -210,7 +171,7 @@ html body article#cover .middle-sec ul li span {
   color: #fff;
   font-size: 18px;
   background-color: #10b158;
-  padding: 3px 0 4px 25px;
+  padding: 3px 0 4px 5px;
   line-height: normal;
 }
 
@@ -220,9 +181,17 @@ html body article#cover .middle-sec ul li strong {
   font-style: normal;
   font-size: 10pt;
   font-style: italic;
-  padding-left: 25px;
-  width: 150px;
+  padding-left: 5px;
+  width: 120px;
   display: inline-block;
+}
+
+html body article#cover .middle-sec ul li b {
+  position: absolute;
+  font-weight: normal;
+  top: 0;
+  bottom: 0;
+  font-size: 11px;
 }
 
 html body article#cover .consumer-part {
@@ -409,14 +378,14 @@ html body article#contents .summary-sec .table .thead-dark th {
 
 html body article#contents .summary-sec .table td span {
   font-style: italic;
-  width: 230px;
+  width: 50%;
   display: inline-block;
   vertical-align: top;
   word-break: break-word;
 }
 
 html body article#contents .summary-sec .table td b {
-  width: 130px;
+  width: 125px;
   display: inline-block;
   word-break: break-word;
 }
@@ -463,6 +432,10 @@ html body article#contents .account-details-sec .history-sec tbody {
   border-right: solid 1px #dee2e6;
 }
 
+html body article#contents .account-details-sec .account-small strong {
+  font-size: 13px;
+}
+
 html body article#contents .account-details-sec .account-part {
   width: 100%;
 }
@@ -470,7 +443,6 @@ html body article#contents .account-details-sec .account-part {
 html body article#contents .account-details-sec .history-sec td {
   padding-left: 0;
   padding-right: 0;
-  font-size: 12px;
 }
 
 html body article#contents .account-details-sec .history-monthly tbody {
@@ -482,11 +454,8 @@ html body article#contents .account-details-sec .monthly-sec {
 
 html body article#contents .account-details-sec .monthly-sec td {
   padding: 0 3px;
-  font-size: 9px;
+  font-size: 11px;
   text-align: center;
-  flex: calc(100% / 13);
-  width: 32px !important;
-  display: inline-block;
 }
 
 html
@@ -606,11 +575,9 @@ html body article#competences .glossary-part .table .thead-dark th {
   background-color: #10b158;
   width: 50%;
   text-align: left;
-  padding: 0;
 }
 html body article#competences .glossary-part .table td {
   text-align: left;
-  padding: 0;
 }
 
 html body article#competences .glossary-part tbody {
@@ -622,8 +589,8 @@ html body article#competences .glossary-part .table .thead-dark th:first-child {
 }
 
 html body article#competences .glossary-part .table {
-  width: 30%;
-  max-width: 30%;
+  width: 50%;
+  max-width: 50%;
 }
 
 html body article#offers {

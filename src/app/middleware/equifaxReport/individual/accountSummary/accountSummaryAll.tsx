@@ -1,4 +1,4 @@
-export const AccountSummary = ({ accountSummary }) => {
+export const AccountSummaryAll = ({ accountSummary }) => {
   return (
     <div className="summary-sec">
       <h2>Summary* :</h2>
