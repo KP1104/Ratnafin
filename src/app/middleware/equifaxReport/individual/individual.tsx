@@ -5,6 +5,7 @@ import { AccountsInfo } from "./accountsInfo";
 import { PersonalInfo } from "./personalInfo";
 import { EnquiryInfo } from "./enquiryInfo";
 import { GlossaryTermsExplanation } from "./glossaryTermExplanation";
+import { AccountSummary } from "./accountSummary";
 import { MiddlewareSDK } from "registry/fns/middleware";
 import "assets/css/bootstrap.min.css";
 import "./styles.css";
@@ -21,6 +22,7 @@ export const IndividualEquifaxReport = () => {
   ) : (
     <>
       <PersonalInfo personalInfo={data?.customer} header={data?.header} />
+      <AccountSummary accountsSummary={data?.account} header={data?.header} />
       <AccountsInfo accountsInfo={data?.account} header={data?.header} />
       <EnquiryInfo
         enquirySummaryInfo={data?.enquirySummary}
