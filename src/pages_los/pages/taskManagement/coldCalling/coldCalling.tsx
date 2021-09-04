@@ -11,6 +11,7 @@ import {
   ColdCallingAddWrapper,
 } from "./coldCallingCRUD";
 import { MoveToInquiryWrapper } from "./moveToInquiry";
+import { DocumentUploadWrapper } from "./documentUpload";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { ClearCacheProvider } from "cache";
 
@@ -38,6 +39,12 @@ const actions: ActionTypes[] = [
     actionName: "delete",
     actionLabel: "Delete",
     multiple: true,
+    rowDoubleClick: false,
+  },
+  {
+    actionName: "documentUpload",
+    actionLabel: "Document Upload",
+    multiple: false,
     rowDoubleClick: false,
   },
 ];
@@ -100,6 +107,12 @@ export const ColdCalling = ({ gridCode, actions }) => {
               moduleType="cold-calling"
               isDataChangedRef={isDataEditedRef}
               handleDialogClose={handleDialogClose}
+            />
+          </Route>
+          <Route path="/documentUpload">
+            <DocumentUploadWrapper
+              moduleType="cold-calling"
+              closeDialog={handleDialogClose}
             />
           </Route>
         </Routes>

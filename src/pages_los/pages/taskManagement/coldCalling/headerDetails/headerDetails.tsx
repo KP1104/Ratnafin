@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, FC } from "react";
 import Button from "@material-ui/core/Button";
 import { useStyles } from "./style";
 import { format } from "date-fns";
 import { ColdCallingReject } from "../coldCallingReject";
 
-export const HeaderDetails = ({
+export const HeaderDetails: FC<any> = ({
   rowData,
   handleDialogClose,
   isDataChangedRef,
