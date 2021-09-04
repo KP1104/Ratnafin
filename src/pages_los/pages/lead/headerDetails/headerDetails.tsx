@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useState, FC } from "react";
 import Button from "@material-ui/core/Button";
 import { useStyles } from "./style";
 import { format } from "date-fns";
 import { LeadReject } from "../leadReject";
 
-export const HeaderDetails = ({ rowData, handleDialogClose }) => {
+export const HeaderDetails: FC<any> = ({
+  rowData,
+  handleDialogClose,
+  isDataChangedRef,
+}) => {
   const classes = useStyles();
   const [showDialog, setShowDialog] = useState(Boolean);
 
@@ -47,7 +51,7 @@ export const HeaderDetails = ({ rowData, handleDialogClose }) => {
         </div>
         <div style={{ flexGrow: 1 }} />
         <Button onClick={() => setShowDialog(true)} style={{ color: "red" }}>
-          Reject
+          Reject Lead
         </Button>
         <Button onClick={handleDialogClose}>Close</Button>
       </div>
@@ -58,6 +62,8 @@ export const HeaderDetails = ({ rowData, handleDialogClose }) => {
           open={showDialog}
           setShowDialog={setShowDialog}
           closeDialog={handleDialogClose}
+          leadNo={rowData?.data?.lead_no}
+          isDataChangedRef={isDataChangedRef}
         />
       ) : null}
     </div>

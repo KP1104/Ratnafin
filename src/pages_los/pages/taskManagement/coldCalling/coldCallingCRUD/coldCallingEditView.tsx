@@ -13,9 +13,10 @@ import { cloneDeep } from "lodash-es";
 import { useLocation } from "react-router-dom";
 import { useDialogStyles } from "pages_los/common/dialogStyles";
 import { Transition } from "pages_los/common/transition";
-import { ClearCacheContext, queryClient } from "cache";
 import * as API from "../api";
 import { coldCallingMetadata } from "./metadata";
+import { ClearCacheContext, queryClient } from "cache";
+import { HeaderDetails } from "../headerDetails";
 
 interface updateColdCallingDataType {
   data: object;
@@ -227,29 +228,36 @@ export const ColdCallingEditViewWrapper = ({
     };
   }, []);
   return (
-    <Dialog
-      open={true}
-      //@ts-ignore
-      TransitionComponent={Transition}
-      PaperProps={{
-        style: {
-          width: "100%",
-          minHeight: "20vh",
-        },
-      }}
-      maxWidth="lg"
-      classes={{
-        scrollPaper: classes.topScrollPaper,
-        paperScrollBody: classes.topPaperScrollBody,
-      }}
-    >
-      <ColdCallingViewEdit
-        tran_cd={rows[0]?.id}
-        moduleType={moduleType}
-        isDataChangedRef={isDataChangedRef}
-        closeDialog={handleDialogClose}
-        readOnly={false}
-      />
-    </Dialog>
+    <>
+      <Dialog
+        open={true}
+        //@ts-ignore
+        TransitionComponent={Transition}
+        PaperProps={{
+          style: {
+            width: "100%",
+            minHeight: "20vh",
+          },
+        }}
+        maxWidth="lg"
+        classes={{
+          scrollPaper: classes.topScrollPaper,
+          paperScrollBody: classes.topPaperScrollBody,
+        }}
+      >
+        <HeaderDetails
+          rowData={rows[0]?.data}
+          handleDialogClose={handleDialogClose}
+          isDataChangedRef={isDataChangedRef}
+        />
+        <ColdCallingViewEdit
+          tran_cd={rows[0]?.id}
+          moduleType={moduleType}
+          isDataChangedRef={isDataChangedRef}
+          closeDialog={handleDialogClose}
+          readOnly={false}
+        />
+      </Dialog>
+    </>
   );
 };
