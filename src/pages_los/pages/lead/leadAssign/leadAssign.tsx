@@ -161,7 +161,7 @@ export const LeadAssignWrapper = ({
       {...generateLeadAssignAPIContext({ refID: rows?.[0].id, moduleType })}
     >
       <Dialog
-        maxWidth="sm"
+        maxWidth="md"
         open={true}
         //@ts-ignore
         TransitionComponent={Transition}

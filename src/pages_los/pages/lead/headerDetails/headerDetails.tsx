@@ -8,6 +8,7 @@ export const HeaderDetails: FC<any> = ({
   rowData,
   handleDialogClose,
   isDataChangedRef,
+  rejectLead = false,
 }) => {
   const classes = useStyles();
   const [showDialog, setShowDialog] = useState(Boolean);
@@ -50,22 +51,22 @@ export const HeaderDetails: FC<any> = ({
           <div className={classes.valueText}>{rowData?.data?.sub_stage_cd}</div>
         </div>
         <div style={{ flexGrow: 1 }} />
-        <Button onClick={() => setShowDialog(true)} style={{ color: "red" }}>
-          Reject Lead
-        </Button>
+        {Boolean(rejectLead) ? (
+          <Button onClick={() => setShowDialog(true)} style={{ color: "red" }}>
+            Reject Lead
+          </Button>
+        ) : null}
         <Button onClick={handleDialogClose}>Close</Button>
       </div>
 
       {/* Reject Lead code */}
-      {Boolean(showDialog) ? (
-        <LeadReject
-          open={showDialog}
-          setShowDialog={setShowDialog}
-          closeDialog={handleDialogClose}
-          leadNo={rowData?.data?.lead_no}
-          isDataChangedRef={isDataChangedRef}
-        />
-      ) : null}
+      <LeadReject
+        open={showDialog}
+        setShowDialog={setShowDialog}
+        closeDialog={handleDialogClose}
+        leadNo={rowData?.data?.tran_cd}
+        isDataChangedRef={isDataChangedRef}
+      />
     </div>
   );
 };

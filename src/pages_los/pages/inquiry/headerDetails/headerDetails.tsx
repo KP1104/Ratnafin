@@ -1,15 +1,20 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import Button from "@material-ui/core/Button";
 import { useStyles } from "./style";
 import { format } from "date-fns";
 import { InquiryReject } from "../inquiryReject";
 
-export const HeaderDetails = ({ productData, handleDialogClose }) => {
+export const HeaderDetails: FC<any> = ({
+  productData,
+  handleDialogClose,
+  isDataChangedRef,
+  rejectInquiry = false,
+}) => {
   const [showDialog, setShowDialog] = useState(Boolean);
   const classes = useStyles();
   let dateValue;
   try {
-    dateValue = format(new Date(productData?.data?.tran_dt), "dd/MM/yyyy");
+    dateValue = format(new Date(productData?.tran_dt), "dd/MM/yyyy");
   } catch (e) {
     dateValue = "Invalid Date";
   }
@@ -18,21 +23,15 @@ export const HeaderDetails = ({ productData, handleDialogClose }) => {
       <div className={classes.innerWrapper}>
         <div className={classes.spacing}>
           <div className={classes.labelText}>Inquiry No</div>
-          <div className={classes.valueText}>
-            {productData?.data?.inquiry_no}
-          </div>
+          <div className={classes.valueText}>{productData?.inquiry_no}</div>
         </div>
         <div className={classes.spacing}>
           <div className={classes.labelText}>Branch</div>
-          <div className={classes.valueText}>
-            {productData?.data?.branch_name}
-          </div>
+          <div className={classes.valueText}>{productData?.branch_name}</div>
         </div>
         <div className={classes.spacing}>
           <div className={classes.labelText}>Product</div>
-          <div className={classes.valueText}>
-            {productData?.data?.product_cd}
-          </div>
+          <div className={classes.valueText}>{productData?.product_cd}</div>
         </div>
         <div className={classes.spacing}>
           <div className={classes.labelText}>Generated On</div>
@@ -40,22 +39,23 @@ export const HeaderDetails = ({ productData, handleDialogClose }) => {
         </div>
         <div className={classes.spacing}>
           <div className={classes.labelText}>Current Status</div>
-          <div className={classes.valueText}>{productData?.data?.status}</div>
+          <div className={classes.valueText}>{productData?.status}</div>
         </div>
         <div style={{ flexGrow: 1 }} />
-        <Button onClick={() => setShowDialog(true)} style={{ color: "red" }}>
-          Reject Inquiry
-        </Button>
+        {Boolean(rejectInquiry) ? (
+          <Button onClick={() => setShowDialog(true)} style={{ color: "red" }}>
+            Reject Inquiry
+          </Button>
+        ) : null}
         <Button onClick={handleDialogClose}>Close</Button>
       </div>
-      {Boolean(showDialog) ? (
-        <InquiryReject
-          open={showDialog}
-          setShowDialog={setShowDialog}
-          closeDialog={handleDialogClose}
-          inquiryNo={productData?.data?.inquiry_no}
-        />
-      ) : null}
+      <InquiryReject
+        open={showDialog}
+        setShowDialog={setShowDialog}
+        closeDialog={handleDialogClose}
+        inquiryNo={productData?.tran_cd}
+        isDataChangedRef={isDataChangedRef}
+      />
     </div>
   );
 };

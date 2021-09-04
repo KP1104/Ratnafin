@@ -8,6 +8,7 @@ export const HeaderDetails = ({
   rowData,
   handleDialogClose,
   isDataChangedRef,
+  rejectColdCalling = false,
 }) => {
   const [showDialog, setShowDialog] = useState(Boolean);
   const classes = useStyles();
@@ -50,20 +51,21 @@ export const HeaderDetails = ({
           <div className={classes.valueText}>{rowData?.status}</div>
         </div>
         <div style={{ flexGrow: 1 }} />
-        <Button onClick={() => setShowDialog(true)} style={{ color: "red" }}>
-          Reject Cold-Calling
-        </Button>
+        {Boolean(rejectColdCalling) ? (
+          <Button onClick={() => setShowDialog(true)} style={{ color: "red" }}>
+            Reject Cold-Calling
+          </Button>
+        ) : null}
+
         <Button onClick={handleDialogClose}>Close</Button>
       </div>
-      {Boolean(showDialog) ? (
-        <ColdCallingReject
-          open={showDialog}
-          setShowDialog={setShowDialog}
-          closeDialog={handleDialogClose}
-          coldCallingNo={rowData?.tran_cd}
-          isDataChangedRef={isDataChangedRef}
-        />
-      ) : null}
+      <ColdCallingReject
+        open={showDialog}
+        setShowDialog={setShowDialog}
+        closeDialog={handleDialogClose}
+        coldCallingNo={rowData?.tran_cd}
+        isDataChangedRef={isDataChangedRef}
+      />
     </div>
   );
 };

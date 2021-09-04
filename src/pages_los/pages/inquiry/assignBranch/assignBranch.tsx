@@ -142,7 +142,10 @@ export const AssignBranchWrapper = ({
         paperScrollBody: dialogClasses.topPaperScrollBody,
       }}
     >
-      <HeaderDetails productData={rows?.[0]} handleDialogClose={closeDialog} />
+      <HeaderDetails
+        productData={rows[0]?.data}
+        handleDialogClose={closeDialog}
+      />
       <AssignBranch
         key={rows[0].id}
         moduleType={moduleType}

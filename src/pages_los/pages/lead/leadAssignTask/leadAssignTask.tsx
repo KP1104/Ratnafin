@@ -128,7 +128,7 @@ export const LeadAssignTaskWrapper = ({
           minHeight: "20vh",
         },
       }}
-      maxWidth="sm"
+      maxWidth="md"
       classes={{
         scrollPaper: dialogClasses.topScrollPaper,
         paperScrollBody: dialogClasses.topPaperScrollBody,

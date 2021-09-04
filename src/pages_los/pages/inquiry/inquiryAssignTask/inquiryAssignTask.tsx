@@ -130,13 +130,16 @@ export const InquiryAssignTaskWrapper = ({ closeDialog, isDataChangedRef }) => {
           minHeight: "20vh",
         },
       }}
-      maxWidth="sm"
+      maxWidth="md"
       classes={{
         scrollPaper: dialogClasses.topScrollPaper,
         paperScrollBody: dialogClasses.topPaperScrollBody,
       }}
     >
-      <HeaderDetails productData={rows?.[0]} handleDialogClose={closeDialog} />
+      <HeaderDetails
+        productData={rows[0]?.data}
+        handleDialogClose={closeDialog}
+      />
       <InquiryAssignTask
         inquiryNo={rows[0]?.data?.inquiry_no}
         trancdCode={rows[0]?.data?.tran_cd}

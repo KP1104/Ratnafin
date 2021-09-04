@@ -115,6 +115,7 @@ export const DetailsTabViewWrapper = ({
         rowData={rows?.[0]}
         handleDialogClose={handleDialogClose}
         isDataChangedRef={isDataChangedRef}
+        rejectLead={true}
       />
       <DetailsTabView
         key={rows[0].id}

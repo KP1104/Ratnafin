@@ -249,6 +249,7 @@ export const ColdCallingEditViewWrapper = ({
           rowData={rows[0]?.data}
           handleDialogClose={handleDialogClose}
           isDataChangedRef={isDataChangedRef}
+          rejectColdCalling={true}
         />
         <ColdCallingViewEdit
           tran_cd={rows[0]?.id}

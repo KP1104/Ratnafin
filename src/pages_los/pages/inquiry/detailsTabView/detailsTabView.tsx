@@ -51,8 +51,10 @@ export const DetailsTabViewWrapper = ({
       onClose={handleDialogClose}
     >
       <HeaderDetails
-        productData={rows?.[0]}
+        productData={rows[0]?.data}
         handleDialogClose={handleDialogClose}
+        isDataChangedRef={isDataChangedRef}
+        rejectInquiry={true}
       />
       <DetailsTabView
         moduleType="inquiry"

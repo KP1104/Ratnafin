@@ -6,7 +6,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
+import { TextField } from "components/styledComponent/textfield";
 import { Alert } from "components/common/alert";
 import * as API from "./api";
 
@@ -67,7 +67,7 @@ export const LeadReject = ({
         <TextField
           key="rejetLead"
           label="Remark"
-          type="textarea"
+          type="text"
           multiline={true}
           placeholder="Enter Remark"
           InputLabelProps={{ shrink: true }}
@@ -79,19 +79,10 @@ export const LeadReject = ({
           helperText={error}
           value={remarks}
           autoFocus={true}
+          rows={3}
         />
       </DialogContent>
       <DialogActions>
-        <Button
-          color="primary"
-          onClick={() => {
-            handleDialogClose();
-            setRemarks("");
-            setError("");
-          }}
-        >
-          Cancel
-        </Button>
         <Button
           color="primary"
           onClick={() => {
@@ -107,6 +98,16 @@ export const LeadReject = ({
           autoFocus
         >
           Reject
+        </Button>
+        <Button
+          color="primary"
+          onClick={() => {
+            handleDialogClose();
+            setRemarks("");
+            setError("");
+          }}
+        >
+          Cancel
         </Button>
       </DialogActions>
     </Dialog>
