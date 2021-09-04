@@ -1,4 +1,4 @@
-export const assignedMetaData = {
+export const assignedTaskGridMetaData = {
   gridConfig: {
     dense: false,
     pageSize: [20, 30, 50],

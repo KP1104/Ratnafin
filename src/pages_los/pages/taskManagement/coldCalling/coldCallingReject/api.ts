@@ -13,7 +13,6 @@ export const rejectColdCalling = async ({ coldCallingNo, remarks }) => {
       }),
     }
   );
-  console.log(data);
   if (status === "success") {
     return data?.response_data;
   } else {
