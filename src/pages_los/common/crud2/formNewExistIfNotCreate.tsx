@@ -104,21 +104,28 @@ export const CreateFormConfirmation = ({
   closeDialog,
   formStyle,
 }) => {
-  const [showAsk, setShowAsk] = useState(true);
   const cancleFormSubmit = useCallback(() => {
-    setShowAsk(true);
     if (typeof closeDialog === "function") {
       closeDialog();
     }
-  }, [setShowAsk]);
-  return showAsk ? (
-    <Fragment>
-      <Typography variant="h6">No Data Found</Typography>
-      {!Boolean(readOnly) ? (
-        <Button onClick={() => setShowAsk(false)}>Click Here to Add</Button>
-      ) : null}
-    </Fragment>
-  ) : (
+  }, []);
+  // const [showAsk, setShowAsk] = useState(true);
+  // const cancleFormSubmit = useCallback(() => {
+  //   setShowAsk(true);
+  //   if (typeof closeDialog === "function") {
+  //     closeDialog();
+  //   }
+  // }, [setShowAsk]);
+  // return showAsk ? (
+  //   <Fragment>
+  //     <Typography variant="h6">No Data Found</Typography>
+  //     {!Boolean(readOnly) ? (
+  //       <Button onClick={() => setShowAsk(false)}>Click Here to Add</Button>
+  //     ) : null}
+  //   </Fragment>
+  // ) : (
+
+  return (
     <FormNew
       isDataChangedRef={isDataChangedRef}
       cancelAction={cancleFormSubmit}
@@ -126,4 +133,5 @@ export const CreateFormConfirmation = ({
       formStyle={formStyle}
     />
   );
+  //);
 };

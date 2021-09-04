@@ -146,9 +146,11 @@ export const FormNew: FC<{
             >
               Save
             </Button>
-            <Button onClick={cancelAction} disabled={isSubmitting}>
-              Cancel
-            </Button>
+            {typeof cancelAction === "function" ? (
+              <Button onClick={cancelAction} disabled={isSubmitting}>
+                Cancel
+              </Button>
+            ) : null}
           </>
         );
       }}
