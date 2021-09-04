@@ -2,8 +2,8 @@ export const History = ({ history }: any) => {
   const historyFirst24Months = history.slice(0, 24);
   const historySecond24Months = history.slice(24, 48);
   return (
-    <table className="table" style={{ borderTop: "none !important" }}>
-      <tbody style={{ borderTop: "none !important" }}>
+    <table className="table" style={{ borderTop: "none" }}>
+      <tbody style={{ borderTop: "none" }}>
         <tr>
           <td>History</td>
         </tr>

@@ -87,7 +87,10 @@ export const PriorityWrapper = ({
       TransitionComponent={Transition}
       onClose={closeDialog}
     >
-      <HeaderDetails productData={rows?.[0]} handleDialogClose={closeDialog} />
+      <HeaderDetails
+        productData={rows[0]?.data}
+        handleDialogClose={closeDialog}
+      />
       <Priority
         moduleType={moduleType}
         refID={rows[0].id}

@@ -125,13 +125,16 @@ export const MoveToLeadWrapper = ({
           minHeight: "20vh",
         },
       }}
-      maxWidth="sm"
+      maxWidth="md"
       classes={{
         scrollPaper: dialogClasses.topScrollPaper,
         paperScrollBody: dialogClasses.topPaperScrollBody,
       }}
     >
-      <HeaderDetails productData={rows?.[0]} handleDialogClose={closeDialog} />
+      <HeaderDetails
+        productData={rows[0]?.data}
+        handleDialogClose={closeDialog}
+      />
       <MoveToLead
         moduleType={moduleType}
         refID={rows[0].id}

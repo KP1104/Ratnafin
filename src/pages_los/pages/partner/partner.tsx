@@ -66,6 +66,7 @@ export const BecomePartner = () => {
         loading={result.isLoading || result.isFetching}
         actions={actions}
         setAction={setCurrentAction}
+        refetchData={() => result.refetch()}
         ref={myGridRef}
       />
       <ClearCacheProvider>

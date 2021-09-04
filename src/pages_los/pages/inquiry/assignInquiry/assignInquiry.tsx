@@ -171,14 +171,14 @@ export const AssignInquiryWrapper = ({
             minHeight: "20vh",
           },
         }}
-        maxWidth="sm"
+        maxWidth="md"
         classes={{
           scrollPaper: dialogClasses.topScrollPaper,
           paperScrollBody: dialogClasses.topPaperScrollBody,
         }}
       >
         <HeaderDetails
-          productData={rows?.[0]}
+          productData={rows[0]?.data}
           handleDialogClose={closeDialog}
         />
         <AssignInquiry

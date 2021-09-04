@@ -20,10 +20,7 @@ export const DocumentUploadWrapper = ({ moduleType, closeDialog }) => {
       TransitionComponent={Transition}
       onClose={closeDialog}
     >
-      <HeaderDetails
-        productData={rows[0]?.data}
-        handleDialogClose={closeDialog}
-      />
+      <HeaderDetails rowData={rows[0]?.data} handleDialogClose={closeDialog} />
       <DocumentGridCRUD
         refID={rows[0]?.id}
         moduleType={moduleType}
