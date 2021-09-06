@@ -14,7 +14,7 @@ const DocumentGridCRUD = lazy(() =>
 export const DocumentUploadWrapper = ({ moduleType, closeDialog }) => {
   const removeCache = useContext(ClearCacheContext);
   const { state: rows }: any = useLocation();
-  const productCode = rows[0]?.data?.product_type;
+  const productCode = rows[0]?.data?.category_type;
   let skipGSTForRetail: Boolean = false;
 
   skipGSTForRetail = ["12000001"].indexOf(productCode) > -1 ? true : false;
