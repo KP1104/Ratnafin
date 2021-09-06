@@ -104,6 +104,7 @@ registerFn("getSourcelist", miscSDK.getSourcelist);
 registerFn("getYesOrNoOptions", others.getYesOrNoOptions);
 registerFn("AutoFillGender", others.AutoFillGender);
 registerFn("getValidateValue", others.getValidateValue);
+registerFn("validateLoanAmount", others.validateLoanAmount);
 registerFn("getGenderValue", others.getGenderValue);
 registerFn("setLTVValue", others.setLTVValue);
 registerFn("setNewLTVValue", others.setNewLTVValue);

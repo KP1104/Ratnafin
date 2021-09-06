@@ -188,3 +188,10 @@ export const setFacilityFundBaseValue = (fieldData) => {
     },
   };
 };
+
+export const validateLoanAmount = async (fieldData) => {
+  if (fieldData.value === "0" || fieldData.value < 0) {
+    return "Loan Amount should be greater than Zero";
+  } else {
+  }
+};
