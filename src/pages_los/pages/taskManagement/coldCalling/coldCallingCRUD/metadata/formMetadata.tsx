@@ -257,13 +257,13 @@ export const coldCallingMetadata = {
     },
     {
       render: {
-        componentType: "currency",
+        componentType: "currencyWithLeadingZeros",
       },
       name: "loanAmount",
       label: "Desired Loan Amount",
       placeholder: "Desired Loan Amount",
       required: true,
-      validate: "getValidateValue",
+      validate: "validateLoanAmount",
       GridProps: {
         xs: 12,
         md: 3,
