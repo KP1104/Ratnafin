@@ -62,9 +62,8 @@ registerFn("getNewTakeover", miscSDK.getMiscVal("NEW_TAKEOVER"));
 registerFn("getFinancialSource", miscSDK.getMiscVal("FIN_SOURCE"));
 registerFn("getBusinessAddressType", miscSDK.getMiscVal("BUSSIN_ADD_TYPE"));
 registerFn("getOccupation", miscSDK.getMiscVal("OCCUPATION"));
-registerFn("getPrimaryPartnerProduct", miscSDK.getMiscVal("PARTNER_PRODUCT"));
+registerFn("getPrimaryProduct", miscSDK.getPrimaryPartnerProduct);
 registerFn("getSecondaryPartnerProduct", miscSDK.getSecondaryPartnerProduct);
-
 registerFn("getCCODFacilityProposed", miscSDK.getMiscVal("PROPOSEDFACILIT"));
 registerFn("getPurposeOfLoanForSME", miscSDK.getMiscVal("SMEPURPOSE"));
 registerFn("getPurposeOfLoanForUnsecure", miscSDK.getMiscVal("UNSPURPOSE"));

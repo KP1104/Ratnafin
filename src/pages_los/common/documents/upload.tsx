@@ -75,7 +75,11 @@ export const UploadDocumentsApiWrapper = ({
       })}
       gridProps={{ ...context, docCategory: docType }}
       maxAllowedSize={1024 * 1204 * 10} //10Mb file
-      allowedExtensions={["pdf"]}
+      allowedExtensions={
+        context.productType === "partner"
+          ? ["pdf", "jpg", "jpeg", "png"]
+          : ["pdf"]
+      }
     />
   );
   return renderResult;

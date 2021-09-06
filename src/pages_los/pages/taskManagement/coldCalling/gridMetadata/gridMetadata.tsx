@@ -60,5 +60,13 @@ export const coldCallingGridMetaData = {
       alignment: "left",
       componentType: "default",
     },
+    {
+      accessor: "followup_date",
+      columnName: "Next Follow-up Date",
+      sequence: 7,
+      alignment: "left",
+      componentType: "date",
+      dateFormat: "dd/MM/yyyy",
+    },
   ],
 };

@@ -1,5 +1,6 @@
 import { Fragment, useState, useEffect, useContext, useRef } from "react";
 import Dialog from "@material-ui/core/Dialog";
+import { Alert } from "components/common/alert";
 import { useQuery } from "react-query";
 import { ClearCacheProvider, ClearCacheContext, queryClient } from "cache";
 import { InvalidAction } from "pages_los/common/invalidAction";
@@ -58,6 +59,14 @@ export const BecomePartner = () => {
 
   return (
     <Fragment>
+      {result.isError && (
+        <Alert
+          severity="error"
+          errorMsg={result.error?.error_msg}
+          errorDetail={result.error?.error_details}
+        />
+      )}
+
       <GridWrapper
         key={`externalAPIGridStatusListing`}
         finalMetaData={partnerGridMetaData as GridMetaDataType}
@@ -70,7 +79,7 @@ export const BecomePartner = () => {
         ref={myGridRef}
       />
       <ClearCacheProvider>
-        <Dialog open={Boolean(currentAction)} fullScreen>
+        <Dialog open={Boolean(currentAction)} fullScreen maxWidth="xl">
           <PartnerActions
             currentAction={currentAction}
             handleDialogClose={handleDialogClose}
@@ -100,6 +109,11 @@ const PartnerActions = ({
     <AddPartner
       isDataChangedRef={isDataChangedRef}
       closeDialog={handleDialogClose}
+      formStyle={{
+        background: "white",
+        overflowY: "hidden",
+        overflowX: "hidden",
+      }}
     />
   ) : (currentAction?.name ?? "") === "editDetails" ? (
     <ViewEditPartnerDetails
@@ -107,6 +121,11 @@ const PartnerActions = ({
       isDataChangedRef={isDataChangedRef}
       closeDialog={handleDialogClose}
       tranCD={currentAction?.rows[0].id}
+      formStyle={{
+        background: "white",
+        overflowY: "hidden",
+        overflowX: "hidden",
+      }}
     />
   ) : (currentAction?.name ?? "") === "Document" ? (
     <DocumentGridCRUD

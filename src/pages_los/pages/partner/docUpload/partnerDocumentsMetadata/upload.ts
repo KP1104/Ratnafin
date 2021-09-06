@@ -23,8 +23,7 @@ export const partnerUpload = [
     columnName: "Remarks",
     componentType: "editableTextField",
     accessor: "remarks",
-    sequence: 6,
+    sequence: 7,
     alignment: "left",
-    isVisible: false,
   },
 ];

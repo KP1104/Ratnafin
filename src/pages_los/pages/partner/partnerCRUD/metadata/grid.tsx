@@ -75,5 +75,13 @@ export const partnerGridMetaData: GridMetaDataType = {
       alignment: "left",
       componentType: "default",
     },
+    {
+      accessor: "tranDate",
+      columnName: "Partner Added Date",
+      sequence: 9,
+      alignment: "left",
+      componentType: "date",
+      dateFormat: "dd/MM/yyyy",
+    },
   ],
 };

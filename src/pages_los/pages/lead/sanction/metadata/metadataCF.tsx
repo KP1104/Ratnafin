@@ -284,11 +284,11 @@ export const CFSanctionMetadata: MetaDataType = {
             //@ts-ignore
             componentType: "textField",
           },
+          type: "number",
           name: "tenure",
-          label: "Tenure",
-          placeholder: "Tenure",
-          maxLength: 5,
-          showMaxLength: false,
+          label: "Tenure (In Months)",
+          placeholder: "Tenure (In Months)",
+          maxLength: 3,
           dependentFields: ["facilityType"],
           shouldExclude: showTenureOrMoratoriumField,
           GridProps: {
@@ -304,11 +304,11 @@ export const CFSanctionMetadata: MetaDataType = {
           },
           name: "moratoriumPeriod",
           type: "number",
-          label: "Moratorium Period",
-          placeholder: "Moratorium Period",
+          label: "Moratorium Period (In Months)",
+          placeholder: "Moratorium Period (In Months)",
           dependentFields: ["facilityType"],
           shouldExclude: showTenureOrMoratoriumField,
-          maxLength: 5,
+          maxLength: 3,
           GridProps: {
             xs: 12,
             md: 3,
@@ -334,11 +334,29 @@ export const CFSanctionMetadata: MetaDataType = {
         {
           render: {
             //@ts-ignore
-            componentType: "currency",
+            componentType: "rateOfIntWithoutValidation",
           },
           name: "prePaymentCharges",
           label: "Pre Payment Charges",
           placeholder: "Pre Payment Charges",
+          GridProps: {
+            xs: 12,
+            md: 3,
+            sm: 3,
+          },
+        },
+        {
+          render: {
+            //@ts-ignore
+            componentType: "select",
+          },
+          name: "dscraAny",
+          label: "Any DSCRA to be maintained",
+          placeholder: "Any DSCRA to be maintained",
+          disableCaching: true,
+          //@ts-ignore
+          options: "getYesOrNoOptions",
+          defaultValue: "N",
           GridProps: {
             xs: 12,
             md: 3,
@@ -356,6 +374,13 @@ export const CFSanctionMetadata: MetaDataType = {
           placeholder: "No of Months",
           maxLength: 3,
           showMaxLength: false,
+          dependentFields: ["dscraAny"],
+          shouldExclude: (_, dependentFields) => {
+            if (dependentFields["facilityDetails.dscraAny"].value === "Y") {
+              return false;
+            }
+            return true;
+          },
           GridProps: {
             xs: 12,
             md: 3,
@@ -370,6 +395,13 @@ export const CFSanctionMetadata: MetaDataType = {
           name: "dscraAmount",
           label: "DSCRA Amount",
           placeholder: "DSCRA Amount",
+          dependentFields: ["dscraAny"],
+          shouldExclude: (_, dependentFields) => {
+            if (dependentFields["facilityDetails.dscraAny"].value === "Y") {
+              return false;
+            }
+            return true;
+          },
           GridProps: {
             xs: 12,
             md: 3,

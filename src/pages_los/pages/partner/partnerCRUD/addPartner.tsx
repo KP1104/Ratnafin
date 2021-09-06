@@ -20,7 +20,7 @@ const partnerFormDataFnWrapper = (partnerFn) => async ({
   return partnerFn(data);
 };
 
-export const AddPartner = ({ isDataChangedRef, closeDialog }) => {
+export const AddPartner = ({ isDataChangedRef, closeDialog, formStyle }) => {
   const { enqueueSnackbar } = useSnackbar();
 
   const mutation = useMutation(
@@ -61,6 +61,7 @@ export const AddPartner = ({ isDataChangedRef, closeDialog }) => {
       onSubmitHandler={onSubmitHandler}
       displayMode={"new"}
       hideDisplayModeInTitle={true}
+      formStyle={formStyle}
     >
       {({ isSubmitting, handleSubmit }) => {
         return (
