@@ -26,8 +26,8 @@ export const uploadDocuments = ({
   }
   const newURL = new URL(
     Boolean(productType)
-      ? `http://10.55.6.95:8081/los/${productType}/document/${docCategory}/data/post`
-      : `http://10.55.6.95:8081/los/document/${docCategory}/data/post`,
+      ? `./${productType}/document/${docCategory}/data/post`
+      : `./document/${docCategory}/data/post`,
     LOSSDK.getBaseURL() as URL
   ).href;
   let xhr = new XMLHttpRequest();
@@ -96,8 +96,8 @@ export const deleteDocuments = ({
 }: DOCCRUDTYPE) => async (docCategory: any, docUUID: any) => {
   const { data, status } = await LOSSDK.internalFetcher(
     Boolean(productType)
-      ? `http://10.55.6.95:8081/los/${productType}/document/${docCategory}/data/delete`
-      : `http://10.55.6.95:8081/los/document/${docCategory}/data/delete`,
+      ? `./${productType}/document/${docCategory}/data/delete`
+      : `./document/${docCategory}/data/delete`,
     {
       body: JSON.stringify({
         request_data: {
@@ -124,8 +124,8 @@ export const updateDocuments = ({
 }: DOCCRUDTYPE) => async (docCategory: any, updateData: any) => {
   const { data, status } = await LOSSDK.internalFetcher(
     Boolean(productType)
-      ? `http://10.55.6.95:8081/los/${productType}/document/${docCategory}/data/put`
-      : `http://10.55.6.95:8081/los/document/${docCategory}/data/put`,
+      ? `./${productType}/document/${docCategory}/data/put`
+      : `./document/${docCategory}/data/put`,
     {
       body: JSON.stringify({
         request_data: {
@@ -157,8 +157,8 @@ export const verifyDocuments = ({
 ) => {
   const { data, status } = await LOSSDK.internalFetcher(
     Boolean(productType)
-      ? `http://10.55.6.95:8081/los/${productType}/document/${docCategory}/data/verification`
-      : `http://10.55.6.95:8081/los/document/${docCategory}/data/verification`,
+      ? `./${productType}/document/${docCategory}/data/verification`
+      : `./document/${docCategory}/data/verification`,
     {
       body: JSON.stringify({
         request_data: {
@@ -190,8 +190,8 @@ export const generateDocumentDownloadURL = ({ moduleType, productType }) => (
   let docs = docUUID.join(",");
   return new URL(
     Boolean(productType)
-      ? `http://10.55.6.95:8081/los/${productType}/document/${docCategory}/data/download?docUUID=${docs}&tokenID=${LOSSDK.getToken()}`
-      : `http://10.55.6.95:8081/los/document/${docCategory}/data/download?docUUID=${docs}&tokenID=${LOSSDK.getToken()}`,
+      ? `./${productType}/document/${docCategory}/data/download?docUUID=${docs}&tokenID=${LOSSDK.getToken()}`
+      : `./document/${docCategory}/data/download?docUUID=${docs}&tokenID=${LOSSDK.getToken()}`,
     LOSSDK.getBaseURL() as URL
   ).href;
 };
@@ -205,8 +205,8 @@ export const previewDocument = ({ moduleType, productType }) => async (
   }
   const url = new URL(
     Boolean(productType)
-      ? `http://10.55.6.95:8081/los/${productType}/document/${docCategory}/data/preview`
-      : `http://10.55.6.95:8081/los/document/${docCategory}/data/preview`,
+      ? `./${productType}/document/${docCategory}/data/preview`
+      : `./document/${docCategory}/data/preview`,
     LOSSDK.getBaseURL() as URL
   ).href;
   try {

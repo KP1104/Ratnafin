@@ -532,20 +532,34 @@ const MiscAPI = () => {
     }
   };
 
+  const getPrimaryPartnerProduct = async () => {
+    const { status, data } = await internalFetcher(`./category`, {});
+    if (status === "success" && Array.isArray(data?.response_data)) {
+      const newArray = data.response_data.map((one) => ({
+        value: one?.categoryCode,
+        label: one?.categoryName,
+      }));
+      return newArray;
+    } else {
+      throw data?.error_data;
+    }
+  };
+
   const getSecondaryPartnerProduct = async (
     dependentFields: any
   ): Promise<OptionsProps[]> => {
     const dependentVaue = dependentFields["primaryProduct"].value;
-    const { status, data } = await internalFetcher(
-      `./data/PARTNER_PRODUCT`,
-      {}
-    );
+    const { status, data } = await internalFetcher(`./category`, {});
     if (status === "success" && Array.isArray(data?.response_data)) {
       const newArray = data.response_data.map((one) => ({
-        value: one?.data_val,
-        label: one?.display_val,
+        value: one?.categoryCode,
+        label: one?.categoryName,
       }));
-      if (["01", "02", "03", "04", "05"].indexOf(dependentVaue) >= 0) {
+      if (
+        ["12000001", "12000002", "12000003", "12000004", "12000005"].indexOf(
+          dependentVaue
+        ) >= 0
+      ) {
         return newArray.filter((one) => one.value !== dependentVaue);
       } else {
         return newArray;
@@ -580,6 +594,7 @@ const MiscAPI = () => {
     getProductTypeForMoveToInquiry,
     getEmployementCodeForMoveToInquiry,
     getSecondaryPartnerProduct,
+    getPrimaryPartnerProduct,
   };
 };
 

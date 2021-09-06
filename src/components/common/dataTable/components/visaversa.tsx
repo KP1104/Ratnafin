@@ -1,8 +1,25 @@
 import { useContext, useState, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import Typography from "@material-ui/core/Typography";
 import { RowContext } from "./rowContext";
-import { DefaultCell } from "./defaultCell";
+
+let currencyFormatter = new Intl.NumberFormat("en-IN", {
+  style: "currency",
+  currency: "INR",
+});
+
+export const DefaultCell = ({ value }) => {
+  return (
+    <Typography
+      component="span"
+      variant="subtitle2"
+      style={{ whiteSpace: "nowrap" }}
+    >
+      {currencyFormatter.format(value)}
+    </Typography>
+  );
+};
 
 export const VisaversaCell = (props) => {
   const {
@@ -20,7 +37,9 @@ export const VisaversaCell = (props) => {
       />
     );
   } else {
-    return <DefaultCell {...props} />;
+    return (
+      <DefaultCell {...props} displayStyle={ViceVersaProps.leftAdornment} />
+    );
   }
 };
 
@@ -54,7 +73,6 @@ export const Visaversa = ({
   }, []);
 
   let cellValue = currentRow?.[columnName];
-  console.log(cellValue);
 
   useEffect(() => {
     if (cellValue === "") {

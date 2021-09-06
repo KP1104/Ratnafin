@@ -22,4 +22,5 @@ export interface GridColumnType {
   ViceVersaProps?: any;
   type?: any;
   clearFields?: any;
+  enableNumWords?: boolean;
 }
