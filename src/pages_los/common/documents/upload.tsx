@@ -77,7 +77,7 @@ export const UploadDocumentsApiWrapper = ({
       maxAllowedSize={1024 * 1204 * 10} //10Mb file
       allowedExtensions={
         context.productType === "partner"
-          ? ["pdf", "jpg", "jpen", "png"]
+          ? ["pdf", "jpg", "jpeg", "png"]
           : ["pdf"]
       }
     />
