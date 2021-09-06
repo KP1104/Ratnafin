@@ -89,6 +89,7 @@ export const mandateMetaData: MetaDataType = {
           defaultValue: "",
           displayStyle: "currency",
           alignment: "right",
+          enableNumWords: true,
           FormatProps: {
             thousandSeparator: true,
             prefix: "₹",

@@ -69,14 +69,13 @@ export const DocumentGridCRUD: FC<{
 }> = ({ tranCD, closeDialog }) => {
   const removeCache = useContext(ClearCacheContext);
 
-  useEffect(() => {
-    /*eslint-disable  react-hooks/exhaustive-deps*/
-    removeCache?.addEntry(["getDocumentCRUDTabsMetadata"]);
-  }, [removeCache, tranCD]);
-
   const queryResult = useQuery(["getDocumentCRUDTabsMetadata"], () =>
     API.getDocumentCRUDTabsMetadata()
   );
+
+  useEffect(() => {
+    removeCache?.addEntry(["getDocumentCRUDTabsMetadata"]);
+  }, []);
 
   let response: any[] = queryResult.data as any;
 

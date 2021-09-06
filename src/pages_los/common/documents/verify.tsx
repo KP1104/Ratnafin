@@ -71,7 +71,7 @@ export const VerifyDocumentAction = ({
   const isError = rejectMutation.isError || verifyMutation.isError;
   const isLoading = rejectMutation.isLoading || verifyMutation.isLoading;
   let errorMsg = `${rejectMutation?.error?.error_msg ?? ""} ${
-    verifyMutation?.error?.errorMsg ?? ""
+    verifyMutation?.error?.error_msg ?? ""
   }`;
   errorMsg = Boolean(errorMsg.trimEnd().trimStart())
     ? errorMsg

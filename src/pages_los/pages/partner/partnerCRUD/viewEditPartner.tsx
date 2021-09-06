@@ -36,6 +36,7 @@ export const ViewEditPartnerDetails: FC<any> = ({
   setEditFormStateFromInitValues,
   readOnly = false,
   tranCD,
+  formStyle,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [formMode, setFormMode] = useState(defaultView);
@@ -148,6 +149,7 @@ export const ViewEditPartnerDetails: FC<any> = ({
       onSubmitHandler={onSubmitHandler}
       //@ts-ignore
       displayMode={formMode}
+      formStyle={formStyle}
     >
       {!readOnly ? <Button onClick={moveToEditMode}>Edit</Button> : null}
       {typeof closeDialog === "function" ? (
@@ -162,6 +164,7 @@ export const ViewEditPartnerDetails: FC<any> = ({
       onSubmitHandler={onSubmitHandler}
       //@ts-ignore
       displayMode={formMode}
+      formStyle={formStyle}
     >
       {({ isSubmitting, handleSubmit }) => (
         <>

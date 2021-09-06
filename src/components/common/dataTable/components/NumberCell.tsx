@@ -2,7 +2,9 @@ import { useContext } from "react";
 import { NumberFormatCustom } from "components/derived/numberFormat";
 import { TextFieldForSelect as TextField } from "components/styledComponent/textfield";
 import { RowContext } from "./rowContext";
+import { numWords } from "components/common/utils";
 import Typography from "@material-ui/core/Typography";
+import FormHelperText from "@material-ui/core/FormHelperText";
 
 let currencyFormatter = new Intl.NumberFormat("en-IN", {
   style: "currency",
@@ -43,6 +45,7 @@ export const NumberCell = (props) => {
       formattedValue,
       displayStyle,
       clearFields,
+      enableNumWords,
     },
     row: { id },
     currentEditRow,
@@ -55,6 +58,7 @@ export const NumberCell = (props) => {
         FormatProps={FormatProps}
         formattedValue={formattedValue}
         clearFields={clearFields}
+        enableNumWords={enableNumWords}
       />
     );
   } else {
@@ -67,6 +71,7 @@ export const CurrencyInput = ({
   FormatProps,
   formattedValue,
   clearFields,
+  enableNumWords,
 }) => {
   const {
     error,
@@ -75,6 +80,26 @@ export const CurrencyInput = ({
     touched,
     setCellTouched,
   } = useContext(RowContext);
+
+  let myError = error;
+  let numWordsVar: any = null;
+  try {
+    if (enableNumWords && Boolean(currentRow?.[columnName])) {
+      let amountArray = String(currentRow?.[columnName]).split(".");
+      let amountPart = Number(amountArray[0]);
+      if (amountPart < 0) {
+        amountPart = Math.abs(Number(amountPart));
+        numWordsVar = `Negative ${numWords(amountPart)} Rupees`;
+      } else {
+        numWordsVar = `${numWords(amountPart)} Rupees`;
+      }
+      if (amountArray.length === 2 && Boolean(amountArray[1])) {
+        numWordsVar = `${numWordsVar} and ${numWords(amountArray[1])} paise`;
+      }
+    }
+  } catch (e) {
+    myError = "";
+  }
 
   return (
     <TextField
@@ -96,6 +121,14 @@ export const CurrencyInput = ({
           FormatProps: { ...FormatProps, formattedValue },
         },
       }}
+      //@ts-ignore
+      helperText={
+        <div style={{ display: "flex" }}>
+          <FormHelperText>
+            {Boolean(enableNumWords) ? numWordsVar : null}
+          </FormHelperText>
+        </div>
+      }
     />
   );
 };

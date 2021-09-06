@@ -642,7 +642,7 @@ export const becomePartnerMetaData: MetaDataType = {
       multiple: true,
       showCheckbox: true,
       //@ts-ignore
-      options: "getBusinessInterest",
+      options: "getPrimaryProduct",
       validate: "getValidateValue",
       GridProps: {
         xs: 12,
@@ -662,7 +662,7 @@ export const becomePartnerMetaData: MetaDataType = {
       defaultValue: "00",
       disableCaching: true,
       //@ts-ignore
-      options: "getPrimaryPartnerProduct",
+      options: "getPrimaryProduct",
       validate: "getValidateValue",
       GridProps: {
         xs: 12,

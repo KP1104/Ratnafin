@@ -20,7 +20,15 @@ export const DocumentGridCRUD: FC<{
   refID: string;
   serialNo?: string;
   onClose?: any;
-}> = ({ moduleType, productType, refID, serialNo, onClose }) => {
+  skipBankDetails?: boolean;
+}> = ({
+  moduleType,
+  productType,
+  refID,
+  serialNo,
+  onClose,
+  skipBankDetails = false,
+}) => {
   const removeCache = useContext(ClearCacheContext);
   const [currentTab, setCurrentTab] = useState(0);
   const handleChangeTab = (_, currentTab) => {
@@ -50,9 +58,17 @@ export const DocumentGridCRUD: FC<{
     if (!Array.isArray(tabs)) {
       tabs = [];
     } else {
+      if (skipBankDetails) {
+        tabs = tabs.filter((one) => one.label !== "Bank");
+      }
       tabs = tabs.sort((a, b) =>
         a.sequence > b.sequence ? 1 : a.sequence < b.sequence ? -1 : 0
       );
+      if (skipBankDetails) {
+        tabs = tabs.map((tab, index) => {
+          return { ...tab, sequence: index };
+        });
+      }
     }
   }
   const renderResult = queryResult.isLoading ? (
