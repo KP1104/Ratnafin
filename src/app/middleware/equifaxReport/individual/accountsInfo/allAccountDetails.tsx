@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { AccountDetails } from "./accountDetails";
 
 export const AllAccountDetils = ({ accountDetails }) => {
@@ -20,9 +21,12 @@ export const AllAccountDetils = ({ accountDetails }) => {
   //   }
   // }
   return (
-    <div className="account-details-sec ">
-      <h2>Account Details:</h2>
-      {details}
-    </div>
+    <Fragment>
+      <div className="account-details-sec ">
+        <h2>Account Details:</h2>
+        {details}
+      </div>
+      <hr />
+    </Fragment>
   );
 };

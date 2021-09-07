@@ -3,7 +3,7 @@ export const History = ({ history }: any) => {
   const historySecond16Months = history.slice(16, 32);
   const historyThird16Months = history.slice(32, 48);
   return (
-    <table className="table" style={{ borderTop: "none" }}>
+    <table className="table" style={{ borderTop: "none", marginTop: "5px" }}>
       <tbody style={{ borderTop: "none" }}>
         <tr>
           <td>History</td>

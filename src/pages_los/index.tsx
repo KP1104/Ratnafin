@@ -29,6 +29,7 @@ import { Profile } from "pages_los/pages/profile";
 import { Dashboard } from "pages_los/pages/dashboard";
 import { NewInquiry } from "pages_los/pages/newInquiry";
 import { UserManagement } from "pages_los/pages/config/userManagement";
+import { AssignPincodeToBranch } from "pages_los/pages/config/assignPincodeToBranch";
 import {
   MyTask,
   AssignedTask,
@@ -102,6 +103,10 @@ const DashbordPages = () => {
             <Route path="/config/bankMaster" element={<BankMasterWrapper />} />
             <Route path="/config/banks" element={<BankConfigWrapper />} />
             <Route path="/config/userManagement" element={<UserManagement />} />
+            <Route
+              path="/config/assignPincode"
+              element={<AssignPincodeToBranch />}
+            />
             <Route path="/profile" element={<Profile />} />
             <Route
               path="/reports/leadStagesSMECF"
