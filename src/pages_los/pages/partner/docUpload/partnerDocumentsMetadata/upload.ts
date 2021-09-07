@@ -18,6 +18,7 @@ export const partnerUpload = [
     sequence: 6,
     alignment: "left",
     isPassword: true,
+    isVisible: false,
   },
   {
     columnName: "Remarks",

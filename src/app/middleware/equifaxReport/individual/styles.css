@@ -625,3 +625,11 @@ html body article#offers section p {
   padding: 0.25cm 0;
   text-align: center;
 }
+html body article#contents .account-details-sec .page-bre {
+  page-break-after: always;
+}
+
+html body article#contents .fixedStyleHistory {
+  width: 40px;
+  display: inline-block;
+}
