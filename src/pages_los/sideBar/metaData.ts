@@ -368,6 +368,12 @@ export const metaData: NavBarMetaDataType = {
           isRouterLink: true,
           icon: "users",
         },
+        {
+          label: "Assign Pincode",
+          href: "./config/assignPincode",
+          isRouterLink: true,
+          icon: "circle",
+        },
       ],
     },
   ],

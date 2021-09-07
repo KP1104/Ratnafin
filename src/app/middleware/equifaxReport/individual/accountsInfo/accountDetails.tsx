@@ -2,26 +2,13 @@ import { History } from "./history";
 
 export const AccountDetails = ({ accountDetail, count }) => {
   return (
-    <div
-      className={
-        `account-part account-small` +
-        (count % 2 ? "" : "account-part account-second-part account-small")
-      }
-    >
+    <div className={`account-part account-small`}>
       <table
         className="table"
-        style={
-          count % 2
-            ? {
-                marginBottom: 0,
-                borderBottom: "none",
-              }
-            : {
-                marginBottom: 0,
-                borderBottom: "none",
-                backgroundColor: "#eeeeee",
-              }
-        }
+        style={{
+          marginBottom: 0,
+          borderBottom: "none",
+        }}
       >
         <thead className="thead-dark">
           <tr>
@@ -98,7 +85,8 @@ export const AccountDetails = ({ accountDetail, count }) => {
             <td>Repayment Tenure: {accountDetail?.RepaymentTenure}</td>
             <td>Monthly Payment Amount:</td>
             <td>
-              Credit Limit:<strong>{accountDetail?.CreditLimit ?? "-"}</strong>
+              Credit Limit:
+              <strong>{accountDetail?.CreditLimit ?? "-"}</strong>
             </td>
             <td>Collateral Value:{accountDetail?.CollateralValue}</td>
           </tr>
@@ -127,6 +115,7 @@ export const AccountDetails = ({ accountDetail, count }) => {
           </tr>
         </tbody>
       </table>
+      <br />
       <History history={accountDetail?.History48Months} />
     </div>
   );

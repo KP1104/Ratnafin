@@ -82,7 +82,7 @@ html body article .header-top {
   width: 100%;
   display: inline-block;
   position: relative;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 
 html body article .header-top h1 {
@@ -96,6 +96,14 @@ html body article .header-top .logo {
   text-align: left;
   position: relative;
   z-index: 9999;
+}
+
+html body article .header-top .equifax-logo {
+  text-align: right;
+  position: absolute;
+  z-index: 9999;
+  right: 0;
+  top: 0;
 }
 
 html body article .header-top .top-sec {
@@ -425,6 +433,7 @@ html body article#contents .account-details-sec tbody {
 html body article#contents .account-details-sec .table td {
   border: none;
   padding: 0.15rem 0.75rem;
+  font-size: 13px;
 }
 
 html body article#contents .account-details-sec .history-sec tbody {
@@ -433,7 +442,7 @@ html body article#contents .account-details-sec .history-sec tbody {
 }
 
 html body article#contents .account-details-sec .account-small strong {
-  font-size: 13px;
+  font-size: 11px;
 }
 
 html body article#contents .account-details-sec .account-part {
@@ -624,4 +633,33 @@ html body article#offers section p {
   margin-bottom: 0;
   padding: 0.25cm 0;
   text-align: center;
+}
+html body article#contents .account-details-sec .page-bre {
+  page-break-after: always;
+}
+
+html body article#contents .fixedStyleHistory {
+  width: 40px;
+  display: inline-block;
+}
+
+html body article#cover .consumer-part .consumer-half {
+  width: 300px;
+  display: inline-block;
+}
+html body article#columns .enquiry-sec strong {
+  width: 195px;
+  display: inline-block;
+  vertical-align: top;
+  word-break: break-all;
+}
+html body article#competences .glossary-part .table td {
+  padding: 3px;
+  font-size: 12px;
+}
+html body article#contents .account-details-sec .history-monthly {
+  margin-bottom: 0;
+}
+html body article#contents .account-details-sec .monthly-sec tbody {
+  border: none;
 }

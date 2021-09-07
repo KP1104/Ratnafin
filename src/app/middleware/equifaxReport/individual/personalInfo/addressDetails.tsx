@@ -17,7 +17,9 @@ export const AddressDetails = ({ addressDetails }) => {
             return (
               <tr>
                 <td>{addressInfo?.type ?? "-"}</td>
-                <td>{addressInfo?.address}</td>
+                <td>
+                  <span className="consumer-half">{addressInfo?.address}</span>
+                </td>
                 <td>{addressInfo?.state}</td>
                 <td>{addressInfo?.postal}</td>
                 <td>{addressInfo?.reportedDate}</td>

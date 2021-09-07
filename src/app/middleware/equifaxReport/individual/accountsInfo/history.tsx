@@ -1,8 +1,9 @@
 export const History = ({ history }: any) => {
-  const historyFirst24Months = history.slice(0, 24);
-  const historySecond24Months = history.slice(24, 48);
+  const historyFirst16Months = history.slice(0, 16);
+  const historySecond16Months = history.slice(16, 32);
+  const historyThird16Months = history.slice(32, 48);
   return (
-    <table className="table" style={{ borderTop: "none" }}>
+    <table className="table" style={{ borderTop: "none", marginTop: "5px" }}>
       <tbody style={{ borderTop: "none" }}>
         <tr>
           <td>History</td>
@@ -16,7 +17,7 @@ export const History = ({ history }: any) => {
               <tbody>
                 <tr>
                   <td>
-                    <History24Months history={historyFirst24Months} />
+                    <History24Months history={historyFirst16Months} />
                   </td>
                 </tr>
                 <hr />
@@ -24,12 +25,22 @@ export const History = ({ history }: any) => {
             </table>
           </td>
         </tr>
-        {Array.isArray(historySecond24Months) &&
-        historySecond24Months?.length > 0 ? (
+        {Array.isArray(historySecond16Months) &&
+        historySecond16Months?.length > 0 ? (
           <tr>
             <td style={{ width: "15%" }} />
             <td style={{ width: "60%" }}>
-              <History24Months history={historySecond24Months} />
+              <History24Months history={historySecond16Months} />
+              <hr />
+            </td>
+          </tr>
+        ) : null}
+        {Array.isArray(historyThird16Months) &&
+        historyThird16Months?.length > 0 ? (
+          <tr>
+            <td style={{ width: "15%" }} />
+            <td style={{ width: "60%" }}>
+              <History24Months history={historyThird16Months} />
               <hr />
             </td>
           </tr>
@@ -64,22 +75,24 @@ const History24Months = ({ history }) => {
       <tbody>
         <tr>
           {history.map((history) => (
-            <td>{history?.PaymentStatus}</td>
+            <td className="fixedStyleHistory">{history?.PaymentStatus}</td>
           ))}
         </tr>
         <tr>
           {history.map((history) => (
-            <td>{history?.AssetClassificationStatus}</td>
+            <td className="fixedStyleHistory">
+              {history?.AssetClassificationStatus}
+            </td>
           ))}
         </tr>
         <tr>
           {history?.map((history) => (
-            <td>{history?.SuitFiledStatus}</td>
+            <td className="fixedStyleHistory">{history?.SuitFiledStatus}</td>
           ))}
         </tr>
         <tr>
           {history?.map((history) => (
-            <td>{history?.key}</td>
+            <td className="fixedStyleHistory">{history?.key}</td>
           ))}
         </tr>
       </tbody>
