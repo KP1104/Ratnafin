@@ -1,19 +1,17 @@
+import "regenerator-runtime";
 import { StrictMode, useEffect, lazy, Suspense } from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, HashRouter } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 import "typeface-roboto";
 import "registry"; //register functions to be used across application
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-//import ErrorBoundary from "errorBoundary/errorBoundary";
 const LOS = lazy(() => import("app/los"));
 const CRM = lazy(() => import("app/crm"));
 const ErrorPage = lazy(() => import("app/error"));
 const Middleware = lazy(() => import("app/middleware"));
 const Verification = lazy(() => import("app/verification"));
-
-require("dotenv").config();
 
 const Redirect = () => {
   const navigate = useNavigate();
@@ -26,21 +24,19 @@ const Redirect = () => {
 const App = () => (
   <StrictMode>
     <DndProvider backend={HTML5Backend}>
-      <BrowserRouter>
+      <HashRouter>
         <Suspense fallback={<div>loading...</div>}>
-          {/* <ErrorBoundary> */}
           <Routes>
-            <Route path="/los/*" element={<LOS />} />
             <Route path="/crm/*" element={<CRM />} />
+            <Route path="/los/*" element={<LOS />} />
             <Route path="/verification/*" element={<Verification />} />
             <Route path="/error/*" element={<ErrorPage />} />
             <Route path="/middleware/*" element={<Middleware />} />
 
             <Route path="*" element={<Redirect />} />
           </Routes>
-          {/* </ErrorBoundary> */}
         </Suspense>
-      </BrowserRouter>
+      </HashRouter>
     </DndProvider>
   </StrictMode>
 );
