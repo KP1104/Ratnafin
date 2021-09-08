@@ -1,4 +1,4 @@
-import React from "react";
+import { Fragment } from "react";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
@@ -10,7 +10,7 @@ export const BecomePartnerPage = () => {
   const classes = becomePartnerUseStyle();
   const navigate = useNavigate();
   return (
-    <React.Fragment>
+    <Fragment>
       <Container
         component={"div"}
         className={classes.wrapper + " BecomePartner"}
@@ -44,6 +44,6 @@ export const BecomePartnerPage = () => {
           </div>
         </Box>
       </Container>
-    </React.Fragment>
+    </Fragment>
   );
 };
