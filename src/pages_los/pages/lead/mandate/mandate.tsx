@@ -53,6 +53,16 @@ const Mandate: FC<any> = ({
     ["getMandateFormData", moduleType, productType, refID],
     () => API.getMandateFormData({ moduleType, productType, refID })()
   );
+  useEffect(() => {
+    return () => {
+      queryClient.removeQueries([
+        "getMandateFormData",
+        moduleType,
+        productType,
+        refID,
+      ]);
+    };
+  }, [moduleType, productType, refID]);
 
   //mandate download
   const downloadMandate = () => {
@@ -198,12 +208,6 @@ export const MandateWrapper = ({
       entries.forEach((one) => {
         queryClient.removeQueries(one);
       });
-      queryClient.removeQueries([
-        "getMandateFormData",
-        moduleType,
-        productType,
-        refID,
-      ]);
     };
   }, []);
   return (
@@ -253,7 +257,7 @@ export const MandateMetaWrapper = ({
         handleDialogClose={handleDialogClose}
         isDataChangedRef={isDataChangedRef}
       />
-      <Mandate
+      <MandateWrapper
         moduleType={moduleType}
         productType="mandate"
         refID={rows[0].id}

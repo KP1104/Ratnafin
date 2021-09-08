@@ -70,9 +70,21 @@ export const leadBankLoginMetaData = {
       isVisible: true,
     },
     {
+      accessor: "bank_login_status",
+      columnName: "Auto Bank Selection",
+      sequence: 4,
+      width: 150,
+      minWidth: 100,
+      maxWidth: 200,
+      alignment: "left",
+      componentType: "default",
+      isVisible: true,
+      color: (value) => (value === "SUCCESS" ? "green" : "red"),
+    },
+    {
       accessor: "branch_name",
       columnName: "Branch",
-      sequence: 4,
+      sequence: 5,
       width: 150,
       minWidth: 100,
       maxWidth: 200,
@@ -88,7 +100,7 @@ export const leadBankLoginMetaData = {
     {
       accessor: "category_id",
       columnName: "Category",
-      sequence: 5,
+      sequence: 6,
       width: 150,
       minWidth: 100,
       maxWidth: 200,
@@ -100,7 +112,7 @@ export const leadBankLoginMetaData = {
     {
       accessor: "product_cd",
       columnName: "Product CD",
-      sequence: 6,
+      sequence: 7,
       width: 150,
       minWidth: 100,
       maxWidth: 200,
@@ -112,7 +124,7 @@ export const leadBankLoginMetaData = {
     {
       accessor: "employee_type",
       columnName: "Employee Type",
-      sequence: 6.5,
+      sequence: 7.5,
       width: 150,
       minWidth: 100,
       maxWidth: 200,
@@ -124,7 +136,7 @@ export const leadBankLoginMetaData = {
     {
       accessor: "stage_cd",
       columnName: "Stage",
-      sequence: 7,
+      sequence: 8,
       width: 150,
       minWidth: 100,
       maxWidth: 200,
@@ -136,7 +148,7 @@ export const leadBankLoginMetaData = {
     {
       accessor: "sub_stage_cd",
       columnName: "Sub Stage",
-      sequence: 8,
+      sequence: 9,
       width: 150,
       minWidth: 100,
       maxWidth: 200,
@@ -148,7 +160,7 @@ export const leadBankLoginMetaData = {
     {
       accessor: "active_flag",
       columnName: "Active",
-      sequence: 9,
+      sequence: 10,
       width: 150,
       minWidth: 100,
       maxWidth: 200,
@@ -160,7 +172,7 @@ export const leadBankLoginMetaData = {
     {
       accessor: "first_name",
       columnName: "First Name",
-      sequence: 10,
+      sequence: 11,
       width: 150,
       minWidth: 100,
       maxWidth: 200,
@@ -172,7 +184,7 @@ export const leadBankLoginMetaData = {
     {
       accessor: "middle_name",
       columnName: "Middle Name",
-      sequence: 11,
+      sequence: 12,
       width: 150,
       minWidth: 100,
       maxWidth: 200,
@@ -184,7 +196,7 @@ export const leadBankLoginMetaData = {
     {
       accessor: "last_name",
       columnName: "Last Name",
-      sequence: 12,
+      sequence: 13,
       width: 150,
       minWidth: 100,
       maxWidth: 200,
@@ -196,7 +208,7 @@ export const leadBankLoginMetaData = {
     {
       accessor: "gender",
       columnName: "Gender",
-      sequence: 13,
+      sequence: 14,
       width: 150,
       minWidth: 100,
       maxWidth: 200,
@@ -208,7 +220,7 @@ export const leadBankLoginMetaData = {
     {
       accessor: "mobile",
       columnName: "Mobile",
-      sequence: 14,
+      sequence: 15,
       width: 150,
       minWidth: 100,
       maxWidth: 200,
@@ -220,7 +232,7 @@ export const leadBankLoginMetaData = {
     {
       accessor: "e_mail_id",
       columnName: "Email ID",
-      sequence: 15,
+      sequence: 16,
       width: 150,
       minWidth: 100,
       maxWidth: 200,
@@ -232,7 +244,7 @@ export const leadBankLoginMetaData = {
     {
       accessor: "remarks",
       columnName: "Remarks",
-      sequence: 16,
+      sequence: 17,
       width: 150,
       minWidth: 100,
       maxWidth: 200,
@@ -244,7 +256,7 @@ export const leadBankLoginMetaData = {
     {
       accessor: "sub_product1",
       columnName: "Sub Product-1",
-      sequence: 17,
+      sequence: 18,
       width: 150,
       minWidth: 100,
       maxWidth: 200,
@@ -256,7 +268,7 @@ export const leadBankLoginMetaData = {
     {
       accessor: "sub_product2",
       columnName: "Sub Product-2",
-      sequence: 18,
+      sequence: 19,
       width: 150,
       minWidth: 100,
       maxWidth: 200,

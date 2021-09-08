@@ -261,7 +261,7 @@ export const SanctionMetaWrapper = ({
         handleDialogClose={handleDialogClose}
         isDataChangedRef={isDataChangedRef}
       />
-      <Sanction
+      <SanctionWrapper
         moduleType={moduleType}
         productType="sanction"
         refID={rows[0].id}

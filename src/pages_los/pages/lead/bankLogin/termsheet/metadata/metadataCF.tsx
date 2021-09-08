@@ -5,6 +5,9 @@ import {
   showSelectionOfFixedOrFloatingRate,
   showTenureOrMoratoriumField,
   showFixedROIField,
+  calculateAdvance,
+  shouldExcludeDisburesementTranchesMilestone,
+  shouldExcludeDisburesementTranchesCashflow,
 } from "../../../fns";
 
 export const CFTermSheetMetadata: MetaDataType = {
@@ -498,15 +501,41 @@ export const CFTermSheetMetadata: MetaDataType = {
     },
     {
       render: {
+        //@ts-ignore
+        componentType: "select",
+        group: 2,
+      },
+      name: "fundingType",
+      label: "Type of Funding",
+      placeholder: "Type of Funding",
+      defaultValue: "00",
+      //@ts-ignore
+      options: [
+        { label: "Mile Stone", value: "M" },
+        { label: "Cash Flow", value: "C" },
+      ],
+      _optionsKey: "fundingType",
+      disableCaching: true,
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+    },
+    {
+      render: {
         componentType: "dataTable",
         group: 2,
       },
-      name: "disbursementMileStoneDetails",
+      name: "disbursementCashflowDetails",
       removeRowFn: "deleteAssignArrayFieldData",
       arrayFieldIDName: "serialNo",
-      label: "Disbursement Tranches Details",
+      label: "Cashflow Disbursement Schedule",
       rowValidator: "",
-      dataTransformer: "",
+      dataTransformer: calculateAdvance,
+      dependentFields: ["fundingType"],
+      //@ts-ignore
+      shouldExclude: shouldExcludeDisburesementTranchesCashflow,
       //@ts-ignore
       disableFooter: true,
       GridProps: {
@@ -516,19 +545,78 @@ export const CFTermSheetMetadata: MetaDataType = {
       },
       _columns: [
         {
-          accessor: "disbursementSequence",
+          accessor: "particulars",
           width: 200,
           Cell: "textField",
-          columnName: "Disbursement Sequence",
+          columnName: "Particulars",
           defaultValue: "",
           footer: false,
-          type: "number",
+          type: "text",
         },
         {
-          accessor: "totalFeeAtDisbursementInPercent",
+          accessor: "advance",
           width: 200,
           Cell: "numberField",
-          columnName: "% of Total Fees at the time of Disbursement",
+          columnName: "Advance",
+          defaultValue: "",
+          footer: false,
+          alignment: "right",
+          displayStyle: "currency",
+          FormatProps: {
+            thousandSeparator: true,
+            prefix: "₹",
+            thousandsGroupStyle: "lakh",
+            allowNegative: true,
+            allowLeadingZeros: false,
+            decimalScale: 2,
+            isAllowed: (values) => {
+              if (values?.value?.length > 10) {
+                return false;
+              }
+              if (values.floatValue === 0) {
+                return false;
+              }
+              return true;
+            },
+          },
+        },
+        {
+          accessor: "cumulativeAdvance",
+          width: 350,
+          Cell: "default",
+          columnName: "Cumulative Advance Required as per Cashflow",
+          defaultValue: "",
+          footer: false,
+        },
+      ],
+    },
+    {
+      render: {
+        componentType: "dataTable",
+        group: 2,
+      },
+      name: "disbursementMileStoneDetails",
+      removeRowFn: "deleteAssignArrayFieldData",
+      arrayFieldIDName: "serialNo",
+      label: "Milestone Disbursement Schedule",
+      rowValidator: "",
+      dataTransformer: "",
+      dependentFields: ["fundingType"],
+      //@ts-ignore
+      shouldExclude: shouldExcludeDisburesementTranchesMilestone,
+      //@ts-ignore
+      disableFooter: true,
+      GridProps: {
+        xs: 12,
+        md: 12,
+        sm: 12,
+      },
+      _columns: [
+        {
+          accessor: "projectCostIncurred",
+          width: 400,
+          Cell: "numberField",
+          columnName: "% of Project Cost Incurred (Excluding Land & Interest)",
           defaultValue: "",
           footer: false,
           alignment: "right",
@@ -549,12 +637,85 @@ export const CFTermSheetMetadata: MetaDataType = {
           },
         },
         {
-          accessor: "description",
+          accessor: "tranchDisburesement",
           width: 200,
           Cell: "textField",
-          columnName: "Description",
+          columnName: "Tranche Disburesement",
           defaultValue: "",
           footer: false,
+          alignment: "right",
+          displayStyle: "currency",
+          FormatProps: {
+            thousandSeparator: true,
+            prefix: "₹",
+            thousandsGroupStyle: "lakh",
+            allowNegative: true,
+            allowLeadingZeros: false,
+            decimalScale: 2,
+            isAllowed: (values) => {
+              if (values?.value?.length > 10) {
+                return false;
+              }
+              if (values.floatValue === 0) {
+                return false;
+              }
+              return true;
+            },
+          },
+        },
+        {
+          accessor: "cumulativeSales",
+          width: 250,
+          Cell: "textField",
+          columnName: "Cummulative Sales (RERA Carpet)",
+          defaultValue: "",
+          footer: false,
+          alignment: "right",
+          displayStyle: "currency",
+          FormatProps: {
+            thousandSeparator: true,
+            prefix: "₹",
+            thousandsGroupStyle: "lakh",
+            allowNegative: true,
+            allowLeadingZeros: false,
+            decimalScale: 2,
+            isAllowed: (values) => {
+              if (values?.value?.length > 10) {
+                return false;
+              }
+              if (values.floatValue === 0) {
+                return false;
+              }
+              return true;
+            },
+          },
+        },
+        {
+          accessor: "cumulativeCollectionMilestone",
+          width: 250,
+          Cell: "textField",
+          columnName: "Cummulative Collection Milestone",
+          defaultValue: "",
+          footer: false,
+          alignment: "right",
+          displayStyle: "currency",
+          FormatProps: {
+            thousandSeparator: true,
+            prefix: "₹",
+            thousandsGroupStyle: "lakh",
+            allowNegative: true,
+            allowLeadingZeros: false,
+            decimalScale: 2,
+            isAllowed: (values) => {
+              if (values?.value?.length > 10) {
+                return false;
+              }
+              if (values.floatValue === 0) {
+                return false;
+              }
+              return true;
+            },
+          },
         },
       ],
     },
