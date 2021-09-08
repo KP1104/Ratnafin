@@ -2,6 +2,7 @@ import { Header } from "../header";
 import { EnquirySummary } from "./enquirySummary";
 import { Enquiries } from "./enquiries";
 import { InputEnquiry } from "./inputEnquiry";
+import { Footer } from "../footer";
 
 export const EnquiryInfo = ({
   enquirySummaryInfo,
@@ -17,6 +18,7 @@ export const EnquiryInfo = ({
         <hr />
         <Enquiries enquiriesDetails={enquirySummaryInfo?.enquiries} />
         <hr />
+        <Footer />
       </article>
       <InputInquiryDetails
         inputEnquiryDetails={enquiryInputInfo}
@@ -32,6 +34,7 @@ const InputInquiryDetails = ({ inputEnquiryDetails, header }) => {
       <Header headerDetails={header} />
       <hr />
       <InputEnquiry inputEnquiryDetails={inputEnquiryDetails} />
+      <Footer />
     </article>
   );
 };

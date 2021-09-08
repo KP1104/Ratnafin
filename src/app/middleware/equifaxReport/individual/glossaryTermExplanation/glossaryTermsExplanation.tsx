@@ -1,4 +1,5 @@
 import { Header } from "../header";
+import { Footer } from "../footer";
 
 export const GlossaryTermsExplanation = ({ header }) => {
   return (
@@ -164,7 +165,7 @@ export const GlossaryTermsExplanation = ({ header }) => {
         </table>
       </div>
 
-      <div className="footer-sec">Copyright-2021</div>
+      <Footer />
     </article>
   );
 };
