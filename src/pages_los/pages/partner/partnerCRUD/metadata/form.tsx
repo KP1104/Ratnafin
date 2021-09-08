@@ -3,6 +3,7 @@ import {
   becomePartner,
   becomePartnerIndividual,
   becomePartnerNominee,
+  getCompanyNameGST,
 } from "../../fns";
 
 export const becomePartnerMetaData: MetaDataType = {
@@ -522,14 +523,12 @@ export const becomePartnerMetaData: MetaDataType = {
       type: "text",
       label: "GST No",
       placeholder: "Enter GST number",
-      // required: true,
+      required: true,
       defaultValue: "",
+      validate: "getValidateValue",
       //@ts-ignore
-      // validate: "getValidateValue",
+      postValidationSetCrossFieldValues: getCompanyNameGST,
       runPostValidationHookAlways: true,
-      //need to move in LOS
-      //@ts-ignore
-      postValidationSetCrossFieldValues: "getCompanyNameFromGST",
       GridProps: {
         xs: 12,
         md: 3,
@@ -547,9 +546,7 @@ export const becomePartnerMetaData: MetaDataType = {
       type: "text",
       label: "Company Name",
       placeholder: "Company Name",
-      // required: true,
-      //@ts-ignore
-      // validate: "getValidateValue",
+      isReadOnly: true,
       GridProps: {
         xs: 12,
         md: 3,

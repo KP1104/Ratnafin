@@ -1,5 +1,6 @@
 import { AccountSummaryAll } from "./accountSummaryAll";
 import { Header } from "../header";
+import { Footer } from "../footer";
 
 export const AccountSummary = ({ header, accountsSummary }) => {
   return (
@@ -7,6 +8,7 @@ export const AccountSummary = ({ header, accountsSummary }) => {
       <Header headerDetails={header} />
       <hr />
       <AccountSummaryAll accountSummary={accountsSummary} />
+      <Footer />
       <hr />
     </article>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import MenuList from "@material-ui/core/MenuList";
 import { StyledMenuItem } from "./styledComponents";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -11,7 +11,7 @@ import Popover from "@material-ui/core/Popover";
 const ITEM_HEIGHT = 48;
 
 export const ColumnVisibility = ({ visibleColumns, defaultHiddenColumns }) => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {

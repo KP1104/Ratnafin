@@ -189,6 +189,15 @@ export const setFacilityFundBaseValue = (fieldData) => {
   };
 };
 
+export const setCompanyNameFromGSTNumber = (fieldData) => {
+  const fieldValues = fieldData.incomingMessage?.others[fieldData.value];
+  return {
+    fundBaseType: {
+      value: fieldValues?.fundValue,
+    },
+  };
+};
+
 export const validateLoanAmount = async (fieldData) => {
   if (fieldData.value === "0" || fieldData.value < 0) {
     return "Loan Amount should be greater than Zero";

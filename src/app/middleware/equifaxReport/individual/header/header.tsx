@@ -1,5 +1,5 @@
 import logo from "assets/images/logo.svg";
-import equifax from "assets/images/equifax.png";
+import equifax from "assets/images/equifaxLogo.png";
 
 export const Header = ({ headerDetails }) => {
   return (
