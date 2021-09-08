@@ -3,7 +3,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 export const DefaultRowCellRenderer = (props) => {
   const {
     value,
-    column: { showTooltip = false },
+    column: { showTooltip = false, color = "initial" },
   } = props;
   let result = (
     <span
@@ -11,6 +11,7 @@ export const DefaultRowCellRenderer = (props) => {
         overflow: "hidden",
         textOverflow: "ellipsis",
         whiteSpace: "nowrap",
+        color: typeof color === "function" ? color(value) : color,
       }}
     >
       {value}
