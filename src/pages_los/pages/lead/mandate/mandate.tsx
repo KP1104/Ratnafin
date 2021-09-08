@@ -253,7 +253,7 @@ export const MandateMetaWrapper = ({
         handleDialogClose={handleDialogClose}
         isDataChangedRef={isDataChangedRef}
       />
-      <Mandate
+      <MandateWrapper
         moduleType={moduleType}
         productType="mandate"
         refID={rows[0].id}

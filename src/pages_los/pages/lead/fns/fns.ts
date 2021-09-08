@@ -68,3 +68,35 @@ export const showDSCRAField = (_, dependentValues) => {
   }
   return true;
 };
+export const calculateAdvance = (data) => {
+  let total = 0;
+  let result = data.map((one) => {
+    if (one.advance !== "" && !isNaN(Number(one.advance))) {
+      total = total + Number(one.advance) ?? 0;
+      return { ...one, cumulativeAdvance: total };
+    } else {
+      return { ...one, cumulativeAdvance: 0 };
+    }
+  });
+  return result;
+};
+
+export const shouldExcludeDisburesementTranchesMilestone = (
+  _,
+  dependentValues
+) => {
+  if (dependentValues["fundingType"]?.value === "M") {
+    return false;
+  }
+  return true;
+};
+
+export const shouldExcludeDisburesementTranchesCashflow = (
+  _,
+  dependentValues
+) => {
+  if (dependentValues["fundingType"]?.value === "C") {
+    return false;
+  }
+  return true;
+};

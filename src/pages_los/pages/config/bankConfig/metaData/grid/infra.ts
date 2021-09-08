@@ -12,10 +12,17 @@ export const infraGridMetaData = {
   },
   columns: [
     {
+      columnName: "Serial No",
+      componentType: "default",
+      accessor: "refID",
+      sequence: 0,
+      alignment: "left",
+    },
+    {
       columnName: "Name of Bank - Branch",
       componentType: "default",
       accessor: "branchID",
-      sequence: 0,
+      sequence: 1,
       alignment: "left",
     },
     {
