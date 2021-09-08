@@ -411,7 +411,7 @@ export const becomePartnerMetaData: MetaDataType = {
       label: "Pan Card Number",
       placeholder: "PAN Card number",
       required: true,
-      validate: "validatePanNumber",
+      validate: "getValidateValue",
       GridProps: {
         xs: 12,
         md: 3,

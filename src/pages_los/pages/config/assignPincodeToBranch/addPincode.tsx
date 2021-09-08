@@ -2,8 +2,10 @@ import { useState } from "react";
 import { cloneDeep } from "lodash-es";
 import Button from "@material-ui/core/Button";
 import Drawer from "@material-ui/core/Drawer";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import { useMutation } from "react-query";
 import { useSnackbar } from "notistack";
+import { SubmitFnType } from "packages/form";
 import FormWrapper, { MetaDataType } from "components/dyanmicForm";
 import { assignPincodeFormMetaData } from "./metadata";
 import * as API from "./api";
@@ -33,25 +35,37 @@ export const AddPincodeToAssignBranch = ({ closeDialog }) => {
     addPincodeFormDataFnWrapper(API.getPincodeList),
     {
       onError: (error: any, { endSubmit }) => {
-        let errorMsg = "Unknown error occured";
-        if (typeof error === "object") {
-          errorMsg = error?.error_msg ?? errorMsg;
-        }
-        endSubmit(error?.error_msg?.error_details ?? "");
+        endSubmit(
+          false,
+          error?.error_msg ?? "Unknown error occured",
+          error?.error_msg?.error_details ?? ""
+        );
       },
-      onSuccess: (result, { endSubmit }) => {
+      onSuccess: (_, { endSubmit }) => {
         endSubmit(true, "");
         enqueueSnackbar("Pincode Added successfully", { variant: "success" });
+        setOdd((old) => {
+          return old + 1;
+        });
       },
     }
   );
+
+  const onSubmitHandler: SubmitFnType = (
+    data,
+    displayData,
+    endSubmit,
+    setFieldError
+  ) => {
+    mutation.mutate({ data, displayData, endSubmit, setFieldError });
+  };
 
   return odd % 2 ? (
     <FormWrapper
       key="assignPincode-odd"
       metaData={oddMetadata as MetaDataType}
       initialValues={""}
-      onSubmitHandler={() => {}}
+      onSubmitHandler={onSubmitHandler}
       displayMode={"new"}
       hideDisplayModeInTitle={true}
       controlsAtBottom={true}
@@ -61,8 +75,22 @@ export const AddPincodeToAssignBranch = ({ closeDialog }) => {
         overflowX: "hidden",
       }}
     >
-      <Button>Save</Button>
-      <Button onClick={closeDialog}>Cancel</Button>
+      {({ isSubmitting, handleSubmit }) => {
+        return (
+          <>
+            <Button
+              onClick={handleSubmit}
+              disabled={isSubmitting}
+              endIcon={isSubmitting ? <CircularProgress size={20} /> : null}
+            >
+              Save
+            </Button>
+            <Button onClick={closeDialog} disabled={isSubmitting}>
+              Cancel
+            </Button>
+          </>
+        );
+      }}
     </FormWrapper>
   ) : null;
 };

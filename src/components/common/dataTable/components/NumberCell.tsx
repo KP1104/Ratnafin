@@ -12,19 +12,21 @@ let currencyFormatter = new Intl.NumberFormat("en-IN", {
 });
 
 export const DisplayCell = ({ value, displayStyle }) => {
-  let finalNode;
-  switch (displayStyle) {
-    case "currency":
-      finalNode = currencyFormatter.format(value);
-      break;
-    case "percentage":
-      finalNode = `${value}%`;
-      break;
-    case "squareFeet":
-      finalNode = new Intl.NumberFormat().format(value);
-      break;
-    default:
-      finalNode = value;
+  let finalNode = "-";
+  if (!isNaN(value)) {
+    switch (displayStyle) {
+      case "currency":
+        finalNode = currencyFormatter.format(value);
+        break;
+      case "percentage":
+        finalNode = `${value}%`;
+        break;
+      case "squareFeet":
+        finalNode = new Intl.NumberFormat().format(value);
+        break;
+      default:
+        finalNode = value;
+    }
   }
   return (
     <Typography
