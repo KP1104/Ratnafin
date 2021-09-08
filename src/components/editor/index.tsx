@@ -1,9 +1,9 @@
-import React from "react";
+import { useState } from "react";
 import { Editor, EditorState } from "draft-js";
 import "draft-js/dist/Draft.css";
 
 const MyEditor = () => {
-  const [editorState, setEditorState] = React.useState(() =>
+  const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
 

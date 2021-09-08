@@ -1,5 +1,6 @@
 import { AllAccountDetils } from "./allAccountDetails";
 import { Header } from "../header";
+import { Footer } from "../footer";
 
 export const AccountsInfo = ({ header, accountsInfo }) => {
   return (
@@ -7,6 +8,7 @@ export const AccountsInfo = ({ header, accountsInfo }) => {
       <Header headerDetails={header} />
       <hr />
       <AllAccountDetils accountDetails={accountsInfo?.accountDetails} />
+      <Footer />
     </article>
   );
 };

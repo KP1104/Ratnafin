@@ -115,7 +115,7 @@ export const AccountDetails = ({ accountDetail, count }) => {
           </tr>
         </tbody>
       </table>
-      <br />
+      <hr />
       <History history={accountDetail?.History48Months} />
     </div>
   );

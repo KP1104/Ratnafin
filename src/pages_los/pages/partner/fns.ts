@@ -1,4 +1,5 @@
 import { LOSSDK } from "registry/fns/los";
+
 export const becomePartner = (_, dependentValues) => {
   if (dependentValues?.partnerType?.value === "C") {
     return false;
@@ -20,3 +21,37 @@ export const becomePartnerNominee = (_, dependentValues) => {
   }
   return true;
 };
+
+export const getCompanyNameFromGST = async (currentField) => {
+  const { status, data } = await LOSSDK.internalFetcher(
+    "./partner/external/gst/fetch/company-name",
+    {
+      method: "POST",
+      body: JSON.stringify({
+        request_data: {
+          gstNumber: currentField?.value ?? "INVALID_GST",
+        },
+        channel: "W",
+      }),
+    }
+  );
+  if (status === "success") {
+    let legalEntityName = data?.response_data?.companyName;
+    return legalEntityName;
+  } else {
+    return "Invalid GST";
+  }
+};
+
+export const getGSTCompanyNameDtl = (getGSTCompanyName) => async (
+  fieldData
+) => {
+  let codes = await getGSTCompanyName(fieldData);
+  return {
+    legalEntityName: {
+      value: codes,
+    },
+  };
+};
+
+export const getCompanyNameGST = getGSTCompanyNameDtl(getCompanyNameFromGST);
