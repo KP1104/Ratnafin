@@ -269,7 +269,7 @@ export const useOptionsFetcherSimpleWithRemoveCache = (
     if (!disableCaching) {
       removeCache?.addEntry?.(_optionsKey);
     }
-  }, [removeCache ?? "DONE"]);
+  }, [removeCache]);
 
   const queryOptions = useQuery(queryKey, () => options(optionsProps), {
     retry: false,
