@@ -14,17 +14,16 @@ import { HeaderDetails } from "../headerDetails";
 
 const HistoryGrid: FC<{
   moduleType: any;
-  closeDialog?: any;
   taskID: string;
-  rowData: any;
-  isDataChangedRef: any;
-}> = ({ moduleType, closeDialog, taskID, rowData }) => {
+}> = ({ moduleType, taskID }) => {
   const result = useQuery<any, any>(
     ["getTaskHistoryGridData", moduleType, taskID],
     () => API.getTaskHistoryGridData({ moduleType, taskID })
   );
   useEffect(() => {
-    queryClient.removeQueries(["getTaskHistoryGridData", moduleType, taskID]);
+    return () => {
+      queryClient.removeQueries(["getTaskHistoryGridData", moduleType, taskID]);
+    };
   }, []);
 
   const renderResult = (
@@ -49,11 +48,7 @@ const HistoryGrid: FC<{
   return renderResult;
 };
 
-export const HistoryMetaWrapper = ({
-  handleDialogClose,
-  isDataChangedRef,
-  moduleType,
-}) => {
+export const HistoryMetaWrapper = ({ handleDialogClose, moduleType }) => {
   const classes = useDialogStyles();
   const { state: rows }: any = useLocation();
   const removeCache = useContext(ClearCacheContext);
@@ -88,13 +83,7 @@ export const HistoryMetaWrapper = ({
         handleDialogClose={handleDialogClose}
       />
 
-      <HistoryGrid
-        moduleType={moduleType}
-        isDataChangedRef={isDataChangedRef}
-        closeDialog={handleDialogClose}
-        taskID={rows[0].id}
-        rowData={rows[0].data}
-      />
+      <HistoryGrid moduleType={moduleType} taskID={rows[0].id} />
     </Dialog>
   );
 };
