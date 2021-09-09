@@ -161,6 +161,7 @@ export const CFSanctionMetadata: MetaDataType = {
           label: "Floating Rate or Fixed Rate",
           dependentFields: ["facilityType"],
           shouldExclude: showSelectionOfFixedOrFloatingRate,
+          RadioGroupProps: { row: true },
           defaultValue: "fixed",
           GridProps: {
             xs: 12,

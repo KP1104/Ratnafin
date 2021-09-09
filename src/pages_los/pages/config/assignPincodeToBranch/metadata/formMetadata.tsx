@@ -25,7 +25,7 @@ export const assignPincodeFormMetaData = {
   fields: [
     {
       render: { componentType: "select" },
-      name: "branch",
+      name: "branchCode",
       label: "Select Branch",
       placeholder: "Select Branch",
       options: "getBranchList",

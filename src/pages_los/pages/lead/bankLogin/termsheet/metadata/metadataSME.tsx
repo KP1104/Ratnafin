@@ -158,6 +158,7 @@ export const SMETermSheetMetadata: MetaDataType = {
           label: "Floating Rate or Fixed Rate",
           dependentFields: ["facilityType"],
           shouldExclude: showSelectionOfFixedOrFloatingRate,
+          RadioGroupProps: { row: true },
           GridProps: {
             xs: 12,
             md: 3,
