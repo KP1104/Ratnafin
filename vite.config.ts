@@ -2,7 +2,8 @@ import { defineConfig, loadEnv, Alias } from "vite";
 import reactRefresh from "@vitejs/plugin-react-refresh";
 import tsConfigPath from "vite-tsconfig-paths";
 import svgr from "vite-plugin-svgr";
-import * as tsconfig from "./tsconfig.json";
+import eslintPlugin from "@nabla/vite-plugin-eslint";
+import Pages from "vite-plugin-pages";
 
 export default ({ mode }) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
@@ -13,7 +14,19 @@ export default ({ mode }) => {
       "process.env.REACT_APP_MIDDLEWARE_TOKEN": `"${process.env.VITE_MIDDLEWARE_TOKEN}"`,
       "process.env.REACT_APP_DEBUG_MODE": `"${process.env.VITE_DEBUG_MODE}"`,
     },
-    plugins: [reactRefresh(), tsConfigPath(), svgr()],
+    plugins: [
+      reactRefresh(),
+      tsConfigPath(),
+      svgr(),
+      eslintPlugin({
+        eslintOptions: {
+          useEslintrc: true,
+        },
+      }),
+      Pages({
+        react: true,
+      }),
+    ],
     esbuild: {
       jsxInject: `import React from 'react'`,
     },

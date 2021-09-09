@@ -1,7 +1,7 @@
 import "regenerator-runtime";
 import { StrictMode, useEffect, lazy, Suspense } from "react";
 import ReactDOM from "react-dom";
-import { Routes, Route, useNavigate, HashRouter } from "react-router-dom";
+import { Routes, Route, useNavigate, BrowserRouter } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 import "typeface-roboto";
 import "registry"; //register functions to be used across application
@@ -24,7 +24,7 @@ const Redirect = () => {
 const App = () => (
   <StrictMode>
     <DndProvider backend={HTML5Backend}>
-      <HashRouter>
+      <BrowserRouter>
         <Suspense fallback={<div>loading...</div>}>
           <Routes>
             <Route path="/crm/*" element={<CRM />} />
@@ -36,7 +36,7 @@ const App = () => (
             <Route path="*" element={<Redirect />} />
           </Routes>
         </Suspense>
-      </HashRouter>
+      </BrowserRouter>
     </DndProvider>
   </StrictMode>
 );
