@@ -5,10 +5,10 @@ export const Header = ({ headerDetails }) => {
   return (
     <div className="header-top">
       <div className="logo">
-        <img src={logo} />
+        <img alt="ratnaafin" src={logo} />
       </div>
       <div className="equifax-logo">
-        <img src={equifax} />
+        <img alt="equifax" src={equifax} />
       </div>
       <h1>PRESCREEN CREDIT SCORE</h1>
       <div className="top-sec">

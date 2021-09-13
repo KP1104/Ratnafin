@@ -1,6 +1,6 @@
-import { Fragment, useState, FC, useContext, useEffect } from "react";
+import { Fragment, FC, useContext, useEffect } from "react";
 import { useQuery } from "react-query";
-import { ClearCacheContext, queryClient } from "cache";
+import { ClearCacheContext } from "cache";
 import loaderGif from "assets/images/loader.gif";
 import { DOCCRUDContextProvider } from "pages_los/common/documents/context";
 import { DocumentGridCRUD as DocGrid } from "pages_los/common/documents/documentGridCRUD";
