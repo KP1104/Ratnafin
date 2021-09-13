@@ -59,7 +59,6 @@ export const Task = ({ gridCode, actions }) => {
             <HistoryMetaWrapper
               handleDialogClose={handleDialogClose}
               moduleType="task"
-              isDataChangedRef={isDataEditedRef}
             />
           </Route>
         </Routes>
