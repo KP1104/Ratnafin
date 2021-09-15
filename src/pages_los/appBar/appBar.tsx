@@ -4,20 +4,17 @@ import clsx from "clsx";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-//import Badge from "@material-ui/core/Badge";
-import Button from "@material-ui/core/Button";
-import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import IconButton from "@material-ui/core/IconButton";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
-import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import MenuIcon from "@material-ui/icons/Menu";
-//import NotificationsIcon from "@material-ui/icons/Notifications";
 import Logo from "assets/images/logo.svg";
 import { useStyles } from "./style";
-import { AuthContext } from "auth";
-//import { SearchBar } from "components/derived";
+import { AuthContext } from "pages_los/auth";
+import Avatar from "@material-ui/core/Avatar";
+import Popover from "@material-ui/core/Popover";
+import Divider from "@material-ui/core/Divider";
+import Button from "@material-ui/core/Button";
 
 export const MyAppBar = ({ handleDrawerOpen, open }) => {
   const authController = useContext(AuthContext);
@@ -67,22 +64,22 @@ export const MyAppBar = ({ handleDrawerOpen, open }) => {
           className={classes.title}
         >
           LOS: Loan Origination System
-          <Typography variant="caption" display="block" color="secondary">
-            Branch: {authController?.authState?.user?.branchCode ?? ""}-
-            {authController?.authState?.user?.branch ?? ""}
-          </Typography>
-          <Typography
-            variant="caption"
-            display="block"
-            color="secondary"
-            gutterBottom
-          >
-            Last Login:{" "}
-            {checkDateAndDisplay(
-              authController?.authState?.user?.lastLogin ?? ""
-            )}
-          </Typography>
+          <div style={{ display: "flex", gap: "8px" }}>
+            <div>
+              <Typography variant="caption" display="block" color="secondary">
+                Branch: {authController?.authState?.user?.branchCode ?? ""} -{" "}
+                {authController?.authState?.user?.branch ?? ""}
+              </Typography>
+              <Typography variant="caption" display="block" color="secondary">
+                Last Login:{" "}
+                {checkDateAndDisplay(
+                  authController?.authState?.user?.lastLogin ?? ""
+                )}
+              </Typography>
+            </div>
+          </div>
         </Typography>
+
         {/* <SearchBar /> */}
         {/* <IconButton color="inherit" className="ml-2">
           <Badge badgeContent={0} color="primary">
@@ -91,7 +88,7 @@ export const MyAppBar = ({ handleDrawerOpen, open }) => {
         </IconButton> */}
 
         <div className={classes.loggedInUser}>
-          <Button
+          {/* <Button
             aria-controls="simple-menu"
             aria-haspopup="true"
             onClick={handleClick}
@@ -103,12 +100,24 @@ export const MyAppBar = ({ handleDrawerOpen, open }) => {
               }`}
             </span>
             <ArrowDropDownIcon />
-          </Button>
-          <Menu
+          </Button> */}
+          <IconButton onClick={handleClick}>
+            <Avatar
+              aria-label={`${
+                authController?.authState?.user?.firstName ?? ""
+              } ${authController?.authState?.user?.lastName}`}
+              style={{ backgroundColor: "var(--theme-color1)" }}
+            >
+              {authController?.authState?.user?.firstName
+                .substr(0, 1)
+                .toUpperCase()}
+            </Avatar>
+          </IconButton>
+          <Popover
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
             onClose={handleClose}
-            elevation={0}
+            elevation={3}
             getContentAnchorEl={null}
             anchorOrigin={{
               vertical: "bottom",
@@ -118,26 +127,47 @@ export const MyAppBar = ({ handleDrawerOpen, open }) => {
               vertical: "top",
               horizontal: "center",
             }}
+            PaperProps={{
+              style: { width: "240px" },
+            }}
           >
-            <MenuItem
-              onClick={() => {
-                navigate("/los/profile");
-                handleClose();
-              }}
-            >
-              <AccountCircleIcon color="primary" />
-              <span className={classes.vTop}>Profile</span>
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                authController?.logout();
-                handleClose();
-              }}
-            >
-              <PowerSettingsNewIcon color="primary" />
-              <span className={classes.vTop}>Logout</span>
-            </MenuItem>
-          </Menu>
+            <div style={{ padding: "16px" }}>
+              <Typography variant="h6" className={classes.userName}>
+                {authController?.authState?.user?.firstName}{" "}
+                {authController?.authState?.user?.lastName}
+              </Typography>
+              <Typography variant="h6" className={classes.userDesignation}>
+                Role: {authController?.authState?.roleName}
+              </Typography>
+              <Typography variant="h6" className={classes.userDesignation}>
+                User ID : {authController?.authState?.user.id}
+              </Typography>
+            </div>
+            <Divider />
+            <div style={{ padding: "16px 0px 0px" }}>
+              <MenuItem
+                onClick={() => {
+                  navigate("/los/profile");
+                  handleClose();
+                }}
+              >
+                <AccountCircleIcon color="primary" />
+                <span className={classes.vTop}>Profile</span>
+              </MenuItem>
+            </div>
+            <div style={{ padding: "16px" }}>
+              <Button
+                onClick={() => {
+                  authController?.logout();
+                  handleClose();
+                }}
+                fullWidth
+                variant="outlined"
+              >
+                Logout
+              </Button>
+            </div>
+          </Popover>
         </div>
       </Toolbar>
     </AppBar>

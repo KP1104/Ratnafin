@@ -16,7 +16,7 @@ import {
   HealthInsuranceIcon,
   LiabilityInsuranceIcon,
 } from "assets/icons/productIcons";
-import { AuthContext } from "auth";
+import { AuthContext } from "pages_los/auth";
 import { useStyles } from "./style";
 import { WelcomeText1, WelcomeText2, CardTitle, CardValue } from "./variants";
 

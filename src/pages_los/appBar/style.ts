@@ -85,14 +85,6 @@ export const useStyles = makeStyles((theme) => ({
     lineHeight: "1.4",
     textAlign: "left",
   },
-  userName: {
-    color: "#0063A3",
-    fontWeight: 600,
-    textTransform: "capitalize",
-    lineHeight: "1.4",
-    textAlign: "left",
-    fontSize: "14px",
-  },
   dropDown: {
     fontSize: "2rem",
   },
@@ -103,5 +95,19 @@ export const useStyles = makeStyles((theme) => ({
   logo: {
     height: "50px",
     marginRight: theme.spacing(2),
+  },
+  userDesignation: {
+    margin: "0px",
+    fontWeight: 500,
+    fontSize: "0.875rem",
+    lineHeight: 1.57,
+    color: "var(--theme-color1)",
+  },
+  userName: {
+    margin: "0px",
+    fontWeight: 500,
+    fontSize: "0.875rem",
+    lineHeight: 1.57,
+    color: "var(--theme-color2)",
   },
 }));

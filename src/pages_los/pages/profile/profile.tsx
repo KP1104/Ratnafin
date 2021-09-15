@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button";
 import { Alert } from "components/common/alert";
 import Dialog from "@material-ui/core/Dialog";
 import FormWrapper, { MetaDataType } from "components/dyanmicForm";
-import { AuthContext } from "auth/authContext";
+import { AuthContext } from "pages_los/auth/authContext";
 import { ChangePassword } from "./changePassword";
 import loaderGif from "assets/images/loader.gif";
 import { UserProfileMetaData } from "./metaData";
@@ -15,7 +15,7 @@ import { queryClient } from "cache";
 export const Profile = () => {
   const [showProfile, setShowProfile] = useState(false);
   const userData = useContext(AuthContext);
-  const userID = userData?.authState?.userId;
+  const userID = userData?.authState?.user?.id;
   const queryData = useQuery<any, any, any>(["getEmployeeProfile"], () =>
     API.getEmployeeProfile({ userID })
   );

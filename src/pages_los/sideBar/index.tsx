@@ -1,7 +1,6 @@
-import { FC, useContext } from "react";
+import { FC } from "react";
 import { metaData } from "./metaData";
 import { SideBarNav } from "components/navigation/sideBarNavigation";
-import { AuthContext } from "auth";
 import "./icons";
 
 export const MySideBar: FC<{

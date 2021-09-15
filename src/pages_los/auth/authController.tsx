@@ -1,6 +1,6 @@
 import { useReducer, useContext, useEffect } from "react";
 import Box from "@material-ui/core/Box";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import loginImg from "assets/images/login.svg";
 import { useStyles } from "./style";
 import { UsernameField } from "./username";
@@ -61,18 +61,14 @@ export const AuthLoginController = () => {
   const authContext = useContext(AuthContext);
   const classes = useStyles();
   const navigate = useNavigate();
-  const params = useParams();
   const [loginState, dispath] = useReducer(reducer, inititalState);
-  const loginType = params["type"];
 
   useEffect(() => {
-    if (["customer", "employee", "partner"].indexOf(loginType) < 0) {
-      navigate("/crm", { replace: true });
-    }
-    if (authContext?.isLoggedIn()) {
+    console.log("from AuthLoginController" + authContext.isLoggedIn());
+    if (authContext.isLoggedIn()) {
       navigate("/los");
     }
-  }, [navigate, loginType, authContext]);
+  }, [navigate, authContext]);
 
   const verifyUsername = async (username) => {
     if (!Boolean(username)) {
@@ -84,7 +80,7 @@ export const AuthLoginController = () => {
     }
     dispath({ type: "inititateUserNameVerification" });
     try {
-      const result = await API.veirfyUsername(username, loginType);
+      const result = await API.veirfyUsername(username);
       if (result.status === "success") {
         dispath({
           type: "usernameVerificationSuccessful",
@@ -124,8 +120,7 @@ export const AuthLoginController = () => {
       const result = await API.verifyPasswordAndLogin(
         loginState.transactionID,
         loginState.username,
-        password,
-        loginType
+        password
       );
       if (result.status === "success") {
         dispath({ type: "passwordVerificationSuccessful" });
@@ -139,6 +134,7 @@ export const AuthLoginController = () => {
         });
       }
     } catch (e) {
+      console.log(e);
       dispath({
         type: "passwordVerificationFailure",
         payload: {
@@ -165,19 +161,10 @@ export const AuthLoginController = () => {
         className={classes.loginRight}
       >
         <img src={logo} alt="Logo" width="100px" height="100px" />
-        <h2>
-          {loginType === "employee"
-            ? "Employee Login"
-            : loginType === "customer"
-            ? "Customer Login"
-            : loginType === "partner"
-            ? "Partner Login"
-            : "ERRR!!"}
-        </h2>
+        <h2>Employee Login</h2>
         {loginState.currentFlow === "username" ? (
           <UsernameField
             key="username"
-            loginType={loginType}
             classes={classes}
             loginState={loginState}
             verifyUsername={verifyUsername}
@@ -185,7 +172,6 @@ export const AuthLoginController = () => {
         ) : (
           <PasswordField
             key="password"
-            loginType={loginType}
             classes={classes}
             loginState={loginState}
             verifyPassword={verifyPassword}

@@ -10,7 +10,7 @@ import { AppBar } from "./appBar";
 import { MySideBar } from "./sideBar";
 import { Drawer } from "./drawer";
 import { Content } from "./content";
-import { AuthProvider, AuthLoginController, ProtectedRoutes } from "auth";
+import { AuthProvider, AuthLoginController, ProtectedRoutes } from "./auth";
 import {
   CrossInquiry,
   AssignedInquiry,
@@ -119,7 +119,6 @@ const DashbordPages = () => {
             <Route path="/reports/leadInquiry" element={<LeadInquiry />} />
             {/*dummy routes*/}
             <Route path="/testForm" element={<TestForm />} />
-            <Route path="/pages/:id" element={<Dummy />} />
             <Route path="/editor" element={<Editor />} />
           </Routes>
         </Content>
@@ -132,11 +131,11 @@ const EntryPoint = () => (
   <Fragment>
     <AuthProvider>
       <Routes>
-        <Route path="/auth/login/:type" element={<AuthLoginController />} />
+        <Route path="/login" element={<AuthLoginController />} />
         <Route
           path="/*"
           element={
-            <ProtectedRoutes unauthenticatedRoute="./auth/login/customer">
+            <ProtectedRoutes>
               <DashbordPages />
             </ProtectedRoutes>
           }
@@ -160,12 +159,3 @@ const RedirectComponent = () => {
   }, [navigate, location.pathname]);
   return null;
 };
-
-function Dummy() {
-  let { id } = useParams();
-  return (
-    <div>
-      <h3>ID: {id}</h3>
-    </div>
-  );
-}

@@ -2,15 +2,8 @@ import { Fragment, useCallback, useState, useEffect, useRef } from "react";
 import { TextField } from "components/styledComponent/textfield";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { GradientButton } from "components/styledComponent/button";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import { NumberFormatCustom } from "components/derived/numberFormat";
 
-export const UsernameField = ({
-  loginType,
-  classes,
-  loginState,
-  verifyUsername,
-}) => {
+export const UsernameField = ({ classes, loginState, verifyUsername }) => {
   const [userName, setUsername] = useState("");
   const handleChange = useCallback((e) => setUsername(e.target.value), [
     setUsername,
@@ -26,20 +19,12 @@ export const UsernameField = ({
 
   return (
     <Fragment>
-      <div className="text">
-        {["employee", "partner"].indexOf(loginType) >= 0
-          ? "Login with your registered userID"
-          : "Login with your registered Mobile Number"}
-      </div>
+      <div className="text">Login with your registered userID</div>
       <div className={classes.formWrap}>
         <TextField
           inputRef={inputRef}
           autoFocus={true}
-          label={
-            ["employee", "partner"].indexOf(loginType) >= 0
-              ? "User ID"
-              : "Mobile No"
-          }
+          label={"User ID"}
           fullWidth
           type={"text"}
           className="mobileNumber"
@@ -51,28 +36,6 @@ export const UsernameField = ({
           helperText={loginState.isError ? loginState.userMessage : ""}
           InputLabelProps={{ shrink: true }}
           disabled={loginState.loading}
-          prefix={loginType === "customer" ? "+91" : ""}
-          InputProps={
-            loginType === "customer"
-              ? {
-                  startAdornment: (
-                    <InputAdornment position="start">+91</InputAdornment>
-                  ),
-                  inputComponent: NumberFormatCustom,
-                  inputProps: {
-                    FormatProps: {
-                      format: "##########",
-                      isAllowed: (values) => {
-                        if (values.floatValue === 0) {
-                          return false;
-                        }
-                        return true;
-                      },
-                    },
-                  },
-                }
-              : {}
-          }
         />
         <div
           style={{

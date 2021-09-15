@@ -5,7 +5,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import { useMutation } from "react-query";
 import { useSnackbar } from "notistack";
-import { AuthContext } from "auth";
+import { AuthContext } from "pages_los/auth";
 import { PasswordChangeMetaData } from "./metaData";
 import * as API from "../api";
 
@@ -34,7 +34,7 @@ export const ChangePassword = ({ onClose }) => {
       data,
       displayData,
       endSubmit,
-      userID: authCtx?.authState?.userId,
+      userID: authCtx?.authState?.user?.id,
     });
   };
 

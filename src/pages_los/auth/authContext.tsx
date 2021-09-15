@@ -16,15 +16,18 @@ const inititalState: AuthStateType = {
   token: "",
   tokenType: "",
   isLoggedIn: false,
-  role: [],
-  userId: "",
+  role: "",
+  roleName: "",
+  branchAccess: {},
   user: {
-    lastName: "",
-    firstName: "",
-    lastLogin: "",
     branch: "",
     branchCode: "",
+    lastName: "",
+    firstName: "",
+    middleName: "",
+    lastLogin: "",
     type: "",
+    id: "",
   },
 };
 
@@ -37,21 +40,7 @@ const authReducer = (
       return action.payload;
     }
     case "logout": {
-      return {
-        token: "",
-        tokenType: "",
-        isLoggedIn: false,
-        role: [],
-        userId: "",
-        user: {
-          lastName: "",
-          firstName: "",
-          lastLogin: "",
-          branch: "",
-          branchCode: "",
-          type: "",
-        },
-      };
+      return inititalState;
     }
     default: {
       return state;
@@ -59,53 +48,46 @@ const authReducer = (
   }
 };
 
-export const AuthContext = createContext<AuthContextType | null>(null);
+export const AuthContext = createContext<AuthContextType>({
+  login: () => true,
+  logout: () => true,
+  isLoggedIn: () => false,
+  authState: inititalState,
+});
 
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, inititalState);
   const [authenticating, setAuthenticating] = useState(true);
-  const location = useLocation();
   const navigate = useNavigate();
-  //Cannot add location.pathName
+  const location = useLocation();
+  const [comingFromRoute, setComingFromRoute] = useState(location.pathname);
+
   /*eslint-disable react-hooks/exhaustive-deps*/
   const login = useCallback(
-    (payload: AuthStateType, stopNavigation?: boolean) => {
+    (payload: AuthStateType) => {
       dispatch({
         type: "login",
         payload: { ...payload, isLoggedIn: true },
       });
       LOSSDK.setToken(payload.token);
-      localStorage.setItem("authDetails", JSON.stringify(payload));
-      if (!Boolean(stopNavigation)) {
-        if (
-          [
-            "/los/auth/login/customer",
-            "/los/auth/login/employee",
-            "/los/auth/login/partner",
-          ].indexOf(location.pathname) >= 0
-        ) {
-          navigate("/los");
-        } else {
-          navigate(location.pathname);
-        }
+      localStorage.setItem(
+        "authDetails",
+        JSON.stringify({ ...payload, isLoggedIn: true })
+      );
+      if (comingFromRoute === "/los/login") {
+        navigate("/los", {
+          replace: true,
+        });
+      } else {
+        navigate(comingFromRoute, {
+          replace: true,
+        });
       }
+      setComingFromRoute("/los");
     },
     [dispatch, navigate]
   );
   const logout = useCallback(() => {
-    let result = localStorage.getItem("authDetails");
-    let outPath = "/crm";
-    let currentAuthState: AuthStateType | any = null;
-    if (result !== null) {
-      currentAuthState = JSON.parse(result);
-    }
-    if (currentAuthState?.user?.type === "customer") {
-      outPath = "/los/auth/login/customer";
-    } else if (currentAuthState?.user?.type === "employee") {
-      outPath = "/los/auth/login/employee";
-    } else if (currentAuthState?.user?.type === "partner") {
-      outPath = "/los/auth/login/partner";
-    }
     localStorage.removeItem("authDetails");
     dispatch({
       type: "logout",
@@ -113,17 +95,7 @@ export const AuthProvider = ({ children }) => {
     });
     LOSSDK.removeToken();
     queryClient.clear();
-    if (
-      [
-        "/los/auth/login/customer",
-        "/los/auth/login/employee",
-        "/los/auth/login/partner",
-      ].indexOf(location.pathname) >= 0
-    ) {
-      navigate(location.pathname);
-    } else {
-      navigate(outPath);
-    }
+    navigate("/los/login");
   }, [dispatch, navigate]);
 
   const isLoggedIn = () => {
@@ -150,18 +122,11 @@ export const AuthProvider = ({ children }) => {
     let result = localStorage.getItem("authDetails");
     if (result !== null) {
       let localStorageAuthState: AuthStateType = JSON.parse(result);
-      if (
-        Boolean(localStorageAuthState?.token ?? "") &&
-        Boolean(localStorageAuthState?.user.type ?? "")
-      ) {
-        API.verifyToken(
-          localStorageAuthState.user.type,
-          localStorageAuthState.token
-        ).then((result) => {
+      if (Boolean(localStorageAuthState?.token ?? "")) {
+        API.verifyToken(localStorageAuthState.token).then((result) => {
           if (result.status === "success") {
-            login(localStorageAuthState, true);
+            login(localStorageAuthState);
           } else if (result.status === "failure") {
-            console.log(result);
             if (result.data instanceof Error) {
               navigate("/error/Internet");
             } else {
@@ -180,9 +145,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, [login, logout, setAuthenticating]);
 
-  return authenticating ? (
-    <LinearProgress color="secondary" />
-  ) : (
+  return (
     <AuthContext.Provider
       value={{
         login,
@@ -191,7 +154,7 @@ export const AuthProvider = ({ children }) => {
         authState: state,
       }}
     >
-      {children}
+      {authenticating ? <LinearProgress color="secondary" /> : children}
     </AuthContext.Provider>
   );
 };
