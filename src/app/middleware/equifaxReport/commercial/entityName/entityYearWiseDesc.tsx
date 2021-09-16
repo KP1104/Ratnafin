@@ -9,17 +9,38 @@ export const EntityYearWiseDesc = ({ severityGrid }) => {
                 <table className="table">
                   <tbody>
                     <tr>
-                      <td>{severityGrid[key]?.overdueGreaterThan_0}</td>
-                      <td>{severityGrid[key]?.DPD_1_90}</td>
-                      <td>SMA 0/1/2</td>
+                      <DisplayColor
+                        value={severityGrid[key]?.overdueGreaterThan_0}
+                        label="Overdue &gt; 0"
+                      />
+                      <DisplayColor
+                        value={severityGrid[key]?.DPD_1_90}
+                        label="1-90 DPD"
+                      />
+                      <DisplayColor
+                        value={severityGrid[key]?.SMA_0_1_2}
+                        label="SMA 0/1/2"
+                      />
                     </tr>
                     <tr>
-                      <td>SUB/RES/DBT /Loss/NPA/ 90+</td>
-                      <td>
-                        Invoked / Devolved /Dishonoured CHQ / CHG-off / SET /
-                        Suit filed
-                      </td>
-                      <td>Wilful Default</td>
+                      <DisplayColor
+                        value={
+                          severityGrid[key]?.SubStd_Restr_DBT_Loss_NPA_90PLUS
+                        }
+                        label="SUB/RES/DBT /Loss/NPA/ 90+"
+                      />
+                      <DisplayColor
+                        value={
+                          severityGrid[key]
+                            ?.Invoked_Devolved_Dishonoured_Coff_Settled_Suitfiled
+                        }
+                        label="Invoked / Devolved /Dishonoured CHQ / CHG-off / SET /
+                        Suit filed"
+                      />
+                      <DisplayColor
+                        value={severityGrid[key]?.WilfulDefault}
+                        label="Wilful Default"
+                      />
                     </tr>
                   </tbody>
                 </table>
@@ -28,5 +49,24 @@ export const EntityYearWiseDesc = ({ severityGrid }) => {
           })
         : null}
     </div>
+  );
+};
+
+const DisplayColor = ({ label, value }) => {
+  return (
+    <>
+      {Boolean(value) ? (
+        <td
+          style={{
+            backgroundColor: "#FF0000",
+            WebkitPrintColorAdjust: "exact",
+          }}
+        >
+          {label}
+        </td>
+      ) : (
+        <td>{label}</td>
+      )}
+    </>
   );
 };

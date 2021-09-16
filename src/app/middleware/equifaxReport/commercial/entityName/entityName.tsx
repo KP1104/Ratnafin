@@ -1,17 +1,13 @@
 import { Entity } from "./entity";
-import { Header } from "../header";
 
 export const EntityNameDetails = ({
-  header,
   severityGrid,
   creditScore,
   overallCreditSummary,
   entityName,
 }) => {
   return (
-    <article id="cover">
-      <Header header={header} />
-      <hr />
+    <article>
       <Entity
         severityGrid={severityGrid}
         creditScore={creditScore}

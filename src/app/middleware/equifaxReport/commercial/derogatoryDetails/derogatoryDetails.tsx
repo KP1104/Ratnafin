@@ -1,27 +1,25 @@
-import { Header } from "../header";
 import { DerogatoryBorrower } from "./derogatoryBorrower";
 import { DerogatoryGuarantor } from "./derogatoryGuarantor";
 import { GuarantorRelatedInd } from "./gurantorRelatedInd";
 
-import { CreditType } from "../creditType/creditTypeBorrower";
-
-export const DerogatoryDetails = ({
-  header,
-  derogatorDetails,
-  creditTypeSummary,
-}) => {
+export const DerogatoryDetails = ({ derogatoryDetails }) => {
   return (
-    <article id="contents">
-      <Header header={header} />
-      <hr />
+    <article>
       <div className="entity-details-borrower-sec">
         <h2>
           <strong>5</strong>Derogatory Summary
         </h2>
-        <DerogatoryBorrower />
-        <DerogatoryGuarantor />
-        <GuarantorRelatedInd />
-        <CreditType creditTypeSummary={creditTypeSummary} />
+        <DerogatoryBorrower
+          borrowerDerogatory={derogatoryDetails?.AsBorrower}
+        />
+        <DerogatoryGuarantor
+          guarantorDerogatory={derogatoryDetails?.AsGuarantor}
+        />
+        <GuarantorRelatedInd
+          relatedIndDerogatory={
+            derogatoryDetails?.ForGuarantorRelatedEntitiesIndividuals
+          }
+        />
       </div>
     </article>
   );

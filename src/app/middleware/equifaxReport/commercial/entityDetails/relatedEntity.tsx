@@ -1,38 +1,51 @@
 export const RelatedEntity = ({ relatedEntity }) => {
   return (
     <>
-      <h2>2.2 Related Entity(ies)</h2>
+      <h2 style={{ borderBottom: "solid 1px" }}>2.2 Related Entity(ies)</h2>
       <table className="table">
-        <thead className="thead-dark">
-          <tr>
-            <th scope="col">S.No</th>
-            <th scope="col">Relationship</th>
-            <th scope="col">Name</th>
-            <th scope="col">Address</th>
-            <th scope="col">Date Of Inc.</th>
-            <th scope="col">CIN</th>
-            <th scope="col">TIN</th>
-            <th scope="col">PAN</th>
-          </tr>
-        </thead>
         <tbody>
           <tr>
-            {typeof relatedEntity === "object" && Boolean(relatedEntity)
-              ? Object.keys(relatedEntity).map((key, index) => (
+            <th scope="col">
+              <span className="heading-color">Sr.No</span>
+            </th>
+            <th scope="col">
+              <span className="heading-color">Relationship</span>
+            </th>
+            <th scope="col">
+              <span className="heading-color">Name</span>
+            </th>
+            <th scope="col">
+              <span className="heading-color">Address</span>
+            </th>
+            <th scope="col">
+              <span className="heading-color">Date Of Inc.</span>
+            </th>
+            <th scope="col">
+              <span className="heading-color">CIN</span>
+            </th>
+            <th scope="col">
+              <span className="heading-color">TIN</span>
+            </th>
+            <th scope="col">
+              <span className="heading-color">PAN</span>
+            </th>
+          </tr>
+          <tr>
+            {Array.isArray(relatedEntity) && Boolean(relatedEntity)
+              ? relatedEntity.map((data, index) => (
                   <>
                     <td>{index + 1}</td>
-                    <td>{relatedEntity[key]}</td>
-                    <td></td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
+                    <td>{data?.Relationship ?? "-"}</td>
+                    <td>{data?.business_entity_name ?? "-"}</td>
+                    <td>{data?.CommercialAddressInfo[0]?.Address}</td>
+                    <td>{data?.date_of_incorporation ?? "-"}</td>
+                    <td>{data?.CIN ?? "-"}</td>
+                    <td>{data?.TIN ?? "-"}</td>
+                    <td>{data?.PANId ?? "-"}</td>
                   </>
                 ))
               : null}
           </tr>
-          <tr>Not coming from DB</tr>
         </tbody>
       </table>
     </>

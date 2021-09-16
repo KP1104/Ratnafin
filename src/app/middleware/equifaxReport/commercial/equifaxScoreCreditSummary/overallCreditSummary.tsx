@@ -9,21 +9,21 @@ export const EquifaxCreditSummary = ({ overallCreditSummary = {} }: any) => {
         <strong>1.2</strong> Overall Credit Summary
       </h2>
       <table className="table">
-        <thead className="thead-dark">
+        <tbody>
           <tr>
-            <th scope="col" colSpan={2}></th>
+            <th scope="col" colSpan={2}>
+              <span className="heading-color">&nbsp;</span>
+            </th>
             {years.map((year) => {
               return (
                 <>
                   <th scope="col" colSpan={2}>
-                    {year}
+                    <span className="heading-color">{year}</span>
                   </th>
                 </>
               );
             })}
           </tr>
-        </thead>
-        <tbody>
           <tr>
             <td colSpan={2}></td>
             <td>As Borrower</td>
@@ -37,7 +37,7 @@ export const EquifaxCreditSummary = ({ overallCreditSummary = {} }: any) => {
             accessor="CF_Count"
             borrower={asBorrower}
             gurantor={asGuarantor}
-            label="Number of Creadit Facilities(CF)"
+            label="Number of Credit Facilities(CF)"
             years={years}
           />
           <CreditSummaryLine
@@ -72,7 +72,7 @@ export const EquifaxCreditSummary = ({ overallCreditSummary = {} }: any) => {
             accessor="CurrentBalanceOpenCF_Sum"
             borrower={asBorrower}
             gurantor={asGuarantor}
-            label="Current Blance of Open Credit Facilities*"
+            label="Current Balance of Open Credit Facilities*"
             years={years}
           />
           <CreditSummaryLine
@@ -111,14 +111,14 @@ export const EquifaxCreditSummary = ({ overallCreditSummary = {} }: any) => {
             years={years}
           />
           <CreditSummaryLine
-            accessor=""
+            accessor="CF_SMA_0_1_2_Count"
             borrower={asBorrower}
             gurantor={asGuarantor}
             label="Number of Credit Facilities SMA 0/1/2"
             years={years}
           />
           <CreditSummaryLine
-            accessor=""
+            accessor="Months_SMA_0_1_2_Count"
             borrower={asBorrower}
             gurantor={asGuarantor}
             label="Number of Months SMA 0/1/2"
@@ -139,7 +139,7 @@ export const EquifaxCreditSummary = ({ overallCreditSummary = {} }: any) => {
             years={years}
           />
           <CreditSummaryLine
-            accessor=""
+            accessor="CF_90_180_180PLUS_DPD_SRDL_Count"
             borrower={asBorrower}
             gurantor={asGuarantor}
             label="Number of Credit Facilities 91-180 DPD/180+DPD/
@@ -147,7 +147,7 @@ export const EquifaxCreditSummary = ({ overallCreditSummary = {} }: any) => {
             years={years}
           />
           <CreditSummaryLine
-            accessor=""
+            accessor="Months_90_180_180PLUS_DPD_SRDL_Count"
             borrower={asBorrower}
             gurantor={asGuarantor}
             label="Number of Months 91-180 DPD/180+DPD/ Substandard/
@@ -155,7 +155,7 @@ export const EquifaxCreditSummary = ({ overallCreditSummary = {} }: any) => {
             years={years}
           />
           <CreditSummaryLine
-            accessor=""
+            accessor="HighestOverdueAmt_90_180_180PLUS_DPD_SRDL"
             borrower={asBorrower}
             gurantor={asGuarantor}
             label="Highest Overdue Amount _ 91-180 DPD/180+DPD/ Substandard/
@@ -163,7 +163,7 @@ export const EquifaxCreditSummary = ({ overallCreditSummary = {} }: any) => {
             years={years}
           />
           <CreditSummaryLine
-            accessor=""
+            accessor="CF_Wilful_Invoked_Devolved_DC_COff_Settled_Count"
             borrower={asBorrower}
             gurantor={asGuarantor}
             label="Number of Credit Facilities Wilful-default/ Invoked
