@@ -1,16 +1,7 @@
-import {
-  useContext,
-  useEffect,
-  Fragment,
-  useState,
-  useRef,
-  useCallback,
-} from "react";
+import { useContext, useEffect, useRef, useCallback } from "react";
 import { useQuery } from "react-query";
 import { ClearCacheContext } from "cache";
 import loaderGif from "assets/images/loader.gif";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
 import { FormNew } from "./formNew";
 import { CRUDContext } from "./context";
 import { cacheWrapperKeyGen } from "cache";

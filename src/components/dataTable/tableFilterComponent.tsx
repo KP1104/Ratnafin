@@ -24,6 +24,7 @@ export const filterReducer = (state: any = [], action: any = {}) => {
     }
     case "removeValue": {
       const { id } = action.payload;
+      /* eslint-disable eqeqeq */
       let result = state.filter((one) => one.id != id);
       return result;
     }

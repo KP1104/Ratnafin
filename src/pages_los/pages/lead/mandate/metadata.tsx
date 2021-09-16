@@ -1,9 +1,5 @@
 import { MetaDataType } from "components/dyanmicForm/types";
-import {
-  calculateAmount,
-  calculatePercentage,
-  visaversaValidateValue,
-} from "./fns";
+import { calculateAmount, calculatePercentage } from "./fns";
 
 export const mandateMetaData: MetaDataType = {
   form: {

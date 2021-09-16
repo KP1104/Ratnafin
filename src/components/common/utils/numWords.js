@@ -55,6 +55,7 @@ export function numWords(input) {
     .match(regex); // left pad zeros
 
   let str = "";
+  /* eslint-disable eqeqeq */
   str += n0 != 0 ? getLT20(n0) + "hundred " : "";
   str += n1 != 0 && str != "" ? "and " : "";
   str +=

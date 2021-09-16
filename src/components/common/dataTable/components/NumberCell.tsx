@@ -4,7 +4,6 @@ import { TextFieldForSelect as TextField } from "components/styledComponent/text
 import { RowContext } from "./rowContext";
 import { numWords } from "components/common/utils";
 import Typography from "@material-ui/core/Typography";
-import FormHelperText from "@material-ui/core/FormHelperText";
 
 let currencyFormatter = new Intl.NumberFormat("en-IN", {
   style: "currency",
@@ -83,7 +82,6 @@ export const CurrencyInput = ({
     setCellTouched,
   } = useContext(RowContext);
 
-  let myError = error;
   let numWordsVar: any = null;
   try {
     if (enableNumWords && Boolean(currentRow?.[columnName])) {
@@ -99,9 +97,7 @@ export const CurrencyInput = ({
         numWordsVar = `${numWordsVar} and ${numWords(amountArray[1])} paise`;
       }
     }
-  } catch (e) {
-    myError = "";
-  }
+  } catch (e) {}
 
   return (
     <TextField
@@ -109,7 +105,7 @@ export const CurrencyInput = ({
       onChange={(e) =>
         setCellValue({ [columnName]: e.target.value, ...clearFields })
       }
-      helperText={touched?.[columnName] && error?.[columnName]}
+      helperText={touched?.[columnName] ? error?.[columnName] : numWordsVar}
       error={Boolean(touched?.[columnName]) && Boolean(error?.[columnName])}
       onBlur={() => setCellTouched({ [columnName]: true })}
       InputLabelProps={{ shrink: true }}
@@ -123,14 +119,6 @@ export const CurrencyInput = ({
           FormatProps: { ...FormatProps, formattedValue },
         },
       }}
-      //@ts-ignore
-      helperText={
-        <div style={{ display: "flex" }}>
-          <FormHelperText>
-            {Boolean(enableNumWords) ? numWordsVar : null}
-          </FormHelperText>
-        </div>
-      }
     />
   );
 };

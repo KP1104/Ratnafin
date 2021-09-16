@@ -17,8 +17,6 @@ export const SME = ({ data, others }) => {
     financialDetails,
     projectDetails,
     collateralSecurity,
-    primaryCollateralSecurity,
-    personalGuaranteeSecurity,
   } = data;
   let { productID } = others;
 
