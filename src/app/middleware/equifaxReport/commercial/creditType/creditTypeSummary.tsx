@@ -3,29 +3,34 @@ import { Fragment } from "react";
 export const CreditTypeSummary = ({ label, sequence, onData, offData }) => {
   return (
     <Fragment>
-      <h2>
-        <strong>{sequence}</strong>
-        {label}
-        <span style={{ float: "right" }}>
-          (All amounts mentioned are in INR)
-        </span>
-      </h2>
       <table
         className="table borrower-table-sec"
         style={{ marginBottom: 0, fontSize: "12px" }}
       >
-        <thead className="thead-dark">
+        <tbody>
           <tr>
-            <th scope="col" style={{ width: "17.7%" }}></th>
-            <th scope="col" style={{ textAlign: "center", width: "40%" }}>
-              On Member
-            </th>
-            <th scope="col" style={{ textAlign: "center", width: "40%" }}>
-              Off Member
+            <th colSpan={12}>
+              <h2>
+                <strong>{sequence} </strong>
+                {label}
+                <span style={{ float: "right" }}>
+                  (All amounts mentioned are in INR)
+                </span>
+              </h2>
             </th>
           </tr>
-        </thead>
-        <tbody>
+
+          <tr>
+            <th scope="col" style={{ width: "17.7%" }}>
+              <span className="heading-color">&nbsp;</span>
+            </th>
+            <th scope="col" style={{ textAlign: "center", width: "40%" }}>
+              <span className="heading-color">On Member</span>
+            </th>
+            <th scope="col" style={{ textAlign: "center", width: "40%" }}>
+              <span className="heading-color">Off Member</span>
+            </th>
+          </tr>
           <tr>
             <td colSpan={15} style={{ padding: 0 }}>
               <table

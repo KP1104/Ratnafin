@@ -1,5 +1,5 @@
-import equifaxLogo from "assets/images/equifaxLogo.png";
 import logo from "assets/images/logo.svg";
+import equifaxLogo from "assets/images/equifaxLogo.png";
 
 export const Header = ({ header }) => {
   return (
@@ -28,6 +28,7 @@ export const Header = ({ header }) => {
           </li>
           <li>
             <strong>Reference Number:</strong>
+            {header?.referenceNumber}
           </li>
         </ul>
         <ul>
@@ -41,6 +42,7 @@ export const Header = ({ header }) => {
           </li>
           <li>
             <strong>Tran ID:</strong>
+            {header?.tranID}
           </li>
         </ul>
       </div>

@@ -26,6 +26,12 @@ export const BankLoginLeads = () => {
       multiple: false,
       rowDoubleClick: true,
     },
+    {
+      actionName: "auditDownload",
+      actionLabel: "Audit Download",
+      multiple: false,
+      rowDoubleClick: false,
+    },
   ];
 
   return <LeadGrid gridCode="TRN/011" actions={actions} />;

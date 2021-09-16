@@ -15,6 +15,7 @@ import { VerificationWrapper } from "../verification";
 import { BankLoginWrapper } from "../bankLogin";
 import { MandateMetaWrapper } from "../mandate";
 import { SanctionMetaWrapper } from "../sanction";
+import { AuditDownloadWrapper } from "../bankLogin/auditDownload";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
 export const LeadGrid = ({ gridCode, actions }) => {
@@ -114,6 +115,12 @@ export const LeadGrid = ({ gridCode, actions }) => {
               handleDialogClose={handleDialogClose}
               moduleType="lead"
               isDataChangedRef={isDataEditedRef}
+            />
+          </Route>
+          <Route path="/auditDownload">
+            <AuditDownloadWrapper
+              handleDialogClose={handleDialogClose}
+              moduleType="lead"
             />
           </Route>
         </Routes>

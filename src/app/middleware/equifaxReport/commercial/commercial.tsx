@@ -7,6 +7,8 @@ import { DerogatoryDetails } from "./derogatoryDetails";
 import { CreditFacilitySummary } from "./creditFacilitySummary";
 import { GlossaryTermsExplanation } from "./glossaryTermsExplanation";
 import { Enquiry } from "./enquiries";
+import { DelinquencyDetails } from "./delinquencyDetails";
+import { CreditType } from "./creditType";
 import { MiddlewareSDK } from "registry/fns/middleware";
 import "assets/css/bootstrap.min.css";
 import "./style.css";
@@ -24,34 +26,28 @@ export const CommercialEquifaxReport = () => {
   ) : (
     <>
       <EntityNameDetails
-        header={data?.header}
         severityGrid={data?.severityGrid}
         creditScore={data?.equifaxScoresCommercial}
         overallCreditSummary={data?.overallCreditSummary}
         entityName={data?.entityName}
       />
       <EntityDetails
-        header={data?.header}
         entityDetails={data?.entityDetailsBorrower}
         openCreditFacility={data?.openCreditFacilitySummary}
-        delinquencySummary={data?.delinquencySummary}
       />
-      <DerogatoryDetails
-        header={data?.header}
-        derogatorDetails={data?.derogSummary}
-        creditTypeSummary={data?.creditTypeSummary}
-      />
+      <DelinquencyDetails delinquencyDetails={data?.delinquencySummary} />
+      <DerogatoryDetails derogatoryDetails={data?.derogSummary} />
+      <CreditType creditTypeSummary={data?.creditTypeSummary} />
       <CreditFacilitySummary
-        header={data?.header}
         creditFacilityDetails={data?.creditFacilityDetails}
       />
       <Enquiry
-        header={data?.header}
         enquirySummary={data?.enquirySummary}
         enquiriesDetails={data?.enquiriesDetails}
         inquiryInputDetails={data?.inquiryInputDetails}
+        hitNonHitSummaryDetails={data?.CCRHitDetailsLst}
       />
-      <GlossaryTermsExplanation header={data?.header} />
+      <GlossaryTermsExplanation />
     </>
   );
   return renderResult;

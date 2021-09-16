@@ -16,65 +16,99 @@ export const GurantorRelatedIndividuals = ({ relatedIndDeliquincy = {} }) => {
           (All amounts mentioned are in INR)
         </span>
       </h2>
-      <table className="table borrower-table-sec">
-        <thead className="thead-dark">
-          <tr>
-            <th scope="col">Lender</th>
-            <th scope="col" style={{ textAlign: "center" }}>
-              Name
-            </th>
-            <th scope="col">Relation Type</th>
-            <th scope="col">Current Overdue Bucket</th>
-            <th scope="col">Current Account Classification</th>
-            <th scope="col">Most recent Delinquency Date</th>
-            <th scope="col">Earliest Delinquency Date (Last 48 months)</th>
-            <th scope="col">No of times Delinquent</th>
-            <th scope="col">Most severe DPD/Asset Class (last 48 Months)</th>
-            <th scope="col">Max Consecutive Overdue Period (In months)</th>
-            <th scope="col">Highest Overdue Amount (In last 48 months)</th>
-            <th scope="col">Current Overdue Amount</th>
-          </tr>
-        </thead>
+      <table className="table borrower-table-sec borrower-table-sec-box">
         <tbody>
+          <RelatedIndLabel />
           <tr>
-            <td colSpan={12}>On Member</td>
-          </tr>
-          <tr>
-            <td
-              colSpan={12}
-              style={{
-                //@ts-ignore
-                textAlign: "center !important",
-              }}
-            >
-              No Data
+            <td colSpan={12}>
+              <b>On Member</b>
             </td>
           </tr>
+          <RelatedIndDetails flatMap={flatMap} />
           <tr>
-            <td colSpan={12}>Off Member</td>
+            <td colSpan={12}>
+              <b>Off Member</b>
+            </td>
           </tr>
-          <tr>
-            {Array.isArray(flatMap)
-              ? flatMap?.map((data) => (
-                  <>
-                    <td>{data?.source}</td>
-                    <td>{data?.name}</td>
-                    <td>{data?.relationType}</td>
-                    <td>{data?.CurrentOverdueBucket}</td>
-                    <td>{data?.CurrentAccountClassification}</td>
-                    <td>{data?.MostRecentDelinquencyDate}</td>
-                    <td>{data?.EarliestDelinquencyDate_Lst_48_Mths}</td>
-                    <td>{data?.Delinquent_Count}</td>
-                    <td>{data?.MostSevere_DPD_AssetClass_Lst_48_Mths}</td>
-                    <td>{data?.MaxConsecutive_OverduePeriod_In_Mths}</td>
-                    <td>{data?.HighestOverdue_Amt_Lst_48_Mths}</td>
-                    <td>{data?.CurrentOverdue_Amt}</td>
-                  </>
-                ))
-              : null}
-          </tr>
+          <RelatedIndDetails flatMap={flatMap} />
         </tbody>
       </table>
+    </>
+  );
+};
+
+const RelatedIndLabel = () => {
+  return (
+    <tr>
+      <th scope="col">
+        <span className="heading-color">Lender</span>
+      </th>
+      <th scope="col" style={{ textAlign: "center" }}>
+        <span className="heading-color">Name</span>
+      </th>
+      <th scope="col">
+        <span className="heading-color">Relation Type</span>
+      </th>
+      <th scope="col">
+        <span className="heading-color">Current Overdue Bucket</span>
+      </th>
+      <th scope="col">
+        <span className="heading-color">Current Account Classification</span>
+      </th>
+      <th scope="col">
+        <span className="heading-color">Most recent Delinquency Date</span>
+      </th>
+      <th scope="col">
+        <span className="heading-color">
+          Earliest Delinquency Date (Last 48 months)
+        </span>
+      </th>
+      <th scope="col">
+        <span className="heading-color">No of times Delinquent</span>
+      </th>
+      <th scope="col">
+        <span className="heading-color">
+          Most severe DPD/Asset Class (last 48 Months)
+        </span>
+      </th>
+      <th scope="col">
+        <span className="heading-color">
+          Max Consecutive Overdue Period (In months)
+        </span>
+      </th>
+      <th scope="col">
+        <span className="heading-color">
+          Highest Overdue Amount (In last 48 months)
+        </span>
+      </th>
+      <th scope="col">
+        <span className="heading-color">Current Overdue Amount</span>
+      </th>
+    </tr>
+  );
+};
+
+const RelatedIndDetails = ({ flatMap }) => {
+  return (
+    <>
+      {Array.isArray(flatMap)
+        ? flatMap?.map((data) => (
+            <tr>
+              <td>{data?.source.split("Off-Member ")}</td>
+              <td>{data?.name}</td>
+              <td>{data?.relationType}</td>
+              <td>{data?.CurrentOverdueBucket}</td>
+              <td>{data?.CurrentAccountClassification}</td>
+              <td>{data?.MostRecentDelinquencyDate}</td>
+              <td>{data?.EarliestDelinquencyDate_Lst_48_Mths}</td>
+              <td>{data?.Delinquent_Count}</td>
+              <td>{data?.MostSevere_DPD_AssetClass_Lst_48_Mths}</td>
+              <td>{data?.MaxConsecutive_OverduePeriod_In_Mths}</td>
+              <td>{data?.HighestOverdue_Amt_Lst_48_Mths}</td>
+              <td>{data?.CurrentOverdue_Amt}</td>
+            </tr>
+          ))
+        : null}
     </>
   );
 };

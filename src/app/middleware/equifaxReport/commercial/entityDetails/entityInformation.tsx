@@ -6,7 +6,14 @@ import { CreditFacility } from "../openCreditFacilitySummary";
 export const EntityPersonalnfo = ({ info, openCreditFcility }) => {
   return (
     <div className="entity-details-borrower-sec">
-      <h2>
+      <h2
+        style={{
+          backgroundColor: "#10b158",
+          color: "#fff",
+          fontSize: "18px",
+          padding: "8px 3px",
+        }}
+      >
         <strong>2</strong> Entity Details - Borrower
       </h2>
       <table
@@ -22,12 +29,12 @@ export const EntityPersonalnfo = ({ info, openCreditFcility }) => {
             <td
               style={{
                 padding: 0,
-                borderTop: "none",
+                border: "none",
                 width: "33%",
                 display: "inline-block",
                 verticalAlign: "top",
               }}
-              className="entity-bro-none"
+              className="entity-bro-none entity-box"
             >
               <EntityInformation personalInfo={info?.personalInformation} />
             </td>
@@ -40,7 +47,7 @@ export const EntityPersonalnfo = ({ info, openCreditFcility }) => {
                 verticalAlign: "top",
                 height: "100%",
               }}
-              className="entity-bro-none"
+              className="entity-bro-none entity-box"
             >
               <IdentificationInfo identificationInfo={info?.idInformation} />
             </td>
@@ -52,7 +59,7 @@ export const EntityPersonalnfo = ({ info, openCreditFcility }) => {
                 display: "inline-block",
                 verticalAlign: "top",
               }}
-              className="entity-bro-none"
+              className="entity-bro-none entity-box"
             >
               <ContactInfo contactInfo={info?.contactInformation} />
             </td>
@@ -70,13 +77,11 @@ export const EntityPersonalnfo = ({ info, openCreditFcility }) => {
 const EntityInformation = ({ personalInfo }) => {
   return (
     <table className="table" style={{ marginBottom: 0 }}>
-      <thead className="thead-dark">
-        <tr>
-          <th scope="col" colSpan={3}>
-            Entity Information
-          </th>
-        </tr>
-      </thead>
+      <tr>
+        <th scope="col" colSpan={3}>
+          <span className="heading-color">Entity Information</span>
+        </th>
+      </tr>
       <tbody className="bro-none">
         <tr>
           <td colSpan={2}>Full Name :</td>
@@ -84,7 +89,7 @@ const EntityInformation = ({ personalInfo }) => {
         </tr>
         <tr>
           <td colSpan={2}>Short Name :</td>
-          <td colSpan={2}></td>
+          <td colSpan={2}>{personalInfo?.BusinessShortName}</td>
         </tr>
         <tr>
           <td colSpan={2}>Company Status** :</td>
@@ -108,7 +113,7 @@ const EntityInformation = ({ personalInfo }) => {
         </tr>
         <tr>
           <td colSpan={2}>Sales Figure :</td>
-          <td colSpan={2}></td>
+          <td colSpan={2}>{personalInfo?.SalesFigure}</td>
         </tr>
         <tr>
           <td colSpan={2}>Class of Activity :</td>
@@ -116,7 +121,7 @@ const EntityInformation = ({ personalInfo }) => {
         </tr>
         <tr>
           <td colSpan={2}>Employee Count :</td>
-          <td colSpan={2}></td>
+          <td colSpan={2}>{personalInfo?.EmployeeCount}</td>
         </tr>
       </tbody>
     </table>
@@ -126,37 +131,37 @@ const EntityInformation = ({ personalInfo }) => {
 const IdentificationInfo = ({ identificationInfo }) => {
   return (
     <table className="table" style={{ borderTop: "none", marginBottom: "0" }}>
-      <thead className="thead-dark">
-        <tr>
-          <th scope="col" colSpan={3}>
-            Identification
-          </th>
-        </tr>
-      </thead>
+      <tr>
+        <th scope="col" colSpan={3}>
+          <span className="heading-color">Identification</span>
+        </th>
+      </tr>
       <tbody className="bro-none">
         <tr>
           <td colSpan={2}>CIN :</td>
-          <td colSpan={2}></td>
+          <td colSpan={2}>{identificationInfo?.CIN}</td>
         </tr>
         <tr>
           <td colSpan={2}>TIN :</td>
-          <td colSpan={2}></td>
+          <td colSpan={2}>{identificationInfo?.TIN}</td>
         </tr>
         <tr>
           <td colSpan={2}>PAN :</td>
-          <td colSpan={2}>{identificationInfo?.pan}</td>
+          <td colSpan={2}>{identificationInfo?.PANId}</td>
         </tr>
         <tr>
           <td colSpan={2}>Service Tax No :</td>
-          <td colSpan={2}></td>
+          <td colSpan={2}>{identificationInfo?.ServiceTax}</td>
         </tr>
         <tr>
           <td colSpan={2}>Business Registration Date** :</td>
-          <td colSpan={2}></td>
+          <td colSpan={2}>
+            {identificationInfo?.roc_BusinessRegistrationDate}
+          </td>
         </tr>
         <tr>
           <td colSpan={2}>Company Registration NBR :</td>
-          <td colSpan={2}></td>
+          <td colSpan={2}>{identificationInfo?.BusinessRegistration}</td>
         </tr>
         <tr>
           <td colSpan={2}>Registered State** :</td>
@@ -182,13 +187,11 @@ const IdentificationInfo = ({ identificationInfo }) => {
 const ContactInfo = ({ contactInfo }) => {
   return (
     <table className="table" style={{ borderTop: "none", marginBottom: "0" }}>
-      <thead className="thead-dark">
-        <tr>
-          <th scope="col" colSpan={3}>
-            Contact Details
-          </th>
-        </tr>
-      </thead>
+      <tr>
+        <th scope="col" colSpan={3}>
+          <span className="heading-color">Contact Details</span>
+        </th>
+      </tr>
       <tbody className="bro-none">
         <tr>
           <td colSpan={2}>Landline :</td>

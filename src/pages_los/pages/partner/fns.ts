@@ -39,7 +39,7 @@ export const getCompanyNameFromGST = async (currentField) => {
     let legalEntityName = data?.response_data?.companyName;
     return legalEntityName;
   } else {
-    return "Invalid GST";
+    throw new Error(data?.error_data?.error_msg);
   }
 };
 
