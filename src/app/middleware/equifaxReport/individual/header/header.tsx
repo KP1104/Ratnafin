@@ -23,6 +23,7 @@ export const Header = ({ headerDetails }) => {
           </li>
           <li>
             <strong>REFERENCE NUMBER:</strong>
+            {headerDetails?.referenceNumber}
           </li>
         </ul>
         <ul>
