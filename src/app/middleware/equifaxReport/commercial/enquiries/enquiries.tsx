@@ -1,20 +1,18 @@
-import { Header } from "../header";
 import { AllEnquiryType } from "./allEnquiry";
 
 export const Enquiry = ({
-  header,
   enquirySummary,
   enquiriesDetails,
   inquiryInputDetails,
+  hitNonHitSummaryDetails,
 }) => {
   return (
-    <article id="contents">
-      <Header header={header} />
-      <hr />
+    <article>
       <AllEnquiryType
         enquirySummary={enquirySummary}
         enquiriesDetails={enquiriesDetails}
         inquiryInputDetails={inquiryInputDetails}
+        hitNonHitSummaryDetails={hitNonHitSummaryDetails}
       />
     </article>
   );

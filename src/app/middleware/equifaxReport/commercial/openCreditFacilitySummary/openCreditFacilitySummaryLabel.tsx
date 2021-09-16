@@ -1,24 +1,33 @@
 export const OpenCreditFacilitiesSummaryLabel = () => {
   return (
-    <thead className="thead-dark">
-      <tr>
-        <th scope="col">Lender</th>
-        <th scope="col" style={{ textAlign: "center" }}>
+    <tr>
+      <th scope="col">
+        <span className="heading-color">Lender</span>
+      </th>
+      <th scope="col" style={{ textAlign: "center" }}>
+        <span className="heading-color">
           Open CF#
-        </th>
-        <th scope="col">Delinquent CF#</th>
-        <th scope="col">Sanctioned Amount</th>
-        <th scope="col">Current Balance</th>
-        <th scope="col">Overdue Amount</th>
-        <th scope="col">
-          CF Opened in Last <br />
-          12 Months#
-        </th>
-        <th scope="col">
-          CF Opened in Last 12-48 <br />
-          Months#
-        </th>
-      </tr>
-    </thead>
+          <br />
+        </span>
+      </th>
+      <th scope="col">
+        <span className="heading-color">Delinquent CF#</span>
+      </th>
+      <th scope="col">
+        <span className="heading-color">Sanctioned Amount</span>
+      </th>
+      <th scope="col">
+        <span className="heading-color">Current Balance</span>
+      </th>
+      <th scope="col">
+        <span className="heading-color">Overdue Amount</span>
+      </th>
+      <th scope="col">
+        <span className="heading-color">CF Opened in Last 12 Months#</span>
+      </th>
+      <th scope="col">
+        <span className="heading-color">CF Opened in Last 12-48 Months#</span>
+      </th>
+    </tr>
   );
 };

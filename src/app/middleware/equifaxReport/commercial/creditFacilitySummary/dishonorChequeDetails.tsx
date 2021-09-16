@@ -1,4 +1,4 @@
-export const DishonouredChequeDetails = () => {
+export const DishonouredChequeDetails = ({ dishounouredDetails }) => {
   return (
     <tr>
       <td
@@ -7,19 +7,45 @@ export const DishonouredChequeDetails = () => {
         className="borrower-table-bro-one"
       >
         <table className="table borrower-table-sec" style={{ marginBottom: 0 }}>
-          <thead className="thead-dark">
-            <tr>
-              <th scope="col" colSpan={15} className="align-center-sec">
-                Dishonored Cheque Details
-              </th>
-            </tr>
-          </thead>
+          <tr>
+            <th scope="col" colSpan={15} className="align-center-sec">
+              <span className="heading-color">Dishonored Cheque Details</span>
+            </th>
+          </tr>
+          <tr>
+            <th colSpan={3} className="align-center-sec">
+              <span className="heading-color">Sr.No</span>
+            </th>
+            <th colSpan={3} className="align-center-sec">
+              <span className="heading-color"> Amount</span>
+            </th>
+            <th colSpan={3} className="align-center-sec">
+              <span className="heading-color">Reason of Dishonor</span>
+            </th>
+            <th colSpan={3} className="align-center-sec">
+              <span className="heading-color">No. of Times Dishonored</span>
+            </th>
+            <th colSpan={3} className="align-center-sec">
+              <span className="heading-color">Date of Dishonor</span>
+            </th>
+          </tr>
           <tbody>
-            <tr>
+            {Array.isArray(dishounouredDetails) &&
+            Boolean(dishounouredDetails) ? (
+              dishounouredDetails.map((dishounouredData, index) => (
+                <tr>
+                  <td>{index + 1}</td>
+                  <td>{dishounouredData?.Amount ?? "-"} </td>
+                  <td>{dishounouredData?.ReasonForDishonour ?? "-"} </td>
+                  <td>{dishounouredData?.NumberOfTimesDishonoured ?? "-"}</td>
+                  <td>{dishounouredData?.DateOfDishonour ?? "-"} </td>
+                </tr>
+              ))
+            ) : (
               <td colSpan={15} className="align-center-sec">
-                No Dishonoured Cheque Date
+                No Dishonoured Cheque Data
               </td>
-            </tr>
+            )}
           </tbody>
         </table>
       </td>

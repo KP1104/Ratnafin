@@ -7,7 +7,11 @@ export const AccountDetails = ({ accountDetails }) => {
   return (
     <>
       <tr>
-        <td colSpan={15} style={{ padding: 0 }} className="align-left-sec">
+        <td
+          colSpan={15}
+          style={{ padding: 0, border: "hidden" }}
+          className="align-left-sec"
+        >
           <table
             className="table bro-none"
             style={{ marginBottom: "0", border: "solid 1px #dee2e6" }}
@@ -20,7 +24,7 @@ export const AccountDetails = ({ accountDetails }) => {
                     width: "33%",
                   }}
                 >
-                  Acct# : {accountDetails?.accountNumber}
+                  Acct# : {accountDetails?.accountNumber ?? "-"}
                 </td>
                 <td
                   className="align-left-sec"
@@ -28,7 +32,7 @@ export const AccountDetails = ({ accountDetails }) => {
                     width: "33%",
                   }}
                 >
-                  Institution :
+                  Institution :{accountDetails?.institution ?? "-"}
                 </td>
                 <td
                   className="align-left-sec"
@@ -37,7 +41,7 @@ export const AccountDetails = ({ accountDetails }) => {
                   }}
                 >
                   Loan Activation/Sanctioned Date :{" "}
-                  {accountDetails?.sanctionDateLoanActivation}
+                  {accountDetails?.sanctionDateLoanActivation ?? "-"}
                 </td>
               </tr>
               <tr>
@@ -48,7 +52,7 @@ export const AccountDetails = ({ accountDetails }) => {
                   }}
                 >
                   Loan Expiry/Maturity Date :{" "}
-                  {accountDetails?.loanExpiryMaturityDate}
+                  {accountDetails?.loanExpiryMaturityDate ?? "-"}
                 </td>
                 <td
                   className="align-left-sec"
@@ -57,7 +61,8 @@ export const AccountDetails = ({ accountDetails }) => {
                   }}
                 >
                   Current Balance/Limit Utilized/Mark to Market :{" "}
-                  {accountDetails?.currentBalanceLimitUtilizedMarkToMarket}
+                  {accountDetails?.currentBalanceLimitUtilizedMarkToMarket ??
+                    "-"}
                 </td>
                 <td
                   className="align-left-sec"
@@ -65,7 +70,7 @@ export const AccountDetails = ({ accountDetails }) => {
                     width: "33%",
                   }}
                 >
-                  Credit Type :{accountDetails?.creditType}
+                  Credit Type :{accountDetails?.creditType ?? "-"}
                 </td>
               </tr>
             </tbody>
@@ -91,7 +96,7 @@ export const AccountDetails = ({ accountDetails }) => {
                     width: "33%",
                   }}
                 >
-                  Date Reportd : {accountDetails?.dtReportedLst}
+                  Date Reportd : {accountDetails?.dtReportedLst ?? "-"}
                 </td>
                 <td
                   className="align-left-sec"
@@ -99,7 +104,7 @@ export const AccountDetails = ({ accountDetails }) => {
                     width: "33%",
                   }}
                 >
-                  Currency : {accountDetails?.currencyCode}
+                  Currency : {accountDetails?.currencyCode ?? "-"}
                 </td>
                 <td
                   className="align-left-sec"
@@ -118,7 +123,7 @@ export const AccountDetails = ({ accountDetails }) => {
                     width: "33%",
                   }}
                 >
-                  Last Payment : 6,532
+                  Last Payment : {accountDetails?.lastRepaidAmount ?? "-"}
                 </td>
                 <td
                   className="align-left-sec"
@@ -126,7 +131,7 @@ export const AccountDetails = ({ accountDetails }) => {
                     width: "33%",
                   }}
                 >
-                  High Credit :
+                  High Credit :{accountDetails?.highCredit ?? "-"}
                 </td>
                 <td
                   className="align-left-sec"
@@ -134,7 +139,7 @@ export const AccountDetails = ({ accountDetails }) => {
                     width: "33%",
                   }}
                 >
-                  Guarantee Coverage :{accountDetails?.guaranteeCoverage}
+                  Guarantee Coverage :{accountDetails?.guaranteeCoverage ?? "-"}
                 </td>
               </tr>
               <tr>
@@ -144,7 +149,7 @@ export const AccountDetails = ({ accountDetails }) => {
                     width: "33%",
                   }}
                 >
-                  Written Off Amount :
+                  Written Off Amount :{accountDetails?.writtenOffAmount ?? "-"}
                 </td>
                 <td
                   className="align-left-sec"
@@ -152,7 +157,7 @@ export const AccountDetails = ({ accountDetails }) => {
                     width: "33%",
                   }}
                 >
-                  Loan Renewal Date :
+                  Loan Renewal Date :{accountDetails?.loanRenewalDate}
                 </td>
                 <td
                   className="align-left-sec"
@@ -170,7 +175,7 @@ export const AccountDetails = ({ accountDetails }) => {
                     width: "33%",
                   }}
                 >
-                  Settled Amount :
+                  Settled Amount :{accountDetails?.settledAmount}
                 </td>
                 <td
                   className="align-left-sec"
@@ -188,6 +193,7 @@ export const AccountDetails = ({ accountDetails }) => {
                   }}
                 >
                   Amt.of NPA Contracts :
+                  {accountDetails?.amountOfContractsClassifiedNpa}
                 </td>
               </tr>
               <tr>
@@ -237,32 +243,38 @@ export const AccountDetails = ({ accountDetails }) => {
                   Account Status : {accountDetails?.accountStatus}
                 </td>
                 <td style={{ width: "33%" }} className="align-left-sec">
-                  Status Date :
+                  Status Date :{accountDetails?.accountStatusDt}
                 </td>
                 <td style={{ width: "33%" }} className="align-left-sec">
-                  Suit Filed Status : Not a Suit Filed Case
+                  Suit Filed Status : {accountDetails?.suitFiledStatus}
                 </td>
               </tr>
               <tr>
                 <td style={{ width: "33%" }} className="align-left-sec">
-                  Suit Filed Date :
+                  Suit Filed Date :{accountDetails?.date_of_suit ?? "-"}
                 </td>
                 <td style={{ width: "33%" }} className="align-left-sec">
-                  Wilful Default Status : {accountDetails?.wilfulDefaultStatus}
+                  Wilful Default Status :{" "}
+                  {accountDetails?.wilfulDefaultStatus ?? "-"}
                 </td>
                 <td style={{ width: "33%" }} className="align-left-sec">
-                  Wilfu Default Date :
+                  Wilful Default Date :
+                  {accountDetails?.dateClassifiedAsWilfulDefault ?? "-"}
                 </td>
               </tr>
               <tr>
                 <td style={{ width: "33%" }} className="align-left-sec">
                   Restructuring Reason :
+                  {accountDetails?.majorReasonsForRestructuring}
                 </td>
                 <td style={{ width: "33%" }} className="align-left-sec">
-                  Dispute Code :
+                  Dispute Code :{accountDetails?.disputeIdNo}
                 </td>
                 <td style={{ width: "33%" }} className="align-left-sec">
                   NOARC :
+                  {
+                    accountDetails?.notionalAmountOutstandingRestructuredContracts
+                  }
                 </td>
               </tr>
               <tr>
@@ -278,9 +290,13 @@ export const AccountDetails = ({ accountDetails }) => {
         </td>
       </tr>
       <PaymentHistory paymentHistory={accountDetails?.history48Months} />
-      <BalanceHistory />
-      <DishonouredChequeDetails />
-      <SecurityCollateralDetails />
+      <BalanceHistory balanceHistory={accountDetails?.history48Months} />
+      <DishonouredChequeDetails
+        dishounouredDetails={accountDetails?.DishonouredChequeDetails}
+      />
+      <SecurityCollateralDetails
+        securitySegmentDetails={accountDetails?.SecuritySgmnt}
+      />
     </>
   );
 };

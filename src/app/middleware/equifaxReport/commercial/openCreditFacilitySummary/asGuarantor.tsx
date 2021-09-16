@@ -9,15 +9,17 @@ export const GuarantorCreditFacility = ({ asGuarantor }) => {
         </span>
       </h2>
       <table className="table borrower-table-sec">
-        <OpenCreditFacilitiesSummaryLabel />
         <tbody>
+          <OpenCreditFacilitiesSummaryLabel />
           {typeof asGuarantor === "object" && Boolean(asGuarantor)
             ? Object.keys(asGuarantor).map((key, i) => {
                 return (
                   <tr>
-                    <td>{key}</td>
+                    <td>
+                      {key.split("Off-Member ") || key.split("On-Member ")}
+                    </td>
                     <td>{asGuarantor[key]?.OpenCF_Count}</td>
-                    <td>{asGuarantor[key]?.DeliquientCF_Count}</td>
+                    <td>{asGuarantor[key]?.OverdueCF_Count}</td>
                     <td>{asGuarantor[key]?.SanctionedAmount_Sum}</td>
                     <td>{asGuarantor[key]?.CurrentBalance_Sum}</td>
                     <td>{asGuarantor[key]?.OverdueAmount_Sum}</td>

@@ -1,8 +1,8 @@
-export const GuarantorEntities = () => {
+export const GuarantorEntities = ({ count }) => {
   return (
     <>
       <h2>
-        <strong>7.1.1.2</strong>Guarantors(Entities)
+        <strong>7.1.{count}.2</strong>Guarantors(Entities)
       </h2>
       <table className="table borrower-table-sec">
         <tbody>

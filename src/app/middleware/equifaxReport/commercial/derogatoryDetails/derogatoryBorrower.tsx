@@ -1,5 +1,17 @@
-import { DerogatoryLabel } from "./derogatoryLabel";
-export const DerogatoryBorrower = () => {
+import { DerogatoryLabel, DerogatoryDetails } from "./derogatoryLabel";
+
+export const DerogatoryBorrower = ({ borrowerDerogatory = {} }) => {
+  const flatMapBorrowers: any = [];
+  if (Boolean(borrowerDerogatory)) {
+    const asBorrower = borrowerDerogatory;
+    const allBorrowersType = Object.keys(asBorrower);
+    for (let i = 0; i < allBorrowersType.length; i++) {
+      for (const one of asBorrower[allBorrowersType[i]]) {
+        flatMapBorrowers.push({ ...one, source: allBorrowersType[i] });
+      }
+    }
+  }
+
   return (
     <>
       <p style={{ textAlign: "right" }}>*Based on last 48 months data.</p>
@@ -11,17 +23,13 @@ export const DerogatoryBorrower = () => {
       </h2>
 
       <table className="table borrower-table-sec">
-        <DerogatoryLabel />
         <tbody>
-          <tr>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-          </tr>
+          <DerogatoryLabel />
+          {Array.isArray(flatMapBorrowers) && Boolean(flatMapBorrowers) ? (
+            <DerogatoryDetails derogatoryDetails={flatMapBorrowers} />
+          ) : (
+            <td colSpan={12}>No Borrower Details</td>
+          )}
         </tbody>
       </table>
     </>
