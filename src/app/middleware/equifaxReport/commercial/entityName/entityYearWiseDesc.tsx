@@ -53,20 +53,5 @@ export const EntityYearWiseDesc = ({ severityGrid }) => {
 };
 
 const DisplayColor = ({ label, value }) => {
-  return (
-    <>
-      {Boolean(value) ? (
-        <td
-          style={{
-            backgroundColor: "#FF0000",
-            WebkitPrintColorAdjust: "exact",
-          }}
-        >
-          {label}
-        </td>
-      ) : (
-        <td>{label}</td>
-      )}
-    </>
-  );
+  return <td>{label}</td>;
 };

@@ -9,6 +9,7 @@ import { GlossaryTermsExplanation } from "./glossaryTermsExplanation";
 import { Enquiry } from "./enquiries";
 import { DelinquencyDetails } from "./delinquencyDetails";
 import { CreditType } from "./creditType";
+import { transform } from "./transform";
 import { MiddlewareSDK } from "registry/fns/middleware";
 import "assets/css/bootstrap.min.css";
 import "./style.css";
@@ -20,32 +21,34 @@ export const CommercialEquifaxReport = () => {
   );
 
   const data = result?.data;
+  let newdata = transform(data);
   const loading = result?.isLoading || result?.isFetching;
   const renderResult = loading ? (
     <img src={loaderGif} alt="loader" width="50px" height="50px" />
   ) : (
     <>
       <EntityNameDetails
-        severityGrid={data?.severityGrid}
-        creditScore={data?.equifaxScoresCommercial}
-        overallCreditSummary={data?.overallCreditSummary}
-        entityName={data?.entityName}
+        header={newdata?.header}
+        severityGrid={newdata?.severityGrid}
+        creditScore={newdata?.equifaxScoresCommercial}
+        overallCreditSummary={newdata?.overallCreditSummary}
+        entityName={newdata?.entityName}
       />
       <EntityDetails
-        entityDetails={data?.entityDetailsBorrower}
-        openCreditFacility={data?.openCreditFacilitySummary}
+        entityDetails={newdata?.entityDetailsBorrower}
+        openCreditFacility={newdata?.openCreditFacilitySummary}
       />
-      <DelinquencyDetails delinquencyDetails={data?.delinquencySummary} />
-      <DerogatoryDetails derogatoryDetails={data?.derogSummary} />
-      <CreditType creditTypeSummary={data?.creditTypeSummary} />
+      <DelinquencyDetails delinquencyDetails={newdata?.delinquencySummary} />
+      <DerogatoryDetails derogatoryDetails={newdata?.derogSummary} />
+      <CreditType creditTypeSummary={newdata?.creditTypeSummary} />
       <CreditFacilitySummary
-        creditFacilityDetails={data?.creditFacilityDetails}
+        creditFacilityDetails={newdata?.creditFacilityDetails}
       />
       <Enquiry
-        enquirySummary={data?.enquirySummary}
-        enquiriesDetails={data?.enquiriesDetails}
-        inquiryInputDetails={data?.inquiryInputDetails}
-        hitNonHitSummaryDetails={data?.CCRHitDetailsLst}
+        enquirySummary={newdata?.enquirySummary}
+        enquiriesDetails={newdata?.enquiriesDetails}
+        inquiryInputDetails={newdata?.inquiryInputDetails}
+        hitNonHitSummaryDetails={newdata?.CCRHitDetailsLst}
       />
       <GlossaryTermsExplanation />
     </>

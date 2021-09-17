@@ -32,7 +32,7 @@ export const EnquirySummary = ({ enquirySummaryDetails }) => {
             </td>
             <td className="entity-bro-none entity-table-sec">Past 24 Months</td>
             <td className="entity-bro-none entity-table-sec">
-              : {enquirySummaryDetails?.past24Months}
+              : {enquirySummaryDetails?.Past24Months}
             </td>
           </tr>
         </tbody>

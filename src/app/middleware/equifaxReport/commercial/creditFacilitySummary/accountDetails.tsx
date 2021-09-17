@@ -292,10 +292,10 @@ export const AccountDetails = ({ accountDetails }) => {
       <PaymentHistory paymentHistory={accountDetails?.history48Months} />
       <BalanceHistory balanceHistory={accountDetails?.history48Months} />
       <DishonouredChequeDetails
-        dishounouredDetails={accountDetails?.DishonouredChequeDetails}
+        dishounouredDetails={accountDetails?.dishonouredChequeDetails}
       />
       <SecurityCollateralDetails
-        securitySegmentDetails={accountDetails?.SecuritySgmnt}
+        securitySegmentDetails={accountDetails?.securitySgmnt}
       />
     </>
   );

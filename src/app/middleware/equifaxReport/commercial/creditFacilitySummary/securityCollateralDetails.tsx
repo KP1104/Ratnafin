@@ -34,11 +34,11 @@ export const SecurityCollateralDetails = ({ securitySegmentDetails }) => {
             Boolean(securitySegmentDetails) ? (
               securitySegmentDetails.map((segmentData) => (
                 <tr>
-                  <td>{segmentData?.value_of_security}</td>
-                  <td>{segmentData?.currency_type}</td>
-                  <td>{segmentData?.type_of_security}</td>
-                  <td>{segmentData?.security_classification}</td>
-                  <td>{segmentData?.date_of_valuation}</td>
+                  <td colSpan={3}>{segmentData?.valueOfSecurity}</td>
+                  <td colSpan={3}>{segmentData?.currencyType}</td>
+                  <td colSpan={3}>{segmentData?.typeOfSecurity}</td>
+                  <td colSpan={3}>{segmentData?.securityClassification}</td>
+                  <td colSpan={3}>{segmentData?.dateOfValuation}</td>
                 </tr>
               ))
             ) : (

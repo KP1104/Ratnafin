@@ -1,4 +1,4 @@
-import { reducer } from "pages_crm/pages/aadharVerification/aadharVerificationIFrame";
+import { mapper } from "../config";
 
 export const transform = ({
   Score,
@@ -17,7 +17,9 @@ export const transform = ({
       copyrightYear: "2021",
     },
     inputEnquiry: {
-      inquiryPurpose: InquiryRequestInfo?.InquiryPurpose,
+      inquiryPurpose:
+        mapper.EQFX_INQ_PURPOSE[InquiryRequestInfo?.InquiryPurpose] ??
+        InquiryRequestInfo?.InquiryPurpose,
       transactionAmount: InquiryRequestInfo?.TransactionAmount,
       firstName: InquiryRequestInfo?.FirstName,
       middleName: InquiryRequestInfo?.MiddleName,
@@ -64,7 +66,10 @@ const getEnquirySummary = (data) => {
   let result = {};
   if (Array.isArray(data) && data.length > 0) {
     result = {
-      purpose: data[0]?.CIRReportData?.EnquirySummary?.Purpose,
+      purpose:
+        mapper.EQFX_INQ_PURPOSE[
+          data[0]?.CIRReportData?.EnquirySummary?.Purpose
+        ] ?? data[0]?.CIRReportData?.EnquirySummary?.Purpose,
       total: data[0]?.CIRReportData?.EnquirySummary?.Total,
       past30Days: data[0]?.CIRReportData?.EnquirySummary?.Past30Days,
       past12Months: data[0]?.CIRReportData?.EnquirySummary?.Past12Months ?? "",
@@ -74,7 +79,8 @@ const getEnquirySummary = (data) => {
         institution: one?.Institution,
         date: one?.Date,
         time: one?.Time,
-        requestPurpose: one?.RequestPurpose,
+        requestPurpose:
+          mapper.EQFX_INQ_PURPOSE[one?.RequestPurpose] ?? one?.RequestPurpose,
         amount: one?.Amount,
       })),
     };
@@ -129,9 +135,14 @@ const getCustomer = (data) => {
       score: {
         scoreName: data[0]?.CIRReportData?.ScoreDetails[0]?.Name ?? "",
         scoreValue: data[0]?.CIRReportData?.ScoreDetails[0]?.Value ?? "",
-        scoreDescription: "",
+        scoreDescription: getScoreDescription(
+          data[0]?.CIRReportData?.ScoreDetails[0]?.Value
+        ),
       },
-      purpose: data[0]?.CIRReportData?.IDAndContactInfo?.Purpose,
+      purpose:
+        mapper.EQFX_INQ_PURPOSE[
+          data[0]?.CIRReportData?.IDAndContactInfo?.Purpose
+        ] ?? data[0]?.CIRReportData?.IDAndContactInfo?.Purpose,
       total: data[0]?.CIRReportData?.EnquirySummary?.Total,
       past30Days: data[0]?.CIRReportData?.EnquirySummary?.Past30Days,
       past12Months: data[0]?.CIRReportData?.EnquirySummary?.Past12Months ?? "",
@@ -141,7 +152,8 @@ const getCustomer = (data) => {
         institution: one?.Institution,
         date: one?.Date,
         time: one?.Time,
-        requestPurpose: one?.RequestPurpose,
+        requestPurpose:
+          mapper.EQFX_INQ_PURPOSE[one?.RequestPurpose] ?? one?.RequestPurpose,
         amount: one?.Amount,
       })),
     };
@@ -241,7 +253,7 @@ const getAddressInfo = (data) => {
   if (Array.isArray(data) && data.length > 0) {
     let array = data.map((one) => {
       return {
-        type: one?.Type ?? "",
+        type: mapper.ADDRESS_TYPE[one?.Type] ?? one?.Type,
         address: one?.Address ?? "",
         state: one?.State ?? "",
         postal: one?.Postal ?? "",
@@ -251,4 +263,20 @@ const getAddressInfo = (data) => {
     return { addressInfo: array };
   }
   return result;
+};
+
+const getScoreDescription = (data) => {
+  let scoreDescription = "";
+  if (data >= 750) {
+    scoreDescription = "Excellent";
+  } else if (data <= 550) {
+    scoreDescription = "Bad";
+  } else if (data >= 700 || data <= 749) {
+    scoreDescription = "Good";
+  } else if (data >= 650 || data <= 699) {
+    scoreDescription = "Fair";
+  } else if (data >= 649 || data <= 550) {
+    scoreDescription = "Poor";
+  }
+  return scoreDescription;
 };
