@@ -23,9 +23,21 @@ export const bankMasterMetadata = {
       textField: {
         fullWidth: true,
       },
+      select: { fullWidth: true },
     },
   },
   fields: [
+    {
+      render: { componentType: "select" },
+      name: "bankType",
+      label: "Bank Type",
+      placeholder: "Select Bank Type",
+      options: "getBankTypeForBankMaster",
+      required: true,
+      defaultValue: "00",
+      validate: "getValidateValue",
+      GridProps: { xs: 12, md: 12, sm: 12 },
+    },
     {
       render: { componentType: "textField" },
       name: "bankName",
