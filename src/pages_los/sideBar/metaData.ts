@@ -30,6 +30,7 @@ export const metaData: NavBarMetaDataType = {
                 productID: "12300001",
               },
               passNavigationPropsAsURLParmas: true,
+              visibleToRoles: [1, 2, 3],
             },
             {
               label: "Retail LAP (Loan Against Property)",
@@ -40,6 +41,7 @@ export const metaData: NavBarMetaDataType = {
                 productID: "12300002",
               },
               passNavigationPropsAsURLParmas: true,
+              visibleToRoles: [1, 2, 3],
             },
             {
               label: "Retail LRD (Lease Rental Discount)",

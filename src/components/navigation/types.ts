@@ -13,6 +13,7 @@ export interface NavItemType {
   icon?: any;
   iconPosition?: "before" | "after";
   passNavigationPropsAsURLParmas?: boolean;
+  visibleToRoles?: number[];
 }
 
 export interface NavBarMetaDataType {
