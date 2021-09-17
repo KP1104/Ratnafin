@@ -79,7 +79,7 @@ const MiddlewareAPI = () => {
 
   const getEqifaxReportData = async ({ tokenID }: any) => {
     const { data, status } = await internalFetcher(
-      `./lead/external/equifax/report-data/get1`,
+      `./lead/external/equifax/report-data/get`,
       {
         body: JSON.stringify({
           request_data: {

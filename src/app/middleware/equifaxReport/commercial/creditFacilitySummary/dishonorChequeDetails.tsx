@@ -34,11 +34,17 @@ export const DishonouredChequeDetails = ({ dishounouredDetails }) => {
             Boolean(dishounouredDetails) ? (
               dishounouredDetails.map((dishounouredData, index) => (
                 <tr>
-                  <td>{index + 1}</td>
-                  <td>{dishounouredData?.Amount ?? "-"} </td>
-                  <td>{dishounouredData?.ReasonForDishonour ?? "-"} </td>
-                  <td>{dishounouredData?.NumberOfTimesDishonoured ?? "-"}</td>
-                  <td>{dishounouredData?.DateOfDishonour ?? "-"} </td>
+                  <td colSpan={3}>{index + 1}</td>
+                  <td colSpan={3}>{dishounouredData?.amount ?? "-"} </td>
+                  <td colSpan={3}>
+                    {dishounouredData?.reasonForDishonour ?? "-"}
+                  </td>
+                  <td colSpan={3}>
+                    {dishounouredData?.numberOfTimesDishonoured ?? "-"}
+                  </td>
+                  <td colSpan={3}>
+                    {dishounouredData?.dateOfDishonour ?? "-"}
+                  </td>
                 </tr>
               ))
             ) : (

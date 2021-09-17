@@ -72,6 +72,7 @@ registerFn("getMeansOfFinance", miscSDK.getMiscVal("MEANSFINANCE"));
 registerFn("getEqualInstalmentBallooning", miscSDK.getMiscVal("EQUAL_BALLOON"));
 registerFn("getWorkBillable", miscSDK.getMiscVal("WORK_BILLABLE"));
 registerFn("getWorkType", miscSDK.getMiscVal("WORK_TYPE"));
+registerFn("getBankTypeForBankMaster", miscSDK.getMiscVal("BANK_TYPE"));
 
 registerFn("getTaskList", miscSDK.getMiscVal("TASK_FOR"));
 registerFn("getBanksForBankBranchMaster", miscSDK.getMiscVal("BANK_MST_LIST"));
