@@ -9,9 +9,16 @@ import { useLocation } from "react-router-dom";
 export const DetailsTabView: FC<{
   refID: string;
   moduleType: string;
+  productID: string;
   isDataChangedRef: any;
   isReadOnly?: boolean;
-}> = ({ refID, moduleType, isDataChangedRef, isReadOnly = false }) => {
+}> = ({
+  refID,
+  moduleType,
+  isDataChangedRef,
+  isReadOnly = false,
+  productID,
+}) => {
   const removeCache = useContext(ClearCacheContext);
   useEffect(() => {
     return () => {
@@ -31,6 +38,7 @@ export const DetailsTabView: FC<{
         dataAlwaysExists={true}
         isDataChangedRef={isDataChangedRef}
         readOnly={isReadOnly}
+        productID={productID}
       />
     </Suspense>
   );
@@ -59,6 +67,7 @@ export const DetailsTabViewWrapper = ({
       <DetailsTabView
         moduleType="inquiry"
         refID={rows[0]?.id}
+        productID={rows[0]?.data?.product_type}
         isDataChangedRef={isDataChangedRef}
         isReadOnly={isReadOnly}
       />

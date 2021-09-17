@@ -58,17 +58,16 @@ const reducer = (state, action) => {
 };
 
 export const AuthLoginController = () => {
-  const authContext = useContext(AuthContext);
+  const { isLoggedIn, login } = useContext(AuthContext);
   const classes = useStyles();
   const navigate = useNavigate();
   const [loginState, dispath] = useReducer(reducer, inititalState);
 
   useEffect(() => {
-    console.log("from AuthLoginController" + authContext.isLoggedIn());
-    if (authContext.isLoggedIn()) {
-      navigate("/los");
+    if (isLoggedIn()) {
+      navigate("/los", { replace: true });
     }
-  }, [navigate, authContext]);
+  }, [navigate, isLoggedIn]);
 
   const verifyUsername = async (username) => {
     if (!Boolean(username)) {
@@ -124,7 +123,7 @@ export const AuthLoginController = () => {
       );
       if (result.status === "success") {
         dispath({ type: "passwordVerificationSuccessful" });
-        authContext?.login(result.data);
+        login(result.data);
       } else {
         dispath({
           type: "passwordVerificationFailure",

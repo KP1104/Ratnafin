@@ -4,13 +4,14 @@ import { AuthContext } from "./authContext";
 
 export const ProtectedRoutes = ({ children }) => {
   const navigate = useNavigate();
-  const authContext = useContext(AuthContext);
+  const { isLoggedIn } = useContext(AuthContext);
+
   useEffect(() => {
-    if (!authContext.isLoggedIn()) {
-      navigate("/los/login/");
+    if (!isLoggedIn()) {
+      navigate("/los/login");
     }
-  }, [navigate, authContext]);
-  if (authContext.isLoggedIn()) {
+  }, [navigate, isLoggedIn]);
+  if (isLoggedIn()) {
     return children;
   }
   return null;

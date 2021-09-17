@@ -60,11 +60,11 @@ export const AuthProvider = ({ children }) => {
   const [authenticating, setAuthenticating] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
-  const [comingFromRoute, setComingFromRoute] = useState(location.pathname);
+  const [comingFromRoute] = useState(location.pathname);
 
   /*eslint-disable react-hooks/exhaustive-deps*/
   const login = useCallback(
-    (payload: AuthStateType) => {
+    (payload: AuthStateType, stopNavigation?: boolean) => {
       dispatch({
         type: "login",
         payload: { ...payload, isLoggedIn: true },
@@ -74,6 +74,9 @@ export const AuthProvider = ({ children }) => {
         "authDetails",
         JSON.stringify({ ...payload, isLoggedIn: true })
       );
+      if (stopNavigation) {
+        return;
+      }
       if (comingFromRoute === "/los/login") {
         navigate("/los", {
           replace: true,
@@ -83,9 +86,8 @@ export const AuthProvider = ({ children }) => {
           replace: true,
         });
       }
-      setComingFromRoute("/los");
     },
-    [dispatch, navigate]
+    [dispatch, navigate, comingFromRoute]
   );
   const logout = useCallback(() => {
     localStorage.removeItem("authDetails");
@@ -125,7 +127,7 @@ export const AuthProvider = ({ children }) => {
       if (Boolean(localStorageAuthState?.token ?? "")) {
         API.verifyToken(localStorageAuthState.token).then((result) => {
           if (result.status === "success") {
-            login(localStorageAuthState);
+            login(localStorageAuthState, true);
           } else if (result.status === "failure") {
             if (result.data instanceof Error) {
               navigate("/error/Internet");

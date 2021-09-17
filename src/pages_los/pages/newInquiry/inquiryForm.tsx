@@ -1,32 +1,26 @@
-import { Fragment } from "react";
-import { useQuery, useMutation } from "react-query";
-import loaderGif from "assets/images/loader.gif";
-import { useStyleFormWrapper } from "./style";
+import { useMutation } from "react-query";
 import FormWrapper, { MetaDataType } from "components/dyanmicForm";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import * as API from "./api";
-import { cloneDeep } from "lodash-es";
+import { Alert } from "components/common/alert";
+
 interface InsertFormDataFnType {
-  submitAction: string;
   data: object;
-  navigationProps: any;
-  refID: any;
-  displayData?: object;
+  productID: string;
+  categoryID: string;
   endSubmit?: any;
 }
 
 const insertFormDataFnWrapper = async ({
   data,
-  navigationProps,
-  refID,
+  productID,
+  categoryID,
 }: InsertFormDataFnType) => {
-  return API.submitInquiryQuestionData("inquiry", data, navigationProps, refID);
+  return API.submitInquiryData({ ...data, productID, categoryID });
 };
 
-export const InquiryFormWrapper = ({ navigationState, onSuccess }) => {
-  const classes = useStyleFormWrapper();
-
+export const InquiryFormWrapper = ({ onSuccess, categoryID, productID }) => {
   const mutation = useMutation(insertFormDataFnWrapper, {
     onError: (error: any, { endSubmit }) => {
       let errorMsg = "Unknown Error occured";
@@ -35,78 +29,65 @@ export const InquiryFormWrapper = ({ navigationState, onSuccess }) => {
       }
       endSubmit(false, errorMsg, error?.error_detail ?? "");
     },
-    onSuccess: (data, { endSubmit, refID }) => {
+    onSuccess: (data, { endSubmit }) => {
       endSubmit(true, "");
       if (typeof onSuccess === "function") {
         onSuccess(data?.inquiryNo);
       }
     },
   });
-  const onSubmitHandler = (data, displayData, endSubmit, setFieldError) => {
+  const onSubmitHandler = (data, displayValues, endSubmit) => {
     mutation.mutate({
-      //@ts-ignore
-      navigationProps: navigationState?.metaProps ?? {},
-      submitAction: metaData?.form?.submitAction ?? "NO_ACTION_FOUND",
-      refID: metaData?.form?.refID,
       data,
-      displayData,
+      productID,
+      categoryID,
       endSubmit,
     });
   };
-
-  const result = useQuery(
-    //@ts-ignore
-    ["inquiryOrQuestion", "new", navigationState?.metaProps],
-    //@ts-ignore
-    () => API.getInquiryQuestionMetaData(navigationState?.metaProps ?? {}),
-    {
-      cacheTime: 0,
-    }
-  );
-  let metaData: MetaDataType = {} as MetaDataType;
-  if (result.isSuccess) {
-    //metaData = JSON.parse(JSON.stringify(result.data)) as MetaDataType;
-    metaData = cloneDeep(result.data) as MetaDataType;
+  let metaData: any = {};
+  try {
+    metaData = API.getInquiryQuestionMetaData(productID);
 
     if (metaData?.form?.render?.renderType === "stepper") {
       metaData.form.render.renderType = "tabs";
     }
+  } catch (e: any) {
+    return (
+      <Alert
+        variant="outlined"
+        severity="error"
+        errorMsg={e?.error_msg ?? ""}
+      />
+    );
   }
-  const renderResult = result.isLoading ? (
-    <img
-      src={loaderGif}
-      className={classes.loader}
-      width="50px"
-      height="50px"
-      alt="loader"
-    />
-  ) : result.isError ? (
-    //@ts-ignore
-    <span>{result?.error?.error_msg ?? "Unkown error occured"}</span>
-  ) : (
-    <Fragment>
-      <FormWrapper
-        //@ts-ignore
-        key={`${result.dataUpdatedAt}`}
-        metaData={metaData as MetaDataType}
-        initialValues={{}}
-        onSubmitHandler={onSubmitHandler}
-      >
-        {({ isSubmitting, handleSubmit }) => {
-          return (
-            <>
-              <Button
-                onClick={handleSubmit}
-                disabled={isSubmitting}
-                endIcon={isSubmitting ? <CircularProgress size={20} /> : null}
-              >
-                Submit
-              </Button>
-            </>
-          );
-        }}
-      </FormWrapper>
-    </Fragment>
+
+  return (
+    <FormWrapper
+      //@ts-ignore
+      metaData={metaData as MetaDataType}
+      initialValues={{}}
+      onSubmitHandler={onSubmitHandler}
+      controlsAtBottom={true}
+      formStyle={{
+        background: "white",
+        overflowY: "auto",
+        overflowX: "hidden",
+        padding: "24px",
+      }}
+    >
+      {({ isSubmitting, handleSubmit }) => {
+        return (
+          <>
+            <Button
+              onClick={handleSubmit}
+              disabled={isSubmitting}
+              endIcon={isSubmitting ? <CircularProgress size={20} /> : null}
+            >
+              Submit
+            </Button>
+          </>
+        );
+      }}
+    </FormWrapper>
   );
-  return renderResult;
 };

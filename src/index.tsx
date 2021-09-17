@@ -6,6 +6,7 @@ import "typeface-roboto";
 import "registry"; //register functions to be used across application
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import "pages_los/metaData/diff";
 //import ErrorBoundary from "errorBoundary/errorBoundary";
 const LOS = lazy(() => import("app/los"));
 const CRM = lazy(() => import("app/crm"));

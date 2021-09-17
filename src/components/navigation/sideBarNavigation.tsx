@@ -78,9 +78,14 @@ const SingleListItem: FC<{
       onClick={(e) => {
         e.preventDefault();
         if (item.isRouterLink) {
-          navigate(item.href as string, {
-            state: { ...item?.navigationProps },
-          });
+          if (item.passNavigationPropsAsURLParmas) {
+            let urlParms = new URLSearchParams(item?.navigationProps);
+            navigate(`${item.href}?${urlParms.toString()}`);
+          } else {
+            navigate(item.href as string, {
+              state: { ...item?.navigationProps },
+            });
+          }
         } else if (Boolean(item.href)) {
           window.open(item.href, item.rel ?? "_newtab");
         }

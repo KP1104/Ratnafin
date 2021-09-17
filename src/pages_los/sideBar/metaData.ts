@@ -26,48 +26,40 @@ export const metaData: NavBarMetaDataType = {
               href: "./newInquiry/retail-rhl",
               isRouterLink: true,
               navigationProps: {
-                metaProps: {
-                  categoryID: "12000001",
-                  productID: "12300001",
-                  action: "crm_inquiry_metaData", //this action is used to determine which api to call Question or Inquiry
-                },
+                categoryID: "12000001",
+                productID: "12300001",
               },
+              passNavigationPropsAsURLParmas: true,
             },
             {
               label: "Retail LAP (Loan Against Property)",
               href: "./newInquiry/retail-lap",
               isRouterLink: true,
               navigationProps: {
-                metaProps: {
-                  categoryID: "12000001",
-                  productID: "12300002",
-                  action: "crm_inquiry_metaData",
-                },
+                categoryID: "12000001",
+                productID: "12300002",
               },
+              passNavigationPropsAsURLParmas: true,
             },
             {
               label: "Retail LRD (Lease Rental Discount)",
               href: "./newInquiry/retail-ldr",
               isRouterLink: true,
               navigationProps: {
-                metaProps: {
-                  categoryID: "12000001",
-                  productID: "12300003",
-                  action: "crm_inquiry_metaData",
-                },
+                categoryID: "12000001",
+                productID: "12300003",
               },
+              passNavigationPropsAsURLParmas: true,
             },
             {
               label: "Retail APF",
               href: "./newInquiry/retail-apf",
               isRouterLink: true,
               navigationProps: {
-                metaProps: {
-                  categoryID: "12000001",
-                  productID: "12300004",
-                  action: "crm_inquiry_metaData",
-                },
+                categoryID: "12000001",
+                productID: "12300004",
               },
+              passNavigationPropsAsURLParmas: true,
             },
           ],
         },
@@ -79,72 +71,60 @@ export const metaData: NavBarMetaDataType = {
               href: "./newInquiry/sme",
               isRouterLink: true,
               navigationProps: {
-                metaProps: {
-                  categoryID: "12000002",
-                  productID: "12300005",
-                  action: "crm_inquiry_metaData",
-                },
+                categoryID: "12000002",
+                productID: "12300005",
               },
+              passNavigationPropsAsURLParmas: true,
             },
             {
               label: "SME Term Loan",
               href: "./newInquiry/stl",
               isRouterLink: true,
               navigationProps: {
-                metaProps: {
-                  categoryID: "12000002",
-                  productID: "12300006",
-                  action: "crm_inquiry_metaData",
-                },
+                categoryID: "12000002",
+                productID: "12300006",
               },
+              passNavigationPropsAsURLParmas: true,
             },
             {
               label: "SME Term Loan + CC/OD",
               href: "./newInquiry/sme-ccod",
               isRouterLink: true,
               navigationProps: {
-                metaProps: {
-                  categoryID: "12000002",
-                  productID: "12300007",
-                  action: "crm_inquiry_metaData",
-                },
+                categoryID: "12000002",
+                productID: "12300007",
               },
+              passNavigationPropsAsURLParmas: true,
             },
             {
               label: "SME NFB (Non Fund Base)",
               href: "./newInquiry/sme-nfb",
               isRouterLink: true,
               navigationProps: {
-                metaProps: {
-                  categoryID: "12000002",
-                  productID: "12300008",
-                  action: "crm_inquiry_metaData",
-                },
+                categoryID: "12000002",
+                productID: "12300008",
               },
+              passNavigationPropsAsURLParmas: true,
             },
             {
               label: "SME LAP (Loan Against Property)",
               href: "./newInquiry/sme-lap",
               isRouterLink: true,
               navigationProps: {
-                metaProps: {
-                  categoryID: "12000002",
-                  productID: "12300009",
-                  action: "crm_inquiry_metaData",
-                },
+                categoryID: "12000002",
+                productID: "12300009",
               },
+              passNavigationPropsAsURLParmas: true,
             },
             {
               label: "SME CGTMSE",
               href: "./newInquiry/sme-cgtmse",
               isRouterLink: true,
               navigationProps: {
-                metaProps: {
-                  categoryID: "12000002",
-                  productID: "123000010",
-                  action: "crm_inquiry_metaData",
-                },
+                categoryID: "12000002",
+                productID: "123000010",
               },
+              passNavigationPropsAsURLParmas: true,
             },
           ],
         },
@@ -156,24 +136,20 @@ export const metaData: NavBarMetaDataType = {
               href: "./newInquiry/infra-construction",
               isRouterLink: true,
               navigationProps: {
-                metaProps: {
-                  categoryID: "12000003",
-                  productID: "123000011",
-                  action: "crm_inquiry_metaData",
-                },
+                categoryID: "12000003",
+                productID: "123000011",
               },
+              passNavigationPropsAsURLParmas: true,
             },
             {
               label: "Infrastructure Finance",
               href: "./newInquiry/infra-finance",
               isRouterLink: true,
               navigationProps: {
-                metaProps: {
-                  categoryID: "12000003",
-                  productID: "123000012",
-                  action: "crm_inquiry_metaData",
-                },
+                categoryID: "12000003",
+                productID: "123000012",
               },
+              passNavigationPropsAsURLParmas: true,
             },
           ],
         },
@@ -185,12 +161,10 @@ export const metaData: NavBarMetaDataType = {
               href: "./newInquiry/businessLoan",
               isRouterLink: true,
               navigationProps: {
-                metaProps: {
-                  categoryID: "12000004",
-                  productID: "123000013",
-                  action: "crm_inquiry_metaData",
-                },
+                categoryID: "12000004",
+                productID: "123000013",
               },
+              passNavigationPropsAsURLParmas: true,
             },
             // {
             //   label: "Personal Loan",
@@ -200,7 +174,6 @@ export const metaData: NavBarMetaDataType = {
             //     metaProps: {
             //       categoryID: "12000004",
             //       productID: "123000014",
-            //       action: "crm_inquiry_metaData",
             //     },
             //   },
             // },
@@ -212,7 +185,6 @@ export const metaData: NavBarMetaDataType = {
             //     metaProps: {
             //       categoryID: "12000004",
             //       productID: "123000015",
-            //       action: "crm_inquiry_metaData",
             //     },
             //   },
             // },

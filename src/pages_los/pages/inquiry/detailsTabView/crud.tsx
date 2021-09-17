@@ -1,5 +1,6 @@
 import { lazy, FC } from "react";
 import { CRUDContextProvider, crudAPIContextGenerator } from "pages_los/common";
+import * as API from "./api";
 
 const SimpleCRUD = lazy(() =>
   import("pages_los/common/crud2").then((module) => ({
@@ -14,6 +15,7 @@ interface CRUDTYPE {
   isDataChangedRef: any;
   dataAlwaysExists: boolean;
   readOnly?: boolean;
+  productID?: string;
 }
 
 export const CRUD: FC<CRUDTYPE> = ({
@@ -23,14 +25,23 @@ export const CRUD: FC<CRUDTYPE> = ({
   isDataChangedRef,
   dataAlwaysExists,
   readOnly,
-}) => (
-  <CRUDContextProvider
-    {...crudAPIContextGenerator(moduleType, productType, refID)}
-  >
-    <SimpleCRUD
-      isDataChangedRef={isDataChangedRef}
-      dataAlwaysExists={dataAlwaysExists}
-      readOnly={readOnly}
-    />
-  </CRUDContextProvider>
-);
+  productID,
+}) => {
+  return (
+    <CRUDContextProvider
+      {...{
+        ...crudAPIContextGenerator(moduleType, productType, refID),
+        getFormMetaData: {
+          fn: API.getFormMetaData,
+          args: { moduleType, productType, refID, productID },
+        },
+      }}
+    >
+      <SimpleCRUD
+        isDataChangedRef={isDataChangedRef}
+        dataAlwaysExists={dataAlwaysExists}
+        readOnly={readOnly}
+      />
+    </CRUDContextProvider>
+  );
+};
