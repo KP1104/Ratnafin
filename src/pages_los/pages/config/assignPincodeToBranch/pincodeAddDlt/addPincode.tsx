@@ -7,8 +7,8 @@ import { useMutation } from "react-query";
 import { useSnackbar } from "notistack";
 import { SubmitFnType } from "packages/form";
 import FormWrapper, { MetaDataType } from "components/dyanmicForm";
-import { assignPincodeFormMetaData } from "./metadata";
-import * as API from "./api";
+import { assignPincodeFormMetaData } from "../metadata";
+import * as API from "../api";
 
 interface AddPincodeFormDataFnType {
   data: object;
@@ -23,7 +23,11 @@ const addPincodeFormDataFnWrapper = (addPincodeDataFn) => async ({
   return addPincodeDataFn(data);
 };
 
-export const AddPincodeToAssignBranch = ({ closeDialog }) => {
+export const AddPincodeToAssignBranch = ({
+  closeDialog,
+  refetchData,
+  isDataChangedRef,
+}) => {
   const { enqueueSnackbar } = useSnackbar();
   const [odd, setOdd] = useState(1);
   let oddMetadata = cloneDeep(assignPincodeFormMetaData);
@@ -32,7 +36,7 @@ export const AddPincodeToAssignBranch = ({ closeDialog }) => {
   evenMetadata.form.name = "assignPincodeFormEven";
 
   const mutation = useMutation(
-    addPincodeFormDataFnWrapper(API.getPincodeList),
+    addPincodeFormDataFnWrapper(API.addPincodeToAssignBranch),
     {
       onError: (error: any, { endSubmit }) => {
         endSubmit(
@@ -41,12 +45,13 @@ export const AddPincodeToAssignBranch = ({ closeDialog }) => {
           error?.error_msg?.error_details ?? ""
         );
       },
-      onSuccess: (_, { endSubmit }) => {
+      onSuccess: (result, { endSubmit }) => {
         endSubmit(true, "");
         enqueueSnackbar("Pincode Added successfully", { variant: "success" });
         setOdd((old) => {
           return old + 1;
         });
+        // typeof refetchData === "function" && refetchData();
       },
     }
   );
@@ -92,10 +97,46 @@ export const AddPincodeToAssignBranch = ({ closeDialog }) => {
         );
       }}
     </FormWrapper>
-  ) : null;
+  ) : (
+    <FormWrapper
+      key="assignPincode-even"
+      metaData={evenMetadata as MetaDataType}
+      initialValues={""}
+      onSubmitHandler={onSubmitHandler}
+      displayMode={"new"}
+      hideDisplayModeInTitle={true}
+      controlsAtBottom={true}
+      formStyle={{
+        background: "white",
+        overflowY: "auto",
+        overflowX: "hidden",
+      }}
+    >
+      {({ isSubmitting, handleSubmit }) => {
+        return (
+          <>
+            <Button
+              onClick={handleSubmit}
+              disabled={isSubmitting}
+              endIcon={isSubmitting ? <CircularProgress size={20} /> : null}
+            >
+              Save
+            </Button>
+            <Button onClick={closeDialog} disabled={isSubmitting}>
+              Cancel
+            </Button>
+          </>
+        );
+      }}
+    </FormWrapper>
+  );
 };
 
-export const PincodeAssignToBranchWrapper = ({ closeDialog }) => {
+export const PincodeAssignToBranchWrapper = ({
+  closeDialog,
+  refetchData,
+  isDataChangedRef,
+}) => {
   return (
     <Drawer
       open={true}
@@ -104,7 +145,11 @@ export const PincodeAssignToBranchWrapper = ({ closeDialog }) => {
       PaperProps={{ style: { maxWidth: "465px" } }}
       onClose={closeDialog}
     >
-      <AddPincodeToAssignBranch closeDialog={closeDialog} />
+      <AddPincodeToAssignBranch
+        closeDialog={closeDialog}
+        refetchData={refetchData}
+        isDataChangedRef={isDataChangedRef}
+      />
     </Drawer>
   );
 };

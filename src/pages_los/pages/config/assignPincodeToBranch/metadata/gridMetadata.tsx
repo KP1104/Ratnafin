@@ -3,7 +3,7 @@ export const assignPincodeGridMetaData: GridMetaDataType = {
   gridConfig: {
     dense: true,
     gridLabel: "Pincode",
-    rowIdColumn: "null",
+    rowIdColumn: "pincode",
     defaultColumnConfig: {
       width: 150,
       maxWidth: 250,
@@ -20,30 +20,16 @@ export const assignPincodeGridMetaData: GridMetaDataType = {
   },
   columns: [
     {
-      accessor: "serialNo",
-      columnName: "Serial No",
-      sequence: 1,
-      alignment: "left",
-      componentType: "default",
-    },
-    {
       accessor: "branchName",
       columnName: "Branch Name",
-      sequence: 2,
-      alignment: "left",
-      componentType: "default",
-    },
-    {
-      accessor: "branchCode",
-      columnName: "Branch Code",
-      sequence: 3,
+      sequence: 1,
       alignment: "left",
       componentType: "default",
     },
     {
       accessor: "pincode",
       columnName: "Pincode",
-      sequence: 4,
+      sequence: 2,
       alignment: "left",
       componentType: "default",
     },

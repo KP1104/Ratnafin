@@ -8,6 +8,7 @@ export const EquifaxScore = ({ scoreDetails }) => {
             <th scope="col">Score Name</th>
             <th scope="col">Score</th>
             <th scope="col">Scoring Elements</th>
+            <th scope="col">Score Description</th>
           </tr>
         </thead>
         <tbody>
@@ -23,6 +24,7 @@ export const EquifaxScore = ({ scoreDetails }) => {
               <br />
               3. Past due amount of trades
             </td>
+            <td>{scoreDetails?.scoreDescription}</td>
           </tr>
         </tbody>
       </table>

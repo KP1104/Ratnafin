@@ -17,21 +17,24 @@ export const IndividualEquifaxReport = () => {
     MiddlewareSDK.getEqifaxReportData({ tokenID })
   );
   const data = result.data;
-  transform(data);
+  let newdata = transform(data);
   const loading = result?.isLoading || result?.isFetching;
   const renderResult = loading ? (
     <img src={loaderGif} alt="loader" width="50px" height="50px" />
   ) : (
     <>
-      <PersonalInfo personalInfo={data?.customer} header={data?.header} />
-      <AccountSummary accountsSummary={data?.account} header={data?.header} />
-      <AccountsInfo accountsInfo={data?.account} header={data?.header} />
-      <EnquiryInfo
-        enquirySummaryInfo={data?.enquirySummary}
-        enquiryInputInfo={data?.inputEnquiry}
-        header={data?.header}
+      <PersonalInfo personalInfo={newdata?.customer} header={newdata?.header} />
+      <AccountSummary
+        accountsSummary={newdata?.account}
+        header={newdata?.header}
       />
-      <GlossaryTermsExplanation header={data?.header} />
+      <AccountsInfo accountsInfo={newdata?.account} header={newdata?.header} />
+      <EnquiryInfo
+        enquirySummaryInfo={newdata?.enquirySummary}
+        enquiryInputInfo={newdata?.inputEnquiry}
+        header={newdata?.header}
+      />
+      <GlossaryTermsExplanation header={newdata?.header} />
     </>
   );
   return renderResult;

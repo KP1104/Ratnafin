@@ -7,13 +7,14 @@ export const AllEnquiryType = ({
   enquirySummary,
   enquiriesDetails,
   inquiryInputDetails,
+  hitNonHitSummaryDetails,
 }) => {
   return (
     <div className="entity-details-borrower-sec">
       <EnquirySummary enquirySummaryDetails={enquirySummary} />
       <EnquiryDetails enquiriesDetails={enquiriesDetails} />
       <EnquiryInputDetails enquiryInputDetails={inquiryInputDetails} />
-      <HitAndNonHitSummary />
+      <HitAndNonHitSummary hitNonHitSummaryDetails={hitNonHitSummaryDetails} />
     </div>
   );
 };
