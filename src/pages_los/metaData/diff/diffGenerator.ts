@@ -1,12 +1,13 @@
 import { getIn, setIn } from "packages/form";
-
-let map = new Map();
+import { checkForPrecondition } from "./preconditionCheck";
 
 export const metaDataDiffGenerator = (newMeta, viewMeta, editMeta) => {
-  let accum = [];
-  JSONWalker(newMeta, "", "", accum);
-  console.log(accum);
+  console.log(
+    checkForPrecondition(newMeta.fields, viewMeta.fields, editMeta.fields)
+  );
 };
+
+/*
 
 const JSONWalker = (
   currentObj: any,
@@ -31,3 +32,4 @@ const JSONWalker = (
     return accum;
   }
 };
+*/
