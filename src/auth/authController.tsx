@@ -66,6 +66,7 @@ export const AuthLoginController = () => {
   const loginType = params["type"];
 
   useEffect(() => {
+    //@ts-ignore
     if (["customer", "employee", "partner"].indexOf(loginType) < 0) {
       navigate("/crm", { replace: true });
     }
@@ -84,6 +85,7 @@ export const AuthLoginController = () => {
     }
     dispath({ type: "inititateUserNameVerification" });
     try {
+      //@ts-ignore
       const result = await API.veirfyUsername(username, loginType);
       if (result.status === "success") {
         dispath({
@@ -101,7 +103,7 @@ export const AuthLoginController = () => {
           },
         });
       }
-    } catch (e) {
+    } catch (e: any) {
       dispath({
         type: "usernameVerificationFailure",
         payload: {
@@ -138,7 +140,7 @@ export const AuthLoginController = () => {
           },
         });
       }
-    } catch (e) {
+    } catch (e: any) {
       dispath({
         type: "passwordVerificationFailure",
         payload: {

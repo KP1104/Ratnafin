@@ -107,12 +107,12 @@ export const AadharVerification = () => {
           },
         });
       }
-    } catch (err) {
+    } catch (e: any) {
       dispatch({
         type: "endAadharRequestFailure",
         payload: {
           error:
-            err?.message?.() ??
+            e?.message?.() ??
             "Couldnt Initiate Aadhar Request an internal error occured ",
         },
       });
