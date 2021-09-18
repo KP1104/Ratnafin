@@ -11,24 +11,24 @@ export const BorrowerCreditFacility = ({ asBorrower }) => {
       <table className="table borrower-table-sec">
         <tbody>
           <OpenCreditFacilitiesSummaryLabel />
-          {typeof asBorrower === "object" && Boolean(asBorrower)
-            ? Object.keys(asBorrower).map((key, i) => (
-                <tr>
-                  <td>{key.split("Off-Member ") || key.split("On-Member ")}</td>
-                  <td>{asBorrower[key]?.OpenCF_Count ?? "-"}</td>
-                  <td>{asBorrower[key]?.OverdueCF_Count ?? "-"}</td>
-                  <td>{asBorrower[key]?.SanctionedAmount_Sum ?? "-"}</td>
-                  <td>{asBorrower[key]?.CurrentBalance_Sum ?? "-"}</td>
-                  <td>{asBorrower[key]?.OverdueAmount_Sum ?? "-"}</td>
-                  <td>
-                    {asBorrower[key]?.CF_Opened_Lst_12_Months_Count ?? "-"}
-                  </td>
-                  <td>
-                    {asBorrower[key]?.CF_Opened_Lst_12To48_Months_Count ?? "-"}
-                  </td>
-                </tr>
-              ))
-            : null}
+          {typeof asBorrower === "object" && Boolean(asBorrower) ? (
+            Object.keys(asBorrower).map((key, i) => (
+              <tr>
+                <td>{key.split("Off-Member ") || key.split("On-Member ")}</td>
+                <td>{asBorrower[key]?.OpenCF_Count ?? "-"}</td>
+                <td>{asBorrower[key]?.OverdueCF_Count ?? "-"}</td>
+                <td>{asBorrower[key]?.SanctionedAmount_Sum ?? "-"}</td>
+                <td>{asBorrower[key]?.CurrentBalance_Sum ?? "-"}</td>
+                <td>{asBorrower[key]?.OverdueAmount_Sum ?? "-"}</td>
+                <td>{asBorrower[key]?.CF_Opened_Lst_12_Months_Count ?? "-"}</td>
+                <td>
+                  {asBorrower[key]?.CF_Opened_Lst_12To48_Months_Count ?? "-"}
+                </td>
+              </tr>
+            ))
+          ) : (
+            <td colSpan={12}>No data found</td>
+          )}
         </tbody>
       </table>
     </>

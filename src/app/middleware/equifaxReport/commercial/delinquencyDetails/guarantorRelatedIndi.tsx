@@ -91,24 +91,26 @@ const RelatedIndLabel = () => {
 const RelatedIndDetails = ({ flatMap }) => {
   return (
     <>
-      {Array.isArray(flatMap)
-        ? flatMap?.map((data) => (
-            <tr>
-              <td>{data?.source.split("Off-Member ")}</td>
-              <td>{data?.name}</td>
-              <td>{data?.relationType}</td>
-              <td>{data?.CurrentOverdueBucket}</td>
-              <td>{data?.CurrentAccountClassification}</td>
-              <td>{data?.MostRecentDelinquencyDate}</td>
-              <td>{data?.EarliestDelinquencyDate_Lst_48_Mths}</td>
-              <td>{data?.Delinquent_Count}</td>
-              <td>{data?.MostSevere_DPD_AssetClass_Lst_48_Mths}</td>
-              <td>{data?.MaxConsecutive_OverduePeriod_In_Mths}</td>
-              <td>{data?.HighestOverdue_Amt_Lst_48_Mths}</td>
-              <td>{data?.CurrentOverdue_Amt}</td>
-            </tr>
-          ))
-        : null}
+      {Array.isArray(flatMap) && flatMap.length > 0 ? (
+        flatMap?.map((data) => (
+          <tr>
+            <td>{data?.source.split("Off-Member ")}</td>
+            <td>{data?.name}</td>
+            <td>{data?.relationType}</td>
+            <td>{data?.CurrentOverdueBucket}</td>
+            <td>{data?.CurrentAccountClassification}</td>
+            <td>{data?.MostRecentDelinquencyDate}</td>
+            <td>{data?.EarliestDelinquencyDate_Lst_48_Mths}</td>
+            <td>{data?.Delinquent_Count}</td>
+            <td>{data?.MostSevere_DPD_AssetClass_Lst_48_Mths}</td>
+            <td>{data?.MaxConsecutive_OverduePeriod_In_Mths}</td>
+            <td>{data?.HighestOverdue_Amt_Lst_48_Mths}</td>
+            <td>{data?.CurrentOverdue_Amt}</td>
+          </tr>
+        ))
+      ) : (
+        <td colSpan={12}>Data not available</td>
+      )}
     </>
   );
 };

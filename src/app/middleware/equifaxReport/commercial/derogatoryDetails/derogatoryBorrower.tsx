@@ -25,7 +25,7 @@ export const DerogatoryBorrower = ({ borrowerDerogatory = {} }) => {
       <table className="table borrower-table-sec">
         <tbody>
           <DerogatoryLabel />
-          {Array.isArray(flatMapBorrowers) && Boolean(flatMapBorrowers) ? (
+          {Array.isArray(flatMapBorrowers) && flatMapBorrowers.length > 0 ? (
             <DerogatoryDetails derogatoryDetails={flatMapBorrowers} />
           ) : (
             <td colSpan={12}>No Borrower Details</td>

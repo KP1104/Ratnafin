@@ -1,6 +1,8 @@
 export const EnquiryInputDetails = ({ enquiryInputDetails }: any) => {
   const idAndPhoneDetails =
-    Boolean(enquiryInputDetails?.idAndPhoneDetails) ?? {};
+    typeof enquiryInputDetails === "object"
+      ? enquiryInputDetails?.idAndPhoneDetails
+      : {};
 
   return (
     <>

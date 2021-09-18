@@ -437,6 +437,7 @@ td.entity-bro-none {
   column-gap: inherit;
   padding-left: 0.1rem;
   padding-right: 0.1rem;
+  color: #fff;
 }
 
 .table tbody th {

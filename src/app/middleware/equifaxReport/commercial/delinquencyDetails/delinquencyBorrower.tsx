@@ -101,7 +101,7 @@ const DeliquencyLabel = () => {
 const DeliquencyDetails = ({ flatMapBorrowers }) => {
   return (
     <>
-      {Array.isArray(flatMapBorrowers) ? (
+      {Array.isArray(flatMapBorrowers) && flatMapBorrowers.length > 0 ? (
         flatMapBorrowers?.map((data) => (
           <tr>
             <td>{data?.source.split("Off-Member ")}</td>
@@ -118,7 +118,7 @@ const DeliquencyDetails = ({ flatMapBorrowers }) => {
           </tr>
         ))
       ) : (
-        <td>Data not available</td>
+        <td colSpan={12}>No data found</td>
       )}
     </>
   );
