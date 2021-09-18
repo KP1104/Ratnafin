@@ -109,17 +109,17 @@ const getCustomer = (data) => {
         data[0]?.CIRReportData?.IDAndContactInfo?.PersonalInfo?.Occupation ??
         "",
       panID:
-        data[0]?.CIRReportData?.IDAndContactInfo?.IdentityInfo?.PANId[0]
+        data[0]?.CIRReportData?.IDAndContactInfo?.IdentityInfo?.PANId?.[0]
           ?.IdNumber ?? "",
       voterID:
-        data[0]?.CIRReportData?.IDAndContactInfo?.IdentityInfo?.VoterID[0]
+        data[0]?.CIRReportData?.IDAndContactInfo?.IdentityInfo?.VoterID?.[0]
           ?.IdNumber ?? "",
       nationalIDCard:
         data[0]?.CIRReportData?.IDAndContactInfo?.IdentityInfo
-          ?.NationalIDCard[0]?.IdNumber ?? "",
+          ?.NationalIDCard?.[0]?.IdNumber ?? "",
       ...getPhoneInfo(data[0]?.CIRReportData?.IDAndContactInfo?.PhoneInfo),
       email:
-        data[0]?.CIRReportData?.IDAndContactInfo?.EmailAddressInfo[0]
+        data[0]?.CIRReportData?.IDAndContactInfo?.EmailAddressInfo?.[0]
           ?.EmailAddress,
       ...getAddressInfo(data[0]?.CIRReportData?.IDAndContactInfo?.AddressInfo),
       recentActivities: {
@@ -133,10 +133,10 @@ const getCustomer = (data) => {
           data[0]?.CIRReportData?.RecentActivities?.AccountsUpdated ?? "",
       },
       score: {
-        scoreName: data[0]?.CIRReportData?.ScoreDetails[0]?.Name ?? "",
-        scoreValue: data[0]?.CIRReportData?.ScoreDetails[0]?.Value ?? "",
+        scoreName: data[0]?.CIRReportData?.ScoreDetails?.[0]?.Name ?? "",
+        scoreValue: data[0]?.CIRReportData?.ScoreDetails?.[0]?.Value ?? "",
         scoreDescription: getScoreDescription(
-          data[0]?.CIRReportData?.ScoreDetails[0]?.Value
+          data[0]?.CIRReportData?.ScoreDetails?.[0]?.Value
         ),
       },
       purpose:
