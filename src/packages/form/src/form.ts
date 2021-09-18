@@ -31,31 +31,32 @@ export const useForm = ({ onSubmit, readOnly = false }: UseFormHookProps) => {
   const formState = useRecoilValue(formAtom(formContext.formName));
 
   const removeFormInstance = useRecoilCallback(
-    ({ reset, snapshot }) => () => {
-      const loadableFields = snapshot.getLoadable(
-        formFieldRegistryAtom(formContext.formName)
-      );
-      const loadableArrayFields = snapshot.getLoadable(
-        formArrayFieldRegistryAtom(formContext.formName)
-      );
-      if (loadableFields.state === "hasValue") {
-        const fields = loadableFields.contents;
-        for (const field of fields) {
-          reset(formFieldAtom(field));
+    ({ reset, snapshot }) =>
+      () => {
+        const loadableFields = snapshot.getLoadable(
+          formFieldRegistryAtom(formContext.formName)
+        );
+        const loadableArrayFields = snapshot.getLoadable(
+          formArrayFieldRegistryAtom(formContext.formName)
+        );
+        if (loadableFields.state === "hasValue") {
+          const fields = loadableFields.contents;
+          for (const field of fields) {
+            reset(formFieldAtom(field));
+          }
         }
-      }
-      if (loadableArrayFields.state === "hasValue") {
-        const arrayFields = loadableArrayFields.contents;
-        for (const arrayField of arrayFields) {
-          reset(formArrayFieldRowsAtom(arrayField));
+        if (loadableArrayFields.state === "hasValue") {
+          const arrayFields = loadableArrayFields.contents;
+          for (const arrayField of arrayFields) {
+            reset(formArrayFieldRowsAtom(arrayField));
+          }
         }
-      }
-      reset(formArrayFieldRegistryAtom(formContext.formName));
-      reset(formFieldRegistryAtom(formContext.formName));
-      reset(formFieldsExcludedAtom(formContext.formName));
-      reset(formFieldsErrorWatcherAtom(formContext.formName));
-      reset(formAtom(formContext.formName));
-    },
+        reset(formArrayFieldRegistryAtom(formContext.formName));
+        reset(formFieldRegistryAtom(formContext.formName));
+        reset(formFieldsExcludedAtom(formContext.formName));
+        reset(formFieldsErrorWatcherAtom(formContext.formName));
+        reset(formAtom(formContext.formName));
+      },
     [formContext.formName]
   );
 
@@ -65,56 +66,58 @@ export const useForm = ({ onSubmit, readOnly = false }: UseFormHookProps) => {
   }, [removeFormInstance]);
 
   const setInitValues = useRecoilCallback(
-    ({ set, snapshot }) => (initValues: InitialValuesType) => {
-      const loadableFields = snapshot.getLoadable(
-        formFieldRegistryAtom(formContext.formName)
-      );
-      if (loadableFields.state === "hasValue") {
-        const fields = loadableFields.contents;
-
-        for (const field of fields) {
-          const trimFormNameFromFieldName = field.replace(
-            `${formContext.formName}/`,
-            ""
-          );
-          let defaultValue =
-            typeof initValues === "object"
-              ? getIn(initValues, trimFormNameFromFieldName, "")
-              : "";
-          set(formFieldAtom(field), (currVal) => ({
-            ...currVal,
-            touched: false,
-            value: defaultValue,
-            error: "",
-            validationRunning: false,
-          }));
-        }
-        //Inititalize ArrayField
-        const loadableArrayFields = snapshot.getLoadable(
-          formArrayFieldRegistryAtom(formContext.formName)
+    ({ set, snapshot }) =>
+      (initValues: InitialValuesType) => {
+        const loadableFields = snapshot.getLoadable(
+          formFieldRegistryAtom(formContext.formName)
         );
-        if (loadableArrayFields.state === "hasValue") {
-          const arrayFields = loadableArrayFields.contents;
-          for (const arrayField of arrayFields) {
-            set(formArrayFieldRowsAtom(arrayField), (old) => ({
-              ...old,
-              resetFlag: true,
+        if (loadableFields.state === "hasValue") {
+          const fields = loadableFields.contents;
+
+          for (const field of fields) {
+            const trimFormNameFromFieldName = field.replace(
+              `${formContext.formName}/`,
+              ""
+            );
+            let defaultValue =
+              typeof initValues === "object"
+                ? getIn(initValues, trimFormNameFromFieldName, "")
+                : "";
+            set(formFieldAtom(field), (currVal) => ({
+              ...currVal,
+              touched: false,
+              value: defaultValue,
+              error: "",
+              validationRunning: false,
             }));
           }
+          //Inititalize ArrayField
+          const loadableArrayFields = snapshot.getLoadable(
+            formArrayFieldRegistryAtom(formContext.formName)
+          );
+          if (loadableArrayFields.state === "hasValue") {
+            const arrayFields = loadableArrayFields.contents;
+            for (const arrayField of arrayFields) {
+              set(formArrayFieldRowsAtom(arrayField), (old) => ({
+                ...old,
+                resetFlag: true,
+              }));
+            }
+          }
         }
-      }
-    },
+      },
     []
   );
 
   const startSubmit = useRecoilCallback(
-    ({ set }) => () => {
-      set(formAtom(formContext.formName), (currVal) => ({
-        ...currVal,
-        isSubmitting: true,
-        submitAttempt: currVal.submitAttempt + 1,
-      }));
-    },
+    ({ set }) =>
+      () => {
+        set(formAtom(formContext.formName), (currVal) => ({
+          ...currVal,
+          isSubmitting: true,
+          submitAttempt: currVal.submitAttempt + 1,
+        }));
+      },
     []
   );
 
@@ -126,75 +129,78 @@ export const useForm = ({ onSubmit, readOnly = false }: UseFormHookProps) => {
   }, [startSubmit, readOnly]);
 
   const endSubmit = useRecoilCallback(
-    ({ set }) => (
-      submitSuccessful: boolean = false,
-      message: string = "",
-      messageDetail: string = ""
-    ) => {
-      if (typeof message !== "string") {
-        message = "";
-      }
-      set(formAtom(formContext.formName), (currVal) => ({
-        ...currVal,
-        isSubmitting: false,
-        submitSuccessful,
-        serverSentError: message,
-        serverSentErrorDetail: messageDetail,
-      }));
-    },
+    ({ set }) =>
+      (
+        submitSuccessful: boolean = false,
+        message: string = "",
+        messageDetail: string = ""
+      ) => {
+        if (typeof message !== "string") {
+          message = "";
+        }
+        set(formAtom(formContext.formName), (currVal) => ({
+          ...currVal,
+          isSubmitting: false,
+          submitSuccessful,
+          serverSentError: message,
+          serverSentErrorDetail: messageDetail,
+        }));
+      },
     []
   );
   //need to change this to pass arrayField errors to respective arrayField
   //Todo: loop to registered field and grab errors from the object and set the same.
   const setFieldErrors = useRecoilCallback(
-    ({ set }) => (fieldsErrorObj: FieldsErrorObjType = {}) => {
-      for (const field of Object.entries(fieldsErrorObj)) {
-        const [fieldName, error] = field;
-        set(
-          formFieldAtom(`${formContext.formName}/${fieldName}`),
-          (currVal) => ({
-            ...currVal,
-            error: error,
-          })
-        );
-      }
-    },
+    ({ set }) =>
+      (fieldsErrorObj: FieldsErrorObjType = {}) => {
+        for (const field of Object.entries(fieldsErrorObj)) {
+          const [fieldName, error] = field;
+          set(
+            formFieldAtom(`${formContext.formName}/${fieldName}`),
+            (currVal) => ({
+              ...currVal,
+              error: error,
+            })
+          );
+        }
+      },
     []
   );
 
   const handleClear = useRecoilCallback(
-    ({ snapshot, set }) => (e: React.FormEvent<any> | any) => {
-      e?.preventDefault?.();
-      const loadableFields = snapshot.getLoadable(
-        formFieldRegistryAtom(formContext.formName)
-      );
-      if (loadableFields.state === "hasValue") {
-        const fields = loadableFields.contents;
-        for (const field of fields) {
-          set(formFieldAtom(field), (currVal) => ({
-            ...currVal,
-            touched: false,
-            value: "",
-            error: "",
-            validationRunning: false,
-          }));
+    ({ snapshot, set }) =>
+      (e: React.FormEvent<any> | any) => {
+        e?.preventDefault?.();
+        const loadableFields = snapshot.getLoadable(
+          formFieldRegistryAtom(formContext.formName)
+        );
+        if (loadableFields.state === "hasValue") {
+          const fields = loadableFields.contents;
+          for (const field of fields) {
+            set(formFieldAtom(field), (currVal) => ({
+              ...currVal,
+              touched: false,
+              value: "",
+              error: "",
+              validationRunning: false,
+            }));
+          }
         }
-      }
-      const loadableArrayFields = snapshot.getLoadable(
-        formArrayFieldRegistryAtom(formContext.formName)
-      );
-      if (loadableArrayFields.state === "hasValue") {
-        const arrayFields = loadableArrayFields.contents;
-        for (const arrayField of arrayFields) {
-          set(formArrayFieldRowsAtom(arrayField), (old) => ({
-            ...old,
-            resetFlag: false,
-            templateFieldRows: [],
-            lastInsertIndex: -1,
-          }));
+        const loadableArrayFields = snapshot.getLoadable(
+          formArrayFieldRegistryAtom(formContext.formName)
+        );
+        if (loadableArrayFields.state === "hasValue") {
+          const arrayFields = loadableArrayFields.contents;
+          for (const arrayField of arrayFields) {
+            set(formArrayFieldRowsAtom(arrayField), (old) => ({
+              ...old,
+              resetFlag: false,
+              templateFieldRows: [],
+              lastInsertIndex: -1,
+            }));
+          }
         }
-      }
-    },
+      },
     []
   );
 
@@ -214,49 +220,51 @@ export const useForm = ({ onSubmit, readOnly = false }: UseFormHookProps) => {
   );
 
   const handleClearPartial = useRecoilCallback(
-    ({ snapshot, set }) => (fields: string[]) => {
-      for (const field of fields) {
-        set(formFieldAtom(`${formContext.formName}/${field}`), (currVal) => ({
-          ...currVal,
-          touched: false,
-          value: "",
-          error: "",
-          validationRunning: false,
-        }));
-      }
-      const loadableArrayFields = snapshot.getLoadable(
-        formArrayFieldRegistryAtom(formContext.formName)
-      );
-      if (loadableArrayFields.state === "hasValue") {
-        const arrayFields = loadableArrayFields.contents;
-        for (const arrayField of arrayFields) {
-          set(formArrayFieldRowsAtom(arrayField), (old) => ({
-            ...old,
-            resetFlag: false,
-            templateFieldRows: [],
-            lastInsertIndex: -1,
+    ({ snapshot, set }) =>
+      (fields: string[]) => {
+        for (const field of fields) {
+          set(formFieldAtom(`${formContext.formName}/${field}`), (currVal) => ({
+            ...currVal,
+            touched: false,
+            value: "",
+            error: "",
+            validationRunning: false,
           }));
         }
-      }
-    },
+        const loadableArrayFields = snapshot.getLoadable(
+          formArrayFieldRegistryAtom(formContext.formName)
+        );
+        if (loadableArrayFields.state === "hasValue") {
+          const arrayFields = loadableArrayFields.contents;
+          for (const arrayField of arrayFields) {
+            set(formArrayFieldRowsAtom(arrayField), (old) => ({
+              ...old,
+              resetFlag: false,
+              templateFieldRows: [],
+              lastInsertIndex: -1,
+            }));
+          }
+        }
+      },
     [formContext.formName]
   );
 
   const getDependentValues = useRecoilCallback(
-    ({ snapshot }) => (fields?: string[] | string) => {
-      const loadable = snapshot.getLoadable(
-        subscribeToFormFieldsSelector({
-          formName: formContext.formName,
-          fields: fields,
-        })
-      );
-      switch (loadable.state) {
-        case "hasValue": {
-          return loadable.contents;
+    ({ snapshot }) =>
+      (fields?: string[] | string) => {
+        const loadable = snapshot.getLoadable(
+          subscribeToFormFieldsSelector({
+            formName: formContext.formName,
+            fields: fields,
+          })
+        );
+        switch (loadable.state) {
+          case "hasValue": {
+            return loadable.contents;
+          }
         }
+        return {};
       }
-      return {};
-    }
   );
 
   const handleResetPartial = useCallback(
@@ -317,7 +325,7 @@ export const useForm = ({ onSubmit, readOnly = false }: UseFormHookProps) => {
               formContext.formState
             )
           );
-        } catch (e) {
+        } catch (e: any) {
           result = { error: e.message, apiResult: null };
         }
         const newFieldState = {
@@ -336,92 +344,94 @@ export const useForm = ({ onSubmit, readOnly = false }: UseFormHookProps) => {
   };
 
   const handleSubmitPartial = useRecoilCallback(
-    ({ snapshot, set }) => (fields: string[]) => {
-      const _handleSubmit = async (fields: string[]) => {
-        let hasError = false;
-        for (const field of fields) {
-          let result = await runValidation(
-            `${formContext.formName}/${field}`,
-            snapshot,
-            set
-          );
-          if (result === null) {
-            continue;
-          }
-          if (hasError === false) {
-            hasError = Boolean(result.error);
-          }
-        }
-        return hasError;
-      };
-      return _handleSubmit(fields);
-    },
-    [formContext.formName]
-  );
-
-  const handleSubmit = useRecoilCallback(
-    ({ snapshot, set }) => (e: React.FormEvent<any>) => {
-      const _handleSubmit = async (e: React.FormEvent<any>) => {
-        const loadableFields = snapshot.getLoadable(
-          formFieldRegistryAtom(formContext.formName)
-        );
-        if (loadableFields.state === "hasValue") {
-          const fields = loadableFields.contents;
-          const fieldsAggrigator: FormFieldAtomType[] = [];
+    ({ snapshot, set }) =>
+      (fields: string[]) => {
+        const _handleSubmit = async (fields: string[]) => {
           let hasError = false;
           for (const field of fields) {
-            let result = await runValidation(field, snapshot, set);
+            let result = await runValidation(
+              `${formContext.formName}/${field}`,
+              snapshot,
+              set
+            );
             if (result === null) {
               continue;
             }
             if (hasError === false) {
               hasError = Boolean(result.error);
             }
-            fieldsAggrigator.push(result);
           }
-          //In debug mode allow to move to next step without validating
-          if (process.env.REACT_APP_DEBUG_MODE === "true") {
-            hasError = false;
-          }
-          if (!hasError) {
-            if (typeof onSubmit === "function") {
-              let resultValueObj = {};
-              let resultDisplayValueObj = {};
-              for (const field of fieldsAggrigator) {
-                let fieldValue = field.value;
-                if (fieldValue instanceof Date) {
-                  fieldValue = formatDate(
-                    fieldValue,
-                    "iii LLL dd yyyy HH:mm:ss xxxx"
+          return hasError;
+        };
+        return _handleSubmit(fields);
+      },
+    [formContext.formName]
+  );
+
+  const handleSubmit = useRecoilCallback(
+    ({ snapshot, set }) =>
+      (e: React.FormEvent<any>) => {
+        const _handleSubmit = async (e: React.FormEvent<any>) => {
+          const loadableFields = snapshot.getLoadable(
+            formFieldRegistryAtom(formContext.formName)
+          );
+          if (loadableFields.state === "hasValue") {
+            const fields = loadableFields.contents;
+            const fieldsAggrigator: FormFieldAtomType[] = [];
+            let hasError = false;
+            for (const field of fields) {
+              let result = await runValidation(field, snapshot, set);
+              if (result === null) {
+                continue;
+              }
+              if (hasError === false) {
+                hasError = Boolean(result.error);
+              }
+              fieldsAggrigator.push(result);
+            }
+            //In debug mode allow to move to next step without validating
+            if (process.env.REACT_APP_DEBUG_MODE === "true") {
+              hasError = false;
+            }
+            if (!hasError) {
+              if (typeof onSubmit === "function") {
+                let resultValueObj = {};
+                let resultDisplayValueObj = {};
+                for (const field of fieldsAggrigator) {
+                  let fieldValue = field.value;
+                  if (fieldValue instanceof Date) {
+                    fieldValue = formatDate(
+                      fieldValue,
+                      "iii LLL dd yyyy HH:mm:ss xxxx"
+                    );
+                  }
+                  resultValueObj = setIn(
+                    resultValueObj,
+                    field.name.replace(`${formContext.formName}/`, ""),
+                    fieldValue
+                  );
+                  resultDisplayValueObj = setIn(
+                    resultDisplayValueObj,
+                    field.name.replace(`${formContext.formName}/`, ""),
+                    field.displayValue
                   );
                 }
-                resultValueObj = setIn(
+                onSubmit(
                   resultValueObj,
-                  field.name.replace(`${formContext.formName}/`, ""),
-                  fieldValue
-                );
-                resultDisplayValueObj = setIn(
                   resultDisplayValueObj,
-                  field.name.replace(`${formContext.formName}/`, ""),
-                  field.displayValue
+                  endSubmit,
+                  setFieldErrors
                 );
               }
-              onSubmit(
-                resultValueObj,
-                resultDisplayValueObj,
-                endSubmit,
-                setFieldErrors
-              );
+            } else {
+              endSubmit(false);
             }
-          } else {
-            endSubmit(false);
           }
-        }
-      };
-      e.preventDefault();
-      startSubmit();
-      _handleSubmit(e);
-    },
+        };
+        e.preventDefault();
+        startSubmit();
+        _handleSubmit(e);
+      },
     []
   );
 

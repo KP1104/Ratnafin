@@ -47,20 +47,22 @@ const parseYupSchemaAndAttachMethod = (
   return attachYupValidator(validator);
 };
 
-const attachYupValidator = (
-  validator:
-    | yup.DateSchema
-    | yup.NumberSchema
-    | yup.StringSchema
-    | yup.BooleanSchema
-) => async (value: number | string | boolean | Date) => {
-  try {
-    await validator.validate(value, validationConfig);
-    return null;
-  } catch (e) {
-    if (e instanceof yup.ValidationError) {
-      return e.errors[0];
+const attachYupValidator =
+  (
+    validator:
+      | yup.DateSchema
+      | yup.NumberSchema
+      | yup.StringSchema
+      | yup.BooleanSchema
+  ) =>
+  async (value: number | string | boolean | Date) => {
+    try {
+      await validator.validate(value, validationConfig);
+      return null;
+    } catch (e: any) {
+      if (e instanceof yup.ValidationError) {
+        return e.errors[0];
+      }
+      return e.message;
     }
-    return e.message;
-  }
-};
+  };

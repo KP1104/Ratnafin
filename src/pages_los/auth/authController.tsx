@@ -96,7 +96,7 @@ export const AuthLoginController = () => {
           },
         });
       }
-    } catch (e) {
+    } catch (e: any) {
       dispath({
         type: "usernameVerificationFailure",
         payload: {
@@ -132,7 +132,7 @@ export const AuthLoginController = () => {
           },
         });
       }
-    } catch (e) {
+    } catch (e: any) {
       console.log(e);
       dispath({
         type: "passwordVerificationFailure",

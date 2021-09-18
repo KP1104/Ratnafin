@@ -350,8 +350,8 @@ export const DataGrid = ({
           count={rows.length}
           rowsPerPage={Number(pageSize)}
           page={Number(pageIndex)}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
           ActionsComponent={TablePaginationActions}
         />
       ) : (

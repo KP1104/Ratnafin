@@ -389,8 +389,8 @@ export const DataGrid = forwardRef<any, any>(
           count={controlledTotalRecords}
           rowsPerPage={Number(pageSize)}
           page={Number(pageIndex)}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
           ActionsComponent={TablePaginationActions}
         />
       </Paper>

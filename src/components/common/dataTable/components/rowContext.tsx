@@ -68,7 +68,7 @@ export const RowContextProvider = forwardRef<any, any>(
           setError({});
           setIsError(false);
           currentRowError.current = {};
-        } catch (e) {
+        } catch (e: any) {
           setError(e);
           setIsError(true);
           currentRowError.current = e;

@@ -28,17 +28,17 @@ interface requestOTPType {
   tokenID: any;
 }
 
-const verifyOTPFn = (verfiyOTPAPI) => async ({
-  tokenID,
-  transactionID,
-  otp,
-}: verifyOTPType) => {
-  return verfiyOTPAPI(tokenID, transactionID, otp);
-};
+const verifyOTPFn =
+  (verfiyOTPAPI) =>
+  async ({ tokenID, transactionID, otp }: verifyOTPType) => {
+    return verfiyOTPAPI(tokenID, transactionID, otp);
+  };
 
-const requestOTP = (requestOTPAPI) => async ({ tokenID }: requestOTPType) => {
-  return requestOTPAPI(tokenID);
-};
+const requestOTP =
+  (requestOTPAPI) =>
+  async ({ tokenID }: requestOTPType) => {
+    return requestOTPAPI(tokenID);
+  };
 
 export const Verification = ({
   token,
@@ -251,7 +251,7 @@ export const OTPVerificationWrapper = ({ apiType, otpLength = 6 }) => {
   const { token } = useParams();
   const verifyToken = useQuery<any, any, any>(
     "verifyToken",
-    () => API.verifyToken(apiType)(token),
+    () => API.verifyToken(apiType)(token as string),
     {
       cacheTime: 0,
       retry: 0,
