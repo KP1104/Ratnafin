@@ -30,7 +30,7 @@ export const InputEnquiry = ({ inputEnquiryDetails }) => {
             </td>
             <td>
               Address :
-              <strong> {inputEnquiryDetails?.address[0]?.AddressLine1}</strong>
+              <strong>{inputEnquiryDetails?.address?.[0]?.AddressLine1}</strong>
             </td>
           </tr>
 
