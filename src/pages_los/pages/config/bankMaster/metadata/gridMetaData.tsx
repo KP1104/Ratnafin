@@ -46,5 +46,12 @@ export const bankMasterGridMetaData = {
       alignment: "left",
       isVisible: false,
     },
+    {
+      columnName: "Bank Type",
+      componentType: "default",
+      accessor: "bankType",
+      sequence: 4,
+      alignment: "left",
+    },
   ],
 };
