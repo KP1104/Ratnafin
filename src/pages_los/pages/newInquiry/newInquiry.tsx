@@ -8,7 +8,7 @@ export const NewInquiry = () => {
   const [currentView, setCurrentView] = useState("inquiry");
   const [successID, setSuccessID] = useState("");
   const location = useLocation();
-  const { state, key, search } = location;
+  const { key, search } = location;
   let params = new URLSearchParams(search);
 
   useEffect(() => {

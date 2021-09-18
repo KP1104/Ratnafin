@@ -8,6 +8,7 @@ import { InvalidAction } from "pages_los/common/invalidAction";
 import { TeamAssignment } from "../teamAssignment";
 import { YearlyTargetGrid } from "../targetManagement";
 import { queryClient } from "cache";
+import { UserManagement } from "./demo";
 
 const actions: ActionTypes[] = [
   {
@@ -31,6 +32,12 @@ const actions: ActionTypes[] = [
     actionName: "Target",
     actionLabel: "Target Management",
     multiple: false,
+  },
+  {
+    actionName: "Demo",
+    actionLabel: "Demo",
+    multiple: undefined,
+    alwaysAvailable: true,
   },
 ];
 
@@ -81,7 +88,9 @@ const ComponentPicker = ({
     };
   }, []);
 
-  return (currentAction?.name ?? "") === "Add" ? (
+  return (currentAction?.name ?? "") === "Demo" ? (
+    <UserManagement closeDialog={closeMyDialog} />
+  ) : (currentAction?.name ?? "") === "Add" ? (
     <FormNew
       successAction={closeMyDialog}
       cancelAction={closeMyDialog}

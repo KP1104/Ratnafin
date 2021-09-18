@@ -30,7 +30,6 @@ export const metaData: NavBarMetaDataType = {
                 productID: "12300001",
               },
               passNavigationPropsAsURLParmas: true,
-              visibleToRoles: [1, 2, 3],
             },
             {
               label: "Retail LAP (Loan Against Property)",
@@ -41,7 +40,6 @@ export const metaData: NavBarMetaDataType = {
                 productID: "12300002",
               },
               passNavigationPropsAsURLParmas: true,
-              visibleToRoles: [1, 2, 3],
             },
             {
               label: "Retail LRD (Lease Rental Discount)",
@@ -168,28 +166,6 @@ export const metaData: NavBarMetaDataType = {
               },
               passNavigationPropsAsURLParmas: true,
             },
-            // {
-            //   label: "Personal Loan",
-            //   href: "./newInquiry/personalLoan",
-            //   isRouterLink: true,
-            //   navigationProps: {
-            //     metaProps: {
-            //       categoryID: "12000004",
-            //       productID: "123000014",
-            //     },
-            //   },
-            // },
-            // {
-            //   label: "School Fee Funding",
-            //   href: "./newInquiry/schoolFee",
-            //   isRouterLink: true,
-            //   navigationProps: {
-            //     metaProps: {
-            //       categoryID: "12000004",
-            //       productID: "123000015",
-            //     },
-            //   },
-            // },
           ],
         },
       ],
