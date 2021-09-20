@@ -24,7 +24,7 @@ export const RelatedIndividuals = ({ individualDetails }: any) => {
               <span className="heading-color">Phone</span>
             </th>
           </tr>
-          {Array.isArray(individualDetails) && Boolean(individualDetails) ? (
+          {Array.isArray(individualDetails) && individualDetails.length > 0 ? (
             individualDetails.map((individualData, index) => {
               return (
                 <tr>
@@ -44,7 +44,7 @@ export const RelatedIndividuals = ({ individualDetails }: any) => {
               );
             })
           ) : (
-            <td>No Data found</td>
+            <td colSpan={12}>No Data found</td>
           )}
         </tbody>
       </table>

@@ -23,7 +23,7 @@ export const HitAndNonHitSummary = ({ hitNonHitSummaryDetails }) => {
           </tr>
           <tr>
             {Array.isArray(hitNonHitSummaryDetails) &&
-            Boolean(hitNonHitSummaryDetails) ? (
+            hitNonHitSummaryDetails.length > 0 ? (
               hitNonHitSummaryDetails.map((hitNonHitDtails) => (
                 <>
                   <td style={{ textAlign: "center" }}>
@@ -41,7 +41,7 @@ export const HitAndNonHitSummary = ({ hitNonHitSummaryDetails }) => {
                 </>
               ))
             ) : (
-              <td colSpan={12}>Data not Found</td>
+              <td colSpan={12}>No data found</td>
             )}
           </tr>
         </tbody>

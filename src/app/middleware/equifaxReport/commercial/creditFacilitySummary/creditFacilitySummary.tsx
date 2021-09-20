@@ -10,13 +10,18 @@ export const CreditFacilitySummary = ({ creditFacilityDetails }) => {
         <h2>
           <strong>7.1</strong>As Borrower - Credit Facility Details
         </h2>
-        {creditFacilityDetails?.map((accountDetail, index) => (
-          <AllCreditFacilityDetails
-            creditFacilityDetails={accountDetail}
-            key={index}
-            count={index + 1}
-          />
-        ))}
+        {Array.isArray(creditFacilityDetails) &&
+        creditFacilityDetails.length > 0 ? (
+          creditFacilityDetails?.map((accountDetail, index) => (
+            <AllCreditFacilityDetails
+              creditFacilityDetails={accountDetail}
+              key={index}
+              count={index + 1}
+            />
+          ))
+        ) : (
+          <td colSpan={12}>No data found</td>
+        )}
       </div>
     </article>
   );

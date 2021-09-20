@@ -27,19 +27,25 @@ export const Address = ({ addressDetails }) => {
               <span className="heading-color">Last Reported Date</span>
             </th>
           </tr>
-          {addressDetails?.map((addressInfo, index) => {
-            return (
-              <tr>
-                <td>{index + 1}</td>
-                <td>{addressInfo?.type ?? "-"}</td>
-                <td style={{ width: "34%" }}>{addressInfo?.address ?? "-"}</td>
-                <td>{addressInfo?.district ?? "-"}</td>
-                <td>{addressInfo?.state ?? "-"}</td>
-                <td>{addressInfo?.postal ?? "-"}</td>
-                <td>{addressInfo?.reportedDate ?? "-"}</td>
-              </tr>
-            );
-          })}
+          {Array.isArray(addressDetails) && addressDetails.length > 0 ? (
+            addressDetails?.map((addressInfo, index) => {
+              return (
+                <tr>
+                  <td>{index + 1}</td>
+                  <td>{addressInfo?.type ?? "-"}</td>
+                  <td style={{ width: "34%" }}>
+                    {addressInfo?.address ?? "-"}
+                  </td>
+                  <td>{addressInfo?.district ?? "-"}</td>
+                  <td>{addressInfo?.state ?? "-"}</td>
+                  <td>{addressInfo?.postal ?? "-"}</td>
+                  <td>{addressInfo?.reportedDate ?? "-"}</td>
+                </tr>
+              );
+            })
+          ) : (
+            <td colSpan={12}>No data found</td>
+          )}
         </tbody>
       </table>
       <p style={{ fontStyle: "italic" }}>

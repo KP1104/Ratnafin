@@ -23,7 +23,7 @@ export const DerogatoryGuarantor = ({ guarantorDerogatory }) => {
       <table className="table borrower-table-sec">
         <tbody>
           <DerogatoryLabel />
-          {Array.isArray(flatMapGuarantors) && Boolean(flatMapGuarantors) ? (
+          {Array.isArray(flatMapGuarantors) && flatMapGuarantors.length > 0 ? (
             <DerogatoryDetails derogatoryDetails={flatMapGuarantors ?? ""} />
           ) : (
             <td colSpan={12}>No Guarantor Details</td>

@@ -30,20 +30,22 @@ export const RelatedEntity = ({ relatedEntity }) => {
               <span className="heading-color">PAN</span>
             </th>
           </tr>
-          {Array.isArray(relatedEntity) && Boolean(relatedEntity)
-            ? relatedEntity.map((data, index) => (
-                <tr>
-                  <td>{index + 1}</td>
-                  <td>{data?.Relationship ?? "-"}</td>
-                  <td>{data?.business_entity_name ?? "-"}</td>
-                  <td>{data?.CommercialAddressInfo[0]?.Address}</td>
-                  <td>{data?.date_of_incorporation ?? "-"}</td>
-                  <td>{data?.CIN ?? "-"}</td>
-                  <td>{data?.TIN ?? "-"}</td>
-                  <td>{data?.PANId ?? "-"}</td>
-                </tr>
-              ))
-            : null}
+          {Array.isArray(relatedEntity) && relatedEntity.length > 0 ? (
+            relatedEntity.map((data, index) => (
+              <tr>
+                <td>{index + 1}</td>
+                <td>{data?.Relationship ?? "-"}</td>
+                <td>{data?.business_entity_name ?? "-"}</td>
+                <td>{data?.CommercialAddressInfo[0]?.Address}</td>
+                <td>{data?.date_of_incorporation ?? "-"}</td>
+                <td>{data?.CIN ?? "-"}</td>
+                <td>{data?.TIN ?? "-"}</td>
+                <td>{data?.PANId ?? "-"}</td>
+              </tr>
+            ))
+          ) : (
+            <td colSpan={12}>No data found</td>
+          )}
         </tbody>
       </table>
     </>
