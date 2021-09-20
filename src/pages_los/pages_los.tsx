@@ -6,9 +6,15 @@ import { Drawer } from "./drawer";
 import { Content } from "./content";
 
 import {
-  CrossInquiry,
+  AllAssignedInquiry,
   AssignedInquiry,
+  CrossInquiry,
   IncomingInquiry,
+  MyCrossInquiry,
+  MyInquiry,
+  MyTeamCrossInquiry,
+  MyUnmappedInquiry,
+  UnmappedHOInquiry,
   UnmappedInqiry,
 } from "pages_los/pages/inquiry";
 import { BecomePartner } from "pages_los/pages/partner";
@@ -59,6 +65,10 @@ export const PagesLOS = () => {
             />
             {/* Inquiries */}
             <Route
+              path="/inquiry/allAssignedInquiries/*"
+              element={<AllAssignedInquiry />}
+            />
+            <Route
               path="/inquiry/assignedInquiries/*"
               element={<AssignedInquiry />}
             />
@@ -69,6 +79,23 @@ export const PagesLOS = () => {
             <Route
               path="/inquiry/incomingInquiries/*"
               element={<IncomingInquiry />}
+            />
+            <Route
+              path="/inquiry/myCrossInquiries/*"
+              element={<MyCrossInquiry />}
+            />
+            <Route path="/inquiry/myInquiry/*" element={<MyInquiry />} />
+            <Route
+              path="/inquiry/myTeamCrossInquiries/*"
+              element={<MyTeamCrossInquiry />}
+            />
+            <Route
+              path="/inquiry/myUnmappedInquiries/*"
+              element={<MyUnmappedInquiry />}
+            />
+            <Route
+              path="/inquiry/unmappedHOInquiries/*"
+              element={<UnmappedHOInquiry />}
             />
             <Route
               path="/inquiry/unmappedInquiries/*"
