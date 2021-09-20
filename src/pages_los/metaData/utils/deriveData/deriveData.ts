@@ -15,6 +15,9 @@ export const deriveData = (fields, mode) => {
       if (fieldObj.render.componentType === "arrayField") {
         let newField = deriveData(fieldObj._fields, mode);
         fieldObj._fields = newField;
+      } else if (fieldObj.render.componentType === "dataTable") {
+        let newField = deriveData(fieldObj._column, mode);
+        fieldObj._column = newField;
       }
     } catch (e) {
       console.log(one);
