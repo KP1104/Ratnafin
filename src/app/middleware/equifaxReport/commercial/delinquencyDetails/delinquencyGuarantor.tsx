@@ -90,24 +90,26 @@ const GuarantorLabel = () => {
 const GuranatorDetails = ({ flatMapGuarantor }) => {
   return (
     <>
-      {Array.isArray(flatMapGuarantor)
-        ? flatMapGuarantor.map((guarantrDetail) => (
-            <tr>
-              <td>{guarantrDetail?.source}</td>
-              <td>{guarantrDetail?.name}</td>
-              <td>{guarantrDetail?.CF_Type}</td>
-              <td>{guarantrDetail?.CurrentOverdueBucket}</td>
-              <td>{guarantrDetail?.CurrentAccountClassification}</td>
-              <td>{guarantrDetail?.MostRecentDelinquencyDate}</td>
-              <td>{guarantrDetail?.EarliestDelinquencyDate_Lst_48_Mths}</td>
-              <td>{guarantrDetail?.Delinquent_Count}</td>
-              <td>{guarantrDetail?.MostSevere_DPD_AssetClass_Lst_48_Mths}</td>
-              <td>{guarantrDetail?.MaxConsecutive_OverduePeriod_In_Mths}</td>
-              <td>{guarantrDetail?.HighestOverdue_Amt_Lst_48_Mths}</td>
-              <td>{guarantrDetail?.CurrentOverdue_Amt}</td>
-            </tr>
-          ))
-        : null}
+      {Array.isArray(flatMapGuarantor) && flatMapGuarantor.length > 0 ? (
+        flatMapGuarantor.map((guarantrDetail) => (
+          <tr>
+            <td>{guarantrDetail?.source}</td>
+            <td>{guarantrDetail?.name}</td>
+            <td>{guarantrDetail?.CF_Type}</td>
+            <td>{guarantrDetail?.CurrentOverdueBucket}</td>
+            <td>{guarantrDetail?.CurrentAccountClassification}</td>
+            <td>{guarantrDetail?.MostRecentDelinquencyDate}</td>
+            <td>{guarantrDetail?.EarliestDelinquencyDate_Lst_48_Mths}</td>
+            <td>{guarantrDetail?.Delinquent_Count}</td>
+            <td>{guarantrDetail?.MostSevere_DPD_AssetClass_Lst_48_Mths}</td>
+            <td>{guarantrDetail?.MaxConsecutive_OverduePeriod_In_Mths}</td>
+            <td>{guarantrDetail?.HighestOverdue_Amt_Lst_48_Mths}</td>
+            <td>{guarantrDetail?.CurrentOverdue_Amt}</td>
+          </tr>
+        ))
+      ) : (
+        <td colSpan={12}>No data found</td>
+      )}
     </>
   );
 };

@@ -8,6 +8,7 @@ import {
   calculateAdvance,
   shouldExcludeDisburesementTranchesMilestone,
   shouldExcludeDisburesementTranchesCashflow,
+  calculateDSCRAAmount,
 } from "../../fns";
 
 export const CFSanctionMetadata: MetaDataType = {
@@ -399,13 +400,22 @@ export const CFSanctionMetadata: MetaDataType = {
           name: "dscraAmount",
           label: "DSCRA Amount",
           placeholder: "DSCRA Amount",
-          dependentFields: ["dscraAny"],
+          // dependentFields: ["dscraAny"],
           shouldExclude: (_, dependentFields) => {
             if (dependentFields["facilityDetails.dscraAny"].value === "Y") {
               return false;
             }
             return true;
           },
+          dependentFields: [
+            "sanctionAmount",
+            "fixedActualROI",
+            "tenure",
+            "floatingActualROI",
+            "dscraMonths",
+            "dscraAny",
+          ],
+          setValueOnDependentFieldsChange: calculateDSCRAAmount,
           GridProps: {
             xs: 12,
             md: 3,

@@ -14,15 +14,19 @@ export const EquifaxCreditSummary = ({ overallCreditSummary = {} }: any) => {
             <th scope="col" colSpan={2}>
               <span className="heading-color">&nbsp;</span>
             </th>
-            {years.map((year) => {
-              return (
-                <>
+            {Array.isArray(years) && years.length > 0 ? (
+              years.map((year) => {
+                return (
                   <th scope="col" colSpan={2}>
                     <span className="heading-color">{year}</span>
                   </th>
-                </>
-              );
-            })}
+                );
+              })
+            ) : (
+              <th colSpan={6}>
+                <span className="heading-color">-</span>
+              </th>
+            )}
           </tr>
           <tr>
             <td colSpan={2}></td>
@@ -187,16 +191,27 @@ const CreditSummaryLine = ({ accessor, borrower, gurantor, label, years }) => {
   return (
     <tr>
       <td colSpan={2}>{label}</td>
-      {years.map((year) => (
+      {Array.isArray(years) && years.length > 0 ? (
+        years.map((year) => (
+          <>
+            <td style={{ textAlign: "center" }}>
+              {borrower[year]?.[accessor] ?? "-"}
+            </td>
+            <td style={{ textAlign: "center" }}>
+              {gurantor[year]?.[accessor] ?? "-"}
+            </td>
+          </>
+        ))
+      ) : (
         <>
-          <td style={{ textAlign: "center" }}>
-            {borrower[year]?.[accessor] ?? "-"}
-          </td>
-          <td style={{ textAlign: "center" }}>
-            {gurantor[year]?.[accessor] ?? "-"}
-          </td>
+          <td style={{ textAlign: "center" }}>-</td>
+          <td style={{ textAlign: "center" }}>-</td>
+          <td style={{ textAlign: "center" }}>-</td>
+          <td style={{ textAlign: "center" }}>-</td>
+          <td style={{ textAlign: "center" }}>-</td>
+          <td style={{ textAlign: "center" }}>-</td>
         </>
-      ))}
+      )}
     </tr>
   );
 };

@@ -27,19 +27,19 @@ export const EquifaxScore = ({ creditScoreDetails }) => {
           </tr>
           <tr>
             <td style={{ textAlign: "center" }}>
-              {creditScoreDetails?.scoreName}
+              {creditScoreDetails?.scoreName ?? "-"}
             </td>
             <td style={{ textAlign: "center" }}>
-              {creditScoreDetails?.scoredEntity}
+              {creditScoreDetails?.scoredEntity ?? "-"}
             </td>
             <td style={{ textAlign: "center" }}>
-              {creditScoreDetails?.relationship}
+              {creditScoreDetails?.relationship ?? "-"}
             </td>
             <td style={{ textAlign: "center" }}>
-              {creditScoreDetails?.scoreValue}
+              {creditScoreDetails?.scoreValue ?? "-"}
             </td>
             <td style={{ textAlign: "center" }}>
-              {creditScoreDetails?.exclusionReason}
+              {creditScoreDetails?.exclusionReason ?? "-"}
             </td>
           </tr>
         </tbody>

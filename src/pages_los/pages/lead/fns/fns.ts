@@ -100,3 +100,38 @@ export const shouldExcludeDisburesementTranchesCashflow = (
   }
   return true;
 };
+
+export const calculateDSCRAAmount = (dependentFields) => {
+  let interestRate;
+
+  const loanPeriod = Number(dependentFields["facilityDetails.tenure"].value);
+  const loanAmount = Number(
+    dependentFields["facilityDetails.sanctionAmount"]?.value
+  );
+  const fixedROI: any =
+    Number(dependentFields["facilityDetails.fixedActualROI"]?.value) / 100;
+  const floatingROI: any =
+    Number(dependentFields["facilityDetails.floatingActualROI"]?.value) / 100;
+  const dscraMonths = Number(
+    dependentFields["facilityDetails.dscraMonths"]?.value
+  );
+
+  if (fixedROI !== 0) {
+    interestRate = fixedROI;
+  } else if (floatingROI !== 0) {
+    interestRate = floatingROI;
+  } else {
+  }
+
+  const pmtCalculation = Math.abs(PMT(interestRate, loanPeriod, loanAmount));
+  if (!isNaN(Number(pmtCalculation)) && !isNaN(Number(dscraMonths))) {
+    return pmtCalculation * dscraMonths;
+  }
+};
+
+function PMT(ir, np, pv) {
+  var presentValueInterstFector = Math.pow(1 + ir, np);
+  var pmt =
+    (ir * pv * presentValueInterstFector) / (presentValueInterstFector - 1);
+  return pmt;
+}

@@ -48,7 +48,7 @@ export const GuarantorRelatedInd = ({ relatedIndDerogatory }) => {
               <span className="heading-color">Dishonored Cheque</span>
             </th>
           </tr>
-          {Array.isArray(flatMapRelatedInd) && Boolean(flatMapRelatedInd) ? (
+          {Array.isArray(flatMapRelatedInd) && flatMapRelatedInd.length > 0 ? (
             flatMapRelatedInd.map((value) => (
               <tr>
                 <td>{value.Name}</td>

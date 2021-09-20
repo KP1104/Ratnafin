@@ -7,7 +7,7 @@ export const EnquiryDetails = ({ enquiriesDetails }) => {
       <table className="table" style={{ border: "solid 1px #dee2e6" }}>
         <tbody>
           <EnquiryDetailsLabel />
-          {Boolean(enquiriesDetails) ? (
+          {Array.isArray(enquiriesDetails) && enquiriesDetails.length > 0 ? (
             enquiriesDetails?.map((enquiryData) => {
               return (
                 <tr>
