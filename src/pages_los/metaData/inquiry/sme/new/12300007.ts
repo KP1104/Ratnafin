@@ -4,7 +4,6 @@ export const sme_12300007 = {
     label: "SME Term Loan + CC/OD",
     validationRun: "onBlur",
     render: {
-      ordering: "sequence",
       renderType: "stepper",
       groups: {
         "0": "Personal Details",
@@ -13,6 +12,134 @@ export const sme_12300007 = {
     },
   },
   fields: [
+    {
+      render: {
+        componentType: "select",
+        group: 0,
+      },
+      name: "source",
+      sequence: 1,
+      label: "Source",
+      placeholder: "Source",
+      defaultValue: "1",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+      options: "getSourcelist",
+      fullWidth: true,
+      required: true,
+      validate: "getValidateValue",
+      disableCaching: true,
+    },
+    {
+      render: {
+        componentType: "autocomplete",
+        group: 0,
+      },
+      name: "employeeUserName",
+      sequence: 2,
+      label: "Select Employee",
+      placeholder: "Select Employe",
+      defaultValue: "00",
+      required: true,
+      dependentFields: ["source"],
+      options: "getAllRegisteredUsersList",
+      disableCaching: true,
+      enableVirtualized: true,
+      fullWidth: true,
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+      validate: "getValidateValue",
+      shouldExclude: {
+        conditions: {
+          any: [
+            {
+              fact: "dependentFields",
+              path: "$.source.value",
+              operator: "equal",
+              value: "3",
+            },
+          ],
+        },
+        success: false,
+        failure: true,
+      },
+    },
+    {
+      render: {
+        componentType: "autocomplete",
+        group: 0,
+      },
+      name: "partnerUserName",
+      placeholder: "Select IDC",
+      label: "Select IDC",
+      defaultValue: "00",
+      sequence: 3,
+      dependentFields: ["source"],
+      options: "getPartnerList",
+      required: true,
+      disableCaching: true,
+      enableVirtualized: true,
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+      shouldExclude: {
+        conditions: {
+          any: [
+            {
+              fact: "dependentFields",
+              path: "$.source.value",
+              operator: "equal",
+              value: "4",
+            },
+          ],
+        },
+        success: false,
+        failure: true,
+      },
+      fullWidth: true,
+      validate: "getValidateValue",
+    },
+    {
+      render: {
+        componentType: "textField",
+        group: 0,
+      },
+      name: "otherDescription",
+      sequence: 4,
+      label: "References",
+      placeholder: "References",
+      defaultValue: "",
+      dependentFields: ["source"],
+      maxLength: 100,
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+      shouldExclude: {
+        conditions: {
+          any: [
+            {
+              fact: "dependentFields",
+              path: "$.source.value",
+              operator: "equal",
+              value: "1",
+            },
+          ],
+        },
+        success: false,
+        failure: true,
+      },
+      fullWidth: true,
+    },
     {
       render: {
         componentType: "select",
