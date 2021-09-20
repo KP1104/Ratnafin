@@ -4,11 +4,11 @@ import { Inquiry } from "../inquiry";
 export const AllAssignedInquiry = () => {
   const actions: ActionTypes[] = [
     {
-      actionName: "AssignInquiry",
-      actionLabel: "Assign Inquiry",
+      actionName: "ViewStatus",
+      actionLabel: "View Status",
       multiple: false,
-      rowDoubleClick: false,
+      rowDoubleClick: true,
     },
   ];
-  return <Inquiry gridCode="INQ/002" actions={actions} />;
+  return <Inquiry gridCode="INQ/003" actions={actions} />;
 };

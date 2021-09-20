@@ -4,5 +4,13 @@ import { Inquiry } from "../inquiry";
 const actions: ActionTypes[] = [];
 
 export const MyTeamCrossInquiry = () => {
-  return <Inquiry gridCode="INQ/008" actions={actions} />;
+  const actions: ActionTypes[] = [
+    {
+      actionName: "ViewStatus",
+      actionLabel: "View Status",
+      multiple: false,
+      rowDoubleClick: true,
+    },
+  ];
+  return <Inquiry gridCode="INQ/009" actions={actions} />;
 };

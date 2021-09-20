@@ -4,5 +4,13 @@ import { Inquiry } from "../inquiry";
 const actions: ActionTypes[] = [];
 
 export const MyUnmappedInquiry = () => {
-  return <Inquiry gridCode="INQ/004" actions={actions} />;
+  const actions: ActionTypes[] = [
+    {
+      actionName: "ViewStatus",
+      actionLabel: "View Status",
+      multiple: false,
+      rowDoubleClick: true,
+    },
+  ];
+  return <Inquiry gridCode="INQ/005" actions={actions} />;
 };

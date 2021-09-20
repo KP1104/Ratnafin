@@ -17,5 +17,5 @@ const actions: ActionTypes[] = [
 ];
 
 export const UnmappedInqiry = () => {
-  return <Inquiry gridCode="INQ/005" actions={actions} />;
+  return <Inquiry gridCode="INQ/006" actions={actions} />;
 };

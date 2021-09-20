@@ -13,28 +13,28 @@ import {
 
 export const getGridMetaData = ({ gridCode }) => async () => {
   switch (gridCode) {
-    case "INQ/001": {
+    case "INQ/002": {
       return incomingMetaData;
     }
-    case "INQ/002": {
+    case "INQ/003": {
       return allAssignedMetaData;
     }
-    case "INQ/003": {
+    case "INQ/004": {
       return myInquiryMetaData;
     }
-    case "INQ/004": {
+    case "INQ/005": {
       return myUnmappedMetaData;
     }
-    case "INQ/005": {
+    case "INQ/006": {
       return unmappedMetaData;
     }
-    case "INQ/006": {
+    case "INQ/007": {
       return unmappedHOMetaData;
     }
-    case "INQ/007": {
+    case "INQ/008": {
       return myCrossMetaData;
     }
-    case "INQ/008": {
+    case "INQ/009": {
       return myTeamCrossMetaData;
     }
     default: {
