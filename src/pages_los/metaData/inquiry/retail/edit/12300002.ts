@@ -167,23 +167,6 @@ export const retail_12300002 = {
     },
     {
       render: {
-        componentType: "spacer",
-        group: 0,
-      },
-      name: "spacer",
-      sequence: 2,
-      label: "spacer",
-      GridProps: {
-        xs: 12,
-        md: 9,
-        sm: 9,
-      },
-      HiddenProps: {
-        smDown: true,
-      },
-    },
-    {
-      render: {
         componentType: "select",
         group: 0,
       },

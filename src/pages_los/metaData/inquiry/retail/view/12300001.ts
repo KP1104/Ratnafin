@@ -167,23 +167,6 @@ export const retail_12300001 = {
     },
     {
       render: {
-        componentType: "spacer",
-        group: 0,
-      },
-      name: "spacer",
-      sequence: 2,
-      label: "spacer",
-      GridProps: {
-        xs: 12,
-        md: 9,
-        sm: 9,
-      },
-      HiddenProps: {
-        smDown: true,
-      },
-    },
-    {
-      render: {
         componentType: "select",
         group: 0,
       },
@@ -457,6 +440,25 @@ export const retail_12300001 = {
         componentType: "textField",
         group: 1,
       },
+      name: "address",
+      sequence: 12.2,
+      type: "text",
+      label: "Address",
+      required: false,
+      placeholder: "Address",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+      fullWidth: true,
+      maxLength: 200,
+    },
+    {
+      render: {
+        componentType: "textField",
+        group: 1,
+      },
       name: "landmark",
       sequence: 13,
       type: "text",
@@ -603,25 +605,6 @@ export const retail_12300001 = {
         sm: 3,
       },
       fullWidth: true,
-    },
-    {
-      render: {
-        componentType: "textField",
-        group: 1,
-      },
-      name: "address",
-      sequence: 12.2,
-      type: "text",
-      label: "Address",
-      required: false,
-      placeholder: "Address",
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-      fullWidth: true,
-      maxLength: 200,
     },
   ],
 };

@@ -170,6 +170,48 @@ export const infra_123000012 = {
         componentType: "select",
         group: 0,
       },
+      name: "subProductType",
+      sequence: 2,
+      label: "Sub Product Type",
+      placeholder: "Sub Product Type",
+      required: true,
+      defaultValue: "00",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+      fullWidth: true,
+      validate: "getValidateValue",
+      dependentFields: ["productType"],
+      shouldExclude: {
+        conditions: {
+          any: [
+            {
+              fact: "dependentFields",
+              path: "$.productType.value",
+              operator: "equal",
+              value: "123400026",
+            },
+            {
+              fact: "dependentFields",
+              path: "$.productType.value",
+              operator: "equal",
+              value: "123400027",
+            },
+          ],
+        },
+        success: false,
+        failure: true,
+      },
+      disableCaching: true,
+      options: "getCRMSubProductType",
+    },
+    {
+      render: {
+        componentType: "select",
+        group: 0,
+      },
       name: "salutation",
       sequence: 5,
       label: "Salutation",
@@ -586,48 +628,6 @@ export const infra_123000012 = {
         sm: 3,
       },
       fullWidth: true,
-    },
-    {
-      render: {
-        componentType: "select",
-        group: 0,
-      },
-      name: "subProductType",
-      sequence: 2,
-      label: "Sub Product Type",
-      placeholder: "Sub Product Type",
-      required: true,
-      defaultValue: "00",
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-      fullWidth: true,
-      validate: "getValidateValue",
-      dependentFields: ["productType"],
-      shouldExclude: {
-        conditions: {
-          any: [
-            {
-              fact: "dependentFields",
-              path: "$.productType.value",
-              operator: "equal",
-              value: "123400026",
-            },
-            {
-              fact: "dependentFields",
-              path: "$.productType.value",
-              operator: "equal",
-              value: "123400027",
-            },
-          ],
-        },
-        success: false,
-        failure: true,
-      },
-      disableCaching: true,
-      options: "getCRMSubProductType",
     },
     {
       render: {

@@ -7,6 +7,7 @@ import "registry"; //register functions to be used across application
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 //import ErrorBoundary from "errorBoundary/errorBoundary";
+import "pages_los/metaData/utils";
 const LOS = lazy(() => import("app/los"));
 const CRM = lazy(() => import("app/crm"));
 const ErrorPage = lazy(() => import("app/error"));

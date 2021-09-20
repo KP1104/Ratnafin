@@ -112,6 +112,39 @@ export const infra_123000012 = {
     },
     {
       render: {
+        componentType: "textField",
+        group: 0,
+      },
+      name: "otherDescription",
+      sequence: 4,
+      label: "References",
+      placeholder: "References",
+      defaultValue: "",
+      dependentFields: ["source"],
+      maxLength: 100,
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+      shouldExclude: {
+        conditions: {
+          any: [
+            {
+              fact: "dependentFields",
+              path: "$.source.value",
+              operator: "equal",
+              value: "1",
+            },
+          ],
+        },
+        success: false,
+        failure: true,
+      },
+      fullWidth: true,
+    },
+    {
+      render: {
         componentType: "select",
         group: 0,
       },
@@ -130,6 +163,48 @@ export const infra_123000012 = {
       fullWidth: true,
       validate: "getValidateValue",
       isReadOnly: false,
+    },
+    {
+      render: {
+        componentType: "select",
+        group: 0,
+      },
+      name: "subProductType",
+      sequence: 2,
+      label: "Sub Product Type",
+      placeholder: "Sub Product Type",
+      required: true,
+      defaultValue: "00",
+      GridProps: {
+        xs: 12,
+        md: 3,
+        sm: 3,
+      },
+      fullWidth: true,
+      validate: "getValidateValue",
+      dependentFields: ["productType"],
+      shouldExclude: {
+        conditions: {
+          any: [
+            {
+              fact: "dependentFields",
+              path: "$.productType.value",
+              operator: "equal",
+              value: "123400026",
+            },
+            {
+              fact: "dependentFields",
+              path: "$.productType.value",
+              operator: "equal",
+              value: "123400027",
+            },
+          ],
+        },
+        success: false,
+        failure: true,
+      },
+      disableCaching: true,
+      options: "getCRMSubProductType",
     },
     {
       render: {
@@ -552,48 +627,6 @@ export const infra_123000012 = {
         sm: 3,
       },
       fullWidth: true,
-    },
-    {
-      render: {
-        componentType: "select",
-        group: 0,
-      },
-      name: "subProductType",
-      sequence: 2,
-      label: "Sub Product Type",
-      placeholder: "Sub Product Type",
-      required: true,
-      defaultValue: "00",
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-      fullWidth: true,
-      validate: "getValidateValue",
-      dependentFields: ["productType"],
-      shouldExclude: {
-        conditions: {
-          any: [
-            {
-              fact: "dependentFields",
-              path: "$.productType.value",
-              operator: "equal",
-              value: "123400026",
-            },
-            {
-              fact: "dependentFields",
-              path: "$.productType.value",
-              operator: "equal",
-              value: "123400027",
-            },
-          ],
-        },
-        success: false,
-        failure: true,
-      },
-      disableCaching: true,
-      options: "getCRMSubProductType",
     },
     {
       render: {
