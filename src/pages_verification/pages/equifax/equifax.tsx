@@ -22,7 +22,7 @@ export const EquifaxVerificationWrapper = ({ otpLength = 6 }) => {
   const { token } = useParams();
   const verifyToken = useQuery<any, any, any>(
     "verifyToken",
-    () => API.verifyToken(token),
+    () => API.verifyToken(token as string),
     {
       cacheTime: 0,
       retry: 0,

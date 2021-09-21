@@ -41,26 +41,35 @@ export const Task = ({ gridCode, actions }) => {
       </ServerGridContextProvider>
       <ClearCacheProvider>
         <Routes>
-          <Route path="/AddTask">
-            <AssignTaskWrapper
-              handleDialogClose={handleDialogClose}
-              moduleType="task"
-              isDataChangedRef={isDataEditedRef}
-            />
-          </Route>
-          <Route path="/ViewDetails">
-            <ViewEditTaskWrapper
-              handleDialogClose={handleDialogClose}
-              moduleType="task"
-              isDataChangedRef={isDataEditedRef}
-            />
-          </Route>
-          <Route path="/TaskHistory">
-            <HistoryMetaWrapper
-              handleDialogClose={handleDialogClose}
-              moduleType="task"
-            />
-          </Route>
+          <Route
+            path="/AddTask"
+            element={
+              <AssignTaskWrapper
+                handleDialogClose={handleDialogClose}
+                moduleType="task"
+                isDataChangedRef={isDataEditedRef}
+              />
+            }
+          />
+          <Route
+            path="/ViewDetails"
+            element={
+              <ViewEditTaskWrapper
+                handleDialogClose={handleDialogClose}
+                moduleType="task"
+                isDataChangedRef={isDataEditedRef}
+              />
+            }
+          />
+          <Route
+            path="/TaskHistory"
+            element={
+              <HistoryMetaWrapper
+                handleDialogClose={handleDialogClose}
+                moduleType="task"
+              />
+            }
+          />
         </Routes>
       </ClearCacheProvider>
     </Fragment>
