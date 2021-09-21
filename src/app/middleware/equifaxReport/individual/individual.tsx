@@ -24,17 +24,13 @@ export const IndividualEquifaxReport = () => {
   ) : (
     <>
       <PersonalInfo personalInfo={newdata?.customer} header={newdata?.header} />
-      <AccountSummary
-        accountsSummary={newdata?.account}
-        header={newdata?.header}
-      />
-      <AccountsInfo accountsInfo={newdata?.account} header={newdata?.header} />
+      <AccountSummary accountsSummary={newdata?.account} />
+      <AccountsInfo accountsInfo={newdata?.account} />
       <EnquiryInfo
         enquirySummaryInfo={newdata?.enquirySummary}
         enquiryInputInfo={newdata?.inputEnquiry}
-        header={newdata?.header}
       />
-      <GlossaryTermsExplanation header={newdata?.header} />
+      <GlossaryTermsExplanation />
     </>
   );
   return renderResult;

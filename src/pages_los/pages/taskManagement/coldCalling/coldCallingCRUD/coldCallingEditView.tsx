@@ -26,12 +26,11 @@ interface updateColdCallingDataType {
   tran_cd: string;
 }
 
-const updateColdCallingDataWrapperFn = (updateColdCallingData) => async ({
-  data,
-  tran_cd,
-}: updateColdCallingDataType) => {
-  return updateColdCallingData(data, tran_cd);
-};
+const updateColdCallingDataWrapperFn =
+  (updateColdCallingData) =>
+  async ({ data, tran_cd }: updateColdCallingDataType) => {
+    return updateColdCallingData(data, tran_cd);
+  };
 
 const ColdCallingViewEdit: FC<{
   moduleType: any;
@@ -169,8 +168,6 @@ const ColdCallingViewEdit: FC<{
       displayMode={formMode}
       formStyle={{
         background: "white",
-        overflowY: "auto",
-        overflowX: "hidden",
       }}
     >
       {!readOnly ? <Button onClick={moveToEditMode}>Edit</Button> : null}
@@ -188,8 +185,6 @@ const ColdCallingViewEdit: FC<{
       displayMode={formMode}
       formStyle={{
         background: "white",
-        overflowY: "auto",
-        overflowX: "hidden",
       }}
     >
       {({ isSubmitting, handleSubmit }) => (

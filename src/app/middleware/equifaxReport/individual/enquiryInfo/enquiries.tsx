@@ -3,7 +3,7 @@ export const Enquiries = ({ enquiriesDetails }) => {
     <div className="enquiry-sec">
       <h2>Enquiries:</h2>
       <table className="table">
-        <thead className="thead-dark">
+        <tbody>
           <tr>
             <th scope="col">Institution</th>
             <th scope="col">Date</th>
@@ -11,8 +11,6 @@ export const Enquiries = ({ enquiriesDetails }) => {
             <th scope="col">Purpose</th>
             <th scope="col">Amount</th>
           </tr>
-        </thead>
-        <tbody>
           {enquiriesDetails?.map((enquiries) => {
             return (
               <tr>
