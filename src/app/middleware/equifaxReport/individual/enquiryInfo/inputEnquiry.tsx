@@ -3,14 +3,20 @@ export const InputEnquiry = ({ inputEnquiryDetails }) => {
     <div className="enquiry-sec last-table">
       <h2>Input Enquiry:</h2>
       <table className="table">
-        <thead className="thead-dark">
-          <tr>
-            <th scope="col">Personal & Account Information</th>
-            <th scope="col">ID & Phone Numbers</th>
-            <th scope="col">Contact Details</th>
-          </tr>
-        </thead>
         <tbody>
+          <tr>
+            <th scope="col">
+              <span className="heading-color">
+                Personal & Account Information
+              </span>
+            </th>
+            <th scope="col">
+              <span className="heading-color">ID & Phone Numbers</span>
+            </th>
+            <th scope="col">
+              <span className="heading-color">Contact Details</span>
+            </th>
+          </tr>
           <tr>
             <td>
               Consumer’s First Name :{" "}
@@ -49,7 +55,7 @@ export const InputEnquiry = ({ inputEnquiryDetails }) => {
             </td>
             <td>UID:</td>
             <td>
-              Postal :
+              Postal :{" "}
               <strong>{inputEnquiryDetails?.address?.[0]?.Postal}</strong>
             </td>
           </tr>

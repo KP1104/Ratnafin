@@ -1,19 +1,17 @@
-import { Header } from "../header";
-import { Footer } from "../footer";
-
-export const GlossaryTermsExplanation = ({ header }) => {
+export const GlossaryTermsExplanation = () => {
   return (
     <article>
-      <Header headerDetails={header} />
-      <hr />
-
       <div className="glossary-part">
         <h2>Glossary, Terms and Explanations:</h2>
         <table className="table">
           <tbody>
             <tr>
-              <th scope="col">Code</th>
-              <th scope="col">Description</th>
+              <th scope="col">
+                <span className="heading-color">Code</span>
+              </th>
+              <th scope="col">
+                <span className="heading-color">Description</span>
+              </th>
             </tr>
             <tr>
               <td>000</td>
@@ -162,8 +160,6 @@ export const GlossaryTermsExplanation = ({ header }) => {
           </tbody>
         </table>
       </div>
-
-      <Footer />
     </article>
   );
 };

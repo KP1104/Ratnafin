@@ -5,10 +5,18 @@ export const EquifaxScore = ({ scoreDetails }) => {
       <table className="table">
         <tbody>
           <tr>
-            <th scope="col">Score Name</th>
-            <th scope="col">Score</th>
-            <th scope="col">Scoring Elements</th>
-            <th scope="col">Score Description</th>
+            <th scope="col">
+              <span className="heading-color">Score Name</span>
+            </th>
+            <th scope="col">
+              <span className="heading-color">Score</span>
+            </th>
+            <th scope="col">
+              <span className="heading-color">Scoring Elements</span>
+            </th>
+            <th scope="col">
+              <span className="heading-color">Score Description</span>
+            </th>
           </tr>
           <tr>
             <td>{scoreDetails?.scoreName}</td>
