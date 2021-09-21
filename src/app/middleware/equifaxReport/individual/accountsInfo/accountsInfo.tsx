@@ -1,14 +1,9 @@
 import { AllAccountDetils } from "./allAccountDetails";
-import { Header } from "../header";
-import { Footer } from "../footer";
 
-export const AccountsInfo = ({ header, accountsInfo }) => {
+export const AccountsInfo = ({ accountsInfo }) => {
   return (
-    <article id="contents">
-      <Header headerDetails={header} />
-      <hr />
+    <article>
       <AllAccountDetils accountDetails={accountsInfo?.accountDetails} />
-      <Footer />
     </article>
   );
 };

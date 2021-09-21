@@ -196,6 +196,8 @@ export const becomePartnerMetaData: MetaDataType = {
       label: "Marriage Anniversary",
       placeholder: "dd/mm/yyyy",
       format: "dd/MM/yyyy",
+      dependentFields: ["partnerType"],
+      shouldExclude: becomePartnerIndividual,
       GridProps: {
         xs: 12,
         md: 3,
@@ -251,16 +253,27 @@ export const becomePartnerMetaData: MetaDataType = {
     {
       render: {
         //@ts-ignore
-        componentType: "pincode",
+        componentType: "textField",
       },
+      type: "number",
       name: "pincode",
-      label: "Residence Pincode",
-      placeholder: "Residence pincode",
+      label: "Pincode",
+      placeholder: "pincode",
       required: true,
       validate: "getValidateValue",
       runPostValidationHookAlways: true,
       //@ts-ignore
       postValidationSetCrossFieldValues: "postValidationSetPincodeDtl",
+      maxLength: 6,
+      showMaxLength: false,
+      schemaValidation: {
+        type: "string",
+        rules: [
+          { name: "required", params: ["Pincode is required"] },
+          { name: "min", params: [6, "Pincode should be 6 digit."] },
+          { name: "max", params: [6, "Pincode should be 6 digit."] },
+        ],
+      },
       GridProps: {
         xs: 12,
         md: 3,
@@ -626,28 +639,6 @@ export const becomePartnerMetaData: MetaDataType = {
         sm: 3,
       },
     },
-
-    {
-      render: {
-        componentType: "select",
-      },
-      name: "primaryBussInt",
-      label: "Primary Business Interest",
-      placeholder: "Primary business interest",
-      required: true,
-      defaultValue: "00",
-      multiple: true,
-      showCheckbox: true,
-      //@ts-ignore
-      options: "getPrimaryProduct",
-      validate: "getValidateValue",
-      GridProps: {
-        xs: 12,
-        md: 3,
-        sm: 3,
-      },
-    },
-
     {
       render: {
         componentType: "select",

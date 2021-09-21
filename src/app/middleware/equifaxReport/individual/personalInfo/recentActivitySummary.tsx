@@ -3,14 +3,14 @@ export const RecentActivitySummary = ({ recentActivitySummaryDetails }) => {
     <div className="recent-sec">
       <h2>Recent Activity:</h2>
       <table className="table">
-        <thead className="thead-dark">
+        <tbody>
           <tr>
             <th colSpan={4} scope="col" style={{ textAlign: "center" }}>
-              Recent Activity (last 90 days)
+              <span className="heading-color">
+                Recent Activity (last 90 days)
+              </span>
             </th>
           </tr>
-        </thead>
-        <tbody>
           <tr>
             <td>
               <span>Total Inquiries :</span>
