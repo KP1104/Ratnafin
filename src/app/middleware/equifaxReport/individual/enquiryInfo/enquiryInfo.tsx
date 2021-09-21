@@ -11,7 +11,7 @@ export const EnquiryInfo = ({
 }) => {
   return (
     <>
-      <article id="columns">
+      <article>
         <Header headerDetails={header} />
         <hr />
         <EnquirySummary enquirySummaryDetails={enquirySummaryInfo} />
@@ -30,7 +30,7 @@ export const EnquiryInfo = ({
 
 const InputInquiryDetails = ({ inputEnquiryDetails, header }) => {
   return (
-    <article id="columns">
+    <article>
       <Header headerDetails={header} />
       <hr />
       <InputEnquiry inputEnquiryDetails={inputEnquiryDetails} />

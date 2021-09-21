@@ -4,7 +4,7 @@ import { Footer } from "../footer";
 
 export const AccountsInfo = ({ header, accountsInfo }) => {
   return (
-    <article id="contents">
+    <article>
       <Header headerDetails={header} />
       <hr />
       <AllAccountDetils accountDetails={accountsInfo?.accountDetails} />

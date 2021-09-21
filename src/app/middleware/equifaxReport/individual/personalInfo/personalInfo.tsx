@@ -7,7 +7,7 @@ import { Footer } from "../footer";
 
 export const PersonalInfo = ({ personalInfo, header }) => {
   return (
-    <article id="cover">
+    <article>
       <Header headerDetails={header} />
       <hr />
       <PersonalDetails personalDetails={personalInfo} />

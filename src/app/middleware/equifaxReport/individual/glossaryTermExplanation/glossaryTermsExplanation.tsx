@@ -3,20 +3,18 @@ import { Footer } from "../footer";
 
 export const GlossaryTermsExplanation = ({ header }) => {
   return (
-    <article id="competences">
+    <article>
       <Header headerDetails={header} />
       <hr />
 
       <div className="glossary-part">
         <h2>Glossary, Terms and Explanations:</h2>
         <table className="table">
-          <thead className="thead-dark">
+          <tbody>
             <tr>
               <th scope="col">Code</th>
               <th scope="col">Description</th>
             </tr>
-          </thead>
-          <tbody>
             <tr>
               <td>000</td>
               <td>current account</td>

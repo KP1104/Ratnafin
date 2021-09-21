@@ -3,7 +3,7 @@ export const EnquirySummary = ({ enquirySummaryDetails }) => {
     <div className="enquiry-sec">
       <h2>Enquiry Summary:</h2>
       <table className="table">
-        <thead className="thead-dark">
+        <tbody>
           <tr>
             <th scope="col">Purpose</th>
             <th scope="col">Total</th>
@@ -12,8 +12,6 @@ export const EnquirySummary = ({ enquirySummaryDetails }) => {
             <th scope="col">Past 24 Months</th>
             <th scope="col">Recent</th>
           </tr>
-        </thead>
-        <tbody>
           <tr>
             <td>{enquirySummaryDetails?.purpose}</td>
             <td>{enquirySummaryDetails?.total}</td>

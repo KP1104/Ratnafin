@@ -3,15 +3,13 @@ export const EquifaxScore = ({ scoreDetails }) => {
     <div className="equifax-sec">
       <h2>Equifax Score(s):</h2>
       <table className="table">
-        <thead className="thead-dark">
+        <tbody>
           <tr>
             <th scope="col">Score Name</th>
             <th scope="col">Score</th>
             <th scope="col">Scoring Elements</th>
             <th scope="col">Score Description</th>
           </tr>
-        </thead>
-        <tbody>
           <tr>
             <td>{scoreDetails?.scoreName}</td>
             <td>

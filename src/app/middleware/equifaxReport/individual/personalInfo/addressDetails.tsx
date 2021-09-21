@@ -3,7 +3,7 @@ export const AddressDetails = ({ addressDetails }) => {
     <div className="consumer-part">
       <h2>Consumer Address:</h2>
       <table className="table">
-        <thead className="thead-dark">
+        <tbody>
           <tr>
             <th scope="col">Type</th>
             <th scope="col">Address</th>
@@ -11,8 +11,6 @@ export const AddressDetails = ({ addressDetails }) => {
             <th scope="col">Postal</th>
             <th scope="col">Date Reported</th>
           </tr>
-        </thead>
-        <tbody>
           {addressDetails?.map((addressInfo) => {
             return (
               <tr>

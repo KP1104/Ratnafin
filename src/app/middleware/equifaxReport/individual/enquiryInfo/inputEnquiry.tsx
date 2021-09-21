@@ -40,7 +40,7 @@ export const InputEnquiry = ({ inputEnquiryDetails }) => {
             </td>
             <td>Passport ID:</td>
             <td>
-              State : <strong>{inputEnquiryDetails?.address[0]?.State}</strong>
+              State :<strong>{inputEnquiryDetails?.address?.[0]?.State}</strong>
             </td>
           </tr>
           <tr>
@@ -49,8 +49,8 @@ export const InputEnquiry = ({ inputEnquiryDetails }) => {
             </td>
             <td>UID:</td>
             <td>
-              Postal :{" "}
-              <strong>{inputEnquiryDetails?.address[0]?.Postal}</strong>
+              Postal :
+              <strong>{inputEnquiryDetails?.address?.[0]?.Postal}</strong>
             </td>
           </tr>
           <tr>

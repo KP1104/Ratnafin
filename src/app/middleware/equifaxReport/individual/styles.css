@@ -1,5 +1,75 @@
 @charset "UTF-8";
 
+@page {
+  @top-left {
+    background: #fbc847;
+    content: counter(page);
+    height: 1cm;
+    text-align: center;
+    width: 1cm;
+  }
+  @top-center {
+    background: #fbc847;
+    content: "";
+    display: block;
+    height: 0.05cm;
+    opacity: 0.5;
+    width: 100%;
+  }
+  @top-right {
+    content: string(heading);
+    font-size: 9pt;
+    height: 1cm;
+    vertical-align: middle;
+    width: 100%;
+  }
+}
+
+@page {
+  size: A4;
+  margin: 0;
+}
+@media print {
+  html,
+  body {
+    width: 210mm;
+    height: 297mm;
+  }
+  tbody::after {
+    content: "";
+    display: block;
+    page-break-inside: avoid;
+    page-break-before: always;
+    page-break-after: always;
+  }
+
+  /* ... the rest of the rules ... */
+}
+@page :blank {
+  @top-left {
+    background: none;
+    content: "";
+  }
+  @top-center {
+    content: none;
+  }
+  @top-right {
+    content: none;
+  }
+}
+
+@page no-chapter {
+  @top-left {
+    background: none;
+    content: none;
+  }
+  @top-center {
+    content: none;
+  }
+  @top-right {
+    content: none;
+  }
+}
 @page :first {
   background-size: cover;
   margin: 0;
@@ -18,24 +88,10 @@
     content: none;
   }
 }
-
-@page {
-  size: A4;
-  margin: 0;
-}
-@media print {
-  html,
-  body {
-    width: 210mm;
-    height: 297mm;
-  }
-  /* ... the rest of the rules ... */
-}
-
 html {
   color: #393939;
   font-family: Fira Sans;
-  font-size: 11pt;
+  font-size: 9pt;
   font-weight: 300;
   line-height: 1.5;
   overflow-x: hidden;
@@ -67,15 +123,11 @@ html body h4 {
 }
 
 html body hr {
-  border-bottom: solid 2px white;
+  border-bottom: solid 2px #10b158;
   width: 100%;
   border-top: none;
-  margin-bottom: 30px;
-  margin-top: 20px;
-}
-
-html body article {
-  padding: 50px;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 html body article .header-top {
@@ -85,72 +137,67 @@ html body article .header-top {
   /* overflow-x: hidden; */
 }
 
-html body article .header-top h1 {
+article {
+  padding: 50px;
+}
+
+.header-top {
+  width: 100%;
+  /* display: inline-block; */
+  position: relative;
+  /* overflow-x: hidden; */
+}
+.header-top h1 {
   position: absolute;
   text-align: center;
   color: #10b158;
-  top: -8px;
+  top: 0px;
 }
-
-html body article .header-top .logo {
+.header-top .logo {
   text-align: left;
   position: relative;
   z-index: 9999;
 }
 
-html body article .header-top .equifax-logo {
+.header-top .equifax-logo {
   text-align: right;
   position: absolute;
   z-index: 9999;
   right: 0;
-  top: 0;
+  top: -8px;
 }
-
-html body article .header-top .top-sec {
+.header-top .top-sec {
   width: 100%;
   padding-top: 15px;
 }
-
-html body article .header-top .top-sec ul {
+.header-top .top-sec ul {
   list-style: none;
   padding-left: 0;
-  width: 49%;
+  width: 25%;
   display: inline-block;
   margin: 0;
   vertical-align: top;
 }
 
-html body article .header-top .top-sec ul li {
+.header-top .top-sec ul li {
   margin: 0;
   line-height: normal;
   width: 100%;
 }
-
-html body article .header-top .top-sec ul li strong {
+.header-top .top-sec ul li strong {
   font-style: italic;
   color: #10b158;
   margin-right: 10px;
 }
-
-html body article .header-top .top-sec ul:last-child {
+.header-top .top-sec ul li b {
+  color: #10b158;
+  margin-right: 10px;
+}
+.header-top .top-sec ul:last-child {
   float: right;
   width: auto;
 }
-
-html body article#cover {
-  align-content: space-between;
-  display: flex;
-  flex-wrap: wrap;
-  /* height: 297mm; */
-  position: relative;
-  overflow: hidden;
-}
-
-html body article#cover .middle-sec {
-  display: inline-block;
-}
-
-html body article#cover .middle-sec h2 {
+.middle-sec h2 {
   display: inline-block;
   font-size: 22px;
   color: #10b158;
@@ -158,22 +205,19 @@ html body article#cover .middle-sec h2 {
   width: 100%;
   margin-bottom: 25spx;
 }
-
-html body article#cover .middle-sec ul {
+.middle-sec ul {
   width: 33.33%;
   float: left;
   padding: 0;
 }
-
-html body article#cover .middle-sec ul li {
+.middle-sec ul li {
   width: 100%;
   display: inline-block;
   margin-bottom: 5px;
   line-height: normal;
   position: relative;
 }
-
-html body article#cover .middle-sec ul li span {
+.middle-sec ul li span {
   width: 100%;
   display: inline-block;
   color: #fff;
@@ -182,8 +226,7 @@ html body article#cover .middle-sec ul li span {
   padding: 3px 0 4px 5px;
   line-height: normal;
 }
-
-html body article#cover .middle-sec ul li strong {
+.middle-sec ul li strong {
   font-weight: bold;
   color: #000;
   font-style: normal;
@@ -193,21 +236,18 @@ html body article#cover .middle-sec ul li strong {
   width: 120px;
   display: inline-block;
 }
-
-html body article#cover .middle-sec ul li b {
+.middle-sec ul li b {
   position: absolute;
   font-weight: normal;
   top: 0;
   bottom: 0;
   font-size: 11px;
 }
-
-html body article#cover .consumer-part {
+.consumer-part {
   width: 100%;
-  display: inline-block;
+  /* display: inline-block; */
 }
-
-html body article#cover .consumer-part h2 {
+.consumer-part h2 {
   display: inline-block;
   font-size: 22px;
   color: #10b158;
@@ -215,30 +255,24 @@ html body article#cover .consumer-part h2 {
   width: 100%;
   margin-bottom: 25spx;
 }
-
-html body article#cover .consumer-part .table .thead-dark th {
+.consumer-part .table .thead-dark th {
   background-color: #10b158;
   text-align: left;
 }
-
-html body article#cover .consumer-part .table td,
+.consumer-part .table td,
 .table th {
   padding: 0.4rem;
 }
-
-html body article#cover .consumer-part.table-striped tbody tr:nth-of-type(odd) {
+.consumer-part.table-striped tbody tr:nth-of-type(odd) {
   background-color: rgba(0, 0, 0, 0.05);
 }
-
-html body article#cover .consumer-part tbody {
+.consumer-part tbody {
   border: solid 1px #dee2e6;
 }
-
-html body article#cover .equifax-sec {
+.equifax-sec {
   width: 100%;
 }
-
-html body article#cover .equifax-sec h2 {
+.equifax-sec h2 {
   display: inline-block;
   font-size: 22px;
   color: #10b158;
@@ -246,27 +280,22 @@ html body article#cover .equifax-sec h2 {
   width: 100%;
   margin-bottom: 25spx;
 }
-
-html body article#cover .equifax-sec .table .thead-dark th {
+.equifax-sec .table .thead-dark th {
   background-color: #10b158;
   text-align: left;
 }
-
-html body article#cover .equifax-sec .table td,
+.equifax-sec .table td,
 .table th {
   padding: 0.4rem;
   border-top: none;
 }
-
-html body article#cover .equifax-sec tbody {
+.equifax-sec tbody {
   border: 1px solid #dee2e6;
 }
-
-html body article#cover .recent-sec {
+.recent-sec {
   width: 100%;
 }
-
-html body article#cover .recent-sec h2 {
+.recent-sec h2 {
   display: inline-block;
   font-size: 22px;
   color: #10b158;
@@ -274,50 +303,19 @@ html body article#cover .recent-sec h2 {
   width: 100%;
   margin-bottom: 0.5rem;
 }
-
-html body article#cover .recent-sec .table .thead-dark th {
+.recent-sec .table .thead-dark th {
   background-color: #10b158;
 }
-
-html body article#cover .recent-sec tbody {
+.recent-sec tbody {
   border: 1px solid #dee2e6;
 }
-
-html body article#cover .recent-sec .table td span {
+.recent-sec .table td span {
   font-style: italic;
 }
-
-html body .footer-sec {
-  width: 100%;
-  display: inline-block;
-  text-align: center;
-  padding-top: 20px;
-}
-
-html body article#contents {
-  break-before: right;
-  break-after: left;
-  page: no-chapter;
-  overflow: hidden;
-  position: relative;
-}
-
-html body article#contents h2 {
-  font-size: 20pt;
-  font-weight: 400;
-  margin-bottom: 3cm;
-}
-
-html body article#contents ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-html body article#contents .summary-sec {
+.summary-sec {
   width: 100%;
 }
-
-html body article#contents .summary-sec h2 {
+.summary-sec h2 {
   display: inline-block;
   font-size: 22px;
   color: #10b158;
@@ -325,8 +323,7 @@ html body article#contents .summary-sec h2 {
   width: 100%;
   margin-bottom: 0.5rem;
 }
-
-html body article#contents .summary-sec h3 {
+.summary-sec h3 {
   display: inline-block;
   background-color: #10b158;
   font-weight: bold;
@@ -337,22 +334,19 @@ html body article#contents .summary-sec h3 {
   color: #fff;
   font-size: 1rem;
 }
-
-html body article#contents .summary-sec ul {
+.summary-sec ul {
   list-style-type: none;
   padding: 10px;
   margin: 0 0 20px 0;
   border: 1px solid #dee2e6;
 }
-
-html body article#contents .summary-sec ul li {
+.summary-sec ul li {
   width: 33%;
   display: inline-block;
   vertical-align: top;
   margin-bottom: 4px;
 }
-
-html body article#contents .summary-sec ul li span {
+.summary-sec ul li span {
   font-style: italic;
   width: 213px;
   display: inline-block;
@@ -360,13 +354,11 @@ html body article#contents .summary-sec ul li span {
   margin-right: 3px;
   font-size: 14px;
 }
-
-html body article#contents .summary-sec ul li b {
+.summary-sec ul li b {
   width: 155px;
   display: inline-block;
 }
-
-html body article#contents .summary-sec ul li span {
+.summary-sec ul li span {
   font-style: italic;
   width: 213px;
   display: inline-block;
@@ -374,45 +366,37 @@ html body article#contents .summary-sec ul li span {
   margin-right: 3px;
   font-size: 14px;
 }
-
-html body article#contents .summary-sec ul li b {
+.summary-sec ul li b {
   width: 155px;
   display: inline-block;
 }
-
-html body article#contents .summary-sec .table .thead-dark th {
+.summary-sec .table .thead-dark th {
   background-color: #10b158;
 }
-
-html body article#contents .summary-sec .table td span {
+.summary-sec .table td span {
   font-style: italic;
   width: 50%;
   display: inline-block;
   vertical-align: top;
   word-break: break-word;
 }
-
-html body article#contents .summary-sec .table td b {
+.summary-sec .table td b {
   width: 125px;
   display: inline-block;
   word-break: break-word;
 }
-
-html body article#contents .summary-sec tbody {
+.summary-sec tbody {
   border: solid 1px #dee2e6;
   padding: 15px;
 }
-
-html body article#contents .summary-sec .table td {
+.summary-sec .table td {
   word-break: break-all;
 }
-
-html body article#contents .account-details-sec {
+.account-details-sec {
   width: 100%;
-  display: inline-block;
+  /* display: inline-block; */
 }
-
-html body article#contents .account-details-sec h2 {
+.account-details-sec h2 {
   display: inline-block;
   font-size: 22px;
   color: #10b158;
@@ -421,84 +405,50 @@ html body article#contents .account-details-sec h2 {
   margin-bottom: 0.5rem;
 }
 
-html body article#contents .account-details-sec .table .thead-dark th {
+.account-details-sec .table .thead-dark th {
   background-color: #10b158;
 }
-
-html body article#contents .account-details-sec tbody {
+.account-details-sec tbody {
   border: solid 1px #dee2e6;
-  padding: 15px;
+  /* padding: 15px; */
 }
-
-html body article#contents .account-details-sec .table td {
+.account-details-sec .table td {
   border: none;
   padding: 0.15rem 0.75rem;
   font-size: 13px;
 }
-
-html body article#contents .account-details-sec .history-sec tbody {
+.account-details-sec .history-sec tbody {
   border: none;
-  border-right: solid 1px #dee2e6;
+  /* border-right: solid 1px #dee2e6; */
 }
-
-html body article#contents .account-details-sec .account-small strong {
+.account-details-sec .account-small strong {
   font-size: 12px;
   max-width: 100px;
 }
-
-html body article#contents .account-details-sec .account-part {
+.account-details-sec .account-part {
   width: 100%;
 }
-
-html body article#contents .account-details-sec .history-sec td {
+.account-details-sec .history-sec td {
   padding-left: 0;
   padding-right: 0;
 }
-
-html body article#contents .account-details-sec .history-monthly tbody {
+.account-details-sec .history-monthly tbody {
   border: none;
 }
-html body article#contents .account-details-sec .monthly-sec {
+.account-details-sec .monthly-sec {
   margin-bottom: 0;
 }
 
-html body article#contents .account-details-sec .monthly-sec td {
+.account-details-sec .monthly-sec td {
   padding: 0 3px;
   font-size: 11px;
   text-align: center;
 }
-
-html
-  body
-  article#contents
-  .account-details-sec
-  .account-part.account-second-part {
-  background-color: #eeeeee;
-}
-
-html
-  body
-  article#contents
-  .account-details-sec
-  .account-part.account-second-part
-  .table
-  .table {
-  background-color: transparent;
-}
-
-html body article#columns {
-  break-before: right;
-  break-after: left;
-  page: no-chapter;
-  overflow: hidden;
-  position: relative;
-}
-
-html body article#columns .enquiry-sec {
+.enquiry-sec {
   width: 100%;
 }
 
-html body article#columns .enquiry-sec h2 {
+.enquiry-sec h2 {
   display: inline-block;
   font-size: 22px;
   color: #10b158;
@@ -506,73 +456,34 @@ html body article#columns .enquiry-sec h2 {
   width: 100%;
   margin-bottom: 0.5rem;
 }
-
-html body article#columns .enquiry-sec .table .thead-dark th {
+.enquiry-sec .table .thead-dark th {
   background-color: #10b158;
 }
-
-html body article#columns .enquiry-sec .table td,
+.enquiry-sec .table td,
 .table th {
   padding: 0.4rem;
   text-align: center;
 }
-
-html body article#columns .enquiry-sec.table-striped tbody tr:nth-of-type(odd) {
+.enquiry-sec.table-striped tbody tr:nth-of-type(odd) {
   background-color: rgba(0, 0, 0, 0.05);
 }
-
-html body article#columns .enquiry-sec tbody {
+.enquiry-sec tbody {
   border: solid 1px #dee2e6;
 }
-
-html body article#columns .last-table .table th {
+.last-table .table th {
   text-align: left;
 }
-
-html body article#columns .last-table .table td {
+.last-table .table td {
   text-align: left;
 }
-
-html body article#columns .last-table td {
+.last-table td {
   width: 33%;
   text-align: left;
 }
-
-html body article#columns section {
-  columns: 2;
-  column-gap: 1cm;
-  padding-top: 1cm;
-}
-html body article#columns section p {
-  text-align: justify;
-}
-html body article#columns section p:first-of-type {
-  font-weight: 700;
-}
-
-html body article#competences {
-  break-before: right;
-  break-after: left;
-  page: no-chapter;
-  overflow: hidden;
-  position: relative;
-}
-
-html body article#competences h3 {
-  background: #fbc847;
-  margin: 0 -3cm 1cm;
-  padding: 1cm 1cm 1cm 3cm;
-  width: 21cm;
-}
-html body article#competences section {
-  padding: 0.5cm 0;
-}
-
-html body article#competences .glossary-part {
+.glossary-part {
   width: 100%;
 }
-
-html body article#competences .glossary-part h2 {
+.glossary-part h2 {
   display: inline-block;
   font-size: 22px;
   color: #10b158;
@@ -580,87 +491,67 @@ html body article#competences .glossary-part h2 {
   width: 100%;
   margin-bottom: 0.5rem;
 }
-
-html body article#competences .glossary-part .table .thead-dark th {
+.glossary-part .table .thead-dark th {
   background-color: #10b158;
   width: 50%;
   text-align: left;
 }
-html body article#competences .glossary-part .table td {
+.glossary-part .table td {
   text-align: left;
 }
-
-html body article#competences .glossary-part tbody {
+.glossary-part tbody {
   border: solid 1px #dee2e6;
 }
-
-html body article#competences .glossary-part .table .thead-dark th:first-child {
+.glossary-part .table .thead-dark th:first-child {
   width: 15%;
 }
-
-html body article#competences .glossary-part .table {
+.glossary-part .table {
   width: 50%;
   max-width: 50%;
 }
 
-html body article#offers {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-html body article#offers h2,
-html body article#offers h3 {
-  width: 100%;
-}
-html body article#offers section {
-  width: 30%;
-}
-html body article#offers section h4 {
-  margin-bottom: 0;
-}
-html body article#offers section ul {
-  list-style: none;
-  margin: 0;
-  padding-left: 0;
-}
-html body article#offers section ul li:not(:last-of-type) {
-  margin: 0.5cm 0;
-}
-html body article#offers section p {
-  background: #fbc847;
-  display: block;
-  font-size: 15pt;
-  font-weight: 700;
-  margin-bottom: 0;
-  padding: 0.25cm 0;
-  text-align: center;
-}
-html body article#contents .account-details-sec .page-bre {
-  page-break-after: always;
-}
-
-html body article#contents .fixedStyleHistory {
+.fixedStyleHistory {
   width: 40px;
-  display: inline-block;
+  /* display: inline-block; */
 }
-
-html body article#cover .consumer-part .consumer-half {
+.consumer-part .consumer-half {
   width: 300px;
-  display: inline-block;
+  /* display: inline-block; */
 }
-html body article#columns .enquiry-sec strong {
+.enquiry-sec strong {
   width: 195px;
   display: inline-block;
   vertical-align: top;
   word-break: break-all;
 }
-html body article#competences .glossary-part .table td {
+.glossary-part .table td {
   padding: 3px;
   font-size: 12px;
 }
-html body article#contents .account-details-sec .history-monthly {
+.account-details-sec .history-monthly {
   margin-bottom: 0;
 }
-html body article#contents .account-details-sec .monthly-sec tbody {
+.history-monthly td {
+  width: 54px;
+  float: left;
+  text-align: center !important;
+  vertical-align: bottom;
+  padding: 2px 0.3rem !important;
+}
+.account-details-sec .monthly-sec tbody {
   border: none;
+}
+.borrower-table-sec th {
+  border: solid 1px #dee2e6 !important;
+  text-align: center !important;
+}
+.borrower-table-sec th:first-child {
+  text-align: left !important;
+}
+.borrower-table-sec td {
+  text-align: left !important;
+}
+
+.borrower-table-sec td:first-child {
+  text-align: left !important;
 }
