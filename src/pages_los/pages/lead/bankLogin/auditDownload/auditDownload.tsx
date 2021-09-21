@@ -7,9 +7,10 @@ import { getBankLoginAuditData } from "./api";
 import { auditMetadata } from "./metadata";
 
 const AuditDownload = ({ moduleType, refID }) => {
-  const query = useQuery<any, any>(["getBankLoginAuditData"], () => {
-    getBankLoginAuditData({ moduleType, refID });
-  });
+  const query = useQuery<any, any>(
+    ["getBankLoginAuditData", moduleType, refID],
+    () => getBankLoginAuditData({ moduleType, refID })
+  );
 
   return query.isError ? (
     <span>{query.error?.error_msg}</span>
@@ -45,7 +46,7 @@ export const AuditDownloadWrapper = ({ handleDialogClose, moduleType }) => {
         paperScrollBody: dialogClasses.topPaperScrollBody,
       }}
     >
-      <AuditDownload moduleType={moduleType} refID="1" />
+      <AuditDownload moduleType={moduleType} refID={rows[0].id} />
     </Dialog>
   );
 };
