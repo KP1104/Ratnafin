@@ -50,62 +50,89 @@ export const Inquiry = ({ gridCode, actions }) => {
       </ServerGridContextProvider>
       <ClearCacheProvider>
         <Routes>
-          <Route path="/ViewDetails">
-            <DetailsTabViewWrapper
-              handleDialogClose={handleDialogClose}
-              isDataChangedRef={isDataChangedRef}
-            />
-          </Route>
-          <Route path="/ViewDetailsReadOnly">
-            <DetailsTabViewWrapper
-              handleDialogClose={handleDialogClose}
-              isDataChangedRef={isDataChangedRef}
-              isReadOnly={true}
-            />
-          </Route>
-          <Route path="/AssignBranch">
-            <AssignBranchWrapper
-              moduleType="inquiry"
-              isDataChangedRef={isDataChangedRef}
-              closeDialog={handleDialogClose}
-            />
-          </Route>
-          <Route path="/AssignInquiry">
-            <AssignInquiryWrapper
-              moduleType="inquiry"
-              isDataChangedRef={isDataChangedRef}
-              closeDialog={handleDialogClose}
-            />
-          </Route>
-          <Route path="/AssignTask">
-            <InquiryAssignTaskWrapper
-              closeDialog={handleDialogClose}
-              isDataChangedRef={isDataChangedRef}
-            />
-          </Route>
-          <Route path="/Priority">
-            <PriorityWrapper
-              moduleType="inquiry"
-              isDataChangedRef={isDataChangedRef}
-              closeDialog={handleDialogClose}
-            />
-          </Route>
-          <Route path="/MoveToLead">
-            <MoveToLeadWrapper
-              moduleType="inquiry"
-              isDataChangedRef={isDataChangedRef}
-              closeDialog={handleDialogClose}
-            />
-          </Route>
-          <Route path="/calculator">
-            <EligibilityCalculatorWrapper closeDialog={handleDialogClose} />
-          </Route>
-          <Route path="/documentUpload">
-            <DocumentUploadWrapper
-              moduleType="inquiry"
-              closeDialog={handleDialogClose}
-            />
-          </Route>
+          <Route
+            path="/ViewDetails"
+            element={
+              <DetailsTabViewWrapper
+                handleDialogClose={handleDialogClose}
+                isDataChangedRef={isDataChangedRef}
+              />
+            }
+          />
+          <Route
+            path="/ViewDetailsReadOnly"
+            element={
+              <DetailsTabViewWrapper
+                handleDialogClose={handleDialogClose}
+                isDataChangedRef={isDataChangedRef}
+                isReadOnly={true}
+              />
+            }
+          />
+          <Route
+            path="/AssignBranch"
+            element={
+              <AssignBranchWrapper
+                moduleType="inquiry"
+                isDataChangedRef={isDataChangedRef}
+                closeDialog={handleDialogClose}
+              />
+            }
+          />
+          <Route
+            path="/AssignInquiry"
+            element={
+              <AssignInquiryWrapper
+                moduleType="inquiry"
+                isDataChangedRef={isDataChangedRef}
+                closeDialog={handleDialogClose}
+              />
+            }
+          />
+          <Route
+            path="/AssignTask"
+            element={
+              <InquiryAssignTaskWrapper
+                closeDialog={handleDialogClose}
+                isDataChangedRef={isDataChangedRef}
+              />
+            }
+          />
+          <Route
+            path="/Priority"
+            element={
+              <PriorityWrapper
+                moduleType="inquiry"
+                isDataChangedRef={isDataChangedRef}
+                closeDialog={handleDialogClose}
+              />
+            }
+          />
+          <Route
+            path="/MoveToLead"
+            element={
+              <MoveToLeadWrapper
+                moduleType="inquiry"
+                isDataChangedRef={isDataChangedRef}
+                closeDialog={handleDialogClose}
+              />
+            }
+          />
+          <Route
+            path="/calculator"
+            element={
+              <EligibilityCalculatorWrapper closeDialog={handleDialogClose} />
+            }
+          />
+          <Route
+            path="/documentUpload"
+            element={
+              <DocumentUploadWrapper
+                moduleType="inquiry"
+                closeDialog={handleDialogClose}
+              />
+            }
+          />
         </Routes>
       </ClearCacheProvider>
     </Fragment>

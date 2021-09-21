@@ -81,40 +81,55 @@ export const ColdCalling = ({ gridCode, actions }) => {
       </ServerGridContextProvider>
       <ClearCacheProvider>
         <Routes>
-          <Route path="/AddColdCalling">
-            <ColdCallingAddWrapper
-              handleDialogClose={handleDialogClose}
-              moduleType="cold-calling"
-              isDataChangedRef={isDataEditedRef}
-            />
-          </Route>
-          <Route path="/viewDetails">
-            <ColdCallingEditViewWrapper
-              handleDialogClose={handleDialogClose}
-              moduleType="cold-calling"
-              isDataChangedRef={isDataEditedRef}
-            />
-          </Route>
-          <Route path="/delete">
-            <ColdCallingDeleteWrapper
-              handleDialogClose={handleDialogClose}
-              moduleType="cold-calling"
-              isDataChangedRef={isDataEditedRef}
-            />
-          </Route>
-          <Route path="/moveToInquiry">
-            <MoveToInquiryWrapper
-              moduleType="cold-calling"
-              isDataChangedRef={isDataEditedRef}
-              handleDialogClose={handleDialogClose}
-            />
-          </Route>
-          <Route path="/documentUpload">
-            <DocumentUploadWrapper
-              moduleType="cold-calling"
-              closeDialog={handleDialogClose}
-            />
-          </Route>
+          <Route
+            path="/AddColdCalling"
+            element={
+              <ColdCallingAddWrapper
+                handleDialogClose={handleDialogClose}
+                moduleType="cold-calling"
+                isDataChangedRef={isDataEditedRef}
+              />
+            }
+          />
+          <Route
+            path="/viewDetails"
+            element={
+              <ColdCallingEditViewWrapper
+                handleDialogClose={handleDialogClose}
+                moduleType="cold-calling"
+                isDataChangedRef={isDataEditedRef}
+              />
+            }
+          />
+          <Route
+            path="/delete"
+            element={
+              <ColdCallingDeleteWrapper
+                handleDialogClose={handleDialogClose}
+                moduleType="cold-calling"
+                isDataChangedRef={isDataEditedRef}
+              />
+            }
+          />
+          <Route
+            path="/moveToInquiry"
+            element={
+              <MoveToInquiryWrapper
+                moduleType="cold-calling"
+                isDataChangedRef={isDataEditedRef}
+                handleDialogClose={handleDialogClose}
+              />
+            }
+          />
+          <Route
+            path="/documentUpload"
+            element={
+              <DocumentUploadWrapper
+                moduleType="cold-calling"
+                closeDialog={handleDialogClose}
+              />
+            }
+          />
         </Routes>
       </ClearCacheProvider>
     </Fragment>
