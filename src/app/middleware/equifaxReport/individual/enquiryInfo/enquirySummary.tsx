@@ -42,24 +42,3 @@ export const EnquirySummary = ({ enquirySummaryDetails }) => {
     </div>
   );
 };
-
-{
-  /* <th scope="col">
-<span className="heading-color">Purpose</span>
-</th>
-<th scope="col">
-<span className="heading-color">Total</span>
-</th>
-<th scope="col">
-<span className="heading-color">Past 30 Days</span>
-</th>
-<th scope="col">
-<span className="heading-color">Past 12 Months</span>
-</th>
-<th scope="col">
-<span className="heading-color">Past 24 Months</span>
-</th>
-<th scope="col">
-<span className="heading-color">Recent</span>
-</th> */
-}
