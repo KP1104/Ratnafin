@@ -519,7 +519,7 @@ article {
   /* display: inline-block; */
 }
 .enquiry-sec strong {
-  width: 195px;
+  width: 150px;
   display: inline-block;
   vertical-align: top;
   word-break: break-all;
@@ -554,4 +554,36 @@ article {
 
 .borrower-table-sec td:first-child {
   text-align: left !important;
+}
+
+.monthly-sec-two .fixedStyleHistory {
+  width: 40px;
+  display: inline-block;
+}
+
+.heading-color {
+  background-color: #10b158;
+  display: inline;
+  width: 100%;
+  float: left;
+  column-gap: inherit;
+  padding-left: 0.1rem;
+  padding-right: 0.1rem;
+  color: #fff;
+  padding: 0.4rem !important;
+}
+
+.table th {
+  padding: 0 !important;
+}
+
+.entity-table-sec {
+  width: inherit !important;
+  text-align: start !important;
+}
+.footer-sec {
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+  padding-top: 20px;
 }

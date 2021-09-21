@@ -6,7 +6,9 @@ export const RecentActivitySummary = ({ recentActivitySummaryDetails }) => {
         <tbody>
           <tr>
             <th colSpan={4} scope="col" style={{ textAlign: "center" }}>
-              Recent Activity (last 90 days)
+              <span className="heading-color">
+                Recent Activity (last 90 days)
+              </span>
             </th>
           </tr>
           <tr>

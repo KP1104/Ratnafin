@@ -3,15 +3,22 @@ export const History = ({ history }: any) => {
   const historySecond16Months = history.slice(16, 32);
   const historyThird16Months = history.slice(32, 48);
   return (
-    <tr style={{ width: "100%", display: "table" }}>
+    <tr style={{ width: "100%", display: "table", marginBottom: "20px" }}>
       <td style={{ width: "15%", border: "none" }}>
-        <table style={{ marginBottom: "0" }}>
+        <table
+          style={{
+            marginBottom: "0",
+            width: "100%",
+            borderCollapse: "inherit",
+          }}
+        >
           <tbody>
             <tr>
               <td
                 colSpan={15}
                 style={{
                   verticalAlign: "top",
+                  borderCollapse: "inherit",
                 }}
               >
                 <Histroy24MonthsLabel />
@@ -20,15 +27,30 @@ export const History = ({ history }: any) => {
           </tbody>
         </table>
       </td>
-      <td style={{ width: "60%" }}>
-        <History24Months history={historyFirst16Months} />
+      <td style={{ width: "60%", verticalAlign: "top", padding: "15px" }}>
+        <History24Months
+          history={historyFirst16Months}
+          attachMonthly={historyFirst16Months?.length !== 16}
+        />
         {Array.isArray(historySecond16Months) &&
         historySecond16Months?.length > 0 ? (
-          <History24Months history={historySecond16Months} />
+          <>
+            <hr />
+            <History24Months
+              history={historySecond16Months}
+              attachMonthly={historySecond16Months?.length !== 16}
+            />
+          </>
         ) : null}
         {Array.isArray(historyThird16Months) &&
         historyThird16Months?.length > 0 ? (
-          <History24Months history={historyThird16Months} />
+          <>
+            <hr />
+            <History24Months
+              history={historyThird16Months}
+              attachMonthly={historyThird16Months?.length !== 16}
+            />
+          </>
         ) : null}
       </td>
     </tr>
@@ -37,7 +59,10 @@ export const History = ({ history }: any) => {
 
 const Histroy24MonthsLabel = () => {
   return (
-    <table className="table" style={{ marginBottom: 0 }}>
+    <table
+      className="table"
+      style={{ marginBottom: "0", borderCollapse: "inherit" }}
+    >
       <tbody>
         <tr>
           <td colSpan={3}>History</td>
@@ -57,82 +82,42 @@ const Histroy24MonthsLabel = () => {
   );
 };
 
-const History24Months = ({ history }) => {
+const History24Months = ({ history, attachMonthly }) => {
   return (
-    <>
-      {/* <table className="table history-monthly" style={{ marginBottom: "0" }}>
-        <tbody> */}
-      {/* <tr>
-        <td>
-          <table>
-            <tbody>
-              <tr>
-                <td colSpan={15} className="borrower-table-bro-one"></td>
-              </tr>
-            </tbody>
-          </table>
-        </td>
-      </tr> */}
-      <tr>
-        <td className="borrower-table-bro-one borrower-table-padding-one">
-          <table className="table monthly-sec" style={{ marginBottom: "0" }}>
-            <tbody>
-              <tr>
-                {history.map((history) => (
-                  <td className="fixedStyleHistory">
-                    {history?.PaymentStatus}
-                  </td>
-                ))}
-              </tr>
-            </tbody>
-          </table>
-        </td>
-      </tr>
-      <tr>
-        <td className="borrower-table-bro-one borrower-table-padding-one">
-          <table className="table monthly-sec" style={{ marginBottom: "0" }}>
-            <tbody>
-              <tr>
-                {history.map((history) => (
-                  <td className="fixedStyleHistory">
-                    {history?.AssetClassificationStatus}
-                  </td>
-                ))}
-              </tr>
-            </tbody>
-          </table>
-        </td>
-      </tr>
-      <tr>
-        <td className="borrower-table-bro-one borrower-table-padding-one">
-          <table className="table monthly-sec" style={{ marginBottom: "0" }}>
-            <tbody>
-              <tr>
-                {history?.map((history) => (
-                  <td className="fixedStyleHistory">
-                    {history?.SuitFiledStatus}
-                  </td>
-                ))}
-              </tr>
-            </tbody>
-          </table>
-        </td>
-      </tr>
-      <tr>
-        <td className="borrower-table-bro-one borrower-table-padding-one">
-          <table className="table monthly-sec" style={{ marginBottom: "0" }}>
-            <tbody>
-              <tr>
-                {history?.map((history) => (
-                  <td className="fixedStyleHistory">{history?.key}</td>
-                ))}
-              </tr>
-            </tbody>
-          </table>
-        </td>
-      </tr>
-      {/* </tbody>
-      </table> */}
-    </>
+    <tr
+      style={{ verticalAlign: "top" }}
+      className={attachMonthly ? "monthly-sec-two" : ""}
+    >
+      <td className="borrower-table-bro-one borrower-table-padding-one">
+        <table className="table monthly-sec" style={{ marginBottom: "0" }}>
+          <tbody>
+            <tr>
+              {history.map((history) => (
+                <td className="fixedStyleHistory">{history?.PaymentStatus}</td>
+              ))}
+            </tr>
+            <tr>
+              {history.map((history) => (
+                <td className="fixedStyleHistory">
+                  {history?.AssetClassificationStatus}
+                </td>
+              ))}
+            </tr>
+            <tr>
+              {history?.map((history) => (
+                <td className="fixedStyleHistory">
+                  {history?.SuitFiledStatus}
+                </td>
+              ))}
+            </tr>
+            <tr>
+              {history?.map((history) => (
+                <td className="fixedStyleHistory">{history?.key}</td>
+              ))}
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
   );
 };

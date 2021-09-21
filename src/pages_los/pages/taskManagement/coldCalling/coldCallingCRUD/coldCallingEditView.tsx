@@ -169,8 +169,6 @@ const ColdCallingViewEdit: FC<{
       displayMode={formMode}
       formStyle={{
         background: "white",
-        overflowY: "auto",
-        overflowX: "hidden",
       }}
     >
       {!readOnly ? <Button onClick={moveToEditMode}>Edit</Button> : null}
@@ -188,8 +186,6 @@ const ColdCallingViewEdit: FC<{
       displayMode={formMode}
       formStyle={{
         background: "white",
-        overflowY: "auto",
-        overflowX: "hidden",
       }}
     >
       {({ isSubmitting, handleSubmit }) => (
