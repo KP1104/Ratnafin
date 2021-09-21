@@ -85,7 +85,6 @@ export const StageWrapper = ({
       open={true}
       //@ts-ignore
       TransitionComponent={Transition}
-      onClose={handleDialogClose}
     >
       <HeaderDetails
         rowData={rows?.[0]}

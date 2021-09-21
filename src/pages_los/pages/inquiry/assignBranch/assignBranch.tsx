@@ -21,11 +21,11 @@ interface InsertFormDataFnType {
   setFieldError?: any;
 }
 
-const insertFormDataFnWrapper = (assignBranchFn) => async ({
-  data,
-}: InsertFormDataFnType) => {
-  return assignBranchFn(data);
-};
+const insertFormDataFnWrapper =
+  (assignBranchFn) =>
+  async ({ data }: InsertFormDataFnType) => {
+    return assignBranchFn(data);
+  };
 
 export const AssignBranch = ({
   moduleType,
@@ -129,7 +129,6 @@ export const AssignBranchWrapper = ({
       open={true}
       //@ts-ignore
       TransitionComponent={Transition}
-      onClose={closeDialog}
       PaperProps={{
         style: {
           width: "100%",

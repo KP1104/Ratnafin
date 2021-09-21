@@ -36,8 +36,7 @@ export const AuditDownloadWrapper = ({ handleDialogClose, moduleType }) => {
   return (
     <Dialog
       open={true}
-      onClick={handleDialogClose}
-      maxWidth="md"
+      maxWidth="lg"
       PaperProps={{
         style: { width: "100%" },
       }}
@@ -45,6 +44,7 @@ export const AuditDownloadWrapper = ({ handleDialogClose, moduleType }) => {
         scrollPaper: dialogClasses.topScrollPaper,
         paperScrollBody: dialogClasses.topPaperScrollBody,
       }}
+      onClose={handleDialogClose}
     >
       <AuditDownload moduleType={moduleType} refID={rows[0].id} />
     </Dialog>

@@ -29,11 +29,11 @@ interface MandateFormDataFnType {
   setFieldError?: any;
 }
 
-const MandateFormDataFnWrapper = (mandateFn) => async ({
-  data,
-}: MandateFormDataFnType) => {
-  return mandateFn(data);
-};
+const MandateFormDataFnWrapper =
+  (mandateFn) =>
+  async ({ data }: MandateFormDataFnType) => {
+    return mandateFn(data);
+  };
 
 const Mandate: FC<any> = ({
   defaultView = "view",
@@ -250,7 +250,6 @@ export const MandateMetaWrapper = ({
       open={true}
       //@ts-ignore
       TransitionComponent={Transition}
-      onClose={handleDialogClose}
     >
       <HeaderDetails
         rowData={rows?.[0]}

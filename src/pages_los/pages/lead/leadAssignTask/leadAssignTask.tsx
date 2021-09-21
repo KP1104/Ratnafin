@@ -20,11 +20,11 @@ interface TaskAssignFormDataFnType {
   setFieldError?: any;
 }
 
-const taskAssignFormDataFnWrapper = (taskAssignFn) => async ({
-  data,
-}: TaskAssignFormDataFnType) => {
-  return taskAssignFn(data);
-};
+const taskAssignFormDataFnWrapper =
+  (taskAssignFn) =>
+  async ({ data }: TaskAssignFormDataFnType) => {
+    return taskAssignFn(data);
+  };
 
 export const LeadAssignTask = ({
   moduleType,
@@ -121,7 +121,6 @@ export const LeadAssignTaskWrapper = ({
       open={true}
       //@ts-ignore
       TransitionComponent={Transition}
-      onClose={handleDialogClose}
       PaperProps={{
         style: {
           width: "100%",

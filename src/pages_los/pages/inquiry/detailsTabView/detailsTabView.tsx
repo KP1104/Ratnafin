@@ -48,7 +48,6 @@ export const DetailsTabViewWrapper = ({
       open={true}
       //@ts-ignore
       TransitionComponent={Transition}
-      onClose={handleDialogClose}
     >
       <HeaderDetails
         productData={rows[0]?.data}
