@@ -172,7 +172,6 @@ export const AnalysisWrapper = ({ moduleType, handleDialogClose }) => {
       open={true}
       //@ts-ignore
       TransitionComponent={Transition}
-      onClose={handleDialogClose}
     >
       <HeaderDetails
         rowData={rows?.[0]}

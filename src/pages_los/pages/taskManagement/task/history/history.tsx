@@ -65,7 +65,6 @@ export const HistoryMetaWrapper = ({ handleDialogClose, moduleType }) => {
       open={true}
       //@ts-ignore
       TransitionComponent={Transition}
-      onClose={handleDialogClose}
       PaperProps={{
         style: {
           width: "100%",

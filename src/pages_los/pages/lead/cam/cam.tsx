@@ -157,7 +157,6 @@ export const CAMWrapper = ({
       open={true}
       //@ts-ignore
       TransitionComponent={Transition}
-      onClose={handleDialogClose}
     >
       <HeaderDetails
         rowData={rows?.[0]}

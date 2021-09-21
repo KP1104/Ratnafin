@@ -112,7 +112,6 @@ export const ColdCallingAddWrapper = ({
       open={true}
       //@ts-ignore
       TransitionComponent={Transition}
-      onClose={handleDialogClose}
       PaperProps={{
         style: {
           width: "100%",

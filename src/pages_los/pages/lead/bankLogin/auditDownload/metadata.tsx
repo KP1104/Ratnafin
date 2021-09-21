@@ -1,11 +1,18 @@
-import { components, filters } from "components/report";
+import { components } from "components/report";
 
 export const auditMetadata = [
   {
-    columnName: "Promoter Serial No",
-    accessor: "pramotorSerialNo",
-    id: "pramotorSerialNo",
+    columnName: "Serial No",
+    accessor: "serialNo",
+    id: "serialNo",
     width: 200,
+  },
+  {
+    columnName: "Conditon Result",
+    accessor: "conditionResult",
+    id: "conditionResult",
+    width: 400,
+    Cell: components.DefaultCell,
   },
   {
     columnName: "Status",
