@@ -76,7 +76,6 @@ export const EligibilityCalculatorWrapper = ({ closeDialog }) => {
       open={true}
       //@ts-ignore
       TransitionComponent={Transition}
-      onClose={closeDialog}
     >
       <HeaderDetails productData={rows?.[0]} handleDialogClose={closeDialog} />
       <EligibilityCalculator

@@ -19,11 +19,11 @@ interface ColdCallingFormDataFnType {
   setFieldError?: any;
 }
 
-const coldCallingFormDataFnWrapper = (coldCallingAddFn) => async ({
-  data,
-}: ColdCallingFormDataFnType) => {
-  return coldCallingAddFn(data);
-};
+const coldCallingFormDataFnWrapper =
+  (coldCallingAddFn) =>
+  async ({ data }: ColdCallingFormDataFnType) => {
+    return coldCallingAddFn(data);
+  };
 
 const AddColdCalling = ({ moduleType, isDataChangedRef, closeDialog }) => {
   const { enqueueSnackbar } = useSnackbar();

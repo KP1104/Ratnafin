@@ -3,11 +3,10 @@ import { PersonalDetails } from "./personalDetails";
 import { AddressDetails } from "./addressDetails";
 import { EquifaxScore } from "./equifaxScore";
 import { RecentActivitySummary } from "./recentActivitySummary";
-import { Footer } from "../footer";
 
 export const PersonalInfo = ({ personalInfo, header }) => {
   return (
-    <article id="cover">
+    <article>
       <Header headerDetails={header} />
       <hr />
       <PersonalDetails personalDetails={personalInfo} />
@@ -19,7 +18,6 @@ export const PersonalInfo = ({ personalInfo, header }) => {
       <RecentActivitySummary
         recentActivitySummaryDetails={personalInfo?.recentActivities}
       />
-      <Footer />
       <hr />
     </article>
   );

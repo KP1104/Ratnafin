@@ -51,78 +51,111 @@ export const LeadGrid = ({ gridCode, actions }) => {
       </ServerGridContextProvider>
       <ClearCacheProvider>
         <Routes>
-          <Route path="/detailView">
-            <DetailsTabViewWrapper
-              moduleType="lead"
-              isDataChangedRef={isDataEditedRef}
-              handleDialogClose={handleDialogClose}
-            />
-          </Route>
-          <Route path="/cam">
-            <CAMWrapper
-              moduleType="lead"
-              isDataChangedRef={isDataEditedRef}
-              handleDialogClose={handleDialogClose}
-            />
-          </Route>
-          <Route path="/analysis">
-            <AnalysisWrapper
-              moduleType="lead"
-              handleDialogClose={handleDialogClose}
-            />
-          </Route>
-          <Route path="/stages">
-            <StageWrapper
-              moduleType="lead"
-              isDataChangedRef={isDataEditedRef}
-              handleDialogClose={handleDialogClose}
-            />
-          </Route>
-          <Route path="/leadAssign">
-            <LeadAssign
-              handleDialogClose={handleDialogClose}
-              moduleType="lead"
-              isDataChangedRef={isDataEditedRef}
-            />
-          </Route>
-          <Route path="/taskAssign">
-            <LeadAssignTaskWrapper
-              handleDialogClose={handleDialogClose}
-              isDataChangedRef={isDataEditedRef}
-            />
-          </Route>
-          <Route path="/verification">
-            <VerificationWrapper
-              handleDialogClose={handleDialogClose}
-              moduleType="lead"
-            />
-          </Route>
-          <Route path="/bankLogin">
-            <BankLoginWrapper
-              handleDialogClose={handleDialogClose}
-              moduleType="lead"
-            />
-          </Route>
-          <Route path="/viewMandate">
-            <MandateMetaWrapper
-              handleDialogClose={handleDialogClose}
-              moduleType="lead"
-              isDataChangedRef={isDataEditedRef}
-            />
-          </Route>
-          <Route path="/sanction">
-            <SanctionMetaWrapper
-              handleDialogClose={handleDialogClose}
-              moduleType="lead"
-              isDataChangedRef={isDataEditedRef}
-            />
-          </Route>
-          <Route path="/auditDownload">
-            <AuditDownloadWrapper
-              handleDialogClose={handleDialogClose}
-              moduleType="lead"
-            />
-          </Route>
+          <Route
+            path="/detailView"
+            element={
+              <DetailsTabViewWrapper
+                moduleType="lead"
+                isDataChangedRef={isDataEditedRef}
+                handleDialogClose={handleDialogClose}
+              />
+            }
+          />
+          <Route
+            path="/cam"
+            element={
+              <CAMWrapper
+                moduleType="lead"
+                isDataChangedRef={isDataEditedRef}
+                handleDialogClose={handleDialogClose}
+              />
+            }
+          />
+          <Route
+            path="/analysis"
+            element={
+              <AnalysisWrapper
+                moduleType="lead"
+                handleDialogClose={handleDialogClose}
+              />
+            }
+          />
+          <Route
+            path="/stages"
+            element={
+              <StageWrapper
+                moduleType="lead"
+                isDataChangedRef={isDataEditedRef}
+                handleDialogClose={handleDialogClose}
+              />
+            }
+          />
+          <Route
+            path="/leadAssign"
+            element={
+              <LeadAssign
+                handleDialogClose={handleDialogClose}
+                moduleType="lead"
+                isDataChangedRef={isDataEditedRef}
+              />
+            }
+          />
+          <Route
+            path="/taskAssign"
+            element={
+              <LeadAssignTaskWrapper
+                handleDialogClose={handleDialogClose}
+                isDataChangedRef={isDataEditedRef}
+              />
+            }
+          />
+          <Route
+            path="/verification"
+            element={
+              <VerificationWrapper
+                handleDialogClose={handleDialogClose}
+                moduleType="lead"
+              />
+            }
+          />
+          <Route
+            path="/bankLogin"
+            element={
+              <BankLoginWrapper
+                handleDialogClose={handleDialogClose}
+                moduleType="lead"
+              />
+            }
+          />
+          <Route
+            path="/viewMandate"
+            element={
+              <MandateMetaWrapper
+                handleDialogClose={handleDialogClose}
+                moduleType="lead"
+                isDataChangedRef={isDataEditedRef}
+              />
+            }
+          />
+          <Route
+            path="/sanction"
+            element={
+              <SanctionMetaWrapper
+                handleDialogClose={handleDialogClose}
+                moduleType="lead"
+                isDataChangedRef={isDataEditedRef}
+              />
+            }
+          />
+          <Route
+            path="/auditDownload"
+            element={
+              <AuditDownloadWrapper
+                handleDialogClose={handleDialogClose}
+                moduleType="lead"
+              />
+            }
+          />
         </Routes>
       </ClearCacheProvider>
     </Fragment>

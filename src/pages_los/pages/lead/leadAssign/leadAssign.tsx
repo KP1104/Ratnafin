@@ -29,11 +29,11 @@ interface InsertFormDataFnType {
   setFieldError?: any;
 }
 
-const insertFormDataFnWrapper = (leadAssignFn) => async ({
-  data,
-}: InsertFormDataFnType) => {
-  return leadAssignFn(data);
-};
+const insertFormDataFnWrapper =
+  (leadAssignFn) =>
+  async ({ data }: InsertFormDataFnType) => {
+    return leadAssignFn(data);
+  };
 
 export const LeadAssign = ({
   moduleType,
@@ -165,7 +165,6 @@ export const LeadAssignWrapper = ({
         open={true}
         //@ts-ignore
         TransitionComponent={Transition}
-        onClose={handleDialogClose}
         PaperProps={{ style: { width: "100%", minHeight: "20vh" } }}
         classes={{
           scrollPaper: classes.topScrollPaper,
