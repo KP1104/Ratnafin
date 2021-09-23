@@ -190,11 +190,11 @@ export const metaData: NavBarMetaDataType = {
           visibleToRoles: [3, 4, 5, 6, 7, 8, 9, 10, 11],
         },
         {
-          label: "All Assigned Inquiries",
+          label: "Assigned Inquiries",
           href: "./inquiry/allAssignedInquiries",
           isRouterLink: true,
           icon: "circle",
-          visibleToRoles: [3, 4, 5, 6, 7, 8, 15, 16, 17],
+          visibleToRoles: [3, 4, 5, 6, 7, 8, 9, 10, 11],
         },
         {
           label: "My Inquiries",
