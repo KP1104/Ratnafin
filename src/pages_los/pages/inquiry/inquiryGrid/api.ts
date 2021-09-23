@@ -1,23 +1,41 @@
 import {
+  allAssignedMetaData,
   assignedMetaData,
-  incomingMetaData,
   crossMetaData,
+  incomingMetaData,
+  myCrossMetaData,
+  myInquiryMetaData,
+  myTeamCrossMetaData,
+  myUnmappedMetaData,
+  unmappedHOMetaData,
   unmappedMetaData,
 } from "./metaData";
 
 export const getGridMetaData = ({ gridCode }) => async () => {
   switch (gridCode) {
-    case "TRN/004": {
-      return unmappedMetaData;
-    }
-    case "TRN/005": {
+    case "INQ/002": {
       return incomingMetaData;
     }
-    case "TRN/006": {
-      return assignedMetaData;
+    case "INQ/003": {
+      return allAssignedMetaData;
     }
-    case "TRN/007": {
-      return crossMetaData;
+    case "INQ/004": {
+      return myInquiryMetaData;
+    }
+    case "INQ/005": {
+      return myUnmappedMetaData;
+    }
+    case "INQ/006": {
+      return unmappedMetaData;
+    }
+    case "INQ/007": {
+      return unmappedHOMetaData;
+    }
+    case "INQ/008": {
+      return myCrossMetaData;
+    }
+    case "INQ/009": {
+      return myTeamCrossMetaData;
     }
     default: {
       return assignedMetaData;

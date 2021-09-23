@@ -179,22 +179,32 @@ export const metaData: NavBarMetaDataType = {
     {
       label: "Inquiry Management",
       icon: "question",
+      isRouterLink: true,
+      href: "./inquiry",
       children: [
-        {
-          label: "Assigned Inquiries",
-          href: "./inquiry/assignedInquiries",
-          isRouterLink: true,
-          icon: "circle",
-        },
-        {
-          label: "Cross Inquiries",
-          href: "./inquiry/crossInquiries",
-          isRouterLink: true,
-          icon: "circle",
-        },
         {
           label: "Incoming Inquiries",
           href: "./inquiry/incomingInquiries",
+          isRouterLink: true,
+          icon: "circle",
+          visibleToRoles: [3, 4, 5, 6, 7, 8, 9, 10, 11],
+        },
+        {
+          label: "Assigned Inquiries",
+          href: "./inquiry/allAssignedInquiries",
+          isRouterLink: true,
+          icon: "circle",
+          visibleToRoles: [3, 4, 5, 6, 7, 8, 9, 10, 11],
+        },
+        {
+          label: "My Inquiries",
+          href: "./inquiry/myInquiry",
+          isRouterLink: true,
+          icon: "circle",
+        },
+        {
+          label: "My Unmapped Inquiries",
+          href: "./inquiry/myUnmappedInquiries",
           isRouterLink: true,
           icon: "circle",
         },
@@ -203,6 +213,27 @@ export const metaData: NavBarMetaDataType = {
           href: "./inquiry/unmappedInquiries",
           isRouterLink: true,
           icon: "circle",
+          visibleToRoles: [3, 4, 5, 6, 7, 8],
+        },
+        {
+          label: "Unmapped Inquiries HO",
+          href: "./inquiry/unmappedHOInquiries",
+          isRouterLink: true,
+          icon: "circle",
+          visibleToRoles: [3, 4, 5, 6, 7, 8, 10, 11],
+        },
+        {
+          label: "My Cross Inquiries",
+          href: "./inquiry/myCrossInquiries",
+          isRouterLink: true,
+          icon: "circle",
+        },
+        {
+          label: "My Team Cross Inquiries",
+          href: "./inquiry/myTeamCrossInquiries",
+          isRouterLink: true,
+          icon: "circle",
+          visibleToRoles: [3, 4, 5, 6, 7, 8, 9, 18],
         },
       ],
     },
@@ -242,6 +273,7 @@ export const metaData: NavBarMetaDataType = {
         },
       ],
     },
+    { label: "MIS", icon: "circle" },
     {
       label: "Task Management",
       icon: "tasks",
@@ -299,6 +331,7 @@ export const metaData: NavBarMetaDataType = {
     {
       label: "Config Management",
       icon: "cog",
+      visibleToRoles: [1],
       children: [
         {
           label: "Bank Config",
