@@ -10,9 +10,10 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 export const PasswordField = ({ classes, loginState, verifyPassword }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
-  const handleChange = useCallback((e) => setPassword(e.target.value), [
-    setPassword,
-  ]);
+  const handleChange = useCallback(
+    (e) => setPassword(e.target.value),
+    [setPassword]
+  );
   const inputRef = useRef<any>(null);
   useEffect(() => {
     if (loginState.isError) {
@@ -71,6 +72,10 @@ export const PasswordField = ({ classes, loginState, verifyPassword }) => {
             onClick={() => verifyPassword(password)}
           >
             Login
+          </GradientButton>
+          <div style={{ marginLeft: "10px" }} />
+          <GradientButton onClick={() => verifyPassword("username")}>
+            Back
           </GradientButton>
         </div>
       </div>

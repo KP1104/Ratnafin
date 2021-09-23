@@ -28,7 +28,12 @@ const reducer = (state, action) => {
     }
     case "inititateUserNameVerification":
     case "inititatePasswordVerification": {
-      return { ...state, loading: true, isError: false, userMessage: "" };
+      return {
+        ...state,
+        loading: true,
+        isError: false,
+        userMessage: "",
+      };
     }
     case "passwordVerificationFailure":
     case "usernameVerificationFailure": {
@@ -50,6 +55,15 @@ const reducer = (state, action) => {
     }
     case "passwordVerificationSuccessful": {
       return { ...state, loading: false };
+    }
+    case "backToUsernameVerification": {
+      return {
+        ...state,
+        isError: false,
+        currentFlow: "username",
+        transactionID: "",
+        username: "",
+      };
     }
     default: {
       return state;
@@ -111,6 +125,12 @@ export const AuthLoginController = () => {
       dispath({
         type: "passwordVerificationFailure",
         payload: { error: "This is a required Field" },
+      });
+      return;
+    }
+    if (password === "username") {
+      dispath({
+        type: "backToUsernameVerification",
       });
       return;
     }
