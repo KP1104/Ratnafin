@@ -1,4 +1,4 @@
-import * as inquiryMeta from "pages_los/metaData/inquiry2";
+import * as inquiryMeta from "pages_los/metaData/inquiry";
 import { extractMetaData } from "pages_los/metaData/utils/deriveData";
 
 export const getFormMetaData =

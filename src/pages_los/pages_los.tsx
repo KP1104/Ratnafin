@@ -4,7 +4,6 @@ import { AppBar } from "./appBar";
 import { MySideBar } from "./sideBar";
 import { Drawer } from "./drawer";
 import { Content } from "./content";
-
 import {
   AllAssignedInquiry,
   AssignedInquiry,
@@ -28,7 +27,7 @@ import {
 import { Profile } from "pages_los/pages/profile";
 import { Dashboard } from "pages_los/pages/dashboard";
 import { NewInquiry } from "pages_los/pages/newInquiry";
-import { UserManagement } from "pages_los/pages/config/userManagement";
+import { UserManagementWrapper } from "pages_los/pages/config/userManagement";
 import { AssignPincodeToBranch } from "pages_los/pages/config/assignPincodeToBranch";
 import {
   MyTask,
@@ -122,7 +121,11 @@ export const PagesLOS = () => {
             <Route path="/task/coldCalling/*" element={<ColdCalling />} />
             <Route path="/config/bankMaster" element={<BankMasterWrapper />} />
             <Route path="/config/banks" element={<BankConfigWrapper />} />
-            <Route path="/config/userManagement" element={<UserManagement />} />
+            <Route
+              path="/config/userManagement/*"
+              element={<UserManagementWrapper />}
+            />
+
             <Route
               path="/config/assignPincode"
               element={<AssignPincodeToBranch />}

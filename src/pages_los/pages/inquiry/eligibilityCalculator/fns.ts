@@ -44,7 +44,7 @@ export const calculateApplicantIncome = (dependentFields) => {
   const currentYearIncome = Number(
     dependentFields["currentAnnualNetProfit"]?.value
   );
-
+  /* eslint-disable  eqeqeq */
   let income = 0;
   if (!isNaN(previousYearIncome) && previousYearIncome == 0) {
     income = currentYearIncome / 12;
