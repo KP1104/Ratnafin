@@ -25,11 +25,11 @@ export const UsernameField = ({ classes, loginState, verifyUsername }) => {
         <TextField
           inputRef={inputRef}
           autoFocus={true}
-          label={"User ID"}
+          label={"Username"}
           fullWidth
           type={"text"}
           className="mobileNumber"
-          name="phoneNumber"
+          name="userName"
           value={userName}
           onChange={handleChange}
           onKeyDown={(e) => e.keyCode === 13 && verifyUsername(userName)}

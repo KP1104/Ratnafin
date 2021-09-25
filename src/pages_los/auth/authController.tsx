@@ -57,13 +57,7 @@ const reducer = (state, action) => {
       return { ...state, loading: false };
     }
     case "backToUsernameVerification": {
-      return {
-        ...state,
-        isError: false,
-        currentFlow: "username",
-        transactionID: "",
-        username: "",
-      };
+      return inititalState;
     }
     default: {
       return state;
@@ -128,12 +122,6 @@ export const AuthLoginController = () => {
       });
       return;
     }
-    if (password === "username") {
-      dispath({
-        type: "backToUsernameVerification",
-      });
-      return;
-    }
     dispath({ type: "inititatePasswordVerification" });
     try {
       const result = await API.verifyPasswordAndLogin(
@@ -161,6 +149,12 @@ export const AuthLoginController = () => {
         },
       });
     }
+  };
+
+  const changeUserName = () => {
+    dispath({
+      type: "backToUsernameVerification",
+    });
   };
 
   return (
@@ -194,6 +188,7 @@ export const AuthLoginController = () => {
             classes={classes}
             loginState={loginState}
             verifyPassword={verifyPassword}
+            goBack={changeUserName}
           />
         )}
       </Box>
