@@ -1,5 +1,5 @@
-import { Fragment, useState, useRef, useEffect, useContext } from "react";
-import { ClearCacheProvider, queryClient, ClearCacheContext } from "cache";
+import { Fragment, useState, useRef, useEffect } from "react";
+import { ClearCacheProvider, queryClient } from "cache";
 import Dialog from "@material-ui/core/Dialog";
 import { useQuery } from "react-query";
 import { ActionTypes } from "components/dataTable";

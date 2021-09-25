@@ -50,11 +50,11 @@ export const InquiryAssignTask = ({
     taskAssignFormDataFnWrapper(API.assignTask({ moduleType })),
     {
       onError: (error: any, { endSubmit }) => {
-        let errorMsg = "Unknown Error occured";
-        if (typeof error === "object") {
-          Error = error?.error_msg ?? errorMsg;
-        }
-        endSubmit(false, errorMsg, error?.error_details ?? "");
+        endSubmit(
+          false,
+          error?.error_msg ?? "Unknown Error occured",
+          error?.error_details ?? ""
+        );
       },
       onSuccess: (data, { endSubmit }) => {
         endSubmit(true, "");

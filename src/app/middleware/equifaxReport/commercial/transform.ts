@@ -425,9 +425,6 @@ const getCreditFaciltyDetails = (data) => {
 };
 
 const getHistory48Month = (data) => {
-  let result = {
-    history48Months: [],
-  };
   if (Array.isArray(data) && data.length > 0) {
     let obj = data.map((one) => {
       return {
@@ -445,7 +442,9 @@ const getHistory48Month = (data) => {
       history48Months: obj,
     };
   }
-  return result;
+  return {
+    history48Months: [],
+  };
 };
 
 const getDishonouredChequeDetails = (data) => {

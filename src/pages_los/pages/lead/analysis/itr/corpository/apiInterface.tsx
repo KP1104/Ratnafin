@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Container from "@material-ui/core/Container";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -31,12 +31,11 @@ interface InititateCorpositoryAPIType {
   companyName: string;
 }
 
-const InititateCorpositoryAPI = (initiateCorpositoryFn) => async ({
-  companyID,
-  companyName,
-}: InititateCorpositoryAPIType) => {
-  return initiateCorpositoryFn(companyID, companyName);
-};
+const InititateCorpositoryAPI =
+  (initiateCorpositoryFn) =>
+  async ({ companyID, companyName }: InititateCorpositoryAPIType) => {
+    return initiateCorpositoryFn(companyID, companyName);
+  };
 
 export const CorpositoryAPIInterface = ({
   refID,

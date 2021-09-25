@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { AccountDetails } from "./accountDetails";
 
 export const AllAccountDetils = ({ accountDetails }) => {
