@@ -1,4 +1,4 @@
-import { Fragment, FC, useContext, useEffect } from "react";
+import { Fragment } from "react";
 import { useMutation } from "react-query";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -14,11 +14,11 @@ interface DeleteFormDataType {
   tran_cd?: string;
 }
 
-const DeleteFormDataFnWrapper = (deleteFormData) => async ({
-  tran_cd,
-}: DeleteFormDataType) => {
-  return deleteFormData(tran_cd);
-};
+const DeleteFormDataFnWrapper =
+  (deleteFormData) =>
+  async ({ tran_cd }: DeleteFormDataType) => {
+    return deleteFormData(tran_cd);
+  };
 
 const ColdCallingDelete = ({
   isDataChangedRef,

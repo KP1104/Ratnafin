@@ -3,24 +3,39 @@ export const EnquirySummary = ({ enquirySummaryDetails }) => {
     <div className="enquiry-sec">
       <h2>Enquiry Summary:</h2>
       <table className="table">
-        <thead className="thead-dark">
-          <tr>
-            <th scope="col">Purpose</th>
-            <th scope="col">Total</th>
-            <th scope="col">Past 30 Days</th>
-            <th scope="col">Past 12 Months</th>
-            <th scope="col">Past 24 Months</th>
-            <th scope="col">Recent</th>
-          </tr>
-        </thead>
         <tbody>
           <tr>
-            <td>{enquirySummaryDetails?.purpose}</td>
-            <td>{enquirySummaryDetails?.total}</td>
-            <td>{enquirySummaryDetails?.past30Days}</td>
-            <td>{enquirySummaryDetails?.past12Months}</td>
-            <td>{enquirySummaryDetails?.past24Months}</td>
-            <td>{enquirySummaryDetails?.recent}</td>
+            <th scope="col" colSpan={15} style={{ textAlign: "center" }}>
+              <span className="heading-color">Enquiry Summary</span>
+            </th>
+          </tr>
+          <tr>
+            <td className="entity-table-sec">Purpose</td>
+            <td className="entity-table-sec">
+              : {enquirySummaryDetails?.purpose}
+            </td>
+            <td className="entity-table-sec">Total</td>
+            <td className="entity-table-sec">
+              : {enquirySummaryDetails?.total}
+            </td>
+            <td className="entity-table-sec">Past 30 days</td>
+            <td className="entity-table-sec">
+              : {enquirySummaryDetails?.past30Days}
+            </td>
+          </tr>
+          <tr>
+            <td className="entity-table-sec">Past 12 Months</td>
+            <td className="entity-table-sec">
+              : {enquirySummaryDetails?.past12Months}
+            </td>
+            <td className="entity-table-sec">Past 24 Months</td>
+            <td className="entity-table-sec">
+              : {enquirySummaryDetails?.past24Months}
+            </td>
+            <td className="entity-table-sec">Recent</td>
+            <td className="entity-table-sec">
+              : {enquirySummaryDetails?.recent}
+            </td>
           </tr>
         </tbody>
       </table>

@@ -9,6 +9,7 @@ import {
   showDependentFieldsOfFundbase,
   showFixedROIField,
   showDSCRAField,
+  calculateDSCRAAmount,
 } from "../../../fns";
 
 export const SMETermSheetMetadata: MetaDataType = {
@@ -158,6 +159,7 @@ export const SMETermSheetMetadata: MetaDataType = {
           label: "Floating Rate or Fixed Rate",
           dependentFields: ["facilityType"],
           shouldExclude: showSelectionOfFixedOrFloatingRate,
+          RadioGroupProps: { row: true },
           GridProps: {
             xs: 12,
             md: 3,
@@ -502,14 +504,22 @@ export const SMETermSheetMetadata: MetaDataType = {
           name: "dscraAmount",
           label: "DSCRA Amount",
           placeholder: "DSCRA Amount",
-          dependentFields: ["dscraAny"],
-          //@ts-ignore
+          // dependentFields: ["dscraAny"],
           shouldExclude: (_, dependentFields) => {
             if (dependentFields["facilityDetails.dscraAny"].value === "Y") {
               return false;
             }
             return true;
           },
+          dependentFields: [
+            "sanctionAmount",
+            "fixedActualROI",
+            "tenure",
+            "floatingActualROI",
+            "dscraMonths",
+            "dscraAny",
+          ],
+          setValueOnDependentFieldsChange: calculateDSCRAAmount,
           GridProps: {
             xs: 12,
             md: 3,

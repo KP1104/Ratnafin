@@ -29,11 +29,11 @@ interface InsertFormDataFnType {
   setFieldError?: any;
 }
 
-const insertFormDataFnWrapper = (assignInquiryFn) => async ({
-  data,
-}: InsertFormDataFnType) => {
-  return assignInquiryFn(data);
-};
+const insertFormDataFnWrapper =
+  (assignInquiryFn) =>
+  async ({ data }: InsertFormDataFnType) => {
+    return assignInquiryFn(data);
+  };
 
 export const AssignInquiry = ({
   moduleType,
@@ -164,7 +164,6 @@ export const AssignInquiryWrapper = ({
         open={true}
         //@ts-ignore
         TransitionComponent={Transition}
-        onClose={closeDialog}
         PaperProps={{
           style: {
             width: "100%",

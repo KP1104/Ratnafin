@@ -1,9 +1,5 @@
 import { MetaDataType } from "components/dyanmicForm/types";
-import {
-  calculateAmount,
-  calculatePercentage,
-  visaversaValidateValue,
-} from "./fns";
+import { calculateAmount, calculatePercentage } from "./fns";
 
 export const mandateMetaData: MetaDataType = {
   form: {
@@ -171,10 +167,10 @@ export const mandateMetaData: MetaDataType = {
             allowEmptyFormatting: true,
             isAllowed: (values) => {
               //@ts-ignore
-              if (values.floatValue >= 999.99) {
-                return false;
+              if (values.floatValue <= 100) {
+                return true;
               }
-              return true;
+              return false;
             },
           },
         },

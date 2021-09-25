@@ -71,20 +71,22 @@ const validationConfig = {
   strict: false,
 };
 
-export const yupValidationHelper = (
-  schema: yup.AnyObjectSchema | yup.StringSchema<any> | yup.NumberSchema<any>
-) => async (field: FormFieldAtomType) => {
-  const { value } = field;
-  try {
-    await schema.validate(value, validationConfig);
-    return null;
-  } catch (e) {
-    if (e instanceof yup.ValidationError) {
-      return e.errors[0];
+export const yupValidationHelper =
+  (
+    schema: yup.AnyObjectSchema | yup.StringSchema<any> | yup.NumberSchema<any>
+  ) =>
+  async (field: FormFieldAtomType) => {
+    const { value } = field;
+    try {
+      await schema.validate(value, validationConfig);
+      return null;
+    } catch (e: any) {
+      if (e instanceof yup.ValidationError) {
+        return e.errors[0];
+      }
+      return e.message;
     }
-    return e.message;
-  }
-};
+  };
 
 export const yupReachAndValidate = (
   schema: yup.AnyObjectSchema | undefined,

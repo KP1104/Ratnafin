@@ -4,18 +4,20 @@ import { GurantorRelatedIndividuals } from "./guarantorRelatedIndi";
 
 export const DelinquencyDetails = ({ delinquencyDetails }) => {
   return (
-    <>
-      <DelinquencyBorrower
-        borrowerDelinquency={delinquencyDetails?.AsBorrower}
-      />
-      <DelinquencyGuarantor
-        guarantorDelinquency={delinquencyDetails?.AsGuarantor}
-      />
-      <GurantorRelatedIndividuals
-        relatedIndDeliquincy={
-          delinquencyDetails?.ForGuarantorRelatedEntitiesIndividuals
-        }
-      />
-    </>
+    <article>
+      <div className="entity-details-borrower-sec">
+        <DelinquencyBorrower
+          borrowerDelinquency={delinquencyDetails?.AsBorrower}
+        />
+        <DelinquencyGuarantor
+          guarantorDelinquency={delinquencyDetails?.AsGuarantor}
+        />
+        <GurantorRelatedIndividuals
+          relatedIndDeliquincy={
+            delinquencyDetails?.ForGuarantorRelatedEntitiesIndividuals
+          }
+        />
+      </div>
+    </article>
   );
 };

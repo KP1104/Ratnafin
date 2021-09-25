@@ -12,6 +12,8 @@ export interface NavItemType {
   navigationProps?: any;
   icon?: any;
   iconPosition?: "before" | "after";
+  passNavigationPropsAsURLParmas?: boolean;
+  visibleToRoles?: number[];
 }
 
 export interface NavBarMetaDataType {

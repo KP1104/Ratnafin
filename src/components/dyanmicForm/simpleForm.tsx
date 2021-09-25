@@ -18,8 +18,8 @@ export const SimpleForm: FC<FormProps> = ({
     const current = fields[one];
     return current.fields;
   });
-  const fieldsToRender = formComponentGroupWise.reduce((one, accum) => {
-    const newAccum = [...accum, ...one];
+  const fieldsToRender = formComponentGroupWise.reduce((accum, current) => {
+    const newAccum = [...accum, ...current];
     return newAccum;
   }, []);
 

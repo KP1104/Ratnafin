@@ -5,9 +5,9 @@ import { LeadSearch } from "pages_los/common/search";
 
 const { registerFn } = singletonFunctionRegisrationFactory;
 
-const MyComponent = ({ onAccept, value }) => {
-  return <button onClick={() => onAccept("wowow")}>Errr</button>;
-};
+// const MyComponent = ({ onAccept, value }) => {
+//   return <button onClick={() => onAccept("wowow")}>Errr</button>;
+// };
 //or registerFn("searchComponent", InquirySearch);
 registerFn("searchComponent", LeadSearch);
 

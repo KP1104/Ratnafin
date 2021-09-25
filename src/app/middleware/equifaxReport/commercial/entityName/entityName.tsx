@@ -9,7 +9,7 @@ export const EntityNameDetails = ({
   entityName,
 }) => {
   return (
-    <article id="cover">
+    <article>
       <Header header={header} />
       <hr />
       <Entity

@@ -63,9 +63,9 @@ export const Equifax = () => {
           setLoading(false);
           setError(result?.data?.error_msg ?? "No data found");
         }
-      } catch (err) {
+      } catch (e: any) {
         setLoading(false);
-        setError(err.message);
+        setError(e.message);
       }
     };
     getEquifaxDetails();

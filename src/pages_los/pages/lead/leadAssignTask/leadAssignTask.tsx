@@ -1,14 +1,14 @@
 import { useContext, useEffect } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
 import FormWrapper, { MetaDataType } from "components/dyanmicForm";
 import { useMutation } from "react-query";
 import { useSnackbar } from "notistack";
 import { leadTaskAssignMetadata } from "./metadata";
 import * as API from "./api";
-import { SubmitFnType } from "packages/form";
 import { ClearCacheContext, queryClient } from "cache";
-import Dialog from "@material-ui/core/Dialog";
+import { SubmitFnType } from "packages/form";
 import { HeaderDetails } from "../headerDetails";
 import { Transition } from "pages_los/common";
 import { useLocation } from "react-router-dom";
@@ -20,11 +20,11 @@ interface TaskAssignFormDataFnType {
   setFieldError?: any;
 }
 
-const taskAssignFormDataFnWrapper = (taskAssignFn) => async ({
-  data,
-}: TaskAssignFormDataFnType) => {
-  return taskAssignFn(data);
-};
+const taskAssignFormDataFnWrapper =
+  (taskAssignFn) =>
+  async ({ data }: TaskAssignFormDataFnType) => {
+    return taskAssignFn(data);
+  };
 
 export const LeadAssignTask = ({
   moduleType,
@@ -49,11 +49,11 @@ export const LeadAssignTask = ({
     taskAssignFormDataFnWrapper(API.assignTask({ moduleType })),
     {
       onError: (error: any, { endSubmit }) => {
-        let errorMsg = "Unknown Error occured";
-        if (typeof error === "object") {
-          Error = error?.error_msg ?? errorMsg;
-        }
-        endSubmit(false, errorMsg, error?.error_details ?? "");
+        endSubmit(
+          false,
+          error?.error_msg ?? "Unknown Error occured",
+          error?.error_details ?? ""
+        );
       },
       onSuccess: (data, { endSubmit }) => {
         endSubmit(true, "");
@@ -121,7 +121,6 @@ export const LeadAssignTaskWrapper = ({
       open={true}
       //@ts-ignore
       TransitionComponent={Transition}
-      onClose={handleDialogClose}
       PaperProps={{
         style: {
           width: "100%",

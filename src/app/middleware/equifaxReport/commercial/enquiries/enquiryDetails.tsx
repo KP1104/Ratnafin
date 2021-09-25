@@ -1,33 +1,35 @@
 export const EnquiryDetails = ({ enquiriesDetails }) => {
   return (
     <>
-      <h2 style={{ marginBottom: "20px" }}>
+      <h2>
         <strong>9</strong> Enquiry Details
       </h2>
       <table className="table" style={{ border: "solid 1px #dee2e6" }}>
-        <EnquiryDetailsLabel />
         <tbody>
-          {enquiriesDetails?.map((enquiryData) => {
-            return (
-              <tr>
-                <td style={{ textAlign: "center" }}>
-                  {enquiryData?.institution ?? "-"}
-                </td>
-                <td style={{ textAlign: "center" }}>
-                  {enquiryData?.date ?? "-"}
-                </td>
-                <td style={{ textAlign: "center" }}>
-                  {enquiryData?.time ?? "-"}
-                </td>
-                <td style={{ textAlign: "center" }}>
-                  {enquiryData?.requestPurpose ?? "-"}
-                </td>
-                <td style={{ textAlign: "center" }}>
-                  {enquiryData?.amount ?? "-"}
-                </td>
-              </tr>
-            );
-          })}
+          <EnquiryDetailsLabel />
+          {Array.isArray(enquiriesDetails) && enquiriesDetails.length > 0 ? (
+            enquiriesDetails?.map((enquiryData) => {
+              return (
+                <tr>
+                  <td style={{ textAlign: "center" }}>
+                    {enquiryData?.Institution ?? "-"}
+                  </td>
+                  <td style={{ textAlign: "center" }}>
+                    {enquiryData?.Date ?? "-"}
+                  </td>
+                  <td style={{ textAlign: "center" }}>
+                    {enquiryData?.Time ?? "-"}
+                  </td>
+                  <td style={{ textAlign: "center" }}>N/A</td>
+                  <td style={{ textAlign: "center" }}>
+                    {enquiryData?.Amount ?? "-"}
+                  </td>
+                </tr>
+              );
+            })
+          ) : (
+            <td colSpan={12}>No data found</td>
+          )}
         </tbody>
       </table>
     </>
@@ -36,24 +38,22 @@ export const EnquiryDetails = ({ enquiriesDetails }) => {
 
 const EnquiryDetailsLabel = () => {
   return (
-    <thead className="thead-dark">
-      <tr>
-        <th scope="col" style={{ textAlign: "center" }}>
-          Institution
-        </th>
-        <th scope="col" style={{ textAlign: "center" }}>
-          Date
-        </th>
-        <th scope="col" style={{ textAlign: "center" }}>
-          Time
-        </th>
-        <th scope="col" style={{ textAlign: "center" }}>
-          Purpose
-        </th>
-        <th scope="col" style={{ textAlign: "center" }}>
-          Amount
-        </th>
-      </tr>
-    </thead>
+    <tr>
+      <th scope="col" style={{ textAlign: "center" }}>
+        <span className="heading-color">Institution</span>
+      </th>
+      <th scope="col" style={{ textAlign: "center" }}>
+        <span className="heading-color">Date</span>
+      </th>
+      <th scope="col" style={{ textAlign: "center" }}>
+        <span className="heading-color">Time</span>
+      </th>
+      <th scope="col" style={{ textAlign: "center" }}>
+        <span className="heading-color">Purpose</span>
+      </th>
+      <th scope="col" style={{ textAlign: "center" }}>
+        <span className="heading-color">Amount</span>
+      </th>
+    </tr>
   );
 };

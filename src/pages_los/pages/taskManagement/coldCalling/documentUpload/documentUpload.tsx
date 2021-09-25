@@ -34,7 +34,6 @@ export const DocumentUploadWrapper = ({ moduleType, closeDialog }) => {
       open={true}
       //@ts-ignore
       TransitionComponent={Transition}
-      onClose={closeDialog}
     >
       <HeaderDetails rowData={rows[0]?.data} handleDialogClose={closeDialog} />
       <DocumentGridCRUD

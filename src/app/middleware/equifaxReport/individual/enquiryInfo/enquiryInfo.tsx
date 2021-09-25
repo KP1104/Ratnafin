@@ -1,40 +1,25 @@
-import { Header } from "../header";
 import { EnquirySummary } from "./enquirySummary";
 import { Enquiries } from "./enquiries";
 import { InputEnquiry } from "./inputEnquiry";
-import { Footer } from "../footer";
 
-export const EnquiryInfo = ({
-  enquirySummaryInfo,
-  enquiryInputInfo,
-  header,
-}) => {
+export const EnquiryInfo = ({ enquirySummaryInfo, enquiryInputInfo }) => {
   return (
     <>
-      <article id="columns">
-        <Header headerDetails={header} />
-        <hr />
+      <article>
         <EnquirySummary enquirySummaryDetails={enquirySummaryInfo} />
         <hr />
         <Enquiries enquiriesDetails={enquirySummaryInfo?.enquiries} />
         <hr />
-        <Footer />
       </article>
-      <InputInquiryDetails
-        inputEnquiryDetails={enquiryInputInfo}
-        header={header}
-      />
+      <InputInquiryDetails inputEnquiryDetails={enquiryInputInfo} />
     </>
   );
 };
 
-const InputInquiryDetails = ({ inputEnquiryDetails, header }) => {
+const InputInquiryDetails = ({ inputEnquiryDetails }) => {
   return (
-    <article id="columns">
-      <Header headerDetails={header} />
-      <hr />
+    <article>
       <InputEnquiry inputEnquiryDetails={inputEnquiryDetails} />
-      <Footer />
     </article>
   );
 };

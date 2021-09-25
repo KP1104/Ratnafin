@@ -4,7 +4,6 @@ import { KeyboardDatePicker } from "components/styledComponent/datetime";
 import Grid from "@material-ui/core/Grid";
 import dateFormat from "date-fns/format";
 import subDays from "date-fns/subDays";
-import { min } from "lodash";
 
 const options = [
   { label: "All", value: "all" },

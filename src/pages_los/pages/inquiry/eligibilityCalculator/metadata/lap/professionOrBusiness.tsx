@@ -1,6 +1,5 @@
 import { MetaDataType } from "components/dyanmicForm/types";
 import {
-  applicantMonthlySalaryFieldShow,
   applicantFilingDetailsFieldShow,
   coApplicantMonthlySalaryFieldShow,
   coApplicantFilingDetailsFieldShow,

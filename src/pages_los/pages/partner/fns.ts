@@ -39,19 +39,18 @@ export const getCompanyNameFromGST = async (currentField) => {
     let legalEntityName = data?.response_data?.companyName;
     return legalEntityName;
   } else {
-    return "Invalid GST";
+    throw new Error(data?.error_data?.error_msg);
   }
 };
 
-export const getGSTCompanyNameDtl = (getGSTCompanyName) => async (
-  fieldData
-) => {
-  let codes = await getGSTCompanyName(fieldData);
-  return {
-    legalEntityName: {
-      value: codes,
-    },
+export const getGSTCompanyNameDtl =
+  (getGSTCompanyName) => async (fieldData) => {
+    let codes = await getGSTCompanyName(fieldData);
+    return {
+      legalEntityName: {
+        value: codes,
+      },
+    };
   };
-};
 
 export const getCompanyNameGST = getGSTCompanyNameDtl(getCompanyNameFromGST);

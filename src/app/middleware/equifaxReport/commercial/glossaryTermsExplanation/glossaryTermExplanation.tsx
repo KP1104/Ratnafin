@@ -1,24 +1,20 @@
-import { Header } from "../header";
-
-export const GlossaryTermsExplanation = ({ header }) => {
+export const GlossaryTermsExplanation = () => {
   return (
-    <article id="contents">
-      <Header header={header} />
-      <hr />
+    <article>
       <div className="entity-details-borrower-sec">
-        <h2 style={{ marginBottom: "20px" }}>
+        <h2>
           <strong>12</strong>Glossary, Tearm and Explanations:
         </h2>
         <table className="table">
-          <thead className="thead-dark">
+          <tbody>
             <tr>
               <th scope="col" style={{ textAlign: "center" }}>
-                Code
+                <span className="heading-color">Code</span>
               </th>
-              <th scope="col">Description</th>
+              <th scope="col">
+                <span className="heading-color">Description</span>
+              </th>
             </tr>
-          </thead>
-          <tbody>
             <tr>
               <td>000</td>
               <td>Current account</td>
@@ -343,7 +339,6 @@ export const GlossaryTermsExplanation = ({ header }) => {
           </tbody>
         </table>
       </div>
-      <hr />
     </article>
   );
 };

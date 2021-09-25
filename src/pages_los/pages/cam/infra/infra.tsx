@@ -9,14 +9,11 @@ export const Infra = ({ data, others }) => {
     generalDetails,
     promotersDetails,
     addressDetails,
-    managementDetails,
     projectOthersDetails,
     projectParticularDetails,
     siteAreaDetails,
     projectDetails,
     collateralSecurity,
-    primaryCollateralSecurity,
-    personalGuaranteeSecurity,
   } = data;
 
   return (

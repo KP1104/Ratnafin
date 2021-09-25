@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useMutation } from "react-query";
 import { useSnackbar } from "notistack";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -15,12 +15,11 @@ interface RejectLeadFnType {
   remarks?: string;
 }
 
-const rejectLeadFnWrapper = (rejectLeadFn) => async ({
-  leadNo,
-  remarks,
-}: RejectLeadFnType) => {
-  return rejectLeadFn({ leadNo, remarks });
-};
+const rejectLeadFnWrapper =
+  (rejectLeadFn) =>
+  async ({ leadNo, remarks }: RejectLeadFnType) => {
+    return rejectLeadFn({ leadNo, remarks });
+  };
 
 export const LeadReject = ({
   open,

@@ -38,7 +38,6 @@ export const DocumentUploadWrapper = ({ moduleType, closeDialog }) => {
       open={true}
       //@ts-ignore
       TransitionComponent={Transition}
-      onClose={closeDialog}
     >
       <HeaderDetails
         productData={rows[0]?.data}

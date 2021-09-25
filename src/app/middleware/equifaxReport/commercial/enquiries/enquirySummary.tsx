@@ -1,40 +1,38 @@
 export const EnquirySummary = ({ enquirySummaryDetails }) => {
   return (
     <>
-      <h2 style={{ marginBottom: "20px" }}>
+      <h2>
         <strong>8</strong> Enquiry Summary
       </h2>
       <table className="table" style={{ border: "solid 1px #dee2e6" }}>
-        <thead className="thead-dark">
-          <tr>
-            <th scope="col" colSpan={15} style={{ textAlign: "center" }}>
-              Enquiry Summary
-            </th>
-          </tr>
-        </thead>
         <tbody>
           <tr>
-            <td className="entity-bro-none">Purpose</td>
-            <td className="entity-bro-none">
+            <th scope="col" colSpan={15} style={{ textAlign: "center" }}>
+              <span className="heading-color">Enquiry Summary</span>
+            </th>
+          </tr>
+          <tr>
+            <td className="entity-bro-none entity-table-sec">Purpose</td>
+            <td className="entity-bro-none entity-table-sec">
               : {enquirySummaryDetails?.Purpose}
             </td>
-            <td className="entity-bro-none">Total</td>
-            <td className="entity-bro-none">
+            <td className="entity-bro-none entity-table-sec">Total</td>
+            <td className="entity-bro-none entity-table-sec">
               : {enquirySummaryDetails?.Total}
             </td>
-            <td className="entity-bro-none">Past 30 days</td>
-            <td className="entity-bro-none">
+            <td className="entity-bro-none entity-table-sec">Past 30 days</td>
+            <td className="entity-bro-none entity-table-sec">
               : {enquirySummaryDetails?.Past30Days}
             </td>
           </tr>
           <tr>
-            <td className="entity-bro-none">Past 12 Months</td>
-            <td className="entity-bro-none">
+            <td className="entity-bro-none entity-table-sec">Past 12 Months</td>
+            <td className="entity-bro-none entity-table-sec">
               : {enquirySummaryDetails?.Past12Months}
             </td>
-            <td className="entity-bro-none">Past 24 Months</td>
-            <td className="entity-bro-none">
-              : {enquirySummaryDetails?.past24Months}
+            <td className="entity-bro-none entity-table-sec">Past 24 Months</td>
+            <td className="entity-bro-none entity-table-sec">
+              : {enquirySummaryDetails?.Past24Months}
             </td>
           </tr>
         </tbody>

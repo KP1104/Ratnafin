@@ -5,30 +5,42 @@ export const EquifaxScore = ({ creditScoreDetails }) => {
         <strong>1.1</strong> Equifax Scores
       </h2>
       <table className="table">
-        <thead className="thead-dark">
-          <tr>
-            <th scope="col">Score Name</th>
-            <th scope="col">Name of Scored Individual or Scored Entity</th>
-            <th scope="col">Relationship</th>
-            <th scope="col">Score Value</th>
-            <th scope="col">Exclusion Reason</th>
-          </tr>
-        </thead>
         <tbody>
           <tr>
+            <th scope="col">
+              <span className="heading-color">Score Name</span>
+            </th>
+            <th scope="col">
+              <span className="heading-color">
+                Name of Scored Individual or Scored Entity
+              </span>
+            </th>
+            <th scope="col">
+              <span className="heading-color">Relationship</span>
+            </th>
+            <th scope="col">
+              <span className="heading-color">Score Value</span>
+            </th>
+            <th scope="col">
+              <span className="heading-color">Exclusion Reason</span>
+            </th>
+          </tr>
+          <tr>
             <td style={{ textAlign: "center" }}>
-              {creditScoreDetails?.scoreName}
+              {creditScoreDetails?.scoreName ?? "-"}
             </td>
             <td style={{ textAlign: "center" }}>
-              {creditScoreDetails?.scoredEntity}
+              {creditScoreDetails?.scoredEntity ?? "-"}
             </td>
             <td style={{ textAlign: "center" }}>
-              {creditScoreDetails?.relationship}
+              {creditScoreDetails?.relationship ?? "-"}
             </td>
             <td style={{ textAlign: "center" }}>
-              {creditScoreDetails?.scoreValue}
+              {creditScoreDetails?.scoreValue ?? "-"}
             </td>
-            <td style={{ textAlign: "center" }}>{}</td>
+            <td style={{ textAlign: "center" }}>
+              {creditScoreDetails?.exclusionReason ?? "-"}
+            </td>
           </tr>
         </tbody>
       </table>

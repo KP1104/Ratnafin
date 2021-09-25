@@ -90,26 +90,11 @@ export const siteNav: NavBarMetaDataType = {
       href: "https://ratnaafin.com/contact-us/",
     },
     {
-      label: " Login",
+      label: "Login",
       icon: AccountCircle,
       iconPosition: "before",
-      children: [
-        {
-          label: "Customer",
-          href: "/los/auth/login/customer",
-          isRouterLink: true,
-        },
-        {
-          label: "Partner",
-          href: "/los/auth/login/partner",
-          isRouterLink: true,
-        },
-        {
-          label: "Employee",
-          href: "/los/auth/login/employee",
-          isRouterLink: true,
-        },
-      ],
+      href: "/los/login",
+      isRouterLink: true,
     },
   ],
 };

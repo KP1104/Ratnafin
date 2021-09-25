@@ -1,6 +1,16 @@
-import { DerogatoryLabel } from "./derogatoryLabel";
+import { DerogatoryLabel, DerogatoryDetails } from "./derogatoryLabel";
 
-export const DerogatoryGuarantor = () => {
+export const DerogatoryGuarantor = ({ guarantorDerogatory }) => {
+  const flatMapGuarantors: any = [];
+  if (Boolean(guarantorDerogatory)) {
+    const allGuarantorsType = Object.keys(guarantorDerogatory);
+    for (let i = 0; i < allGuarantorsType.length; i++) {
+      for (const one of guarantorDerogatory[allGuarantorsType[i]]) {
+        flatMapGuarantors.push({ ...one, source: allGuarantorsType[i] });
+      }
+    }
+  }
+
   return (
     <>
       <h2>
@@ -11,17 +21,13 @@ export const DerogatoryGuarantor = () => {
       </h2>
 
       <table className="table borrower-table-sec">
-        <DerogatoryLabel />
         <tbody>
-          <tr>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-          </tr>
+          <DerogatoryLabel />
+          {Array.isArray(flatMapGuarantors) && flatMapGuarantors.length > 0 ? (
+            <DerogatoryDetails derogatoryDetails={flatMapGuarantors ?? ""} />
+          ) : (
+            <td colSpan={12}>No Guarantor Details</td>
+          )}
         </tbody>
       </table>
     </>

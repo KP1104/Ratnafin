@@ -7,6 +7,9 @@ import { DerogatoryDetails } from "./derogatoryDetails";
 import { CreditFacilitySummary } from "./creditFacilitySummary";
 import { GlossaryTermsExplanation } from "./glossaryTermsExplanation";
 import { Enquiry } from "./enquiries";
+import { DelinquencyDetails } from "./delinquencyDetails";
+import { CreditType } from "./creditType";
+import { transform } from "./transform";
 import { MiddlewareSDK } from "registry/fns/middleware";
 import "assets/css/bootstrap.min.css";
 import "./style.css";
@@ -18,40 +21,36 @@ export const CommercialEquifaxReport = () => {
   );
 
   const data = result?.data;
+  let newdata = transform(data);
   const loading = result?.isLoading || result?.isFetching;
   const renderResult = loading ? (
     <img src={loaderGif} alt="loader" width="50px" height="50px" />
   ) : (
     <>
       <EntityNameDetails
-        header={data?.header}
-        severityGrid={data?.severityGrid}
-        creditScore={data?.equifaxScoresCommercial}
-        overallCreditSummary={data?.overallCreditSummary}
-        entityName={data?.entityName}
+        header={newdata?.header}
+        severityGrid={newdata?.severityGrid}
+        creditScore={newdata?.equifaxScoresCommercial}
+        overallCreditSummary={newdata?.overallCreditSummary}
+        entityName={newdata?.entityName}
       />
       <EntityDetails
-        header={data?.header}
-        entityDetails={data?.entityDetailsBorrower}
-        openCreditFacility={data?.openCreditFacilitySummary}
-        delinquencySummary={data?.delinquencySummary}
+        entityDetails={newdata?.entityDetailsBorrower}
+        openCreditFacility={newdata?.openCreditFacilitySummary}
       />
-      <DerogatoryDetails
-        header={data?.header}
-        derogatorDetails={data?.derogSummary}
-        creditTypeSummary={data?.creditTypeSummary}
-      />
+      <DelinquencyDetails delinquencyDetails={newdata?.delinquencySummary} />
+      <DerogatoryDetails derogatoryDetails={newdata?.derogSummary} />
+      <CreditType creditTypeSummary={newdata?.creditTypeSummary} />
       <CreditFacilitySummary
-        header={data?.header}
-        creditFacilityDetails={data?.creditFacilityDetails}
+        creditFacilityDetails={newdata?.creditFacilityDetails}
       />
       <Enquiry
-        header={data?.header}
-        enquirySummary={data?.enquirySummary}
-        enquiriesDetails={data?.enquiriesDetails}
-        inquiryInputDetails={data?.inquiryInputDetails}
+        enquirySummary={newdata?.enquirySummary}
+        enquiriesDetails={newdata?.enquiriesDetails}
+        inquiryInputDetails={newdata?.inquiryInputDetails}
+        hitNonHitSummaryDetails={newdata?.CCRHitDetailsLst}
       />
-      <GlossaryTermsExplanation header={data?.header} />
+      <GlossaryTermsExplanation />
     </>
   );
   return renderResult;

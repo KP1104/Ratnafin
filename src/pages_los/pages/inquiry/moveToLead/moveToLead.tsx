@@ -19,11 +19,11 @@ interface InsertFormDataFnType {
   setFieldError?: any;
 }
 
-const insertFormDataFnWrapper = (moveToLeadFn) => async ({
-  data,
-}: InsertFormDataFnType) => {
-  return moveToLeadFn(data);
-};
+const insertFormDataFnWrapper =
+  (moveToLeadFn) =>
+  async ({ data }: InsertFormDataFnType) => {
+    return moveToLeadFn(data);
+  };
 
 export const MoveToLead = ({
   moduleType,
@@ -118,7 +118,6 @@ export const MoveToLeadWrapper = ({
       open={true}
       //@ts-ignore
       TransitionComponent={Transition}
-      onClose={closeDialog}
       PaperProps={{
         style: {
           width: "100%",

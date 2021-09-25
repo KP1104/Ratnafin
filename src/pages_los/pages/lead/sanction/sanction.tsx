@@ -27,11 +27,11 @@ interface SanctionFormDataFnType {
   setFieldError?: any;
 }
 
-const SanctionFormDataFnWrapper = (sanctionFn) => async ({
-  data,
-}: SanctionFormDataFnType) => {
-  return sanctionFn(data);
-};
+const SanctionFormDataFnWrapper =
+  (sanctionFn) =>
+  async ({ data }: SanctionFormDataFnType) => {
+    return sanctionFn(data);
+  };
 
 const Sanction: FC<any> = ({
   moduleType,
@@ -254,7 +254,6 @@ export const SanctionMetaWrapper = ({
       open={true}
       //@ts-ignore
       TransitionComponent={Transition}
-      onClose={handleDialogClose}
     >
       <HeaderDetails
         rowData={rows?.[0]}

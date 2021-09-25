@@ -26,48 +26,40 @@ export const metaData: NavBarMetaDataType = {
               href: "./newInquiry/retail-rhl",
               isRouterLink: true,
               navigationProps: {
-                metaProps: {
-                  categoryID: "12000001",
-                  productID: "12300001",
-                  action: "crm_inquiry_metaData", //this action is used to determine which api to call Question or Inquiry
-                },
+                categoryID: "12000001",
+                productID: "12300001",
               },
+              passNavigationPropsAsURLParmas: true,
             },
             {
               label: "Retail LAP (Loan Against Property)",
               href: "./newInquiry/retail-lap",
               isRouterLink: true,
               navigationProps: {
-                metaProps: {
-                  categoryID: "12000001",
-                  productID: "12300002",
-                  action: "crm_inquiry_metaData",
-                },
+                categoryID: "12000001",
+                productID: "12300002",
               },
+              passNavigationPropsAsURLParmas: true,
             },
             {
               label: "Retail LRD (Lease Rental Discount)",
               href: "./newInquiry/retail-ldr",
               isRouterLink: true,
               navigationProps: {
-                metaProps: {
-                  categoryID: "12000001",
-                  productID: "12300003",
-                  action: "crm_inquiry_metaData",
-                },
+                categoryID: "12000001",
+                productID: "12300003",
               },
+              passNavigationPropsAsURLParmas: true,
             },
             {
               label: "Retail APF",
               href: "./newInquiry/retail-apf",
               isRouterLink: true,
               navigationProps: {
-                metaProps: {
-                  categoryID: "12000001",
-                  productID: "12300004",
-                  action: "crm_inquiry_metaData",
-                },
+                categoryID: "12000001",
+                productID: "12300004",
               },
+              passNavigationPropsAsURLParmas: true,
             },
           ],
         },
@@ -79,72 +71,60 @@ export const metaData: NavBarMetaDataType = {
               href: "./newInquiry/sme",
               isRouterLink: true,
               navigationProps: {
-                metaProps: {
-                  categoryID: "12000002",
-                  productID: "12300005",
-                  action: "crm_inquiry_metaData",
-                },
+                categoryID: "12000002",
+                productID: "12300005",
               },
+              passNavigationPropsAsURLParmas: true,
             },
             {
               label: "SME Term Loan",
               href: "./newInquiry/stl",
               isRouterLink: true,
               navigationProps: {
-                metaProps: {
-                  categoryID: "12000002",
-                  productID: "12300006",
-                  action: "crm_inquiry_metaData",
-                },
+                categoryID: "12000002",
+                productID: "12300006",
               },
+              passNavigationPropsAsURLParmas: true,
             },
             {
               label: "SME Term Loan + CC/OD",
               href: "./newInquiry/sme-ccod",
               isRouterLink: true,
               navigationProps: {
-                metaProps: {
-                  categoryID: "12000002",
-                  productID: "12300007",
-                  action: "crm_inquiry_metaData",
-                },
+                categoryID: "12000002",
+                productID: "12300007",
               },
+              passNavigationPropsAsURLParmas: true,
             },
             {
               label: "SME NFB (Non Fund Base)",
               href: "./newInquiry/sme-nfb",
               isRouterLink: true,
               navigationProps: {
-                metaProps: {
-                  categoryID: "12000002",
-                  productID: "12300008",
-                  action: "crm_inquiry_metaData",
-                },
+                categoryID: "12000002",
+                productID: "12300008",
               },
+              passNavigationPropsAsURLParmas: true,
             },
             {
               label: "SME LAP (Loan Against Property)",
               href: "./newInquiry/sme-lap",
               isRouterLink: true,
               navigationProps: {
-                metaProps: {
-                  categoryID: "12000002",
-                  productID: "12300009",
-                  action: "crm_inquiry_metaData",
-                },
+                categoryID: "12000002",
+                productID: "12300009",
               },
+              passNavigationPropsAsURLParmas: true,
             },
             {
               label: "SME CGTMSE",
               href: "./newInquiry/sme-cgtmse",
               isRouterLink: true,
               navigationProps: {
-                metaProps: {
-                  categoryID: "12000002",
-                  productID: "123000010",
-                  action: "crm_inquiry_metaData",
-                },
+                categoryID: "12000002",
+                productID: "123000010",
               },
+              passNavigationPropsAsURLParmas: true,
             },
           ],
         },
@@ -156,24 +136,20 @@ export const metaData: NavBarMetaDataType = {
               href: "./newInquiry/infra-construction",
               isRouterLink: true,
               navigationProps: {
-                metaProps: {
-                  categoryID: "12000003",
-                  productID: "123000011",
-                  action: "crm_inquiry_metaData",
-                },
+                categoryID: "12000003",
+                productID: "123000011",
               },
+              passNavigationPropsAsURLParmas: true,
             },
             {
               label: "Infrastructure Finance",
               href: "./newInquiry/infra-finance",
               isRouterLink: true,
               navigationProps: {
-                metaProps: {
-                  categoryID: "12000003",
-                  productID: "123000012",
-                  action: "crm_inquiry_metaData",
-                },
+                categoryID: "12000003",
+                productID: "123000012",
               },
+              passNavigationPropsAsURLParmas: true,
             },
           ],
         },
@@ -185,37 +161,11 @@ export const metaData: NavBarMetaDataType = {
               href: "./newInquiry/businessLoan",
               isRouterLink: true,
               navigationProps: {
-                metaProps: {
-                  categoryID: "12000004",
-                  productID: "123000013",
-                  action: "crm_inquiry_metaData",
-                },
+                categoryID: "12000004",
+                productID: "123000013",
               },
+              passNavigationPropsAsURLParmas: true,
             },
-            // {
-            //   label: "Personal Loan",
-            //   href: "./newInquiry/personalLoan",
-            //   isRouterLink: true,
-            //   navigationProps: {
-            //     metaProps: {
-            //       categoryID: "12000004",
-            //       productID: "123000014",
-            //       action: "crm_inquiry_metaData",
-            //     },
-            //   },
-            // },
-            // {
-            //   label: "School Fee Funding",
-            //   href: "./newInquiry/schoolFee",
-            //   isRouterLink: true,
-            //   navigationProps: {
-            //     metaProps: {
-            //       categoryID: "12000004",
-            //       productID: "123000015",
-            //       action: "crm_inquiry_metaData",
-            //     },
-            //   },
-            // },
           ],
         },
       ],
@@ -229,22 +179,32 @@ export const metaData: NavBarMetaDataType = {
     {
       label: "Inquiry Management",
       icon: "question",
+      isRouterLink: true,
+      href: "./inquiry",
       children: [
-        {
-          label: "Assigned Inquiries",
-          href: "./inquiry/assignedInquiries",
-          isRouterLink: true,
-          icon: "circle",
-        },
-        {
-          label: "Cross Inquiries",
-          href: "./inquiry/crossInquiries",
-          isRouterLink: true,
-          icon: "circle",
-        },
         {
           label: "Incoming Inquiries",
           href: "./inquiry/incomingInquiries",
+          isRouterLink: true,
+          icon: "circle",
+          visibleToRoles: [3, 4, 5, 6, 7, 8, 9, 10, 11],
+        },
+        {
+          label: "Assigned Inquiries",
+          href: "./inquiry/allAssignedInquiries",
+          isRouterLink: true,
+          icon: "circle",
+          visibleToRoles: [3, 4, 5, 6, 7, 8, 9, 10, 11],
+        },
+        {
+          label: "My Inquiries",
+          href: "./inquiry/myInquiry",
+          isRouterLink: true,
+          icon: "circle",
+        },
+        {
+          label: "My Unmapped Inquiries",
+          href: "./inquiry/myUnmappedInquiries",
           isRouterLink: true,
           icon: "circle",
         },
@@ -253,6 +213,27 @@ export const metaData: NavBarMetaDataType = {
           href: "./inquiry/unmappedInquiries",
           isRouterLink: true,
           icon: "circle",
+          visibleToRoles: [3, 4, 5, 6, 7, 8],
+        },
+        {
+          label: "Unmapped Inquiries HO",
+          href: "./inquiry/unmappedHOInquiries",
+          isRouterLink: true,
+          icon: "circle",
+          visibleToRoles: [3, 4, 5, 6, 7, 8, 10, 11],
+        },
+        {
+          label: "My Cross Inquiries",
+          href: "./inquiry/myCrossInquiries",
+          isRouterLink: true,
+          icon: "circle",
+        },
+        {
+          label: "My Team Cross Inquiries",
+          href: "./inquiry/myTeamCrossInquiries",
+          isRouterLink: true,
+          icon: "circle",
+          visibleToRoles: [3, 4, 5, 6, 7, 8, 9, 18],
         },
       ],
     },
@@ -292,6 +273,7 @@ export const metaData: NavBarMetaDataType = {
         },
       ],
     },
+    { label: "MIS", icon: "circle" },
     {
       label: "Task Management",
       icon: "tasks",
@@ -349,10 +331,29 @@ export const metaData: NavBarMetaDataType = {
     {
       label: "Config Management",
       icon: "cog",
+      visibleToRoles: [1],
       children: [
         {
           label: "Bank Config",
           href: "./config/bankMaster",
+          isRouterLink: true,
+          icon: "circle",
+        },
+        {
+          label: "Region Master",
+          href: "./config/regionMaster",
+          isRouterLink: true,
+          icon: "circle",
+        },
+        {
+          label: "Zone Master",
+          href: "./config/zoneMaster",
+          isRouterLink: true,
+          icon: "circle",
+        },
+        {
+          label: "Country Master",
+          href: "./config/countryMaster",
           isRouterLink: true,
           icon: "circle",
         },

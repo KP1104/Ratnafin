@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Dialog from "@material-ui/core/Dialog";
 import { SubmitFnType } from "packages/form";
@@ -19,11 +19,11 @@ interface ColdCallingFormDataFnType {
   setFieldError?: any;
 }
 
-const coldCallingFormDataFnWrapper = (coldCallingAddFn) => async ({
-  data,
-}: ColdCallingFormDataFnType) => {
-  return coldCallingAddFn(data);
-};
+const coldCallingFormDataFnWrapper =
+  (coldCallingAddFn) =>
+  async ({ data }: ColdCallingFormDataFnType) => {
+    return coldCallingAddFn(data);
+  };
 
 const AddColdCalling = ({ moduleType, isDataChangedRef, closeDialog }) => {
   const { enqueueSnackbar } = useSnackbar();

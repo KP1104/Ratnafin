@@ -22,12 +22,11 @@ interface updateBankDataType {
   bankCode: string;
 }
 
-const updateBankDataWrapperFn = (updateBankData) => async ({
-  data,
-  bankCode,
-}: updateBankDataType) => {
-  return updateBankData(data, bankCode);
-};
+const updateBankDataWrapperFn =
+  (updateBankData) =>
+  async ({ data, bankCode }: updateBankDataType) => {
+    return updateBankData(data, bankCode);
+  };
 
 export const ViewEditBank: FC<{
   moduleType: any;
@@ -141,7 +140,6 @@ export const ViewEditBank: FC<{
         background: "white",
         overflowY: "auto",
         overflowX: "hidden",
-        height: "20vh",
       }}
     >
       {!readOnly ? <Button onClick={moveToEditMode}>Edit</Button> : null}
@@ -161,7 +159,6 @@ export const ViewEditBank: FC<{
         background: "white",
         overflowY: "auto",
         overflowX: "hidden",
-        height: "20vh",
       }}
     >
       {({ isSubmitting, handleSubmit }) => (

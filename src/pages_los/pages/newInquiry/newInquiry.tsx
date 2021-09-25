@@ -8,12 +8,13 @@ export const NewInquiry = () => {
   const [currentView, setCurrentView] = useState("inquiry");
   const [successID, setSuccessID] = useState("");
   const location = useLocation();
-  const { state } = location;
+  const { key, search } = location;
+  let params = new URLSearchParams(search);
 
   useEffect(() => {
     setCurrentView("inquiry");
     setSuccessID("");
-  }, [state]);
+  }, [key]);
 
   const onSuccessHandler = (refID) => {
     setSuccessID(refID);
@@ -23,8 +24,10 @@ export const NewInquiry = () => {
   const result =
     currentView === "inquiry" ? (
       <InquiryFormWrapper
-        navigationState={state}
+        key={key}
         onSuccess={onSuccessHandler}
+        categoryID={params.get("categoryID")}
+        productID={params.get("productID")}
       />
     ) : (
       <Alert>

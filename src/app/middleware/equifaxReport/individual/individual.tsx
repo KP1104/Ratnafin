@@ -7,6 +7,7 @@ import { EnquiryInfo } from "./enquiryInfo";
 import { GlossaryTermsExplanation } from "./glossaryTermExplanation";
 import { AccountSummary } from "./accountSummary";
 import { MiddlewareSDK } from "registry/fns/middleware";
+import { transform } from "./transform";
 import "assets/css/bootstrap.min.css";
 import "./styles.css";
 
@@ -15,21 +16,21 @@ export const IndividualEquifaxReport = () => {
   const result = useQuery(["getMandateFormData", tokenID], () =>
     MiddlewareSDK.getEqifaxReportData({ tokenID })
   );
-  const data = result?.data;
+  const data = result.data;
+  let newdata = transform(data);
   const loading = result?.isLoading || result?.isFetching;
   const renderResult = loading ? (
     <img src={loaderGif} alt="loader" width="50px" height="50px" />
   ) : (
     <>
-      <PersonalInfo personalInfo={data?.customer} header={data?.header} />
-      <AccountSummary accountsSummary={data?.account} header={data?.header} />
-      <AccountsInfo accountsInfo={data?.account} header={data?.header} />
+      <PersonalInfo personalInfo={newdata?.customer} header={newdata?.header} />
+      <AccountSummary accountsSummary={newdata?.account} />
+      <AccountsInfo accountsInfo={newdata?.account} />
       <EnquiryInfo
-        enquirySummaryInfo={data?.enquirySummary}
-        enquiryInputInfo={data?.inputEnquiry}
-        header={data?.header}
+        enquirySummaryInfo={newdata?.enquirySummary}
+        enquiryInputInfo={newdata?.inputEnquiry}
       />
-      <GlossaryTermsExplanation header={data?.header} />
+      <GlossaryTermsExplanation />
     </>
   );
   return renderResult;

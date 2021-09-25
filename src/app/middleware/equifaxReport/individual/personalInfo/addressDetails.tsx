@@ -3,16 +3,24 @@ export const AddressDetails = ({ addressDetails }) => {
     <div className="consumer-part">
       <h2>Consumer Address:</h2>
       <table className="table">
-        <thead className="thead-dark">
-          <tr>
-            <th scope="col">Type</th>
-            <th scope="col">Address</th>
-            <th scope="col">State</th>
-            <th scope="col">Postal</th>
-            <th scope="col">Date Reported</th>
-          </tr>
-        </thead>
         <tbody>
+          <tr>
+            <th scope="col">
+              <span className="heading-color">Type</span>
+            </th>
+            <th scope="col">
+              <span className="heading-color">Address</span>
+            </th>
+            <th scope="col">
+              <span className="heading-color">State</span>
+            </th>
+            <th scope="col">
+              <span className="heading-color">Postal</span>
+            </th>
+            <th scope="col">
+              <span className="heading-color">Date Reported</span>
+            </th>
+          </tr>
           {addressDetails?.map((addressInfo) => {
             return (
               <tr>
