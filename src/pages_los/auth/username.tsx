@@ -5,9 +5,10 @@ import { GradientButton } from "components/styledComponent/button";
 
 export const UsernameField = ({ classes, loginState, verifyUsername }) => {
   const [userName, setUsername] = useState("");
-  const handleChange = useCallback((e) => setUsername(e.target.value), [
-    setUsername,
-  ]);
+  const handleChange = useCallback(
+    (e) => setUsername(e.target.value),
+    [setUsername]
+  );
   const inputRef = useRef<any>(null);
   useEffect(() => {
     if (loginState.isError) {
@@ -24,11 +25,11 @@ export const UsernameField = ({ classes, loginState, verifyUsername }) => {
         <TextField
           inputRef={inputRef}
           autoFocus={true}
-          label={"User ID"}
+          label={"Username"}
           fullWidth
           type={"text"}
           className="mobileNumber"
-          name="phoneNumber"
+          name="userName"
           value={userName}
           onChange={handleChange}
           onKeyDown={(e) => e.keyCode === 13 && verifyUsername(userName)}

@@ -2,12 +2,18 @@ import { Fragment, useState, useCallback, useRef, useEffect } from "react";
 import { TextField } from "components/styledComponent/textfield";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
-import { GradientButton } from "components/styledComponent/button";
+import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import Typography from "@material-ui/core/Typography";
 
-export const PasswordField = ({ classes, loginState, verifyPassword }) => {
+export const PasswordField = ({
+  classes,
+  loginState,
+  verifyPassword,
+  goBack,
+}) => {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
   const handleChange = useCallback(
@@ -26,6 +32,10 @@ export const PasswordField = ({ classes, loginState, verifyPassword }) => {
   return (
     <Fragment>
       <div className={classes.formWrap}>
+        <Typography variant="h6" color="primary">
+          Hi, {loginState.username}
+        </Typography>
+        <br />
         <TextField
           autoFocus={true}
           key="employee/Partner"
@@ -58,25 +68,23 @@ export const PasswordField = ({ classes, loginState, verifyPassword }) => {
             ),
           }}
         />
-
         <div
           style={{
             display: "flex",
-            flexDirection: "row-reverse",
             marginTop: "8px",
           }}
         >
-          <GradientButton
+          <Button onClick={goBack} disabled={loginState.loading}>
+            Change Username
+          </Button>
+          <div style={{ flexGrow: 1 }} />
+          <Button
             endIcon={loginState.loading ? <CircularProgress size={20} /> : null}
             disabled={loginState.loading}
             onClick={() => verifyPassword(password)}
           >
             Login
-          </GradientButton>
-          <div style={{ marginLeft: "10px" }} />
-          <GradientButton onClick={() => verifyPassword("username")}>
-            Back
-          </GradientButton>
+          </Button>
         </div>
       </div>
     </Fragment>
