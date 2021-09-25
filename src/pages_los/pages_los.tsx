@@ -37,7 +37,11 @@ import {
   ColdCalling,
 } from "pages_los/pages/taskManagement";
 import { BankConfigWrapper, BankMasterWrapper } from "pages_los/pages/config";
-import { RegionMasterWrapper } from "pages_los/pages/config/masters";
+import {
+  RegionMasterWrapper,
+  ZoneMasterWrapper,
+  CountryMasterWrapper,
+} from "pages_los/pages/config/masters";
 import { LeadStagesSMECF, LeadInquiry } from "pages_los/pages/reports";
 import TestForm from "components/dyanmicForm/test";
 import Editor from "components/editor";
@@ -123,7 +127,18 @@ export const PagesLOS = () => {
               path="/config/assignPincode"
               element={<AssignPincodeToBranch />}
             />
-            {/* <Route path="/config/" element={<RegionMasterWrapper/>}/> */}
+            <Route
+              path="/config/regionMaster/*"
+              element={<RegionMasterWrapper />}
+            />
+            <Route
+              path="/config/zoneMaster/*"
+              element={<ZoneMasterWrapper />}
+            />
+            <Route
+              path="/config/countryMaster/*"
+              element={<CountryMasterWrapper />}
+            />
             <Route path="/profile" element={<Profile />} />
             <Route
               path="/reports/leadStagesSMECF"

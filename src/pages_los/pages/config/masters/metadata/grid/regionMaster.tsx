@@ -2,7 +2,7 @@ export const regionMasterGridMetaData = {
   gridConfig: {
     dense: true,
     gridLabel: "Region",
-    rowIdColumn: "branchID",
+    rowIdColumn: "regionCode",
     defaultColumnConfig: { width: 150, maxWidth: 250, minWidth: 100 },
     allowColumnReordering: true,
     hideHeader: false,

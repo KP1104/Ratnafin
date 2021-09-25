@@ -1,8 +1,8 @@
-export const countryMasterGridMetaData = {
+export const countryZoneMasterGridMetaData = {
   gridConfig: {
     dense: true,
-    gridLabel: "Country",
-    rowIdColumn: "countryCode",
+    gridLabel: "Zones",
+    rowIdColumn: "zoneCode",
     defaultColumnConfig: { width: 150, maxWidth: 250, minWidth: 100 },
     allowColumnReordering: true,
     hideHeader: false,
@@ -12,17 +12,10 @@ export const countryMasterGridMetaData = {
   },
   columns: [
     {
-      columnName: "Country Code",
+      columnName: "Zone Name",
       componentType: "default",
-      accessor: "countryCode",
+      accessor: "zoneName",
       sequence: 1,
-      alignment: "left",
-    },
-    {
-      columnName: "Country Name",
-      componentType: "default",
-      accessor: "countryName",
-      sequence: 2,
       alignment: "left",
     },
   ],

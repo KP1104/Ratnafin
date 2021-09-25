@@ -340,6 +340,24 @@ export const metaData: NavBarMetaDataType = {
           icon: "circle",
         },
         {
+          label: "Region Master",
+          href: "./config/regionMaster",
+          isRouterLink: true,
+          icon: "circle",
+        },
+        {
+          label: "Zone Master",
+          href: "./config/zoneMaster",
+          isRouterLink: true,
+          icon: "circle",
+        },
+        {
+          label: "Country Master",
+          href: "./config/countryMaster",
+          isRouterLink: true,
+          icon: "circle",
+        },
+        {
           label: "Product Bank Config",
           href: "./config/banks",
           isRouterLink: true,
