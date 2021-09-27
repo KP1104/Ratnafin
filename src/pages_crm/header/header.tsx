@@ -31,13 +31,13 @@ export const Header = () => {
         <FullScreenNav classes={classes} />
       </Hidden>
       <Hidden mdUp={true}>
-        <MobileNav classes={classes} />
+        <MobileNav classes={classes} basePath="/crm" />
       </Hidden>
     </Fragment>
   );
 };
 
-export const MobileNav = ({ classes }) => {
+export const MobileNav = ({ classes, basePath }) => {
   const [drawerOpen, setDrawerState] = useState(false);
 
   const combinedNavs = {
@@ -75,6 +75,7 @@ export const MobileNav = ({ classes }) => {
           metaData={combinedNavs}
           handleDrawerOpen={() => true}
           drawerOpen={true}
+          basePath={basePath}
         />
       ) : null}
     </Fragment>

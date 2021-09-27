@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import clsx from "clsx";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -18,6 +18,7 @@ export const SideBarNav: FC<SideBarRendererType> = ({
   metaData,
   handleDrawerOpen,
   drawerOpen,
+  basePath,
 }) => {
   const classes = useStylesSideBar();
   let result: JSX.Element[] | null = null;
@@ -32,6 +33,7 @@ export const SideBarNav: FC<SideBarRendererType> = ({
             level={0}
             handleDrawerOpen={handleDrawerOpen}
             drawerOpen={drawerOpen}
+            basePath={basePath}
           />
         );
       } else {
@@ -41,6 +43,7 @@ export const SideBarNav: FC<SideBarRendererType> = ({
             item={one}
             classes={classes}
             level={0}
+            basePath={basePath}
           />
         );
       }
@@ -57,8 +60,10 @@ const SingleListItem: FC<{
   item: NavItemType;
   classes: ReturnType<typeof useStylesSideBar>;
   level: number;
-}> = ({ item, classes, level }) => {
+  basePath: string;
+}> = ({ item, classes, level, basePath }) => {
   const navigate = useNavigate();
+
   const icon = item.icon ? (
     <ListItemIcon className={classes.listIcon}>
       <FontAwesomeIcon icon={["fas", item.icon]} />
@@ -78,11 +83,14 @@ const SingleListItem: FC<{
       onClick={(e) => {
         e.preventDefault();
         if (item.isRouterLink) {
+          let path = item.href;
+          path =
+            item.href?.substr(0, 1) === "/" ? item.href.substr(1) : item.href;
           if (item.passNavigationPropsAsURLParmas) {
             let urlParms = new URLSearchParams(item?.navigationProps);
-            navigate(`${item.href}?${urlParms.toString()}`);
+            navigate(`${basePath}/${path}?${urlParms.toString()}`);
           } else {
-            navigate(item.href as string, {
+            navigate(`${basePath}/${path}` as string, {
               state: { ...item?.navigationProps },
             });
           }
@@ -106,7 +114,8 @@ const NestedListItem: FC<{
   level: number;
   handleDrawerOpen: Function;
   drawerOpen: boolean;
-}> = ({ item, classes, level, handleDrawerOpen, drawerOpen }) => {
+  basePath: string;
+}> = ({ item, classes, level, handleDrawerOpen, drawerOpen, basePath }) => {
   const [open, setOpen] = useState(false);
   const handleClick = () => {
     if (!drawerOpen) {
@@ -124,6 +133,7 @@ const NestedListItem: FC<{
           level={level + 1}
           handleDrawerOpen={handleDrawerOpen}
           drawerOpen={drawerOpen}
+          basePath={basePath}
         />
       );
     } else {
@@ -133,6 +143,7 @@ const NestedListItem: FC<{
           item={one}
           classes={classes}
           level={level + 1}
+          basePath={basePath}
         />
       );
     }

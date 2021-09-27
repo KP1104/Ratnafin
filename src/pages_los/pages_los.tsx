@@ -57,105 +57,101 @@ export const PagesLOS = () => {
       <div className={classes.root}>
         <AppBar open={drawerOpen} handleDrawerOpen={handleDrawerOpen} />
         <Drawer open={drawerOpen} handleDrawerClose={handleDrawerClose}>
-          <MySideBar handleDrawerOpen={handleDrawerOpen} open={drawerOpen} />
+          <MySideBar
+            handleDrawerOpen={handleDrawerOpen}
+            open={drawerOpen}
+            basePath="/los"
+          />
         </Drawer>
         <Content>
           <Routes>
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="dashboard" element={<Dashboard />} />
             {/*New Inquiries */}
             <Route
-              path="/newInquiry/*"
+              path="newInquiry/*"
               element={<NewInquiry key="inquiryx" />}
             />
             {/* Inquiries */}
             <Route
-              path="/inquiry/allAssignedInquiries/*"
+              path="inquiry/allAssignedInquiries/*"
               element={<AllAssignedInquiry />}
             />
             <Route
-              path="/inquiry/assignedInquiries/*"
+              path="inquiry/assignedInquiries/*"
               element={<AssignedInquiry />}
             />
+            <Route path="inquiry/crossInquiries/*" element={<CrossInquiry />} />
             <Route
-              path="/inquiry/crossInquiries/*"
-              element={<CrossInquiry />}
-            />
-            <Route
-              path="/inquiry/incomingInquiries/*"
+              path="inquiry/incomingInquiries/*"
               element={<IncomingInquiry />}
             />
             <Route
-              path="/inquiry/myCrossInquiries/*"
+              path="inquiry/myCrossInquiries/*"
               element={<MyCrossInquiry />}
             />
-            <Route path="/inquiry/myInquiry/*" element={<MyInquiry />} />
+            <Route path="inquiry/myInquiry/*" element={<MyInquiry />} />
             <Route
-              path="/inquiry/myTeamCrossInquiries/*"
+              path="inquiry/myTeamCrossInquiries/*"
               element={<MyTeamCrossInquiry />}
             />
             <Route
-              path="/inquiry/myUnmappedInquiries/*"
+              path="inquiry/myUnmappedInquiries/*"
               element={<MyUnmappedInquiry />}
             />
             <Route
-              path="/inquiry/unmappedHOInquiries/*"
+              path="inquiry/unmappedHOInquiries/*"
               element={<UnmappedHOInquiry />}
             />
             <Route
-              path="/inquiry/unmappedInquiries/*"
+              path="inquiry/unmappedInquiries/*"
               element={<UnmappedInqiry />}
             />
-            <Route path="/partner" element={<BecomePartner />} />
+            <Route path="partner" element={<BecomePartner />} />
 
-            <Route path="/lead/details/*" element={<Leads />} />
-            <Route path="/lead/mandate/*" element={<MandateLeads />} />
-            <Route path="/lead/bankLogin/*" element={<BankLoginLeads />} />
-            <Route path="/lead/sanction/*" element={<SanctionLeads />} />
+            <Route path="lead/details/*" element={<Leads />} />
+            <Route path="lead/mandate/*" element={<MandateLeads />} />
+            <Route path="lead/bankLogin/*" element={<BankLoginLeads />} />
+            <Route path="lead/sanction/*" element={<SanctionLeads />} />
+            <Route path="lead/disbursement/*" element={<DisbursementLeads />} />
+            <Route path="task/myTask/*" element={<MyTask />} />
+            <Route path="task/assigned/*" element={<AssignedTask />} />
+            <Route path="task/worklog" element={<Worklog />} />
+            <Route path="task/coldCalling/*" element={<ColdCalling />} />
+            <Route path="config/bankMaster" element={<BankMasterWrapper />} />
+            <Route path="config/banks" element={<BankConfigWrapper />} />
             <Route
-              path="/lead/disbursement/*"
-              element={<DisbursementLeads />}
-            />
-            <Route path="/task/myTask/*" element={<MyTask />} />
-            <Route path="/task/assigned/*" element={<AssignedTask />} />
-            <Route path="/task/worklog" element={<Worklog />} />
-            <Route path="/task/coldCalling/*" element={<ColdCalling />} />
-            <Route path="/config/bankMaster" element={<BankMasterWrapper />} />
-            <Route path="/config/banks" element={<BankConfigWrapper />} />
-            <Route
-              path="/config/userManagement/*"
+              path="config/userManagement/*"
               element={<UserManagementWrapper />}
             />
 
             <Route
-              path="/config/assignPincode"
+              path="config/assignPincode"
               element={<AssignPincodeToBranch />}
             />
             <Route
-              path="/config/regionMaster/*"
+              path="config/regionMaster/*"
               element={<RegionMasterWrapper />}
             />
+            <Route path="config/zoneMaster/*" element={<ZoneMasterWrapper />} />
             <Route
-              path="/config/zoneMaster/*"
-              element={<ZoneMasterWrapper />}
-            />
-            <Route
-              path="/config/countryMaster/*"
+              path="config/countryMaster/*"
               element={<CountryMasterWrapper />}
             />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="profile" element={<Profile />} />
             <Route
-              path="/reports/leadStagesSMECF"
+              path="reports/leadStagesSMECF"
               element={<LeadStagesSMECF />}
             />
             <Route
-              path="/reports/leadStagesRetail"
+              path="reports/leadStagesRetail"
               element={<LeadStagesSMECF />}
             />
-            <Route path="/reports/leadInquiry" element={<LeadInquiry />} />
-            <Route path="/*" element={<RedirectComponent />} />
+            <Route path="reports/leadInquiry" element={<LeadInquiry />} />
             {/*dummy routes*/}
-            <Route path="/testForm" element={<TestForm />} />
-            <Route path="/editor" element={<Editor />} />
+            <Route path="testForm" element={<TestForm />} />
+            <Route path="editor" element={<Editor />} />
+            {/*End of dummy routes*/}
+            <Route path="*" element={<RedirectComponent />} />
           </Routes>
         </Content>
       </div>

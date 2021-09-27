@@ -8,22 +8,20 @@ export const metaData: NavBarMetaDataType = {
   navItems: [
     {
       label: "Dashboard",
-      href: "./dashboard",
+      href: "dashboard",
       isRouterLink: true,
       icon: "hashtag",
     },
     {
       label: "New Inquiry",
       icon: "plus",
-      isRouterLink: true,
-      href: "./newInquiry",
       children: [
         {
           label: "Retails Loans",
           children: [
             {
               label: "Retail Home Loan",
-              href: "./newInquiry/retail-rhl",
+              href: "newInquiry/retail-rhl",
               isRouterLink: true,
               navigationProps: {
                 categoryID: "12000001",

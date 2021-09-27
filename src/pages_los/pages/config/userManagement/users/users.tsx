@@ -57,7 +57,7 @@ export const UserManagement = () => {
   const modifiedData = useMemo(() => modifyData(data), [data]);
 
   const closeMyDialog = () => {
-    navigate("./");
+    navigate("../");
     if (isMyDataChangedRef.current === true) {
       refetch();
       isMyDataChangedRef.current = false;

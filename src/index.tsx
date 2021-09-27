@@ -19,7 +19,7 @@ require("dotenv").config();
 const Redirect = () => {
   const navigate = useNavigate();
   useEffect(() => {
-    navigate("crm/");
+    navigate("crm");
   }, [navigate]);
   return null;
 };
@@ -27,15 +27,15 @@ const Redirect = () => {
 const App = () => (
   <StrictMode>
     <DndProvider backend={HTML5Backend}>
-      <BrowserRouter>
+      <BrowserRouter basename="/">
         <Suspense fallback={<div>loading...</div>}>
           {/* <ErrorBoundary> */}
           <Routes>
-            <Route path="/los/*" element={<LOS />} />
-            <Route path="/crm/*" element={<CRM />} />
-            <Route path="/verification/*" element={<Verification />} />
-            <Route path="/error/*" element={<ErrorPage />} />
-            <Route path="/middleware/*" element={<Middleware />} />
+            <Route path="los/*" element={<LOS />} />
+            <Route path="crm/*" element={<CRM />} />
+            <Route path="verification/*" element={<Verification />} />
+            <Route path="error/*" element={<ErrorPage />} />
+            <Route path="middleware/*" element={<Middleware />} />
 
             <Route path="*" element={<Redirect />} />
           </Routes>

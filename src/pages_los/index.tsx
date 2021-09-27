@@ -7,9 +7,9 @@ const EntryPoint = () => (
   <Fragment>
     <AuthProvider>
       <Routes>
-        <Route path="/login" element={<AuthLoginController />} />
+        <Route path="login" element={<AuthLoginController />} />
         <Route
-          path="/*"
+          path="*"
           element={
             <ProtectedRoutes>
               <PagesLOS />
