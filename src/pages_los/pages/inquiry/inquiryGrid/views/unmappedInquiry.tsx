@@ -3,13 +3,13 @@ import { Inquiry } from "../inquiry";
 
 const actions: ActionTypes[] = [
   {
-    actionName: "AssignBranch",
+    actionName: "assignBranch",
     actionLabel: "Assign Branch",
     multiple: true,
     rowDoubleClick: false,
   },
   {
-    actionName: "ViewDetailsReadOnly",
+    actionName: "viewDetailsReadOnly",
     actionLabel: "View Details",
     multiple: false,
     rowDoubleClick: true,

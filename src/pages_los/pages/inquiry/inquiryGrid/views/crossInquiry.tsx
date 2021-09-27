@@ -3,7 +3,7 @@ import { Inquiry } from "../inquiry";
 
 const actions: ActionTypes[] = [
   {
-    actionName: "ViewStatus",
+    actionName: "viewStatus",
     actionLabel: "View Status",
     multiple: false,
     rowDoubleClick: true,

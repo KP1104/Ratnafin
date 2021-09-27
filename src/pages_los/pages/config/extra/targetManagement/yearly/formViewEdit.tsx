@@ -29,12 +29,11 @@ interface updateFormDataType {
   serialNo?: string;
 }
 
-const updateFormDataWrapperFn = (updateFormData) => async ({
-  data,
-  serialNo,
-}: updateFormDataType) => {
-  return updateFormData(data, serialNo);
-};
+const updateFormDataWrapperFn =
+  (updateFormData) =>
+  async ({ data, serialNo }: updateFormDataType) => {
+    return updateFormData(data, serialNo);
+  };
 
 export const FormViewEdit: FC<{
   isDataChangedRef: any;
@@ -51,9 +50,8 @@ export const FormViewEdit: FC<{
   setEditFormStateFromInitValues,
   readOnly = false,
 }) => {
-  const { updateFormData, getFormData, getFormMetaData, context } = useContext(
-    CRUDContext
-  );
+  const { updateFormData, getFormData, getFormMetaData, context } =
+    useContext(CRUDContext);
   const removeCache = useContext(ClearCacheContext);
   const [formMode, setFormMode] = useState(defaultView);
   const [currentProduct, setCurrentProduct] = useState<any>(null);

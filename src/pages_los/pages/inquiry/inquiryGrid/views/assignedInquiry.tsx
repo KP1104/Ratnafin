@@ -4,31 +4,31 @@ import { Inquiry } from "../inquiry";
 export const AssignedInquiry = () => {
   const actions: ActionTypes[] = [
     {
-      actionName: "AssignInquiry",
+      actionName: "assignInquiry",
       actionLabel: "Assign Inquiry",
       multiple: false,
       rowDoubleClick: false,
     },
     {
-      actionName: "AssignTask",
+      actionName: "assignTask",
       actionLabel: "Assign Task",
       multiple: false,
       rowDoubleClick: false,
     },
     {
-      actionName: "ViewDetails",
+      actionName: "viewDetails",
       actionLabel: "View Details",
       multiple: false,
       rowDoubleClick: true,
     },
     {
-      actionName: "Priority",
+      actionName: "priority",
       actionLabel: "Priority",
       multiple: false,
       rowDoubleClick: false,
     },
     {
-      actionName: "MoveToLead",
+      actionName: "moveToLead",
       actionLabel: "Move To Lead",
       multiple: false,
       rowDoubleClick: false,

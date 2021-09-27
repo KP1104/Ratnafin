@@ -12,11 +12,13 @@ import { AssignInquiryWrapper } from "../assignInquiry";
 import { PriorityWrapper } from "../priority";
 import { MoveToLeadWrapper } from "../moveToLead";
 import { EligibilityCalculatorWrapper } from "../eligibilityCalculator";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { DocumentUploadWrapper } from "../documentUpload";
 
 export const Inquiry = ({ gridCode, actions }) => {
   let navigate = useNavigate();
+  let location = useLocation();
+  console.log(location);
   const setCurrentAction = useCallback(
     (data) => {
       navigate(data?.name, {
@@ -29,7 +31,7 @@ export const Inquiry = ({ gridCode, actions }) => {
   const myGridRef = useRef<any>(null);
 
   const handleDialogClose = () => {
-    navigate("./");
+    navigate("../");
     if (isDataChangedRef.current) {
       myGridRef?.current?.fetchData?.();
       isDataChangedRef.current = false;
@@ -51,7 +53,7 @@ export const Inquiry = ({ gridCode, actions }) => {
       <ClearCacheProvider>
         <Routes>
           <Route
-            path="/ViewDetails"
+            path="viewDetails"
             element={
               <DetailsTabViewWrapper
                 handleDialogClose={handleDialogClose}
@@ -60,7 +62,7 @@ export const Inquiry = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="/ViewDetailsReadOnly"
+            path="viewDetailsReadOnly"
             element={
               <DetailsTabViewWrapper
                 handleDialogClose={handleDialogClose}
@@ -70,7 +72,7 @@ export const Inquiry = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="/AssignBranch"
+            path="assignBranch"
             element={
               <AssignBranchWrapper
                 moduleType="inquiry"
@@ -80,7 +82,7 @@ export const Inquiry = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="/AssignInquiry"
+            path="assignInquiry"
             element={
               <AssignInquiryWrapper
                 moduleType="inquiry"
@@ -90,7 +92,7 @@ export const Inquiry = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="/AssignTask"
+            path="assignTask"
             element={
               <InquiryAssignTaskWrapper
                 closeDialog={handleDialogClose}
@@ -99,7 +101,7 @@ export const Inquiry = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="/Priority"
+            path="priority"
             element={
               <PriorityWrapper
                 moduleType="inquiry"
@@ -109,7 +111,7 @@ export const Inquiry = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="/MoveToLead"
+            path="moveToLead"
             element={
               <MoveToLeadWrapper
                 moduleType="inquiry"
@@ -119,13 +121,13 @@ export const Inquiry = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="/calculator"
+            path="calculator"
             element={
               <EligibilityCalculatorWrapper closeDialog={handleDialogClose} />
             }
           />
           <Route
-            path="/documentUpload"
+            path="documentUpload"
             element={
               <DocumentUploadWrapper
                 moduleType="inquiry"
