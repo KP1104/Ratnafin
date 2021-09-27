@@ -116,7 +116,8 @@ export const AccountDetails = ({ accountDetail, count }) => {
                     width: "25%",
                   }}
                 >
-                  Write-off Amount:<strong></strong>
+                  Write-off Amount:
+                  <strong>{accountDetail?.WriteOffAmount}</strong>
                 </td>
                 <td
                   style={{
@@ -151,18 +152,58 @@ export const AccountDetails = ({ accountDetail, count }) => {
           >
             <tbody>
               <tr>
-                <td>Repayment Tenure: {accountDetail?.RepaymentTenure}</td>
-                <td>Monthly Payment Amount:</td>
-                <td>
+                <td
+                  style={{
+                    width: "25%",
+                  }}
+                >
+                  Repayment Tenure: {accountDetail?.RepaymentTenure}
+                </td>
+                <td
+                  style={{
+                    width: "25%",
+                  }}
+                >
+                  Monthly Payment Amount:{accountDetail?.InstallmentAmount}
+                </td>
+                <td
+                  style={{
+                    width: "25%",
+                  }}
+                >
                   Credit Limit:
                   <strong>{accountDetail?.CreditLimit ?? "-"}</strong>
                 </td>
-                <td>Collateral Value:{accountDetail?.CollateralValue}</td>
+                <td
+                  style={{
+                    width: "25%",
+                  }}
+                >
+                  Collateral Value:{accountDetail?.CollateralValue}
+                </td>
               </tr>
               <tr>
-                <td>Dispute Code:</td>
-                <td>Term Frequency: {accountDetail?.TermFrequency}</td>
-                <td>Collateral Type:{accountDetail?.CollateralType}</td>
+                <td
+                  style={{
+                    width: "25%",
+                  }}
+                >
+                  Dispute Code: {accountDetail?.DisputeCode}
+                </td>
+                <td
+                  style={{
+                    width: "25%",
+                  }}
+                >
+                  Term Frequency: {accountDetail?.TermFrequency}
+                </td>
+                <td
+                  style={{
+                    width: "25%",
+                  }}
+                >
+                  Collateral Type:{accountDetail?.CollateralType}
+                </td>
               </tr>
             </tbody>
           </table>
@@ -193,7 +234,8 @@ export const AccountDetails = ({ accountDetail, count }) => {
               </tr>
               <tr>
                 <td>
-                  Suit Filed Status:<strong></strong>
+                  Suit Filed Status:
+                  <strong>{accountDetail?.SuitFiledStatus}</strong>
                 </td>
               </tr>
             </tbody>
