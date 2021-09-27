@@ -52,5 +52,20 @@ export const UserGridMetaData = {
       sequence: 4,
       alignment: "left",
     },
+    {
+      columnName: "Products Allocated",
+      componentType: "default",
+      accessor: "accessCategoryList",
+      sequence: 4,
+      alignment: "left",
+    },
+    {
+      columnName: "Status",
+      componentType: "default",
+      accessor: "userStatus",
+      color: (value) => (value === "Active" ? "green" : "red"),
+      sequence: 4,
+      alignment: "left",
+    },
   ],
 };

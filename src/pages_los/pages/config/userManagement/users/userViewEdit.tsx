@@ -30,7 +30,7 @@ export const ViewEditUser = ({ closeHandler, isDataChangedRef }) => {
     onSuccess: () => {
       isDataChangedRef.current = true;
       setMode("view");
-      enqueueSnackbar("user successfully added", {
+      enqueueSnackbar("user successfully updated", {
         variant: "success",
       });
       setIsSubmitting(false);
@@ -81,7 +81,7 @@ export const ViewEditUser = ({ closeHandler, isDataChangedRef }) => {
         <UserForm
           mode={mode}
           key={mode}
-          disabled={isSubmitting}
+          disabled={mode === "view" ? true : isSubmitting}
           initialValues={userData.data ?? {}}
           onSubmit={(values) => {
             setIsSubmitting(true);

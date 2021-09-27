@@ -3,8 +3,14 @@ import Tooltip from "@material-ui/core/Tooltip";
 export const DefaultRowCellRenderer = (props) => {
   const {
     value,
-    column: { showTooltip = false, color = "initial" },
+    column: {
+      showTooltip = false,
+      color = "initial",
+      transform = (value) => value,
+    },
   } = props;
+
+  let newValue = transform(value);
   let result = (
     <span
       style={{
@@ -14,7 +20,7 @@ export const DefaultRowCellRenderer = (props) => {
         color: typeof color === "function" ? color(value) : color,
       }}
     >
-      {value}
+      {newValue}
     </span>
   );
   return showTooltip ? <Tooltip title={value}>{result}</Tooltip> : result;

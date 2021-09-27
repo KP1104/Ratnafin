@@ -1,4 +1,11 @@
-import { Fragment, useState, useCallback, FC, useEffect } from "react";
+import {
+  Fragment,
+  useState,
+  useCallback,
+  FC,
+  useEffect,
+  useContext,
+} from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -11,6 +18,7 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import Container from "@material-ui/core/Container";
+import { ClearCacheContext } from "cache";
 import { TextField } from "components/styledComponent/textfield";
 import { SelectRenderOnly } from "components/common/select";
 import { SelectWithoutOptions } from "components/common/select/render2";
@@ -42,6 +50,8 @@ export const UserForm: FC<any> = ({
   children,
   childrenAtBottom = false,
 }) => {
+  const removeCache = useContext(ClearCacheContext);
+  const addEntry = removeCache?.addEntry;
   const [data, setData] = useState<any>(initialValues);
   const [error, setError] = useState<any>({});
   const [touched, setTouched] = useState(false);
@@ -56,6 +66,16 @@ export const UserForm: FC<any> = ({
 
   let role = data?.role;
   let base = data?.base;
+
+  useEffect(() => {
+    addEntry("getBranches");
+    addEntry("getRegion");
+    addEntry("getZone");
+    addEntry("getCountry");
+    addEntry("getCompaniesInfo");
+    addEntry("getRoles");
+    addEntry("getUsers");
+  }, [addEntry]);
 
   const isCompanySelected =
     Boolean(data?.company ?? "") && data?.company !== "00";
@@ -209,7 +229,6 @@ export const UserForm: FC<any> = ({
     country.isFetching;
 
   const handleSubmit = () => {
-    console.log("gi");
     setTouched(true);
     let result = isFormValid();
     if (result) {
@@ -222,7 +241,10 @@ export const UserForm: FC<any> = ({
         });
       } else {
         let { newPassword, ...others } = data;
-        onSubmit({ ...others, entityType });
+        onSubmit({
+          ...others,
+          entityType: entityType.substr(0, 1).toUpperCase(),
+        });
       }
     }
   };
@@ -267,24 +289,41 @@ export const UserForm: FC<any> = ({
             />
           </Grid>
           <Grid item xs={12} sm={12} md={4} key="user">
-            <SelectRenderOnly
-              name="user"
-              options={API.getUsers}
-              _optionsKey="getUsers"
-              handleChange={handleChange}
-              label="Username"
-              fullWidth
-              defaultValue="00"
-              value={data?.user ?? ""}
-              selectVariant="regular"
-              defaultOptionLabel="Select User"
-              disabled={disabled}
-              required
-              touched={touched}
-              error={error?.user ?? ""}
-              readOnly={mode !== "new" ? true : false}
-              handleBlur={isFormValid}
-            />
+            {mode === "new" ? (
+              <SelectRenderOnly
+                name="user"
+                options={API.getUsers}
+                _optionsKey="getUsers"
+                handleChange={handleChange}
+                label="Username"
+                fullWidth
+                defaultValue="00"
+                value={data?.user ?? ""}
+                selectVariant="regular"
+                defaultOptionLabel="Select User"
+                disabled={disabled}
+                required
+                touched={touched}
+                error={error?.user ?? ""}
+                readOnly={mode !== "new" ? true : false}
+                handleBlur={isFormValid}
+              />
+            ) : (
+              <TextField
+                name="username"
+                value={data?.userName}
+                label="Username"
+                inputProps={{
+                  readOnly: true,
+                  tabIndex: -1,
+                }}
+                fullWidth
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                disabled={disabled}
+              />
+            )}
           </Grid>
           <Grid item xs={12} sm={12} md={4} key="role">
             <SelectRenderOnly

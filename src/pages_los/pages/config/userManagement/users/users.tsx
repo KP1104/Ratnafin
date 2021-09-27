@@ -1,4 +1,11 @@
-import { useRef, useEffect, Fragment, useCallback, useContext } from "react";
+import {
+  useRef,
+  useEffect,
+  Fragment,
+  useCallback,
+  useContext,
+  useMemo,
+} from "react";
 import { ClearCacheProvider, queryClient, ClearCacheContext } from "cache";
 import { ActionTypes } from "components/dataTable";
 import GridWrapper from "components/dataTableStatic";
@@ -42,14 +49,17 @@ export const UserManagement = () => {
     },
     [navigate]
   );
-  const result = useQuery(
+  const { isLoading, isFetching, data, refetch } = useQuery(
     ["getUserGridData", "users/employee/role"],
     API.getUserGridData
   );
+
+  const modifiedData = useMemo(() => modifyData(data), [data]);
+
   const closeMyDialog = () => {
     navigate("./");
     if (isMyDataChangedRef.current === true) {
-      result.refetch();
+      refetch();
       isMyDataChangedRef.current = false;
     }
   };
@@ -69,11 +79,12 @@ export const UserManagement = () => {
       <GridWrapper
         key={`usersGrid`}
         finalMetaData={UserGridMetaData as any}
-        data={result.data ?? []}
+        data={modifiedData ?? []}
         setData={() => null}
         actions={actions}
         setAction={setCurrentAction}
-        loading={result.isLoading || result.isFetching}
+        loading={isLoading || isFetching}
+        refetchData={refetch}
       />
       <Routes>
         <Route
@@ -105,3 +116,24 @@ export const UserManagementWrapper = () => (
     <UserManagement />
   </ClearCacheProvider>
 );
+
+const modifyData = (data) => {
+  if (!Array.isArray(data)) {
+    return [];
+  }
+  return data.map((one) => {
+    const { accessBranchList, accessCategoryList, userStatus, ...others } = one;
+    let newAccessBranchList = accessBranchList
+      .map((one) => one.entityName)
+      .join(",");
+    let newAccessCategoryList = accessCategoryList
+      .map((one) => one.categoryName)
+      .join(",");
+    return {
+      ...others,
+      accessBranchList: newAccessBranchList,
+      accessCategoryList: newAccessCategoryList,
+      userStatus: userStatus === "Y" ? "Active" : "In Active",
+    };
+  });
+};
