@@ -1,61 +1,72 @@
-import { Fragment, useState, useEffect, useContext, useRef } from "react";
-import Dialog from "@material-ui/core/Dialog";
+import { Fragment, useEffect, useContext, useRef, useCallback } from "react";
 import { Alert } from "components/common/alert";
 import { useQuery } from "react-query";
 import { ClearCacheProvider, ClearCacheContext, queryClient } from "cache";
-import { InvalidAction } from "pages_los/common/invalidAction";
-import { AddPartner, ViewEditPartnerDetails } from "./partnerCRUD";
+import { AddPartner, ViewEditPartnerDetailsWrapper } from "./partnerCRUD";
 import { ActionTypes } from "components/dataTable";
 import { GridMetaDataType } from "components/dataTable/types";
 import GridWrapper from "components/dataTableStatic";
 import { DocumentGridCRUD } from "./docUpload";
 import { partnerGridMetaData } from "./partnerCRUD/metadata";
 import * as API from "./partnerCRUD/api";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 const actions: ActionTypes[] = [
   {
-    actionName: "AddPartner",
+    actionName: "add",
     actionLabel: "Add Partner",
     multiple: undefined,
     rowDoubleClick: false,
     alwaysAvailable: true,
   },
   {
-    actionName: "editDetails",
+    actionName: "edit",
     actionLabel: "Edit",
     multiple: false,
     rowDoubleClick: true,
   },
   {
-    actionName: "Document",
+    actionName: "documents",
     actionLabel: "Document Details",
     multiple: false,
     rowDoubleClick: false,
   },
 ];
 
-export const BecomePartner = () => {
-  const [currentAction, setCurrentAction] = useState<null | any>(null);
+export const Partner = () => {
   const isDataChangedRef = useRef(false);
   const myGridRef = useRef<any>(null);
+  const removeCache = useContext(ClearCacheContext);
+  const navigate = useNavigate();
+  const setCurrentAction = useCallback(
+    (data) => {
+      navigate(data?.name, {
+        state: data?.rows,
+      });
+    },
+    [navigate]
+  );
+  const result = useQuery<any, any>(["getPartnerGridData"], () =>
+    API.getPartnerGridData()
+  );
 
   const handleDialogClose = () => {
-    setCurrentAction(null);
+    navigate("..");
     if (isDataChangedRef.current === true) {
       myGridRef.current?.refetch?.();
       isDataChangedRef.current = false;
     }
   };
 
-  const result = useQuery<any, any>(["getPartnerGridData"], () =>
-    API.getPartnerGridData()
-  );
-
   useEffect(() => {
     return () => {
+      let entries = removeCache?.getEntries() as any[];
+      entries.forEach((one) => {
+        queryClient.removeQueries(one);
+      });
       queryClient.removeQueries(["getPartnerGridData"]);
     };
-  }, []);
+  }, [removeCache]);
 
   return (
     <Fragment>
@@ -68,7 +79,7 @@ export const BecomePartner = () => {
       )}
 
       <GridWrapper
-        key={`externalAPIGridStatusListing`}
+        key={`partnerGrid`}
         finalMetaData={partnerGridMetaData as GridMetaDataType}
         data={result.data ?? []}
         setData={() => null}
@@ -78,61 +89,38 @@ export const BecomePartner = () => {
         refetchData={() => result.refetch()}
         ref={myGridRef}
       />
-      <ClearCacheProvider>
-        <Dialog open={Boolean(currentAction)} fullScreen maxWidth="xl">
-          <PartnerActions
-            currentAction={currentAction}
-            handleDialogClose={handleDialogClose}
-            isDataChangedRef={isDataChangedRef}
-          />
-        </Dialog>
-      </ClearCacheProvider>
+      <Routes>
+        <Route
+          path="add"
+          element={
+            <AddPartner
+              isDataChangedRef={isDataChangedRef}
+              closeDialog={handleDialogClose}
+            />
+          }
+        />
+        <Route
+          path="edit"
+          element={
+            <ViewEditPartnerDetailsWrapper
+              isDataChangedRef={isDataChangedRef}
+              closeDialog={handleDialogClose}
+            />
+          }
+        />
+        <Route
+          path="documents"
+          element={<DocumentGridCRUD closeDialog={handleDialogClose} />}
+        />
+      </Routes>
     </Fragment>
   );
 };
 
-const PartnerActions = ({
-  currentAction,
-  handleDialogClose,
-  isDataChangedRef,
-}) => {
-  const removeCache = useContext(ClearCacheContext);
-  useEffect(() => {
-    return () => {
-      let entries = removeCache?.getEntries() as any[];
-      entries.forEach((one) => {
-        queryClient.removeQueries(one);
-      });
-    };
-  }, [removeCache]);
-  return (currentAction?.name ?? "") === "AddPartner" ? (
-    <AddPartner
-      isDataChangedRef={isDataChangedRef}
-      closeDialog={handleDialogClose}
-      formStyle={{
-        background: "white",
-        overflowY: "hidden",
-        overflowX: "hidden",
-      }}
-    />
-  ) : (currentAction?.name ?? "") === "editDetails" ? (
-    <ViewEditPartnerDetails
-      defaultView="view"
-      isDataChangedRef={isDataChangedRef}
-      closeDialog={handleDialogClose}
-      tranCD={currentAction?.rows[0].id}
-      formStyle={{
-        background: "white",
-        overflowY: "hidden",
-        overflowX: "hidden",
-      }}
-    />
-  ) : (currentAction?.name ?? "") === "Document" ? (
-    <DocumentGridCRUD
-      tranCD={currentAction?.rows[0].id}
-      closeDialog={handleDialogClose}
-    />
-  ) : (
-    <InvalidAction closeDialog={handleDialogClose} />
+export const PartnerWrapper = () => {
+  return (
+    <ClearCacheProvider>
+      <Partner />
+    </ClearCacheProvider>
   );
 };

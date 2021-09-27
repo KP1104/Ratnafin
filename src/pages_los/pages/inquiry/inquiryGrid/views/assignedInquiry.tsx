@@ -1,5 +1,5 @@
 import { ActionTypes } from "components/dataTable";
-import { Inquiry } from "../inquiry";
+import { Inquiry } from "../inquiryGrid";
 
 export const AssignedInquiry = () => {
   const actions: ActionTypes[] = [

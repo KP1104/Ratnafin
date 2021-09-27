@@ -1,11 +1,14 @@
 import { Fragment, FC, useContext, useEffect } from "react";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import { useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
 import { ClearCacheContext } from "cache";
 import loaderGif from "assets/images/loader.gif";
 import { DOCCRUDContextProvider } from "pages_los/common/documents/context";
 import { DocumentGridCRUD as DocGrid } from "pages_los/common/documents/documentGridCRUD";
-import Button from "@material-ui/core/Button";
 import * as API from "./api";
+import { Transition } from "pages_los/common";
 
 export const DocAPICrudProviderGenerator = (
   moduleType,
@@ -64,11 +67,11 @@ export const DocAPICrudProviderGenerator = (
 });
 
 export const DocumentGridCRUD: FC<{
-  tranCD: string;
   closeDialog?: any;
-}> = ({ tranCD, closeDialog }) => {
+}> = ({ closeDialog }) => {
+  const { state: rows }: any = useLocation();
+  let tranCD = rows[0].id;
   const removeCache = useContext(ClearCacheContext);
-
   const queryResult = useQuery(["getDocumentCRUDTabsMetadata"], () =>
     API.getDocumentCRUDTabsMetadata()
   );
@@ -85,7 +88,18 @@ export const DocumentGridCRUD: FC<{
     //@ts-ignore
     queryResult.error?.error_msg ?? "unknown error occured"
   ) : (
-    <Fragment>
+    <Dialog
+      open={true}
+      //@ts-ignore
+      TransitionComponent={Transition}
+      PaperProps={{
+        style: {
+          width: "100%",
+          minHeight: "20vh",
+        },
+      }}
+      maxWidth="md"
+    >
       <div style={{ display: "flex" }}>
         {typeof closeDialog === "function" ? (
           <Fragment>
@@ -115,7 +129,7 @@ export const DocumentGridCRUD: FC<{
             );
           })}
       </div>
-    </Fragment>
+    </Dialog>
   );
   return renderResult;
 };

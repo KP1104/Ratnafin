@@ -1,7 +1,9 @@
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
 import { useMutation } from "react-query";
 import { useSnackbar } from "notistack";
-import Button from "@material-ui/core/Button";
+import { Transition } from "pages_los/common";
 import FormWrapper, { MetaDataType } from "components/dyanmicForm";
 import { SubmitFnType } from "packages/form";
 import { becomePartnerMetaData } from "./metadata/form";
@@ -14,13 +16,13 @@ interface BecomePartnerFormProps {
   setFieldError?: any;
 }
 
-const partnerFormDataFnWrapper = (partnerFn) => async ({
-  data,
-}: BecomePartnerFormProps) => {
-  return partnerFn(data);
-};
+const partnerFormDataFnWrapper =
+  (partnerFn) =>
+  async ({ data }: BecomePartnerFormProps) => {
+    return partnerFn(data);
+  };
 
-export const AddPartner = ({ isDataChangedRef, closeDialog, formStyle }) => {
+export const AddPartner = ({ isDataChangedRef, closeDialog }) => {
   const { enqueueSnackbar } = useSnackbar();
 
   const mutation = useMutation(
@@ -54,29 +56,46 @@ export const AddPartner = ({ isDataChangedRef, closeDialog, formStyle }) => {
   };
 
   return (
-    <FormWrapper
-      key="becomePartner"
-      metaData={becomePartnerMetaData as MetaDataType}
-      initialValues={""}
-      onSubmitHandler={onSubmitHandler}
-      displayMode={"new"}
-      hideDisplayModeInTitle={true}
-      formStyle={formStyle}
-    >
-      {({ isSubmitting, handleSubmit }) => {
-        return (
-          <>
-            <Button
-              onClick={handleSubmit}
-              disabled={isSubmitting}
-              endIcon={isSubmitting ? <CircularProgress size={20} /> : null}
-            >
-              Save
-            </Button>
-            <Button onClick={closeDialog}>Cancel</Button>
-          </>
-        );
+    <Dialog
+      open={true}
+      //@ts-ignore
+      TransitionComponent={Transition}
+      PaperProps={{
+        style: {
+          width: "100%",
+          minHeight: "20vh",
+        },
       }}
-    </FormWrapper>
+      maxWidth="md"
+    >
+      <FormWrapper
+        key="becomePartner"
+        metaData={becomePartnerMetaData as MetaDataType}
+        initialValues={""}
+        onSubmitHandler={onSubmitHandler}
+        displayMode={"new"}
+        hideDisplayModeInTitle={true}
+        formStyle={{
+          background: "white",
+          overflowY: "hidden",
+          overflowX: "hidden",
+        }}
+      >
+        {({ isSubmitting, handleSubmit }) => {
+          return (
+            <>
+              <Button
+                onClick={handleSubmit}
+                disabled={isSubmitting}
+                endIcon={isSubmitting ? <CircularProgress size={20} /> : null}
+              >
+                Save
+              </Button>
+              <Button onClick={closeDialog}>Cancel</Button>
+            </>
+          );
+        }}
+      </FormWrapper>
+    </Dialog>
   );
 };

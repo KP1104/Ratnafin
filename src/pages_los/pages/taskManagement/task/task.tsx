@@ -22,7 +22,7 @@ export const Task = ({ gridCode, actions }) => {
   const isDataEditedRef = useRef(false);
   const myGridRef = useRef<any>(null);
   const handleDialogClose = () => {
-    navigate("./");
+    navigate("..");
     if (isDataEditedRef.current) {
       myGridRef?.current?.fetchData?.();
       isDataEditedRef.current = false;

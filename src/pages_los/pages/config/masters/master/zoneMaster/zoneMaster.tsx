@@ -12,19 +12,19 @@ import * as API from "../api";
 
 const actions: ActionTypes[] = [
   {
-    actionName: "viewRegion",
+    actionName: "viewRegions",
     actionLabel: "View Regions",
     multiple: false,
     rowDoubleClick: true,
   },
   {
-    actionName: "editZone",
+    actionName: "edit",
     actionLabel: "Edit Zone",
     multiple: false,
     rowDoubleClick: false,
   },
   {
-    actionName: "addZone",
+    actionName: "add",
     actionLabel: "Add Zone",
     multiple: undefined,
     rowDoubleClick: false,
@@ -79,7 +79,7 @@ const ZoneMaster = ({ moduleType }) => {
       />
       <Routes>
         <Route
-          path="/addZone"
+          path="add"
           element={
             <AddMasterWrapper
               moduleType={moduleType}
@@ -89,7 +89,7 @@ const ZoneMaster = ({ moduleType }) => {
           }
         />
         <Route
-          path="/editZone"
+          path="edit"
           element={
             <ViewEditMasterWrapper
               moduleType={moduleType}
@@ -99,7 +99,7 @@ const ZoneMaster = ({ moduleType }) => {
           }
         />
         <Route
-          path="/viewRegion"
+          path="viewRegion"
           element={
             <SubMasterWrapper
               closeDialog={handleDialogClose}

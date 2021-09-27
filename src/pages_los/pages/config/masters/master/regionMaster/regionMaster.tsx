@@ -18,13 +18,13 @@ const actions: ActionTypes[] = [
     rowDoubleClick: true,
   },
   {
-    actionName: "editRegion",
+    actionName: "edit",
     actionLabel: "Edit Region",
     multiple: false,
     rowDoubleClick: false,
   },
   {
-    actionName: "addRegion",
+    actionName: "add",
     actionLabel: "Add Region",
     multiple: undefined,
     rowDoubleClick: false,
@@ -47,7 +47,7 @@ export const RegionMaster = ({ moduleType }) => {
   const isDataChangedRef = useRef(false);
 
   const handleDialogClose = () => {
-    navigate("./");
+    navigate("..");
     if (isDataChangedRef.current) {
       result?.refetch();
       isDataChangedRef.current = false;
@@ -81,7 +81,7 @@ export const RegionMaster = ({ moduleType }) => {
       />
       <Routes>
         <Route
-          path="/addRegion"
+          path="add"
           element={
             <AddMasterWrapper
               moduleType={moduleType}
@@ -91,7 +91,7 @@ export const RegionMaster = ({ moduleType }) => {
           }
         />
         <Route
-          path="/editRegion"
+          path="edit"
           element={
             <ViewEditMasterWrapper
               moduleType={moduleType}
@@ -101,7 +101,7 @@ export const RegionMaster = ({ moduleType }) => {
           }
         />
         <Route
-          path="/viewBranch"
+          path="viewBranch"
           element={
             <SubMasterWrapper
               closeDialog={handleDialogClose}

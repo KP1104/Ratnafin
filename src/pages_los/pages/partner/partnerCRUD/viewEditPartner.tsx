@@ -1,18 +1,21 @@
 import { useState, useCallback, FC, useEffect } from "react";
-import loaderGif from "assets/images/loader.gif";
+import Dialog from "@material-ui/core/Dialog";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import IconButton from "@material-ui/core/IconButton";
 import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
 import Alert from "@material-ui/lab/Alert";
-import { useMutation, useQuery } from "react-query";
-import { queryClient } from "cache";
-import { useSnackbar } from "notistack";
 import Button from "@material-ui/core/Button";
+import loaderGif from "assets/images/loader.gif";
+import { useLocation } from "react-router";
+import { useMutation, useQuery } from "react-query";
+import { useSnackbar } from "notistack";
+import { queryClient } from "cache";
 import FormWrapper, { MetaDataType } from "components/dyanmicForm";
 import { InitialValuesType, SubmitFnType } from "packages/form";
 import { cloneDeep } from "lodash-es";
 import { becomePartnerMetaData } from "./metadata/form";
 import * as API from "./api";
+import { Transition } from "pages_los/common";
 
 interface updatePartnerDetailsType {
   data: object;
@@ -22,21 +25,20 @@ interface updatePartnerDetailsType {
   tranCD?: string;
 }
 
-const updatePartnerDetailsWrapperFn = (updateTaskData) => async ({
-  data,
-  tranCD,
-}: updatePartnerDetailsType) => {
-  return updateTaskData(data, tranCD);
-};
+const updatePartnerDetailsWrapperFn =
+  (updateTaskData) =>
+  async ({ data, tranCD }: updatePartnerDetailsType) => {
+    return updateTaskData(data, tranCD);
+  };
 
 export const ViewEditPartnerDetails: FC<any> = ({
   isDataChangedRef,
   closeDialog,
-  defaultView,
+  defaultView = "view",
   setEditFormStateFromInitValues,
-  readOnly = false,
-  tranCD,
+  readOnly,
   formStyle,
+  tranCD,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [formMode, setFormMode] = useState(defaultView);
@@ -183,4 +185,39 @@ export const ViewEditPartnerDetails: FC<any> = ({
     </FormWrapper>
   ) : null;
   return renderResult;
+};
+
+export const ViewEditPartnerDetailsWrapper = ({
+  isDataChangedRef,
+  closeDialog,
+}) => {
+  const { state: rows }: any = useLocation();
+
+  return (
+    <Dialog
+      open={true}
+      //@ts-ignore
+      TransitionComponent={Transition}
+      PaperProps={{
+        style: {
+          width: "100%",
+          minHeight: "20vh",
+        },
+      }}
+      maxWidth="md"
+    >
+      <ViewEditPartnerDetails
+        isDataChangedRef={isDataChangedRef}
+        closeDialog={closeDialog}
+        defaultView="view"
+        formStyle={{
+          background: "white",
+          overflowY: "hidden",
+          overflowX: "hidden",
+        }}
+        readOnly={false}
+        tranCD={rows[0].id}
+      />
+    </Dialog>
+  );
 };

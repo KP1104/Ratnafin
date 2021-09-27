@@ -4,44 +4,15 @@ import { AppBar } from "./appBar";
 import { MySideBar } from "./sideBar";
 import { Drawer } from "./drawer";
 import { Content } from "./content";
-import {
-  AllAssignedInquiry,
-  AssignedInquiry,
-  CrossInquiry,
-  IncomingInquiry,
-  MyCrossInquiry,
-  MyInquiry,
-  MyTeamCrossInquiry,
-  MyUnmappedInquiry,
-  UnmappedHOInquiry,
-  UnmappedInqiry,
-} from "pages_los/pages/inquiry";
-import { BecomePartner } from "pages_los/pages/partner";
-import {
-  MandateLeads,
-  BankLoginLeads,
-  Leads,
-  SanctionLeads,
-  DisbursementLeads,
-} from "pages_los/pages/lead";
+import { Inquiry } from "pages_los/pages/inquiry";
+import { Lead } from "pages_los/pages/lead";
+import { PartnerWrapper } from "pages_los/pages/partner";
+import { TaskManagement } from "pages_los/pages/taskManagement";
 import { Profile } from "pages_los/pages/profile";
 import { Dashboard } from "pages_los/pages/dashboard";
 import { NewInquiry } from "pages_los/pages/newInquiry";
-import { UserManagementWrapper } from "pages_los/pages/config/userManagement";
-import { AssignPincodeToBranch } from "pages_los/pages/config/assignPincodeToBranch";
-import {
-  MyTask,
-  AssignedTask,
-  Worklog,
-  ColdCalling,
-} from "pages_los/pages/taskManagement";
-import { BankConfigWrapper, BankMasterWrapper } from "pages_los/pages/config";
-import {
-  RegionMasterWrapper,
-  ZoneMasterWrapper,
-  CountryMasterWrapper,
-} from "pages_los/pages/config/masters";
-import { LeadStagesSMECF, LeadInquiry } from "pages_los/pages/reports";
+import { Config } from "pages_los/pages/config";
+import { Reports } from "pages_los/pages/reports";
 import TestForm from "components/dyanmicForm/test";
 import Editor from "components/editor";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -71,82 +42,13 @@ export const PagesLOS = () => {
               path="newInquiry/*"
               element={<NewInquiry key="inquiryx" />}
             />
-            {/* Inquiries */}
-            <Route
-              path="inquiry/allAssignedInquiries/*"
-              element={<AllAssignedInquiry />}
-            />
-            <Route
-              path="inquiry/assignedInquiries/*"
-              element={<AssignedInquiry />}
-            />
-            <Route path="inquiry/crossInquiries/*" element={<CrossInquiry />} />
-            <Route
-              path="inquiry/incomingInquiries/*"
-              element={<IncomingInquiry />}
-            />
-            <Route
-              path="inquiry/myCrossInquiries/*"
-              element={<MyCrossInquiry />}
-            />
-            <Route path="inquiry/myInquiry/*" element={<MyInquiry />} />
-            <Route
-              path="inquiry/myTeamCrossInquiries/*"
-              element={<MyTeamCrossInquiry />}
-            />
-            <Route
-              path="inquiry/myUnmappedInquiries/*"
-              element={<MyUnmappedInquiry />}
-            />
-            <Route
-              path="inquiry/unmappedHOInquiries/*"
-              element={<UnmappedHOInquiry />}
-            />
-            <Route
-              path="inquiry/unmappedInquiries/*"
-              element={<UnmappedInqiry />}
-            />
-            <Route path="partner" element={<BecomePartner />} />
-
-            <Route path="lead/details/*" element={<Leads />} />
-            <Route path="lead/mandate/*" element={<MandateLeads />} />
-            <Route path="lead/bankLogin/*" element={<BankLoginLeads />} />
-            <Route path="lead/sanction/*" element={<SanctionLeads />} />
-            <Route path="lead/disbursement/*" element={<DisbursementLeads />} />
-            <Route path="task/myTask/*" element={<MyTask />} />
-            <Route path="task/assigned/*" element={<AssignedTask />} />
-            <Route path="task/worklog" element={<Worklog />} />
-            <Route path="task/coldCalling/*" element={<ColdCalling />} />
-            <Route path="config/bankMaster" element={<BankMasterWrapper />} />
-            <Route path="config/banks" element={<BankConfigWrapper />} />
-            <Route
-              path="config/userManagement/*"
-              element={<UserManagementWrapper />}
-            />
-
-            <Route
-              path="config/assignPincode"
-              element={<AssignPincodeToBranch />}
-            />
-            <Route
-              path="config/regionMaster/*"
-              element={<RegionMasterWrapper />}
-            />
-            <Route path="config/zoneMaster/*" element={<ZoneMasterWrapper />} />
-            <Route
-              path="config/countryMaster/*"
-              element={<CountryMasterWrapper />}
-            />
+            <Route path="inquiry/*" element={<Inquiry />} />
+            <Route path="lead/*" element={<Lead />} />
+            <Route path="partner/*" element={<PartnerWrapper />} />
+            <Route path="task/*" element={<TaskManagement />} />
             <Route path="profile" element={<Profile />} />
-            <Route
-              path="reports/leadStagesSMECF"
-              element={<LeadStagesSMECF />}
-            />
-            <Route
-              path="reports/leadStagesRetail"
-              element={<LeadStagesSMECF />}
-            />
-            <Route path="reports/leadInquiry" element={<LeadInquiry />} />
+            <Route path="config/*" element={<Config />} />
+            <Route path="reports/*" element={<Reports />} />
             {/*dummy routes*/}
             <Route path="testForm" element={<TestForm />} />
             <Route path="editor" element={<Editor />} />

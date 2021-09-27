@@ -57,7 +57,7 @@ export const UserManagement = () => {
   const modifiedData = useMemo(() => modifyData(data), [data]);
 
   const closeMyDialog = () => {
-    navigate("../");
+    navigate("..");
     if (isMyDataChangedRef.current === true) {
       refetch();
       isMyDataChangedRef.current = false;
@@ -88,7 +88,7 @@ export const UserManagement = () => {
       />
       <Routes>
         <Route
-          path="/add"
+          path="add"
           element={
             <AddUser
               isDataChangedRef={isMyDataChangedRef}
@@ -97,7 +97,7 @@ export const UserManagement = () => {
           }
         />
         <Route
-          path="/view"
+          path="view"
           element={
             <ViewEditUser
               isDataChangedRef={isMyDataChangedRef}
