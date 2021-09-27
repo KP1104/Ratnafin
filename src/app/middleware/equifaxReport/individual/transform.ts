@@ -20,24 +20,29 @@ export const transform = ({
       inquiryPurpose:
         mapper.EQFX_INQ_PURPOSE[InquiryRequestInfo?.InquiryPurpose] ??
         InquiryRequestInfo?.InquiryPurpose,
-      transactionAmount: InquiryRequestInfo?.TransactionAmount,
-      firstName: InquiryRequestInfo?.FirstName,
-      middleName: InquiryRequestInfo?.MiddleName,
-      lastName: InquiryRequestInfo?.LastName,
-      dateOfBirth: InquiryRequestInfo?.DOB,
-      gender: InquiryRequestInfo?.Gender,
-      address: InquiryRequestInfo?.InquiryAddresses,
+      transactionAmount: InquiryRequestInfo?.TransactionAmount ?? "",
+      firstName: InquiryRequestInfo?.FirstName ?? "",
+      middleName: InquiryRequestInfo?.MiddleName ?? "",
+      lastName: InquiryRequestInfo?.LastName ?? "",
+      dateOfBirth: InquiryRequestInfo?.DOB ?? "",
+      gender: InquiryRequestInfo?.Gender ?? "",
+      address: InquiryRequestInfo?.InquiryAddresses ?? "",
       number:
         Array.isArray(InquiryRequestInfo?.InquiryPhones) &&
         InquiryRequestInfo?.InquiryPhones.length > 0
-          ? InquiryRequestInfo?.InquiryPhones[0]?.Number
+          ? InquiryRequestInfo?.InquiryPhones[0]?.Number ?? ""
           : "",
       email:
         Array.isArray(InquiryRequestInfo?.EmailAddresses) &&
         InquiryRequestInfo?.EmailAddresses.length > 0
-          ? InquiryRequestInfo?.EmailAddresses[0]?.Email
+          ? InquiryRequestInfo?.EmailAddresses[0]?.Email ?? ""
           : "",
-      ...getIdValues(InquiryRequestInfo?.IDDetails),
+      idAndPhoneDetails: {
+        ...getIdAndPhoneDetails(
+          InquiryRequestInfo?.IDDetails,
+          InquiryRequestInfo?.InquiryPhones
+        ),
+      },
     },
     ...getEnquirySummary(CCRResponse?.CIRReportDataLst),
     ...getCustomer(CCRResponse?.CIRReportDataLst),
@@ -48,18 +53,69 @@ export const transform = ({
 };
 
 const getIdValues = (IDDetails) => {
+  let result = {
+    pan: "",
+    voterID: "",
+    passportID: "",
+    uid: "",
+    driverLicense: "",
+  };
   if (Array.isArray(IDDetails)) {
     let obj = IDDetails.map((one) => {
       if (one.IDType === "T") {
         return { pan: one.IDValue };
       } else if (one.IDType === "V") {
         return { voterID: one.IDValue };
+      } else if (one.IDType === "P") {
+        return { passportID: one.IDValue };
+      } else if (one.IDType === "M") {
+        return { uid: one.IDValue };
+      } else if (one.IDType === "D") {
+        return { driverLicense: one.IDValue };
       }
     });
-    return obj;
-  } else {
-    return {};
+    result = {
+      pan: obj?.[0]?.pan ?? "",
+      voterID: obj?.[1]?.voterID ?? "",
+      driverLicense: obj?.[2]?.driverLicense ?? "",
+      uid: obj?.[3]?.uid ?? "",
+      passportID: obj?.[4]?.passportID ?? "",
+    };
   }
+  return result;
+};
+
+const getIdAndPhoneDetails = (IDDetails, PhoneDetails) => {
+  let obj = {},
+    idObj = getIdValues(IDDetails),
+    phoneObj = getInquiryPhones(PhoneDetails);
+  obj = {
+    ...idObj,
+    ...phoneObj,
+  };
+  return obj;
+};
+const getInquiryPhones = (data) => {
+  let result = {
+    homePhone: "",
+    mobilePhone: "",
+  };
+  let reducer = (prev, current) => {
+    if (!Array.isArray(prev[current?.PhoneType])) {
+      prev[current?.PhoneType?.[0]] = [current?.Number];
+    } else {
+      prev[current?.PhoneType?.[0]]?.push(current?.Number);
+    }
+    return prev;
+  };
+  if (Array.isArray(data)) {
+    let numbersObj = data.reduce(reducer, {});
+    return {
+      homePhone: numbersObj["H"]?.join(", ") ?? "",
+      mobilePhone: numbersObj["M"]?.join(", ") ?? "",
+    };
+  }
+  return result;
 };
 
 const getEnquirySummary = (data) => {
@@ -214,6 +270,9 @@ const getAccountDetails = (data) => {
         totalMonthlyPaymentAmount:
           data[0].CIRReportData?.RetailAccountsSummary
             ?.TotalMonthlyPaymentAmount ?? "",
+        mostSevereStatusWithIn24Months:
+          data[0].CIRReportData?.RetailAccountsSummary
+            ?.MostSevereStatusWithIn24Months ?? "",
       },
     };
     return result;
