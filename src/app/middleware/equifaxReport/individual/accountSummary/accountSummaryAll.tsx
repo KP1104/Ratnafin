@@ -63,22 +63,22 @@ export const AccountSummaryAll = ({ accountSummary }) => {
           </tr>
           <tr>
             <td>
-              <span>Number of Zero Balance Accounts :</span>{" "}
+              <span>Number of Zero Balance Accounts :</span>
               <b>{accountSummary?.noOfZeroBalanceAccounts}</b>
             </td>
             <td>
-              <span>Total Monthly Payment Amount :</span>{" "}
+              <span>Total Monthly Payment Amount :</span>
               <b>Rs.{accountSummary?.totalMonthlyPaymentAmount}</b>
             </td>
             <td>
-              <span>Single Highest Sanction Amount :</span>{" "}
+              <span>Single Highest Sanction Amount :</span>
               <b>Rs.{accountSummary?.singleHighestSanctionAmount}</b>
             </td>
           </tr>
           <tr>
             <td>
-              <span>Most Severe Status less than 24 Months :</span> <b>30+</b>{" "}
-              {/* static */}
+              <span>Most Severe Status less than 24 Months :</span>
+              <b>{accountSummary?.mostSevereStatusWithIn24Months}</b>
             </td>
             <td>
               <span>Average Open Balance :</span>{" "}

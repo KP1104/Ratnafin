@@ -22,18 +22,23 @@ export const InputEnquiry = ({ inputEnquiryDetails }) => {
               Consumer’s First Name :{" "}
               <strong>{inputEnquiryDetails?.firstName}</strong>
             </td>
-            <td>
-              PAN: <strong>{inputEnquiryDetails?.pan}</strong>
-            </td>
+            <DisplayIDPhoneDetails
+              accessor="pan"
+              label="PAN :"
+              idAndPhoneDetails={inputEnquiryDetails?.idAndPhoneDetails}
+            />
             <td>Address Information 1:</td>
           </tr>
           <tr>
             <td>
-              Consumer’s Family Name : <strong></strong>
+              Consumer’s Family Name :{" "}
+              <strong>{inputEnquiryDetails?.middleName}</strong>
             </td>
-            <td>
-              Voter ID: <strong>{inputEnquiryDetails?.voterID}</strong>
-            </td>
+            <DisplayIDPhoneDetails
+              accessor="voterID"
+              label="Voter ID :"
+              idAndPhoneDetails={inputEnquiryDetails?.idAndPhoneDetails}
+            />
             <td>
               Address :
               <strong>{inputEnquiryDetails?.address?.[0]?.AddressLine1}</strong>
@@ -44,7 +49,11 @@ export const InputEnquiry = ({ inputEnquiryDetails }) => {
             <td>
               DOB : <strong>{inputEnquiryDetails?.dateOfBirth}</strong>
             </td>
-            <td>Passport ID:</td>
+            <DisplayIDPhoneDetails
+              accessor="passportID"
+              label="Passport ID :"
+              idAndPhoneDetails={inputEnquiryDetails?.idAndPhoneDetails}
+            />
             <td>
               State :<strong>{inputEnquiryDetails?.address?.[0]?.State}</strong>
             </td>
@@ -53,7 +62,11 @@ export const InputEnquiry = ({ inputEnquiryDetails }) => {
             <td>
               Gender : <strong>{inputEnquiryDetails?.gender}</strong>
             </td>
-            <td>UID:</td>
+            <DisplayIDPhoneDetails
+              accessor="uid"
+              label="UID :"
+              idAndPhoneDetails={inputEnquiryDetails?.idAndPhoneDetails}
+            />
             <td>
               Postal :{" "}
               <strong>{inputEnquiryDetails?.address?.[0]?.Postal}</strong>
@@ -61,33 +74,47 @@ export const InputEnquiry = ({ inputEnquiryDetails }) => {
           </tr>
           <tr>
             <td>
-              Inquiry / Request Purpose : <strong> Secured Credit Card</strong>
+              Inquiry / Request Purpose :{" "}
+              <strong> {inputEnquiryDetails?.inquiryPurpose}</strong>
             </td>
-            <td>
-              Driver's License:
-              <strong></strong>
-            </td>
-            <td>Address Information 2:</td>
+            <DisplayIDPhoneDetails
+              accessor="driverLicense"
+              label="Driver's License :"
+              idAndPhoneDetails={inputEnquiryDetails?.idAndPhoneDetails}
+            />
+            <td>{/* Address Information 2: */}</td>
           </tr>
           <tr>
             <td>
               Transaction Amount:
               <strong>{inputEnquiryDetails?.transactionAmount}</strong>
             </td>
-            <td>
-              Home Phone :<strong>{inputEnquiryDetails?.homePhone}</strong>
-            </td>
+            <DisplayIDPhoneDetails
+              accessor="homePhone"
+              label="Home Phone :"
+              idAndPhoneDetails={inputEnquiryDetails?.idAndPhoneDetails}
+            />
             <td></td>
           </tr>
           <tr>
             <td>Inquiry Account 1:</td>
-            <td>
-              Mobile Phone : <strong> {inputEnquiryDetails?.number}</strong>
-            </td>
+            <DisplayIDPhoneDetails
+              accessor="mobilePhone"
+              label="Mobile Phone :"
+              idAndPhoneDetails={inputEnquiryDetails?.idAndPhoneDetails}
+            />
             <td></td>
           </tr>
         </tbody>
       </table>
     </div>
+  );
+};
+
+const DisplayIDPhoneDetails = ({ accessor, label, idAndPhoneDetails }) => {
+  return (
+    <td>
+      {label} <strong>{idAndPhoneDetails[accessor]}</strong>
+    </td>
   );
 };

@@ -4,7 +4,7 @@ export const EquifaxScore = ({ scoreDetails }) => {
       <h2>Equifax Score(s):</h2>
       <table className="table">
         <tbody>
-          <tr>
+          <tr style={{ textAlignLast: "start" }}>
             <th scope="col">
               <span className="heading-color">Score Name</span>
             </th>
