@@ -42,7 +42,7 @@ export const Task = ({ gridCode, actions }) => {
       <ClearCacheProvider>
         <Routes>
           <Route
-            path="/AddTask"
+            path="addTask"
             element={
               <AssignTaskWrapper
                 handleDialogClose={handleDialogClose}
@@ -52,7 +52,7 @@ export const Task = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="/ViewDetails"
+            path="viewDetails"
             element={
               <ViewEditTaskWrapper
                 handleDialogClose={handleDialogClose}
@@ -62,7 +62,7 @@ export const Task = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="/TaskHistory"
+            path="taskHistory"
             element={
               <HistoryMetaWrapper
                 handleDialogClose={handleDialogClose}

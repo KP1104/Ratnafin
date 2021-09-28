@@ -10,5 +10,11 @@ const actions: ActionTypes[] = [
   },
 ];
 export const MyCrossInquiry = () => {
-  return <Inquiry gridCode="INQ/008" actions={actions} />;
+  return (
+    <Inquiry
+      gridCode="INQ/008"
+      actions={actions}
+      basePath="/los/inquiry/myCrossInquiries"
+    />
+  );
 };

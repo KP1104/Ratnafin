@@ -28,5 +28,11 @@ export const DisbursementLeads = () => {
     },
   ];
 
-  return <LeadGrid gridCode="TRN/013" actions={actions} />;
+  return (
+    <LeadGrid
+      gridCode="TRN/013"
+      actions={actions}
+      basePath="/los/lead/disbursement"
+    />
+  );
 };

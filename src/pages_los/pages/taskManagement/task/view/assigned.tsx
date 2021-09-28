@@ -4,14 +4,14 @@ import { ActionTypes } from "components/dataTable";
 export const AssignedTask = ({}) => {
   const actions: ActionTypes[] = [
     {
-      actionName: "AddTask",
+      actionName: "addTask",
       actionLabel: "Add Task",
       multiple: undefined,
       rowDoubleClick: false,
       alwaysAvailable: true,
     },
     {
-      actionName: "TaskHistory",
+      actionName: "taskHistory",
       actionLabel: "History",
       multiple: false,
       rowDoubleClick: true,

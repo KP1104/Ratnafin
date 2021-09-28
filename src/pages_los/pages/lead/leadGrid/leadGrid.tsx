@@ -18,7 +18,7 @@ import { SanctionMetaWrapper } from "../sanction";
 import { AuditDownloadWrapper } from "../bankLogin/auditDownload";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
-export const LeadGrid = ({ gridCode, actions }) => {
+export const LeadGrid = ({ gridCode, actions, basePath }) => {
   let navigate = useNavigate();
   const setCurrentAction = useCallback(
     (data) => {
@@ -31,7 +31,7 @@ export const LeadGrid = ({ gridCode, actions }) => {
   const isDataEditedRef = useRef(false);
   const myGridRef = useRef<any>(null);
   const handleDialogClose = () => {
-    navigate("..");
+    navigate(basePath);
     if (isDataEditedRef.current) {
       myGridRef?.current?.fetchData?.();
       isDataEditedRef.current = false;
@@ -52,7 +52,7 @@ export const LeadGrid = ({ gridCode, actions }) => {
       <ClearCacheProvider>
         <Routes>
           <Route
-            path="/detailView"
+            path="detailView"
             element={
               <DetailsTabViewWrapper
                 moduleType="lead"
@@ -62,7 +62,7 @@ export const LeadGrid = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="/cam"
+            path="cam"
             element={
               <CAMWrapper
                 moduleType="lead"
@@ -72,7 +72,7 @@ export const LeadGrid = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="/analysis"
+            path="analysis"
             element={
               <AnalysisWrapper
                 moduleType="lead"
@@ -81,7 +81,7 @@ export const LeadGrid = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="/stages"
+            path="stages"
             element={
               <StageWrapper
                 moduleType="lead"
@@ -91,7 +91,7 @@ export const LeadGrid = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="/leadAssign"
+            path="leadAssign"
             element={
               <LeadAssign
                 handleDialogClose={handleDialogClose}
@@ -101,7 +101,7 @@ export const LeadGrid = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="/taskAssign"
+            path="taskAssign"
             element={
               <LeadAssignTaskWrapper
                 handleDialogClose={handleDialogClose}
@@ -110,7 +110,7 @@ export const LeadGrid = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="/verification"
+            path="verification"
             element={
               <VerificationWrapper
                 handleDialogClose={handleDialogClose}
@@ -119,7 +119,7 @@ export const LeadGrid = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="/bankLogin"
+            path="bankLogin"
             element={
               <BankLoginWrapper
                 handleDialogClose={handleDialogClose}
@@ -128,7 +128,7 @@ export const LeadGrid = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="/viewMandate"
+            path="viewMandate"
             element={
               <MandateMetaWrapper
                 handleDialogClose={handleDialogClose}
@@ -138,7 +138,7 @@ export const LeadGrid = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="/sanction"
+            path="sanction"
             element={
               <SanctionMetaWrapper
                 handleDialogClose={handleDialogClose}
@@ -148,7 +148,7 @@ export const LeadGrid = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="/auditDownload"
+            path="auditDownload"
             element={
               <AuditDownloadWrapper
                 handleDialogClose={handleDialogClose}

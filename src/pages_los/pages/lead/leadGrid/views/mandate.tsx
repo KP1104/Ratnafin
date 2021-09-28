@@ -11,5 +11,11 @@ export const MandateLeads = () => {
     },
   ];
 
-  return <LeadGrid gridCode="TRN/010" actions={actions} />;
+  return (
+    <LeadGrid
+      gridCode="TRN/010"
+      actions={actions}
+      basePath="/los/lead/mandate"
+    />
+  );
 };

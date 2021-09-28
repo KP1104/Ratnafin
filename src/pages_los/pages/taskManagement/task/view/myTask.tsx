@@ -4,7 +4,7 @@ import { Task } from "../task";
 export const MyTask = () => {
   const actions: ActionTypes[] = [
     {
-      actionName: "ViewDetails",
+      actionName: "viewDetails",
       actionLabel: "View Details",
       multiple: false,
       rowDoubleClick: false,
@@ -20,7 +20,7 @@ export const MyTask = () => {
       },
     },
     {
-      actionName: "TaskHistory",
+      actionName: "taskHistory",
       actionLabel: "History",
       multiple: false,
       rowDoubleClick: true,

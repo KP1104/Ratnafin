@@ -14,8 +14,9 @@ import { MoveToLeadWrapper } from "../moveToLead";
 import { EligibilityCalculatorWrapper } from "../eligibilityCalculator";
 import { Routes, Route, useNavigate, useMatch } from "react-router-dom";
 import { DocumentUploadWrapper } from "../documentUpload";
+import { InvalidAction } from "pages_los/common/invalidAction";
 
-export const Inquiry = ({ gridCode, actions }) => {
+export const Inquiry = ({ gridCode, actions, basePath }) => {
   let navigate = useNavigate();
   const setCurrentAction = useCallback(
     (data) => {
@@ -29,7 +30,7 @@ export const Inquiry = ({ gridCode, actions }) => {
   const myGridRef = useRef<any>(null);
 
   const handleDialogClose = () => {
-    navigate("..");
+    navigate(basePath);
     if (isDataChangedRef.current) {
       myGridRef?.current?.fetchData?.();
       isDataChangedRef.current = false;

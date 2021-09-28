@@ -53,5 +53,11 @@ export const AssignedInquiry = () => {
       rowDoubleClick: false,
     },
   ];
-  return <Inquiry gridCode="TRN/006" actions={actions} />;
+  return (
+    <Inquiry
+      gridCode="TRN/006"
+      actions={actions}
+      basePath="/los/inquiry/assignedInquiries"
+    />
+  );
 };

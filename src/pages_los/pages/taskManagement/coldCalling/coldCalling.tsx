@@ -17,7 +17,7 @@ import { ClearCacheProvider } from "cache";
 
 const actions: ActionTypes[] = [
   {
-    actionName: "AddColdCalling",
+    actionName: "addColdCalling",
     actionLabel: "Add New",
     multiple: undefined,
     rowDoubleClick: false,
@@ -82,7 +82,7 @@ export const ColdCalling = ({ gridCode, actions }) => {
       <ClearCacheProvider>
         <Routes>
           <Route
-            path="/AddColdCalling"
+            path="addColdCalling"
             element={
               <ColdCallingAddWrapper
                 handleDialogClose={handleDialogClose}
@@ -92,7 +92,7 @@ export const ColdCalling = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="/viewDetails"
+            path="viewDetails"
             element={
               <ColdCallingEditViewWrapper
                 handleDialogClose={handleDialogClose}
@@ -102,7 +102,7 @@ export const ColdCalling = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="/delete"
+            path="delete"
             element={
               <ColdCallingDeleteWrapper
                 handleDialogClose={handleDialogClose}
@@ -112,7 +112,7 @@ export const ColdCalling = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="/moveToInquiry"
+            path="moveToInquiry"
             element={
               <MoveToInquiryWrapper
                 moduleType="cold-calling"
@@ -122,7 +122,7 @@ export const ColdCalling = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="/documentUpload"
+            path="documentUpload"
             element={
               <DocumentUploadWrapper
                 moduleType="cold-calling"
