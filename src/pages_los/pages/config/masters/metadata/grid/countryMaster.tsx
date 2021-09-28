@@ -2,7 +2,7 @@ export const countryMasterGridMetaData = {
   gridConfig: {
     dense: true,
     gridLabel: "Country",
-    rowIdColumn: "countryCode",
+    rowIdColumn: "code",
     defaultColumnConfig: { width: 150, maxWidth: 250, minWidth: 100 },
     allowColumnReordering: true,
     hideHeader: false,
@@ -14,7 +14,7 @@ export const countryMasterGridMetaData = {
     {
       columnName: "Country Code",
       componentType: "default",
-      accessor: "countryCode",
+      accessor: "code",
       sequence: 1,
       alignment: "left",
     },

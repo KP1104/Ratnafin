@@ -23,7 +23,7 @@ export const zoneMasterEditViewMetadata = {
   fields: [
     {
       render: { componentType: "textField" },
-      name: "zoneCode",
+      name: "code",
       label: "Zone Code",
       isReadOnly: true,
       GridProps: { xs: 12, md: 12, sm: 12 },
@@ -34,8 +34,6 @@ export const zoneMasterEditViewMetadata = {
       name: "zoneName",
       label: "Zone Name",
       placeholder: "Enter Zone Name",
-      maxLength: 150,
-      showMaxLength: false,
       GridProps: { xs: 12, md: 12, sm: 12 },
       fullWidth: true,
     },
@@ -47,7 +45,7 @@ export const zoneMasterEditViewMetadata = {
       label: "Active",
       GridProps: { xs: 12, md: 12, sm: 12 },
       fullWidth: true,
-      checked: true,
+      defaultValue: true,
     },
   ],
 };

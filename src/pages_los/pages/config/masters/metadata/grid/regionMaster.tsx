@@ -2,7 +2,7 @@ export const regionMasterGridMetaData = {
   gridConfig: {
     dense: true,
     gridLabel: "Region",
-    rowIdColumn: "regionCode",
+    rowIdColumn: "code",
     defaultColumnConfig: { width: 150, maxWidth: 250, minWidth: 100 },
     allowColumnReordering: true,
     hideHeader: false,
@@ -14,7 +14,7 @@ export const regionMasterGridMetaData = {
     {
       columnName: "Region Code",
       componentType: "default",
-      accessor: "regionCode",
+      accessor: "code",
       sequence: 1,
       alignment: "left",
     },

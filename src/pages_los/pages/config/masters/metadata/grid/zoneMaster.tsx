@@ -2,7 +2,7 @@ export const zoneMasterGridMetaData = {
   gridConfig: {
     dense: true,
     gridLabel: "Zone",
-    rowIdColumn: "zoneCode",
+    rowIdColumn: "code",
     defaultColumnConfig: { width: 150, maxWidth: 250, minWidth: 100 },
     allowColumnReordering: true,
     hideHeader: false,
@@ -14,7 +14,7 @@ export const zoneMasterGridMetaData = {
     {
       columnName: "Zone Code",
       componentType: "default",
-      accessor: "zoneCode",
+      accessor: "code",
       sequence: 1,
       alignment: "left",
     },

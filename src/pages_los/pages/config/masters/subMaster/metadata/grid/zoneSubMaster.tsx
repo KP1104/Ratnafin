@@ -2,7 +2,7 @@ export const zoneRegionMasterGridMetaData = {
   gridConfig: {
     dense: true,
     gridLabel: "Region",
-    rowIdColumn: "branchID",
+    rowIdColumn: "subCode",
     defaultColumnConfig: { width: 150, maxWidth: 250, minWidth: 100 },
     allowColumnReordering: true,
     hideHeader: false,
@@ -12,10 +12,17 @@ export const zoneRegionMasterGridMetaData = {
   },
   columns: [
     {
+      columnName: "Region Code",
+      componentType: "default",
+      accessor: "subCode",
+      sequence: 1,
+      alignment: "left",
+    },
+    {
       columnName: "Region Name",
       componentType: "default",
-      accessor: "regionName",
-      sequence: 1,
+      accessor: "zoneRegionName",
+      sequence: 2,
       alignment: "left",
     },
   ],

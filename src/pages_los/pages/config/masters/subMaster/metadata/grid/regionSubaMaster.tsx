@@ -2,7 +2,7 @@ export const regionBranchMasterGridMetaData = {
   gridConfig: {
     dense: true,
     gridLabel: "Branches",
-    rowIdColumn: "branchID",
+    rowIdColumn: "subCode",
     defaultColumnConfig: { width: 150, maxWidth: 250, minWidth: 100 },
     allowColumnReordering: true,
     hideHeader: false,
@@ -12,10 +12,17 @@ export const regionBranchMasterGridMetaData = {
   },
   columns: [
     {
+      columnName: "Branch Code",
+      componentType: "default",
+      accessor: "subCode",
+      sequence: 1,
+      alignment: "left",
+    },
+    {
       columnName: "Branch Name",
       componentType: "default",
-      accessor: "branchName",
-      sequence: 1,
+      accessor: "regionBranchName",
+      sequence: 2,
       alignment: "left",
     },
   ],

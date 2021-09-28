@@ -1,9 +1,9 @@
-import { useRef, Fragment, useEffect, useContext, useCallback } from "react";
+import { useRef, Fragment, useEffect, useContext, useState } from "react";
 import { ClearCacheProvider, queryClient, ClearCacheContext } from "cache";
-import { Routes, Route, useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { ActionTypes } from "components/dataTable";
 import GridWrapper from "components/dataTableStatic";
+import { Alert } from "components/common/alert";
 import { regionMasterGridMetaData } from "../../metadata";
 import { AddMasterWrapper } from "../addMaster";
 import { ViewEditMasterWrapper } from "../editMaster";
@@ -18,13 +18,13 @@ const actions: ActionTypes[] = [
     rowDoubleClick: true,
   },
   {
-    actionName: "edit",
+    actionName: "editRegion",
     actionLabel: "Edit Region",
     multiple: false,
     rowDoubleClick: false,
   },
   {
-    actionName: "add",
+    actionName: "addRegion",
     actionLabel: "Add Region",
     multiple: undefined,
     rowDoubleClick: false,
@@ -33,87 +33,104 @@ const actions: ActionTypes[] = [
 ];
 
 export const RegionMaster = ({ moduleType }) => {
-  let navigate = useNavigate();
-  const setCurrentAction = useCallback(
-    (data) => {
-      navigate(data?.name, {
-        state: data?.rows,
-      });
-    },
-    [navigate]
-  );
-
+  const [currentAction, setCurrentAction] = useState<null | any>(null);
   const removeCache = useContext(ClearCacheContext);
   const isDataChangedRef = useRef(false);
+  const myGridRef = useRef<any>(null);
+
+  const { refetch, data, isLoading, isFetching, isError, error } = useQuery(
+    ["getMastersGridData", moduleType],
+    () => API.getMastersGridData({ moduleType })
+  );
+
+  //@ts-ignore
+  let errorMsg = `${error?.error_msg}`;
+  errorMsg = Boolean(errorMsg.trim()) ? errorMsg : "Unknown error occured";
+
+  //@ts-ignore
+  let error_detail = `${error?.error_detail}`;
 
   const handleDialogClose = () => {
-    navigate("..");
-    if (isDataChangedRef.current) {
-      result?.refetch();
+    setCurrentAction(null);
+    if (isDataChangedRef.current === true) {
+      isDataChangedRef.current = true;
+      refetch();
       isDataChangedRef.current = false;
     }
   };
+
   useEffect(() => {
     return () => {
       let entries = removeCache?.getEntries() as any[];
       entries.forEach((one) => {
         queryClient.removeQueries(one);
       });
-      queryClient.removeQueries(["getMastersGridData", "region"]);
+      queryClient.removeQueries(["getMastersGridData", moduleType]);
     };
   }, [removeCache]);
 
-  const result = useQuery(["getMastersGridData", moduleType], () =>
-    API.getMastersGridData({ moduleType })
-  );
-
   return (
     <Fragment>
-      <GridWrapper
-        key={`staticGrid`}
-        //@ts-ignore
-        finalMetaData={regionMasterGridMetaData}
-        data={result?.data ?? []}
-        setData={() => null}
-        actions={actions}
-        setAction={setCurrentAction}
-        loading={result?.isLoading || result.isFetching}
-      />
-      <Routes>
-        <Route
-          path="add"
-          element={
-            <AddMasterWrapper
-              moduleType={moduleType}
-              isDataChangedRef={isDataChangedRef}
-              closeDialog={handleDialogClose}
-            />
-          }
+      {isError === true ? (
+        <Alert
+          severity="error"
+          errorMsg={errorMsg}
+          errorDetail={error_detail ?? ""}
         />
-        <Route
-          path="edit"
-          element={
-            <ViewEditMasterWrapper
-              moduleType={moduleType}
-              isDataChangedRef={isDataChangedRef}
-              closeDialog={handleDialogClose}
-            />
-          }
-        />
-        <Route
-          path="viewBranch"
-          element={
-            <SubMasterWrapper
-              closeDialog={handleDialogClose}
-              moduleType="region-branch"
-              isDataChangedRef={isDataChangedRef}
-              heading="Region"
-            />
-          }
-        />
-      </Routes>
+      ) : (
+        <>
+          <GridWrapper
+            key={`staticGrid`}
+            finalMetaData={regionMasterGridMetaData as any}
+            data={data ?? []}
+            setData={() => null}
+            actions={actions}
+            setAction={setCurrentAction}
+            loading={isLoading || isFetching}
+            refetchData={refetch}
+            ref={myGridRef}
+          />
+          <RegionMasterActionWrapper
+            moduleType={moduleType}
+            isDataChangedRef={isDataChangedRef}
+            closeDialog={handleDialogClose}
+            currentAction={currentAction}
+          />
+        </>
+      )}
     </Fragment>
   );
+};
+
+const RegionMasterActionWrapper = ({
+  moduleType,
+  isDataChangedRef,
+  closeDialog,
+  currentAction,
+}) => {
+  return (currentAction?.name ?? "") === "addRegion" ? (
+    <AddMasterWrapper
+      moduleType={moduleType}
+      isDataChangedRef={isDataChangedRef}
+      closeDialog={closeDialog}
+      data={currentAction?.rows}
+    />
+  ) : (currentAction?.name ?? "") === "editRegion" ? (
+    <ViewEditMasterWrapper
+      moduleType={moduleType}
+      isDataChangedRef={isDataChangedRef}
+      closeDialog={closeDialog}
+      data={currentAction?.rows}
+    />
+  ) : (currentAction?.name ?? "") === "viewBranch" ? (
+    <SubMasterWrapper
+      closeDialog={closeDialog}
+      moduleType="region-branch"
+      isDataChangedRef={isDataChangedRef}
+      heading="Region"
+      data={currentAction?.rows}
+    />
+  ) : null;
 };
 
 export const RegionMasterWrapper = () => (
