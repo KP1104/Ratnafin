@@ -23,7 +23,7 @@ export const countryMasterEditViewMetadata = {
   fields: [
     {
       render: { componentType: "textField" },
-      name: "countryCode",
+      name: "code",
       label: "Country Code",
       isReadOnly: true,
       GridProps: { xs: 12, md: 12, sm: 12 },
@@ -34,8 +34,6 @@ export const countryMasterEditViewMetadata = {
       name: "countryName",
       label: "Country Name",
       placeholder: "Enter Country Name",
-      maxLength: 150,
-      showMaxLength: false,
       GridProps: { xs: 12, md: 12, sm: 12 },
       fullWidth: true,
     },
@@ -47,7 +45,7 @@ export const countryMasterEditViewMetadata = {
       label: "Active",
       GridProps: { xs: 12, md: 12, sm: 12 },
       fullWidth: true,
-      checked: true,
+      defaultValue: true,
     },
   ],
 };

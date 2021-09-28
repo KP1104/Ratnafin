@@ -1,6 +1,5 @@
 import { FC, Fragment, useCallback, useEffect, useState } from "react";
 import loaderGif from "assets/images/loader.gif";
-import { useLocation } from "react-router-dom";
 import { queryClient } from "cache";
 import { useSnackbar } from "notistack";
 import { cloneDeep } from "lodash-es";
@@ -38,17 +37,13 @@ const ViewEditMaster: FC<{
   defaultView?: "view" | "edit";
   readOnly?: boolean;
   code: string;
-  name;
 }> = ({
   moduleType,
   isDataChangedRef,
   closeDialog,
   defaultView = "view",
   readOnly = false,
-
-  //backend side code is pending
   code,
-  name,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [formMode, setFormMode] = useState(defaultView);
@@ -56,7 +51,7 @@ const ViewEditMaster: FC<{
   const moveToEditMode = useCallback(() => setFormMode("edit"), [setFormMode]);
 
   const mutation = useMutation(
-    updateMasterDataWrapperFn(API.updateMastersData({ moduleType })),
+    updateMasterDataWrapperFn(API.updateMastersData({ moduleType, code })),
     {
       onError: (error: any, { endSubmit }) => {
         let errorMsg = "Unknown Error occured";
@@ -66,7 +61,7 @@ const ViewEditMaster: FC<{
         endSubmit(false, errorMsg, error?.error_detail ?? "");
       },
       onSuccess: (data, { endSubmit }) => {
-        queryClient.refetchQueries(["getFormData", moduleType]);
+        queryClient.refetchQueries(["getFormData", moduleType, code]);
         endSubmit(true, "");
         enqueueSnackbar("Update Successfully", {
           variant: "success",
@@ -90,23 +85,23 @@ const ViewEditMaster: FC<{
     mutation.mutate({ data, displayData, endSubmit, setFieldError });
   };
 
-  useEffect(() => {
-    return () => {
-      queryClient.removeQueries(["getFormData", moduleType]);
-      queryClient.removeQueries(["getFormMetadata", moduleType]);
-    };
-  }, []);
-
   const result = useQueries([
     {
       queryKey: ["getFormData", moduleType],
-      queryFn: () => API.getMastersFormData({ moduleType }),
+      queryFn: () => API.getMastersFormData({ moduleType, code: code }),
     },
     {
       queryKey: ["getFormMetadata", moduleType, "edit"],
       queryFn: () => API.getMasterFormMetadata({ moduleType, type: "edit" }),
     },
   ]);
+
+  useEffect(() => {
+    return () => {
+      queryClient.removeQueries(["getFormData", moduleType]);
+      queryClient.removeQueries(["getFormMetadata", moduleType, "edit"]);
+    };
+  }, []);
 
   const dataUniqueKey = `${result[0].dataUpdatedAt}`;
   const loading =
@@ -134,16 +129,7 @@ const ViewEditMaster: FC<{
   }
 
   const renderResult = loading ? (
-    <>
-      <img src={loaderGif} alt="loader" width="50px" height="50px" />
-      {typeof closeDialog === "function" ? (
-        <div style={{ position: "absolute", right: 0, top: 0 }}>
-          <IconButton onClick={closeDialog}>
-            <HighlightOffOutlinedIcon />
-          </IconButton>
-        </div>
-      ) : null}
-    </>
+    <img src={loaderGif} alt="loader" width="50px" height="50px" />
   ) : isError === true ? (
     <>
       <Alert
@@ -215,15 +201,15 @@ export const ViewEditMasterWrapper = ({
   moduleType,
   isDataChangedRef,
   closeDialog,
+  data,
 }) => {
-  const { state: rows }: any = useLocation();
-  const name = rows[0]?.data;
   const classes = useDialogStyles();
   return (
     <Fragment>
       <Dialog
         open={true}
-        maxWidth="md"
+        maxWidth="sm"
+        fullWidth
         //@ts-ignore
         TransitionComponent={Transition}
         classes={{
@@ -232,8 +218,7 @@ export const ViewEditMasterWrapper = ({
         }}
       >
         <ViewEditMaster
-          code={rows[0]?.id}
-          name={name?.regionName ?? name?.zoneName ?? name?.countruName ?? ""}
+          code={data[0]?.id}
           moduleType={moduleType}
           isDataChangedRef={isDataChangedRef}
           closeDialog={closeDialog}

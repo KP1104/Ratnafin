@@ -23,20 +23,14 @@ export const regionBranchMasterMetadata = {
   fields: [
     {
       render: { componentType: "select" },
-      name: "branchName",
+      name: "subCode",
       label: "Branch Name",
       placeholder: "Branch Name",
+      defaultValue: "00",
       options: "getBranchList",
+      showCheckbox: true,
+      multiple: true,
       fullWidth: true,
-      isReadOnly: true,
-    },
-    {
-      render: { componentType: "textField" },
-      name: "city",
-      label: "City",
-      placeholder: "City",
-      fullWidth: true,
-      isReadOnly: true,
     },
   ],
 };

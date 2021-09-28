@@ -12,7 +12,7 @@ import FormWrapper, { MetaDataType } from "components/dyanmicForm";
 import { SubmitFnType } from "packages/form";
 import { Transition } from "pages_los/common";
 import { useDialogStyles } from "pages_los/common/dialogStyles";
-import * as API from "./api";
+import * as API from "../api";
 
 interface addMasterDataType {
   data: object;
@@ -27,11 +27,11 @@ const addMasterFormDataFnWrapper =
     return addMasterFn(data);
   };
 
-const AddMaster = ({ moduleType, isDataChangedRef, closeDialog }) => {
+const AddMaster = ({ moduleType, isDataChangedRef, closeDialog, code }) => {
   const { enqueueSnackbar } = useSnackbar();
 
   const result = useQuery(["getFormDataMetadata", moduleType], () =>
-    API.getMasterFormMetadata({ moduleType })
+    API.getFormMetaData({ moduleType })
   );
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const AddMaster = ({ moduleType, isDataChangedRef, closeDialog }) => {
   }, []);
 
   const mutation = useMutation(
-    addMasterFormDataFnWrapper(API.insertMastersData({ moduleType })),
+    addMasterFormDataFnWrapper(API.insertBranchData({ moduleType, code })),
     {
       onError: (error: any, { endSubmit }) => {
         let errorMsg = "Unknown Error occured";
@@ -123,13 +123,14 @@ const AddMaster = ({ moduleType, isDataChangedRef, closeDialog }) => {
   return renderResult;
 };
 
-export const AddMasterWrapper = ({
+export const AddSubMasterWrapper = ({
   moduleType,
   isDataChangedRef,
   closeDialog,
-  data,
+  code,
 }) => {
   const classes = useDialogStyles();
+
   return (
     <Fragment>
       <Dialog
@@ -147,6 +148,7 @@ export const AddMasterWrapper = ({
           moduleType={moduleType}
           isDataChangedRef={isDataChangedRef}
           closeDialog={closeDialog}
+          code={code}
         />
       </Dialog>
     </Fragment>
