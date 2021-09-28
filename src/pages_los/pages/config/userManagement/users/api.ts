@@ -54,13 +54,12 @@ export const getUsersData = async ({ queryKey }) => {
   }
 };
 
-export const updateUserData = async (formData: any, serialNo?: any) => {
+export const updateUserData = async (formData: any) => {
   const { data, status } = await LOSSDK.internalFetcher(
     `./users/employee/role/data/put`,
     {
       body: JSON.stringify({
         request_data: {
-          userID: serialNo,
           ...formData,
         },
         channel: "W",

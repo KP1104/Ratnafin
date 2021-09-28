@@ -18,7 +18,7 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import Container from "@material-ui/core/Container";
-import { ClearCacheContext } from "cache";
+import { ClearCacheContext, queryClient } from "cache";
 import { TextField } from "components/styledComponent/textfield";
 import { SelectRenderOnly } from "components/common/select";
 import { SelectWithoutOptions } from "components/common/select/render2";
@@ -27,6 +27,7 @@ import { useQuery } from "react-query";
 import { ListItemSelection } from "./listItem";
 import { ShowWhen } from "./showWhen";
 import { initCap } from "./utils";
+import { Alert } from "components/common/alert";
 import {
   BRANCH_ROLES,
   REGION_ROLES,
@@ -54,6 +55,7 @@ export const UserForm: FC<any> = ({
   const addEntry = removeCache?.addEntry;
   const [data, setData] = useState<any>(initialValues);
   const [error, setError] = useState<any>({});
+  const [serverError, setServerError] = useState<string>("");
   const [touched, setTouched] = useState(false);
   const [entityType, setEntityType] = useState("");
   const [changePasswordOnNextLogin, setChangePasswordOnNextLogin] =
@@ -68,13 +70,11 @@ export const UserForm: FC<any> = ({
   let base = data?.base;
 
   useEffect(() => {
-    addEntry("getBranches");
-    addEntry("getRegion");
-    addEntry("getZone");
-    addEntry("getCountry");
     addEntry("getCompaniesInfo");
     addEntry("getRoles");
-    addEntry("getUsers");
+    return () => {
+      queryClient.removeQueries("getUsers");
+    };
   }, [addEntry]);
 
   const isCompanySelected =
@@ -233,18 +233,24 @@ export const UserForm: FC<any> = ({
     let result = isFormValid();
     if (result) {
       if (mode === "new") {
-        onSubmit({
-          ...data,
-          useDefaultPassword,
-          changePasswordOnNextLogin,
-          entityType: entityType.substr(0, 1).toUpperCase(),
-        });
+        onSubmit(
+          {
+            ...data,
+            useDefaultPassword,
+            changePasswordOnNextLogin,
+            entityType: entityType.substr(0, 1).toUpperCase(),
+          },
+          setServerError
+        );
       } else {
         let { newPassword, ...others } = data;
-        onSubmit({
-          ...others,
-          entityType: entityType.substr(0, 1).toUpperCase(),
-        });
+        onSubmit(
+          {
+            ...others,
+            entityType: entityType.substr(0, 1).toUpperCase(),
+          },
+          setServerError
+        );
       }
     }
   };
@@ -265,6 +271,13 @@ export const UserForm: FC<any> = ({
             : null}
         </Toolbar>
       </AppBar>
+      {Boolean(serverError) ? (
+        <Alert
+          errorMsg={serverError ?? "unknown error occured"}
+          errorDetail=""
+          severity="error"
+        />
+      ) : null}
       <Container>
         <div style={{ height: "16px" }} />
         <Grid container spacing={2}>

@@ -12,12 +12,16 @@ import * as API from "./api";
 import { useLocation } from "react-router";
 import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
 
+let updateUserDataWrapper = ({ data, setServerError }) => {
+  return API.updateUserData(data);
+};
+
 export const ViewEditUser = ({ closeHandler, isDataChangedRef }) => {
   const { state: rows }: any = useLocation();
   const userID = rows[0]?.id;
   const dialogClasses = useDialogStyles();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [serverError, setServerError] = useState("");
+
   const { enqueueSnackbar } = useSnackbar();
   const [mode, setMode] = useState("view");
 
@@ -26,8 +30,8 @@ export const ViewEditUser = ({ closeHandler, isDataChangedRef }) => {
     API.getUsersData
   );
 
-  const mutation = useMutation(API.updateUserData, {
-    onSuccess: () => {
+  const mutation = useMutation(updateUserDataWrapper, {
+    onSuccess: (data) => {
       isDataChangedRef.current = true;
       setMode("view");
       enqueueSnackbar("user successfully updated", {
@@ -36,9 +40,9 @@ export const ViewEditUser = ({ closeHandler, isDataChangedRef }) => {
       setIsSubmitting(false);
       userData.refetch();
     },
-    onError: () => {
+    onError: (error: any, { setServerError }) => {
       setIsSubmitting(false);
-      setServerError("unknown error occured");
+      setServerError(error?.error_msg ?? "Unknown Error occured");
     },
   });
 
@@ -83,12 +87,10 @@ export const ViewEditUser = ({ closeHandler, isDataChangedRef }) => {
           key={mode}
           disabled={mode === "view" ? true : isSubmitting}
           initialValues={userData.data ?? {}}
-          onSubmit={(values) => {
+          onSubmit={(values, setServerError) => {
             setIsSubmitting(true);
-            setServerError("");
-            mutation.mutate(values);
+            mutation.mutate({ data: values, setServerError });
           }}
-          serverError={serverError}
         >
           {({ handleSubmit }) => {
             return mode === "view" ? (

@@ -8,14 +8,17 @@ import { Transition } from "pages_los/common";
 import { useDialogStyles } from "pages_los/common/dialogStyles";
 import * as API from "./api";
 
+let insertDataWrapper = ({ data, setServerError }) => {
+  return API.insertUserData(data);
+};
+
 export const AddUser = ({ closeHandler, isDataChangedRef }) => {
   const dialogClasses = useDialogStyles();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [serverError, setServerError] = useState("");
   const { enqueueSnackbar } = useSnackbar();
 
-  const mutation = useMutation(API.insertUserData, {
-    onSuccess: () => {
+  const mutation = useMutation(insertDataWrapper, {
+    onSuccess: (result) => {
       isDataChangedRef.current = true;
       closeHandler();
       enqueueSnackbar("user successfully added", {
@@ -23,9 +26,9 @@ export const AddUser = ({ closeHandler, isDataChangedRef }) => {
       });
       setIsSubmitting(false);
     },
-    onError: () => {
+    onError: (error: any, { setServerError }) => {
+      setServerError(error?.error_msg ?? "Unknown Error occured");
       setIsSubmitting(false);
-      setServerError("unknown error occured");
     },
   });
 
@@ -50,12 +53,10 @@ export const AddUser = ({ closeHandler, isDataChangedRef }) => {
         mode="new"
         disabled={isSubmitting}
         initialValues={{}}
-        onSubmit={(values) => {
+        onSubmit={(values, setServerError) => {
           setIsSubmitting(true);
-          setServerError("");
-          mutation.mutate(values);
+          mutation.mutate({ data: values, setServerError });
         }}
-        serverError={serverError}
         childrenAtBottom={true}
       >
         {({ handleSubmit }) => {

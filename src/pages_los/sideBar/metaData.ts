@@ -337,19 +337,19 @@ export const metaData: NavBarMetaDataType = {
         },
         {
           label: "Region Master",
-          href: "config/regionMaster",
+          href: "config/region",
           isRouterLink: true,
           icon: "circle",
         },
         {
           label: "Zone Master",
-          href: "config/zoneMaster",
+          href: "config/zone",
           isRouterLink: true,
           icon: "circle",
         },
         {
           label: "Country Master",
-          href: "config/countryMaster",
+          href: "config/country",
           isRouterLink: true,
           icon: "circle",
         },

@@ -105,7 +105,7 @@ export const UserManagement = () => {
             />
           }
         />
-        <Route path="/team" element={null} />
+        <Route path="team" element={null} />
       </Routes>
     </Fragment>
   );
