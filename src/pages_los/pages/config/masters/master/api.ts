@@ -12,7 +12,7 @@ export const insertMastersData =
   ({ moduleType }: any) =>
   async (formData: any) => {
     const { data, status } = await LOSSDK.internalFetcher(
-      `./config/${moduleType}/detail/data/post`,
+      `./config/${moduleType}/data/post`,
       {
         body: JSON.stringify({
           request_data: {
@@ -29,24 +29,22 @@ export const insertMastersData =
     }
   };
 
-export const getMastersFormData =
-  ({ moduleType }: any) =>
-  async () => {
-    const { data, status } = await LOSSDK.internalFetcher(
-      `./config/${moduleType}/detail/data/get`,
-      {
-        body: JSON.stringify({
-          request_data: {},
-          channel: "W",
-        }),
-      }
-    );
-    if (status === "success") {
-      return data?.response_data;
-    } else {
-      throw data?.error_data;
+export const getMastersFormData = async ({ moduleType, code }: any) => {
+  const { data, status } = await LOSSDK.internalFetcher(
+    `./config/${moduleType}/data/get`,
+    {
+      body: JSON.stringify({
+        request_data: { code: code },
+        channel: "W",
+      }),
     }
-  };
+  );
+  if (status === "success") {
+    return data?.response_data;
+  } else {
+    throw data?.error_data;
+  }
+};
 
 export const getMastersGridData = async ({ moduleType }: any) => {
   const { data, status } = await LOSSDK.internalFetcher(
@@ -69,7 +67,7 @@ export const updateMastersData =
   ({ moduleType }: any) =>
   async (formData: any) => {
     const { data, status } = await LOSSDK.internalFetcher(
-      `./config/${moduleType}/detail/data/get`,
+      `./config/${moduleType}/data/put`,
       {
         body: JSON.stringify({
           request_data: { ...formData },

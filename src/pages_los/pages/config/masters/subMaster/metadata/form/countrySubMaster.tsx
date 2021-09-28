@@ -1,3 +1,5 @@
+import { getZone } from "./api";
+
 export const countryZoneMasterMetadata = {
   form: {
     name: "countryZoneMasterNew",
@@ -23,12 +25,14 @@ export const countryZoneMasterMetadata = {
   fields: [
     {
       render: { componentType: "select" },
-      name: "zoneName",
+      name: "subCode",
       label: "Zone Name",
       placeholder: "Zone Name",
-      options: "getBranchList",
+      defaultValue: "00",
+      options: getZone,
+      multiple: true,
+      showCheckbox: true,
       fullWidth: true,
-      isReadOnly: true,
     },
   ],
 };

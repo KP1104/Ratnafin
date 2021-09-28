@@ -1,3 +1,5 @@
+import { getRegion } from "./api";
+
 export const zonesRegionMasterMetadata = {
   form: {
     name: "zoneRegionMasterNew",
@@ -23,12 +25,14 @@ export const zonesRegionMasterMetadata = {
   fields: [
     {
       render: { componentType: "select" },
-      name: "regionName",
+      name: "subCode",
       label: "Region Name",
       placeholder: "Region Name",
-      options: "getBranchList",
+      defaultValue: "00",
+      options: getRegion,
+      multiple: true,
+      showCheckbox: true,
       fullWidth: true,
-      isReadOnly: true,
     },
   ],
 };

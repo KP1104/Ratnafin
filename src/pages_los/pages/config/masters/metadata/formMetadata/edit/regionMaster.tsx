@@ -29,7 +29,7 @@ export const regionMasterEditViewMetadata = {
   fields: [
     {
       render: { componentType: "textField" },
-      name: "regionCode",
+      name: "code",
       label: "Region Code",
       isReadOnly: true,
       GridProps: { xs: 12, md: 12, sm: 12 },
@@ -39,8 +39,6 @@ export const regionMasterEditViewMetadata = {
       name: "regionName",
       label: "Region Name",
       placeholder: "Enter Region Name",
-      maxLength: 150,
-      showMaxLength: false,
       GridProps: { xs: 12, md: 12, sm: 12 },
     },
     {
@@ -50,7 +48,7 @@ export const regionMasterEditViewMetadata = {
       name: "active",
       label: "Active",
       GridProps: { xs: 12, md: 12, sm: 12 },
-      checked: true,
+      defaultValue: true,
     },
   ],
 };
