@@ -238,6 +238,7 @@ export interface FormWrapperProps {
   hideDisplayModeInTitle?: boolean;
   formStyle?: any;
   controlsAtBottom?: boolean;
+  formState?: any;
 }
 
 export interface FormProps {

@@ -1,1 +1,1 @@
-export * from "./teamAssignment";
+export * from "./gridx";

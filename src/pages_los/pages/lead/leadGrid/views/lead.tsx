@@ -53,7 +53,7 @@ export const Leads = () => {
     <LeadGrid
       gridCode="TRN/003"
       actions={actions}
-      basePath="/los/lead/bankLogin"
+      basePath="/los/lead/detail"
     />
   );
 };

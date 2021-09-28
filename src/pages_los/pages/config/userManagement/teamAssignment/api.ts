@@ -1,15 +1,15 @@
-import { LOSSDK, crudType } from "registry/fns/los";
-import { TeamGridMetaData } from "./teamGirdMetadata";
+import { LOSSDK } from "registry/fns/los";
 
-export const getUsersData = ({ moduleType, productType }: crudType) => async (
-  serialNo?: string
-) => {
+export const getUserTeamData = async ({ queryKey }) => {
+  let { userID, branchCode } = queryKey[1];
+
   const { data, status } = await LOSSDK.internalFetcher(
-    `./${moduleType}/${productType}/data/get`,
+    "./users/employee/team/grid/data",
     {
       body: JSON.stringify({
         request_data: {
-          serialNo: serialNo,
+          userID: userID,
+          branchCode: branchCode,
         },
       }),
     }
@@ -21,19 +21,12 @@ export const getUsersData = ({ moduleType, productType }: crudType) => async (
   }
 };
 
-export const updateUserData = ({ moduleType, productType }: crudType) => async (
-  formData: any,
-  serialNo?: any
-) => {
+export const addTeamMember = async (userData) => {
   const { data, status } = await LOSSDK.internalFetcher(
-    `./${moduleType}/${productType}/data/put`,
+    "./users/employee/team/data/post",
     {
       body: JSON.stringify({
-        request_data: {
-          serialNo: serialNo,
-          ...formData,
-        },
-        channel: "W",
+        request_data: userData,
       }),
     }
   );
@@ -44,26 +37,54 @@ export const updateUserData = ({ moduleType, productType }: crudType) => async (
   }
 };
 
-export const getGridFormMetaData = () => async () => TeamGridMetaData;
-
-export const getGridFormData = ({
-  moduleType,
-  productType,
-  refID,
-}: crudType) => async () => {
+export const getRoleOptions = async (_, formData) => {
   const { data, status } = await LOSSDK.internalFetcher(
-    `./${moduleType}/${productType}/grid/data`,
+    "./users/employee/team/options/role",
     {
       body: JSON.stringify({
         request_data: {
-          userID: refID,
+          userRole: formData?.userRole,
         },
-        channel: "W",
       }),
     }
   );
   if (status === "success") {
-    return data?.response_data;
+    if (Array.isArray(data?.response_data)) {
+      return data?.response_data.map((one) => ({
+        label: one.roleName,
+        value: one.roleCode,
+      }));
+    } else {
+      return [];
+    }
+  } else {
+    throw data?.error_data;
+  }
+};
+
+export const getTeamMemebersOptions = async (_, formData, dependentValues) => {
+  console.log(formData, dependentValues);
+  const { data, status } = await LOSSDK.internalFetcher(
+    "./users/employee/team/options/unregistered",
+    {
+      body: JSON.stringify({
+        request_data: {
+          userID: formData?.userID,
+          branchCode: formData?.branchCode,
+          teamRole: dependentValues?.teamRole?.value,
+        },
+      }),
+    }
+  );
+  if (status === "success") {
+    if (Array.isArray(data?.response_data)) {
+      return data?.response_data.map((one) => ({
+        label: one.username,
+        value: one.userID,
+      }));
+    } else {
+      return [];
+    }
   } else {
     throw data?.error_data;
   }

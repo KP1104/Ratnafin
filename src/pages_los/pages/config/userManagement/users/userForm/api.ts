@@ -164,8 +164,8 @@ export const getCoordinator = async ({ queryKey }) => {
   if (status === "success") {
     if (Array.isArray(data?.response_data)) {
       let options = data?.response_data.map((one) => ({
-        label: one?.userID,
-        value: one?.username,
+        label: one?.username,
+        value: one?.userID,
       }));
       return options;
     }

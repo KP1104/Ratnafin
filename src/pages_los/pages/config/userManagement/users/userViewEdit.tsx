@@ -1,4 +1,4 @@
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import loaderGif from "assets/images/loader.gif";
 import IconButton from "@material-ui/core/IconButton";
@@ -11,6 +11,7 @@ import { useDialogStyles } from "pages_los/common/dialogStyles";
 import * as API from "./api";
 import { useLocation } from "react-router";
 import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
+import { queryClient } from "cache";
 
 let updateUserDataWrapper = ({ data, setServerError }) => {
   return API.updateUserData(data);
@@ -29,6 +30,12 @@ export const ViewEditUser = ({ closeHandler, isDataChangedRef }) => {
     ["getUsersData", { userID: userID }],
     API.getUsersData
   );
+
+  useEffect(() => {
+    return () => {
+      queryClient.removeQueries(["getUsersData", { userID: userID }]);
+    };
+  }, []);
 
   const mutation = useMutation(updateUserDataWrapper, {
     onSuccess: (data) => {

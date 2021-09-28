@@ -15,6 +15,7 @@ import { UserGridMetaData } from "./userGridMetadata";
 import * as API from "./api";
 import { AddUser } from "./userAdd";
 import { ViewEditUser } from "./userViewEdit";
+import { BranchGrid } from "../branchGrid";
 
 const actions: ActionTypes[] = [
   {
@@ -30,15 +31,24 @@ const actions: ActionTypes[] = [
     alwaysAvailable: true,
   },
   {
-    actionName: "team",
+    actionName: "branches",
     actionLabel: "Team Management",
     multiple: false,
+    shouldExclude: (rows) => {
+      let exclude = false;
+      for (let i = 0; i < rows.length; i++) {
+        if (rows[i].data?.manageTeam === "No") {
+          exclude = true;
+          break;
+        }
+      }
+      return exclude;
+    },
   },
 ];
 
 export const UserManagement = () => {
   const navigate = useNavigate();
-
   const isMyDataChangedRef = useRef(false);
   const removeCache = useContext(ClearCacheContext);
   const setCurrentAction = useCallback(
@@ -50,7 +60,7 @@ export const UserManagement = () => {
     [navigate]
   );
   const { isLoading, isFetching, data, refetch } = useQuery(
-    ["getUserGridData", "users/employee/role"],
+    ["getUsersGridData"],
     API.getUserGridData
   );
 
@@ -70,14 +80,14 @@ export const UserManagement = () => {
       entries.forEach((one) => {
         queryClient.removeQueries(one);
       });
-      queryClient.removeQueries(["getUserGridData", "users/employee/role"]);
+      queryClient.removeQueries(["getUsersGridData"]);
     };
   }, [removeCache]);
 
   return (
     <Fragment>
       <GridWrapper
-        key={`usersGrid`}
+        key="usersGrid"
         finalMetaData={UserGridMetaData as any}
         data={modifiedData ?? []}
         setData={() => null}
@@ -105,7 +115,15 @@ export const UserManagement = () => {
             />
           }
         />
-        <Route path="team" element={null} />
+        <Route
+          path="branches"
+          element={
+            <BranchGrid
+              isDataChangedRef={isMyDataChangedRef}
+              closeDialog={closeMyDialog}
+            />
+          }
+        />
       </Routes>
     </Fragment>
   );

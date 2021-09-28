@@ -37,6 +37,7 @@ export const FormWrapper = forwardRef<FormWrapperProps, any>(
       },
       controlsAtBottom = false,
       children,
+      formState,
     },
     ref
   ) => {
@@ -67,6 +68,7 @@ export const FormWrapper = forwardRef<FormWrapperProps, any>(
               formCode: metaData.form.name,
               refID: metaData.form.refID,
               ...metaData.form?.formState,
+              ...formState,
             },
           }}
         >

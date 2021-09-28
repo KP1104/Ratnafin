@@ -1,26 +1,5 @@
-export const TeamGridMetaData = {
+export const BranchGridMetaData = {
   columns: [
-    {
-      columnName: "Serial No",
-      componentType: "default",
-      accessor: "serialNo",
-      sequence: 0,
-      alignment: "left",
-    },
-    {
-      columnName: "User ID",
-      componentType: "default",
-      accessor: "userID",
-      sequence: 1,
-      alignment: "left",
-    },
-    {
-      columnName: "User Name",
-      componentType: "default",
-      accessor: "userName",
-      sequence: 2,
-      alignment: "left",
-    },
     {
       columnName: "Branch Code",
       componentType: "default",
@@ -36,13 +15,6 @@ export const TeamGridMetaData = {
       alignment: "left",
     },
     {
-      columnName: "Role",
-      componentType: "default",
-      accessor: "role",
-      sequence: 5,
-      alignment: "left",
-    },
-    {
       columnName: "Team Assigned",
       componentType: "default",
       accessor: "teamAssign",
@@ -52,8 +24,8 @@ export const TeamGridMetaData = {
   ],
   gridConfig: {
     dense: true,
-    gridLabel: "Employee Team Assignment ",
-    rowIdColumn: "serialNo",
+    gridLabel: "Branches Assigned",
+    rowIdColumn: "branchCode",
     defaultColumnConfig: {
       width: 150,
       maxWidth: 250,
