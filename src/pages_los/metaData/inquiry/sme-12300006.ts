@@ -6,6 +6,7 @@ export const sme_12300006 = {
     render: {
       renderType: "stepper",
       groups: { "0": "Personal Details", "1": "Contact Details" },
+      ordering: "sequence",
     },
   },
   fields: [
@@ -26,9 +27,37 @@ export const sme_12300006 = {
       __EDIT__: { isReadOnly: true },
     },
     {
+      render: { componentType: "textField", group: 0 },
+      name: "otherDescription",
+      sequence: 2,
+      label: "Reference",
+      placeholder: "Reference",
+      defaultValue: "",
+      dependentFields: ["source"],
+      maxLength: 100,
+      GridProps: { xs: 12, md: 3, sm: 3 },
+      shouldExclude: {
+        conditions: {
+          any: [
+            {
+              fact: "dependentFields",
+              path: "$.source.value",
+              operator: "equal",
+              value: "1",
+            },
+          ],
+        },
+        success: false,
+        failure: true,
+      },
+      fullWidth: true,
+      __VIEW__: { isReadOnly: true },
+      __EDIT__: { isReadOnly: true },
+    },
+    {
       render: { componentType: "autocomplete", group: 0 },
       name: "employeeUserName",
-      sequence: 2,
+      sequence: 3,
       label: "Select Employee",
       placeholder: "Select Employe",
       defaultValue: "00",
@@ -63,7 +92,7 @@ export const sme_12300006 = {
       placeholder: "Select IDC",
       label: "Select IDC",
       defaultValue: "00",
-      sequence: 3,
+      sequence: 4,
       dependentFields: ["source"],
       options: "getPartnerList",
       required: true,
@@ -90,37 +119,9 @@ export const sme_12300006 = {
       __EDIT__: { isReadOnly: true },
     },
     {
-      render: { componentType: "textField", group: 0 },
-      name: "otherDescription",
-      sequence: 4,
-      label: "Reference",
-      placeholder: "Reference",
-      defaultValue: "",
-      dependentFields: ["source"],
-      maxLength: 100,
-      GridProps: { xs: 12, md: 3, sm: 3 },
-      shouldExclude: {
-        conditions: {
-          any: [
-            {
-              fact: "dependentFields",
-              path: "$.source.value",
-              operator: "equal",
-              value: "1",
-            },
-          ],
-        },
-        success: false,
-        failure: true,
-      },
-      fullWidth: true,
-      __VIEW__: { isReadOnly: true },
-      __EDIT__: { isReadOnly: true },
-    },
-    {
       render: { componentType: "select", group: 0 },
       name: "salutation",
-      sequence: 3,
+      sequence: 5,
       label: "Salutation",
       placeholder: "Salutation",
       isReadOnly: false,
@@ -135,7 +136,7 @@ export const sme_12300006 = {
     {
       render: { componentType: "textField", group: 0 },
       name: "firstName",
-      sequence: 4,
+      sequence: 6,
       type: "text",
       label: "First Name[As Per PAN Card]",
       isReadOnly: false,
@@ -151,7 +152,7 @@ export const sme_12300006 = {
     {
       render: { componentType: "textField", group: 0 },
       name: "middleName",
-      sequence: 5,
+      sequence: 7,
       type: "text",
       label: "Middle Name",
       placeholder: "Middle Name",
@@ -162,7 +163,7 @@ export const sme_12300006 = {
     {
       render: { componentType: "textField", group: 0 },
       name: "lastName",
-      sequence: 6,
+      sequence: 8,
       type: "text",
       label: "Last Name",
       isReadOnly: false,
@@ -178,7 +179,7 @@ export const sme_12300006 = {
     {
       render: { componentType: "select", group: 0 },
       name: "gender",
-      sequence: 7,
+      sequence: 9,
       label: "Gender",
       placeholder: "Gender",
       required: true,
@@ -192,7 +193,7 @@ export const sme_12300006 = {
     {
       render: { componentType: "dob", group: 0 },
       name: "dob",
-      sequence: 8,
+      sequence: 10,
       label: "Date Of Birth",
       placeholder: "dd/mm/yyyy",
       isReadOnly: false,
@@ -209,7 +210,7 @@ export const sme_12300006 = {
     {
       render: { componentType: "currencyWithLeadingZeros", group: 0 },
       name: "loanAmount",
-      sequence: 9,
+      sequence: 11,
       type: "text",
       label: "Your Desired Loan Amount",
       isReadOnly: false,
@@ -227,7 +228,7 @@ export const sme_12300006 = {
     {
       render: { componentType: "phoneNumber", group: 1 },
       name: "mobileNo",
-      sequence: 10,
+      sequence: 12,
       type: "text",
       label: "Mobile No",
       isReadOnly: false,
@@ -248,7 +249,7 @@ export const sme_12300006 = {
     {
       render: { componentType: "textField", group: 1 },
       name: "email",
-      sequence: 11,
+      sequence: 13,
       type: "text",
       label: "Email",
       isReadOnly: false,
@@ -267,7 +268,7 @@ export const sme_12300006 = {
     {
       render: { componentType: "select", group: 1 },
       name: "employementStatus",
-      sequence: 12,
+      sequence: 14,
       label: "How Are You Currently Employed",
       placeholder: "How Are You Currently Employed",
       required: true,
@@ -281,7 +282,7 @@ export const sme_12300006 = {
     {
       render: { componentType: "textField", group: 1 },
       name: "landmark",
-      sequence: 13,
+      sequence: 17,
       type: "text",
       label: "Landmark",
       isReadOnly: false,
@@ -293,7 +294,7 @@ export const sme_12300006 = {
     {
       render: { componentType: "numberFormat", group: 1 },
       name: "pincode",
-      sequence: 14,
+      sequence: 18,
       label: "Residence Pincode",
       required: true,
       placeholder: "Residence Pincode",
@@ -316,7 +317,7 @@ export const sme_12300006 = {
     {
       render: { componentType: "select", group: 1 },
       name: "location",
-      sequence: 15,
+      sequence: 19,
       defaultValue: "00",
       label: "Location",
       isReadOnly: false,
@@ -333,7 +334,7 @@ export const sme_12300006 = {
     {
       render: { componentType: "textField", group: 1 },
       name: "city",
-      sequence: 16,
+      sequence: 20,
       label: "City",
       required: true,
       __VIEW__: { isReadOnly: false },
@@ -347,7 +348,7 @@ export const sme_12300006 = {
     {
       render: { componentType: "textField", group: 1 },
       name: "district",
-      sequence: 17,
+      sequence: 21,
       label: "District",
       isReadOnly: true,
       placeholder: "District",
@@ -357,7 +358,7 @@ export const sme_12300006 = {
     {
       render: { componentType: "textField", group: 1 },
       name: "state",
-      sequence: 18,
+      sequence: 22,
       label: "State",
       isReadOnly: true,
       placeholder: "State",
@@ -367,7 +368,7 @@ export const sme_12300006 = {
     {
       render: { componentType: "textField", group: 1 },
       name: "country",
-      sequence: 19,
+      sequence: 23,
       label: "Country",
       isReadOnly: true,
       placeholder: "Country",
@@ -377,7 +378,7 @@ export const sme_12300006 = {
     {
       render: { componentType: "textField", group: 1 },
       name: "address",
-      sequence: 12.2,
+      sequence: 16.2,
       type: "text",
       label: "Address",
       required: false,
@@ -389,7 +390,7 @@ export const sme_12300006 = {
     {
       render: { componentType: "textField", group: 1 },
       name: "firmName",
-      sequence: 12.1,
+      sequence: 15.1,
       type: "text",
       label: "Firm Name As per records",
       placeholder: "Firm Name",
