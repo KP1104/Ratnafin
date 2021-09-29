@@ -242,10 +242,17 @@ const MyAutocomplete: FC<MyAllAutocompleteProps> = ({
             : transformValues(value, freeSolo)[0]
         }
         getOptionSelected={(option, value) => {
-          if (option.value == value) {
-            return true;
+          if (freeSolo) {
+            if (option === value) {
+              return true;
+            }
+            return false;
+          } else {
+            if (option.value === value.value) {
+              return true;
+            }
+            return false;
           }
-          return false;
         }}
         ListboxComponent={
           Boolean(enableVirtualized)

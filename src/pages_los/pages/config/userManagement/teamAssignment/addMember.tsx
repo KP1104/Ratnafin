@@ -1,6 +1,6 @@
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
+import Drawer from "@material-ui/core/Drawer";
 import FormWrapper, { MetaDataType } from "components/dyanmicForm";
 import { useMutation } from "react-query";
 import { useSnackbar } from "notistack";
@@ -11,8 +11,13 @@ import { useDialogStyles } from "pages_los/common/dialogStyles";
 import { useEffect, useContext } from "react";
 import { queryClient, ClearCacheContext } from "cache";
 
-const addTeamMemberWrapper = async ({ data, endSubmit }) => {
-  return API.addTeamMember(data);
+const addTeamMemberWrapper = async ({
+  data,
+  userID,
+  branchCode,
+  endSubmit,
+}) => {
+  return API.addTeamMember(data, userID, branchCode);
 };
 
 export const AddMember = ({
@@ -53,17 +58,16 @@ export const AddMember = ({
   }, [removeCache]);
 
   const onSubmitHandler: SubmitFnType = (data, displayData, endSubmit) => {
-    mutation.mutate({ data, endSubmit });
+    mutation.mutate({ data, userID, branchCode, endSubmit });
   };
 
   return (
-    <Dialog
-      maxWidth="sm"
+    <Drawer
       open={true}
-      style={{ width: "100%" }}
-      classes={{
-        scrollPaper: dialogClasses.topScrollPaper,
-        paperScrollBody: dialogClasses.topPaperScrollBody,
+      anchor="right"
+      variant="temporary"
+      PaperProps={{
+        style: { width: "350px" },
       }}
     >
       <FormWrapper
@@ -102,6 +106,6 @@ export const AddMember = ({
           );
         }}
       </FormWrapper>
-    </Dialog>
+    </Drawer>
   );
 };

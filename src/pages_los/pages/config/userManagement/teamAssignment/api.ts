@@ -21,12 +21,12 @@ export const getUserTeamData = async ({ queryKey }) => {
   }
 };
 
-export const addTeamMember = async (userData) => {
+export const addTeamMember = async (userData, userID, branchCode) => {
   const { data, status } = await LOSSDK.internalFetcher(
     "./users/employee/team/data/post",
     {
       body: JSON.stringify({
-        request_data: userData,
+        request_data: { ...userData, userID: userID, branchCode: branchCode },
       }),
     }
   );
@@ -63,7 +63,9 @@ export const getRoleOptions = async (_, formData) => {
 };
 
 export const getTeamMemebersOptions = async (_, formData, dependentValues) => {
-  console.log(formData, dependentValues);
+  if (!Boolean(dependentValues?.teamRole?.value)) {
+    return [];
+  }
   const { data, status } = await LOSSDK.internalFetcher(
     "./users/employee/team/options/unregistered",
     {

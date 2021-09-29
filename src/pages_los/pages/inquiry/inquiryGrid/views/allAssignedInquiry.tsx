@@ -10,11 +10,5 @@ const actions: ActionTypes[] = [
   },
 ];
 export const AllAssignedInquiry = () => {
-  return (
-    <Inquiry
-      gridCode="INQ/003"
-      actions={actions}
-      basePath="/los/inquiry/allAssignedInquiries"
-    />
-  );
+  return <Inquiry gridCode="INQ/003" actions={actions} />;
 };

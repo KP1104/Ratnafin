@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState, useContext } from "react";
+import { useEffect, useRef, useState, useContext, useCallback } from "react";
+import { useNavigate } from "react-router";
 import Dialog from "@material-ui/core/Dialog";
 import { ActionTypes } from "components/dataTable";
 import { InvalidAction } from "pages_los/common/invalidAction";
@@ -77,8 +78,14 @@ export const StageWrapper = ({
   moduleType,
   isDataChangedRef,
   handleDialogClose,
+  goBackPath = "..",
 }) => {
   const { state: rows }: any = useLocation();
+  let navigate = useNavigate();
+  let handleDialogCloseWrapper = useCallback(() => {
+    handleDialogClose();
+    navigate(goBackPath);
+  }, [navigate]);
   return (
     <Dialog
       fullScreen
@@ -88,7 +95,7 @@ export const StageWrapper = ({
     >
       <HeaderDetails
         rowData={rows?.[0]}
-        handleDialogClose={handleDialogClose}
+        handleDialogClose={handleDialogCloseWrapper}
       />
       <Stage
         moduleType={moduleType}

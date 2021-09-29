@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useContext } from "react";
+import { useEffect, useRef, useState, useContext, useCallback } from "react";
 import { useStyles } from "./style";
 import Dialog from "@material-ui/core/Dialog";
 import { ActionTypes } from "components/dataTable";
@@ -14,6 +14,7 @@ import { MoveToBankSelection } from "./moveToBankSelection/moveToBankSelection";
 import { useLocation } from "react-router-dom";
 import { HeaderDetails } from "../headerDetails";
 import { Transition } from "pages_los/common";
+import { useNavigate } from "react-router-dom";
 
 const actions: ActionTypes[] = [
   {
@@ -149,8 +150,14 @@ export const CAMWrapper = ({
   moduleType,
   isDataChangedRef,
   handleDialogClose,
+  goBackPath = "..",
 }) => {
   const { state: rows }: any = useLocation();
+  let navigate = useNavigate();
+  let handleDialogCloseWrapper = useCallback(() => {
+    handleDialogClose();
+    navigate(goBackPath);
+  }, [navigate]);
   return (
     <Dialog
       fullScreen
@@ -160,7 +167,7 @@ export const CAMWrapper = ({
     >
       <HeaderDetails
         rowData={rows?.[0]}
-        handleDialogClose={handleDialogClose}
+        handleDialogClose={handleDialogCloseWrapper}
       />
       <CAM
         moduleType={moduleType}

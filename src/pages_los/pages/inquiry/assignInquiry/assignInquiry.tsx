@@ -1,4 +1,5 @@
-import { useContext, useRef, useEffect, Fragment } from "react";
+import { useContext, useRef, useEffect, Fragment, useCallback } from "react";
+import { useNavigate } from "react-router";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
 import { useMutation, useQuery } from "react-query";
@@ -153,9 +154,15 @@ export const AssignInquiryWrapper = ({
   moduleType,
   isDataChangedRef,
   closeDialog,
+  goBackPath = "..",
 }) => {
   const dialogClasses = useDialogStyles();
   const { state: rows }: any = useLocation();
+  let navigate = useNavigate();
+  let handleDialogCloseWrapper = useCallback(() => {
+    closeDialog();
+    navigate(goBackPath);
+  }, [navigate]);
   return (
     <AssignInquiryAPIProvider
       {...generateAssignInquiryAPIContext({ refID: rows[0].id, moduleType })}
@@ -178,13 +185,13 @@ export const AssignInquiryWrapper = ({
       >
         <HeaderDetails
           productData={rows[0]?.data}
-          handleDialogClose={closeDialog}
+          handleDialogClose={handleDialogCloseWrapper}
         />
         <AssignInquiry
           moduleType={moduleType}
           refID={rows[0].id}
           isDataChangedRef={isDataChangedRef}
-          closeDialog={closeDialog}
+          closeDialog={handleDialogCloseWrapper}
         />
       </Dialog>
     </AssignInquiryAPIProvider>

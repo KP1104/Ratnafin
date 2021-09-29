@@ -1,4 +1,12 @@
-import { useContext, useRef, useState, useEffect, Fragment } from "react";
+import {
+  useContext,
+  useRef,
+  useState,
+  useEffect,
+  Fragment,
+  useCallback,
+} from "react";
+import { useNavigate } from "react-router";
 import Dialog from "@material-ui/core/Dialog";
 import { queryClient, ClearCacheContext } from "cache";
 import { ActionTypes } from "components/dataTable";
@@ -164,8 +172,17 @@ export const Analysis = ({ refID, moduleType }) => {
   );
 };
 
-export const AnalysisWrapper = ({ moduleType, handleDialogClose }) => {
+export const AnalysisWrapper = ({
+  moduleType,
+  handleDialogClose,
+  goBackPath = "..",
+}) => {
   const { state: rows }: any = useLocation();
+  let navigate = useNavigate();
+  let handleDialogCloseWrapper = useCallback(() => {
+    handleDialogClose();
+    navigate(goBackPath);
+  }, [navigate]);
   return (
     <Dialog
       fullScreen
@@ -175,7 +192,7 @@ export const AnalysisWrapper = ({ moduleType, handleDialogClose }) => {
     >
       <HeaderDetails
         rowData={rows?.[0]}
-        handleDialogClose={handleDialogClose}
+        handleDialogClose={handleDialogCloseWrapper}
       />
       <Analysis moduleType={moduleType} refID={rows[0].id} />
     </Dialog>

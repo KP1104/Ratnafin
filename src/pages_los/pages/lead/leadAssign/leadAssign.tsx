@@ -1,4 +1,5 @@
-import { useContext, useRef, useEffect, Fragment } from "react";
+import { useContext, useRef, useEffect, Fragment, useCallback } from "react";
+import { useNavigate } from "react-router";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
 import { useMutation, useQuery } from "react-query";
@@ -153,9 +154,15 @@ export const LeadAssignWrapper = ({
   moduleType,
   isDataChangedRef,
   handleDialogClose,
+  goBackPath = "..",
 }) => {
   const { state: rows }: any = useLocation();
   const classes = useDialogStyles();
+  let navigate = useNavigate();
+  let handleDialogCloseWrapper = useCallback(() => {
+    handleDialogClose();
+    navigate(goBackPath);
+  }, [navigate]);
   return (
     <LeadAssignAPIProvider
       {...generateLeadAssignAPIContext({ refID: rows?.[0].id, moduleType })}
@@ -173,14 +180,14 @@ export const LeadAssignWrapper = ({
       >
         <HeaderDetails
           rowData={rows?.[0]}
-          handleDialogClose={handleDialogClose}
+          handleDialogClose={handleDialogCloseWrapper}
           isDataChangedRef={isDataChangedRef}
         />
         <LeadAssign
           moduleType={moduleType}
           refID={rows[0].id}
           isDataChangedRef={isDataChangedRef}
-          closeDialog={handleDialogClose}
+          closeDialog={handleDialogCloseWrapper}
         />
       </Dialog>
     </LeadAssignAPIProvider>

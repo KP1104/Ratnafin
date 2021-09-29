@@ -24,7 +24,7 @@ export const FormWrapper = forwardRef<FormWrapperProps, any>(
     {
       metaData: freshMetaData,
       initialValues,
-      onSubmitHandler,
+      onSubmitHandler = () => console.log("onSubmitHandler is not passed"),
       hidden = false,
       displayMode,
       hideTitleBar = false,

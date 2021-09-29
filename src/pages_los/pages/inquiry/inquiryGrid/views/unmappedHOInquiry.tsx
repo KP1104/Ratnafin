@@ -11,11 +11,5 @@ const actions: ActionTypes[] = [
 ];
 
 export const UnmappedHOInquiry = () => {
-  return (
-    <Inquiry
-      gridCode="INQ/007"
-      actions={actions}
-      basePath="/los/inquiry/unmappedHOInquiries"
-    />
-  );
+  return <Inquiry gridCode="INQ/007" actions={actions} />;
 };

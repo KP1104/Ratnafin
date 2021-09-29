@@ -1,4 +1,5 @@
-import { FC } from "react";
+import { FC, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { cloneDeep } from "lodash-es";
 import loaderGif from "assets/images/loader.gif";
@@ -68,8 +69,16 @@ export const EligibilityCalculator: FC<any> = ({
   return renderResult;
 };
 
-export const EligibilityCalculatorWrapper = ({ closeDialog }) => {
+export const EligibilityCalculatorWrapper = ({
+  closeDialog,
+  goBackPath = "..",
+}) => {
   const { state: rows }: any = useLocation();
+  const navigate = useNavigate();
+  let handleDialogCloseWrapper = useCallback(() => {
+    closeDialog();
+    navigate(goBackPath);
+  }, [navigate]);
   return (
     <Dialog
       fullScreen
@@ -77,7 +86,10 @@ export const EligibilityCalculatorWrapper = ({ closeDialog }) => {
       //@ts-ignore
       TransitionComponent={Transition}
     >
-      <HeaderDetails productData={rows?.[0]} handleDialogClose={closeDialog} />
+      <HeaderDetails
+        productData={rows?.[0]}
+        handleDialogClose={handleDialogCloseWrapper}
+      />
       <EligibilityCalculator
         employeentType={rows[0].data?.empl_value}
         loanAmount={rows[0].data?.desire_loan_amt}

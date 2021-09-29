@@ -1,3 +1,5 @@
+import { useCallback } from "react";
+import { useNavigate } from "react-router";
 import { useQuery } from "react-query";
 import Report from "components/report";
 import { useLocation } from "react-router-dom";
@@ -30,9 +32,18 @@ const AuditDownload = ({ moduleType, refID }) => {
   );
 };
 
-export const AuditDownloadWrapper = ({ handleDialogClose, moduleType }) => {
+export const AuditDownloadWrapper = ({
+  handleDialogClose,
+  moduleType,
+  goBackPath = "..",
+}) => {
   const dialogClasses = useDialogStyles();
   const { state: rows }: any = useLocation();
+  let navigate = useNavigate();
+  let handleDialogCloseWrapper = useCallback(() => {
+    handleDialogClose();
+    navigate(goBackPath);
+  }, [navigate]);
   return (
     <Dialog
       open={true}

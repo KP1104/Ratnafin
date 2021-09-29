@@ -1,4 +1,5 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
 import FormWrapper, { MetaDataType } from "components/dyanmicForm";
@@ -115,9 +116,18 @@ export const InquiryAssignTask = ({
   );
 };
 
-export const InquiryAssignTaskWrapper = ({ closeDialog, isDataChangedRef }) => {
+export const InquiryAssignTaskWrapper = ({
+  closeDialog,
+  isDataChangedRef,
+  goBackPath = "..",
+}) => {
   const dialogClasses = useDialogStyles();
   const { state: rows }: any = useLocation();
+  let navigate = useNavigate();
+  let handleDialogCloseWrapper = useCallback(() => {
+    closeDialog();
+    navigate(goBackPath);
+  }, [navigate]);
   return (
     <Dialog
       open={true}
@@ -137,7 +147,7 @@ export const InquiryAssignTaskWrapper = ({ closeDialog, isDataChangedRef }) => {
     >
       <HeaderDetails
         productData={rows[0]?.data}
-        handleDialogClose={closeDialog}
+        handleDialogClose={handleDialogCloseWrapper}
       />
       <InquiryAssignTask
         inquiryNo={rows[0]?.data?.inquiry_no}
@@ -145,7 +155,7 @@ export const InquiryAssignTaskWrapper = ({ closeDialog, isDataChangedRef }) => {
         taskFor="inquiry"
         moduleType="task"
         isDataChangedRef={isDataChangedRef}
-        closeDialog={closeDialog}
+        closeDialog={handleDialogCloseWrapper}
       />
     </Dialog>
   );

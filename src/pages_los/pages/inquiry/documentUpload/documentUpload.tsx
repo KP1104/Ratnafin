@@ -1,4 +1,5 @@
-import { lazy, useEffect, useContext } from "react";
+import { lazy, useEffect, useContext, useCallback } from "react";
+import { useNavigate } from "react-router";
 import { useLocation } from "react-router-dom";
 import Dialog from "@material-ui/core/Dialog";
 import { Transition } from "pages_los/common";
@@ -11,8 +12,17 @@ const DocumentGridCRUD = lazy(() =>
   }))
 );
 
-export const DocumentUploadWrapper = ({ moduleType, closeDialog }) => {
+export const DocumentUploadWrapper = ({
+  moduleType,
+  closeDialog,
+  goBackPath = "..",
+}) => {
   const removeCache = useContext(ClearCacheContext);
+  const navigate = useNavigate();
+  let handleDialogCloseWrapper = useCallback(() => {
+    closeDialog();
+    navigate(goBackPath);
+  }, [navigate]);
   const { state: rows }: any = useLocation();
   const productCode = rows[0]?.data?.product_type;
 
@@ -41,7 +51,7 @@ export const DocumentUploadWrapper = ({ moduleType, closeDialog }) => {
     >
       <HeaderDetails
         productData={rows[0]?.data}
-        handleDialogClose={closeDialog}
+        handleDialogClose={handleDialogCloseWrapper}
       />
       <DocumentGridCRUD
         refID={rows[0]?.id}

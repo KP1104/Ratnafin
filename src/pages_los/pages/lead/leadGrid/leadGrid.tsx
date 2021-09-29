@@ -20,6 +20,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 
 export const LeadGrid = ({ gridCode, actions, basePath }) => {
   let navigate = useNavigate();
+
   const setCurrentAction = useCallback(
     (data) => {
       navigate(data?.name, {

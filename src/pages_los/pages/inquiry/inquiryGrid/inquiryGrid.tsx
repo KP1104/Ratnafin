@@ -12,12 +12,12 @@ import { AssignInquiryWrapper } from "../assignInquiry";
 import { PriorityWrapper } from "../priority";
 import { MoveToLeadWrapper } from "../moveToLead";
 import { EligibilityCalculatorWrapper } from "../eligibilityCalculator";
-import { Routes, Route, useNavigate, useMatch } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { DocumentUploadWrapper } from "../documentUpload";
-import { InvalidAction } from "pages_los/common/invalidAction";
 
-export const Inquiry = ({ gridCode, actions, basePath }) => {
+export const Inquiry = ({ gridCode, actions }) => {
   let navigate = useNavigate();
+
   const setCurrentAction = useCallback(
     (data) => {
       navigate(data?.name, {
@@ -30,7 +30,6 @@ export const Inquiry = ({ gridCode, actions, basePath }) => {
   const myGridRef = useRef<any>(null);
 
   const handleDialogClose = () => {
-    navigate(basePath);
     if (isDataChangedRef.current) {
       myGridRef?.current?.fetchData?.();
       isDataChangedRef.current = false;

@@ -1,4 +1,13 @@
-import { useState, FC, Fragment, useEffect, useContext, Suspense } from "react";
+import {
+  useState,
+  FC,
+  Fragment,
+  useEffect,
+  useContext,
+  Suspense,
+  useCallback,
+} from "react";
+import { useNavigate } from "react-router-dom";
 import { Tab } from "components/styledComponent/tab";
 import { Tabs } from "components/styledComponent/tabs";
 import { useQuery } from "react-query";
@@ -101,8 +110,14 @@ export const DetailsTabViewWrapper = ({
   handleDialogClose,
   isDataChangedRef,
   moduleType,
+  goBackPath = "..",
 }) => {
   const { state: rows }: any = useLocation();
+  let navigate = useNavigate();
+  let handleDialogCloseWrapper = useCallback(() => {
+    handleDialogClose();
+    navigate(goBackPath);
+  }, [navigate]);
   return (
     <Dialog
       fullScreen
@@ -112,7 +127,7 @@ export const DetailsTabViewWrapper = ({
     >
       <HeaderDetails
         rowData={rows?.[0]}
-        handleDialogClose={handleDialogClose}
+        handleDialogClose={handleDialogCloseWrapper}
         isDataChangedRef={isDataChangedRef}
         rejectLead={true}
       />

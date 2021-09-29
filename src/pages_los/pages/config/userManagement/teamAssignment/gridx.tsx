@@ -43,6 +43,7 @@ export const TeamGrid: FC<{
     setCurrentAction(null);
     if (isMyDataChangedRef.current === true) {
       isDataChangedRef.current = true;
+      isMyDataChangedRef.current = true;
       refetch();
       isMyDataChangedRef.current = false;
     }
@@ -76,7 +77,7 @@ export const TeamGrid: FC<{
       <ClearCacheProvider>
         {currentAction?.name === "add" ? (
           <AddMember
-            isDataChangedRef={isDataChangedRef}
+            isDataChangedRef={isMyDataChangedRef}
             closeDialog={closeMyDialog}
             userID={userID}
             branchCode={branchCode}
