@@ -65,13 +65,16 @@ export const deleteLeadAssign =
     }
   };
 
-export const getRoleListForLeadAssign = async (_, formState) => {
+export const getRoleListForLeadAssign = async (
+  _,
+  { refID, assignmentType, moduleType }
+) => {
   const { status, data } = await LOSSDK.internalFetcher(
-    `./${formState?.moduleType}/assign/options/role`,
+    `./${moduleType}/assign/${assignmentType}/options/role`,
     {
       body: JSON.stringify({
         request_data: {
-          refID: formState?.refID ?? " ",
+          refID: refID ?? " ",
         },
       }),
     }
@@ -89,15 +92,15 @@ export const getRoleListForLeadAssign = async (_, formState) => {
 
 export const getTeamRoleListForLeadAssign = async (
   _,
-  formState,
+  { refID, assignmentType, moduleType },
   dependentFields2
 ) => {
   const { status, data } = await LOSSDK.internalFetcher(
-    `./${formState?.moduleType}/assign/options/team `,
+    `./${moduleType}/assign/${assignmentType}/options/team `,
     {
       body: JSON.stringify({
         request_data: {
-          refID: formState?.refID ?? " ",
+          refID: refID ?? " ",
           teamRole:
             dependentFields2["usersAssignDetails.teamRole"].value ?? " ",
         },

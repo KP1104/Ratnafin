@@ -83,12 +83,17 @@ export const LeadAssign = ({
     endSubmit,
     setFieldError
   ) => {
-    mutation.mutate({
-      data,
-      displayData,
-      endSubmit,
-      setFieldError,
-    });
+    let result = validateData(data);
+    if (!Boolean(result)) {
+      mutation.mutate({
+        data,
+        displayData,
+        endSubmit,
+        setFieldError,
+      });
+    } else {
+      endSubmit(false, result);
+    }
   };
 
   return queryData.isLoading || queryData.isFetching ? (
@@ -123,6 +128,8 @@ export const LeadAssign = ({
       hideDisplayModeInTitle={true}
       formState={{
         moduleType: moduleType,
+        assignmentType: assignmentType,
+        refID: refID,
       }}
     >
       {({ isSubmitting, handleSubmit }) => {
@@ -185,4 +192,22 @@ export const LeadAssignWrapper = ({
       />
     </Dialog>
   );
+};
+
+const validateData = ({ usersAssignDetails }: any) => {
+  let roleVisited = [];
+  let result = "";
+  if (Array.isArray(usersAssignDetails)) {
+    for (let i = 0; i < usersAssignDetails.length; i++) {
+      //@ts-ignore
+      if (roleVisited.indexOf(usersAssignDetails[i]?.teamRole) >= 0) {
+        result = "No more than one person can have the same Team Role";
+        break;
+      } else {
+        //@ts-ignore
+        roleVisited.push(usersAssignDetails[i]?.teamRole);
+      }
+    }
+  }
+  return result;
 };

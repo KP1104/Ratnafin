@@ -48,6 +48,8 @@ export const leadAssignMetadata: MetaDataType = {
       removeRowFn: "deleteAssignArrayFieldData",
       arrayFieldIDName: "lineNo",
       label: "Lead Assignment",
+      fixedRows: true,
+      getFixedRowsCount: () => 1,
       _fields: [
         {
           render: {
@@ -68,6 +70,7 @@ export const leadAssignMetadata: MetaDataType = {
           label: "Team Role",
           //@ts-ignore
           options: API.getRoleListForLeadAssign,
+          _optionsKey: "getRoleListForLeadAssign",
           required: true,
           validate: "getValidateValue",
           defaultValue: "00",
@@ -86,6 +89,7 @@ export const leadAssignMetadata: MetaDataType = {
           dependentFields: ["teamRole"],
           //@ts-ignore
           options: API.getTeamRoleListForLeadAssign,
+          _optionsKey: "getTeamRoleListForLeadAssign",
           required: true,
           defaultValue: "00",
           validate: "getValidateValue",
