@@ -77,6 +77,10 @@ export const BranchGrid: FC<{
           branchCode={currentAction?.rows?.[0]?.id}
           isDataChangedRef={isMyDataChangedRef}
           closeDialog={closeMyDialog}
+          userRole={currentAction?.rows?.[0]?.data?.userRoleCode}
+          userName={currentAction?.rows?.[0]?.data?.userName}
+          userRoleName={currentAction?.rows?.[0]?.data?.roleName}
+          userBranchName={currentAction?.rows?.[0]?.data?.branchName}
         />
       ) : null}
     </Dialog>

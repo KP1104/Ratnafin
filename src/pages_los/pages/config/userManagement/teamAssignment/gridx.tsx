@@ -30,7 +30,20 @@ export const TeamGrid: FC<{
   closeDialog: any;
   userID: any;
   branchCode: any;
-}> = ({ isDataChangedRef, closeDialog, userID, branchCode }) => {
+  userRole: any;
+  userName: any;
+  userRoleName: any;
+  userBranchName: any;
+}> = ({
+  isDataChangedRef,
+  closeDialog,
+  userID,
+  branchCode,
+  userRole,
+  userBranchName,
+  userName,
+  userRoleName,
+}) => {
   let [currentAction, setCurrentAction] = useState<any>(null);
   const gridRef = useRef<any>(null);
   const isMyDataChangedRef = useRef(false);
@@ -48,6 +61,7 @@ export const TeamGrid: FC<{
       isMyDataChangedRef.current = false;
     }
   };
+
   return (
     <Dialog open={true} fullScreen>
       <div style={{ display: "flex" }}>
@@ -55,8 +69,7 @@ export const TeamGrid: FC<{
           <Fragment>
             <div style={{ padding: "8px 8px" }} />
             <Typography variant="h4" color="secondary">
-              {data?.[0]?.userName} - {data?.[0]?.userRoleName} -{" "}
-              {data?.[0]?.branchName}
+              {userName} - {userRoleName} - {userBranchName}
             </Typography>
           </Fragment>
         ) : null}
@@ -81,7 +94,7 @@ export const TeamGrid: FC<{
             closeDialog={closeMyDialog}
             userID={userID}
             branchCode={branchCode}
-            userRole={data?.[0]?.userRole}
+            userRole={userRole}
           />
         ) : null}
       </ClearCacheProvider>

@@ -6,8 +6,14 @@ export const Leads = () => {
 
   const actions: ActionTypes[] = [
     {
-      actionName: "leadAssign",
-      actionLabel: "Lead Assign",
+      actionName: "leadAssignBusiness",
+      actionLabel: "Lead Assign Business",
+      multiple: false,
+      rowDoubleClick: false,
+    },
+    {
+      actionName: "leadAssignCredit",
+      actionLabel: "Lead Assign Credit",
       multiple: false,
       rowDoubleClick: false,
     },

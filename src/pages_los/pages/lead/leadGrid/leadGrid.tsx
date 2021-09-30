@@ -92,12 +92,24 @@ export const LeadGrid = ({ gridCode, actions, basePath }) => {
             }
           />
           <Route
-            path="leadAssign"
+            path="leadAssignBusiness"
             element={
               <LeadAssign
                 handleDialogClose={handleDialogClose}
                 moduleType="lead"
                 isDataChangedRef={isDataEditedRef}
+                assignmentType="business"
+              />
+            }
+          />
+          <Route
+            path="leadAssignCredit"
+            element={
+              <LeadAssign
+                handleDialogClose={handleDialogClose}
+                moduleType="lead"
+                isDataChangedRef={isDataEditedRef}
+                assignmentType="credit"
               />
             }
           />

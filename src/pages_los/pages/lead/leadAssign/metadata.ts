@@ -1,4 +1,5 @@
 import { MetaDataType } from "components/dyanmicForm/types";
+import * as API from "./api";
 export const leadAssignMetadata: MetaDataType = {
   form: {
     name: "leadAssignForm",
@@ -66,7 +67,7 @@ export const leadAssignMetadata: MetaDataType = {
           name: "teamRole",
           label: "Team Role",
           //@ts-ignore
-          options: "getRoleListForInquiryAssign",
+          options: API.getRoleListForLeadAssign,
           required: true,
           validate: "getValidateValue",
           defaultValue: "00",
@@ -84,7 +85,7 @@ export const leadAssignMetadata: MetaDataType = {
           label: "Team User ID",
           dependentFields: ["teamRole"],
           //@ts-ignore
-          options: "getTeamRoleListForInquiryAssign",
+          options: API.getTeamRoleListForLeadAssign,
           required: true,
           defaultValue: "00",
           validate: "getValidateValue",

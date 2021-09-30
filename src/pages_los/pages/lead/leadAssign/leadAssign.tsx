@@ -1,4 +1,4 @@
-import { useContext, useRef, useEffect, Fragment, useCallback } from "react";
+import { useContext, useEffect, Fragment, useCallback } from "react";
 import { useNavigate } from "react-router";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
@@ -10,12 +10,7 @@ import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
 import FormWrapper, { MetaDataType } from "components/dyanmicForm";
 import { leadAssignMetadata } from "./metadata";
 import * as API from "./api";
-import { cacheWrapperKeyGen, ClearCacheContext } from "cache";
-import {
-  LeadAssignAPIContext,
-  LeadAssignAPIProvider,
-  generateLeadAssignAPIContext,
-} from "./context";
+import { ClearCacheContext } from "cache";
 import Dialog from "@material-ui/core/Dialog";
 import { useLocation } from "react-router-dom";
 import { HeaderDetails } from "../headerDetails";
@@ -41,29 +36,28 @@ export const LeadAssign = ({
   refID,
   isDataChangedRef,
   closeDialog,
+  assignmentType,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
   const removeCache = useContext(ClearCacheContext);
-  const { getCurrentLeadAssign, context } = useContext(LeadAssignAPIContext);
-  const wrapperKey = useRef<any>(null);
-  if (wrapperKey.current === null) {
-    wrapperKey.current = cacheWrapperKeyGen(
-      Object.values(getCurrentLeadAssign.args)
-    );
-  }
 
   useEffect(() => {
-    removeCache?.addEntry(["getCurrentLeadAssign", wrapperKey.current]);
+    removeCache?.addEntry([
+      "getCurrentLeadAssignment",
+      { refID, assignmentType },
+    ]);
   }, [removeCache]);
 
   const queryData = useQuery<any, any, any>(
-    ["getCurrentLeadAssign", wrapperKey.current],
-    getCurrentLeadAssign.fn(getCurrentLeadAssign.args),
+    ["getCurrentLeadAssignment", { refID, assignmentType, moduleType }],
+    API.getCurrentLeadAssignment({ refID, assignmentType, moduleType }),
     { cacheTime: 0 }
   );
 
   const mutation = useMutation(
-    insertFormDataFnWrapper(API.leadAssign({ moduleType, inquiry: refID })),
+    insertFormDataFnWrapper(
+      API.assignLeadMembers({ moduleType, assignmentType, refID })
+    ),
     {
       onError: (error: any, { endSubmit }) => {
         let errorMsg = "Unknown Error occured";
@@ -82,8 +76,6 @@ export const LeadAssign = ({
       },
     }
   );
-
-  leadAssignMetadata.form.formState = context;
 
   const onSubmitHandler: SubmitFnType = (
     data,
@@ -123,12 +115,15 @@ export const LeadAssign = ({
     </Fragment>
   ) : (
     <FormWrapper
-      key="leadInquiry"
+      key="leadAssign"
       metaData={leadAssignMetadata as MetaDataType}
       initialValues={queryData.data}
       onSubmitHandler={onSubmitHandler}
       displayMode={"new"}
       hideDisplayModeInTitle={true}
+      formState={{
+        moduleType: moduleType,
+      }}
     >
       {({ isSubmitting, handleSubmit }) => {
         return (
@@ -154,6 +149,7 @@ export const LeadAssignWrapper = ({
   moduleType,
   isDataChangedRef,
   handleDialogClose,
+  assignmentType,
   goBackPath = "..",
 }) => {
   const { state: rows }: any = useLocation();
@@ -164,32 +160,29 @@ export const LeadAssignWrapper = ({
     navigate(goBackPath);
   }, [navigate]);
   return (
-    <LeadAssignAPIProvider
-      {...generateLeadAssignAPIContext({ refID: rows?.[0].id, moduleType })}
+    <Dialog
+      maxWidth="md"
+      open={true}
+      //@ts-ignore
+      TransitionComponent={Transition}
+      PaperProps={{ style: { width: "100%", minHeight: "20vh" } }}
+      classes={{
+        scrollPaper: classes.topScrollPaper,
+        paperScrollBody: classes.topPaperScrollBody,
+      }}
     >
-      <Dialog
-        maxWidth="md"
-        open={true}
-        //@ts-ignore
-        TransitionComponent={Transition}
-        PaperProps={{ style: { width: "100%", minHeight: "20vh" } }}
-        classes={{
-          scrollPaper: classes.topScrollPaper,
-          paperScrollBody: classes.topPaperScrollBody,
-        }}
-      >
-        <HeaderDetails
-          rowData={rows?.[0]}
-          handleDialogClose={handleDialogCloseWrapper}
-          isDataChangedRef={isDataChangedRef}
-        />
-        <LeadAssign
-          moduleType={moduleType}
-          refID={rows[0].id}
-          isDataChangedRef={isDataChangedRef}
-          closeDialog={handleDialogCloseWrapper}
-        />
-      </Dialog>
-    </LeadAssignAPIProvider>
+      <HeaderDetails
+        rowData={rows?.[0]}
+        handleDialogClose={handleDialogCloseWrapper}
+        isDataChangedRef={isDataChangedRef}
+      />
+      <LeadAssign
+        moduleType={moduleType}
+        refID={rows[0].id}
+        isDataChangedRef={isDataChangedRef}
+        assignmentType={assignmentType}
+        closeDialog={handleDialogCloseWrapper}
+      />
+    </Dialog>
   );
 };
