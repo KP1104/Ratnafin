@@ -6,6 +6,7 @@ export const infra_123000012 = {
     render: {
       renderType: "stepper",
       groups: { "0": "Personal Details", "1": "Contact Details" },
+      ordering: "sequence",
     },
   },
   fields: [
@@ -26,9 +27,36 @@ export const infra_123000012 = {
       __EDIT__: { isReadOnly: true },
     },
     {
+      render: { componentType: "textField", group: 0 },
+      name: "otherDescription",
+      sequence: 2,
+      label: "Reference",
+      placeholder: "Reference",
+      defaultValue: "",
+      dependentFields: ["source"],
+      maxLength: 100,
+      GridProps: { xs: 12, md: 3, sm: 3 },
+      shouldExclude: {
+        conditions: {
+          any: [
+            {
+              fact: "dependentFields",
+              path: "$.source.value",
+              operator: "equal",
+              value: "1",
+            },
+          ],
+        },
+        success: false,
+        failure: true,
+      },
+      fullWidth: true,
+      __EDIT__: { isReadOnly: true },
+    },
+    {
       render: { componentType: "autocomplete", group: 0 },
       name: "employeeUserName",
-      sequence: 2,
+      sequence: 3,
       label: "Select Employee",
       placeholder: "Select Employe",
       defaultValue: "00",
@@ -63,7 +91,7 @@ export const infra_123000012 = {
       placeholder: "Select IDC",
       label: "Select IDC",
       defaultValue: "00",
-      sequence: 3,
+      sequence: 4,
       dependentFields: ["source"],
       options: "getPartnerList",
       required: true,
@@ -90,36 +118,9 @@ export const infra_123000012 = {
       __EDIT__: { isReadOnly: true },
     },
     {
-      render: { componentType: "textField", group: 0 },
-      name: "otherDescription",
-      sequence: 4,
-      label: "Reference",
-      placeholder: "Reference",
-      defaultValue: "",
-      dependentFields: ["source"],
-      maxLength: 100,
-      GridProps: { xs: 12, md: 3, sm: 3 },
-      shouldExclude: {
-        conditions: {
-          any: [
-            {
-              fact: "dependentFields",
-              path: "$.source.value",
-              operator: "equal",
-              value: "1",
-            },
-          ],
-        },
-        success: false,
-        failure: true,
-      },
-      fullWidth: true,
-      __EDIT__: { isReadOnly: true },
-    },
-    {
       render: { componentType: "select", group: 0 },
       name: "productType",
-      sequence: 1,
+      sequence: 5,
       label: "Product Type",
       placeholder: "Product Type",
       required: true,
@@ -135,7 +136,7 @@ export const infra_123000012 = {
     {
       render: { componentType: "select", group: 0 },
       name: "subProductType",
-      sequence: 2,
+      sequence: 6,
       label: "Sub Product Type",
       placeholder: "Sub Product Type",
       required: true,
@@ -170,7 +171,7 @@ export const infra_123000012 = {
     {
       render: { componentType: "select", group: 0 },
       name: "salutation",
-      sequence: 5,
+      sequence: 7,
       label: "Salutation",
       placeholder: "Salutation",
       isReadOnly: false,
@@ -185,7 +186,7 @@ export const infra_123000012 = {
     {
       render: { componentType: "textField", group: 0 },
       name: "firstName",
-      sequence: 6,
+      sequence: 8,
       type: "text",
       label: "First Name[As Per PAN Card]",
       isReadOnly: false,
@@ -202,7 +203,7 @@ export const infra_123000012 = {
     {
       render: { componentType: "textField", group: 0 },
       name: "middleName",
-      sequence: 7,
+      sequence: 9,
       type: "text",
       label: "Middle Name",
       isReadOnly: false,
@@ -214,7 +215,7 @@ export const infra_123000012 = {
     {
       render: { componentType: "textField", group: 0 },
       name: "lastName",
-      sequence: 8,
+      sequence: 10,
       type: "text",
       label: "Last Name",
       isReadOnly: false,
@@ -231,7 +232,7 @@ export const infra_123000012 = {
     {
       render: { componentType: "select", group: 0 },
       name: "gender",
-      sequence: 9,
+      sequence: 11,
       label: "Gender",
       placeholder: "Gender",
       required: true,
@@ -245,7 +246,7 @@ export const infra_123000012 = {
     {
       render: { componentType: "dob", group: 0 },
       name: "dob",
-      sequence: 10,
+      sequence: 12,
       label: "Date Of Birth",
       placeholder: "dd/mm/yyyy",
       isReadOnly: false,
@@ -262,7 +263,7 @@ export const infra_123000012 = {
     {
       render: { componentType: "currencyWithLeadingZeros", group: 0 },
       name: "loanAmount",
-      sequence: 11,
+      sequence: 13,
       type: "text",
       label: "Your Desired Loan Amount",
       isReadOnly: false,
@@ -280,7 +281,7 @@ export const infra_123000012 = {
     {
       render: { componentType: "phoneNumber", group: 1 },
       name: "mobileNo",
-      sequence: 12,
+      sequence: 14,
       type: "text",
       label: "Mobile No",
       isReadOnly: false,
@@ -301,7 +302,7 @@ export const infra_123000012 = {
     {
       render: { componentType: "textField", group: 1 },
       name: "email",
-      sequence: 13,
+      sequence: 15,
       type: "text",
       label: "Email",
       isReadOnly: false,
@@ -321,7 +322,7 @@ export const infra_123000012 = {
     {
       render: { componentType: "select", group: 1 },
       name: "employementStatus",
-      sequence: 13,
+      sequence: 16,
       label: "How Are You Currently Employed",
       placeholder: "How Are You Currently Employed",
       isReadOnly: false,
@@ -335,7 +336,7 @@ export const infra_123000012 = {
     {
       render: { componentType: "textField", group: 1 },
       name: "landmark",
-      sequence: 15,
+      sequence: 19,
       type: "text",
       label: "Landmark",
       isReadOnly: false,
@@ -348,7 +349,7 @@ export const infra_123000012 = {
     {
       render: { componentType: "numberFormat", group: 1 },
       name: "pincode",
-      sequence: 15,
+      sequence: 20,
       label: "Residence Pincode",
       required: true,
       placeholder: "Residence Pincode",
@@ -371,7 +372,7 @@ export const infra_123000012 = {
     {
       render: { componentType: "select", group: 1 },
       name: "location",
-      sequence: 17,
+      sequence: 21,
       defaultValue: "00",
       label: "Location",
       isReadOnly: false,
@@ -388,7 +389,7 @@ export const infra_123000012 = {
     {
       render: { componentType: "textField", group: 1 },
       name: "city",
-      sequence: 18,
+      sequence: 22,
       label: "City",
       required: true,
       __VIEW__: { isReadOnly: false },
@@ -403,7 +404,7 @@ export const infra_123000012 = {
     {
       render: { componentType: "textField", group: 1 },
       name: "district",
-      sequence: 19,
+      sequence: 23,
       label: "District",
       isReadOnly: true,
       placeholder: "District",
@@ -413,7 +414,7 @@ export const infra_123000012 = {
     {
       render: { componentType: "textField", group: 1 },
       name: "state",
-      sequence: 20,
+      sequence: 24,
       label: "State",
       isReadOnly: true,
       placeholder: "State",
@@ -423,7 +424,7 @@ export const infra_123000012 = {
     {
       render: { componentType: "textField", group: 1 },
       name: "country",
-      sequence: 21,
+      sequence: 25,
       label: "Country",
       isReadOnly: true,
       placeholder: "Country",
@@ -433,7 +434,7 @@ export const infra_123000012 = {
     {
       render: { componentType: "select", group: 1 },
       name: "youAre",
-      sequence: 22,
+      sequence: 26,
       label: "You are",
       placeholder: "You are",
       required: true,
@@ -446,7 +447,7 @@ export const infra_123000012 = {
     {
       render: { componentType: "textField", group: 1 },
       name: "address",
-      sequence: 13.2,
+      sequence: 18.2,
       type: "text",
       label: "Address",
       required: false,
@@ -458,7 +459,7 @@ export const infra_123000012 = {
     {
       render: { componentType: "textField", group: 1 },
       name: "firmName",
-      sequence: 13.1,
+      sequence: 17.1,
       type: "text",
       label: "Firm Name As per records",
       placeholder: "Firm Name",
