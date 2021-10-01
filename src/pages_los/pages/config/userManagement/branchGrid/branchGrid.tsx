@@ -1,4 +1,4 @@
-import { useRef, useState, FC, Fragment, useEffect } from "react";
+import { useRef, useState, FC, Fragment, useEffect, useCallback } from "react";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import Typography from "@material-ui/core/Typography";
@@ -10,6 +10,7 @@ import * as API from "./api";
 import { useLocation } from "react-router-dom";
 import { TeamGrid } from "../teamAssignment";
 import { queryClient } from "cache";
+import { useNavigate } from "react-router";
 
 const actions: ActionTypes[] = [
   {
@@ -23,8 +24,14 @@ const actions: ActionTypes[] = [
 export const BranchGrid: FC<{
   isDataChangedRef: any;
   closeDialog: any;
-}> = ({ isDataChangedRef, closeDialog }) => {
+  goBackPath?: any;
+}> = ({ isDataChangedRef, closeDialog, goBackPath = ".." }) => {
   let [currentAction, setCurrentAction] = useState<any>(null);
+  const navigate = useNavigate();
+  const handleDialogCloseWrapper = useCallback(() => {
+    closeDialog();
+    navigate(goBackPath);
+  }, [navigate]);
   const { state: rows } = useLocation();
   let userID = rows?.[0]?.id;
   const gridRef = useRef<any>(null);
@@ -58,7 +65,7 @@ export const BranchGrid: FC<{
           </Fragment>
         ) : null}
         <div style={{ flexGrow: 1 }} />
-        <Button onClick={closeDialog}>Close</Button>
+        <Button onClick={handleDialogCloseWrapper}>Close</Button>
       </div>
       <GridWrapper
         key="userAssignedBranches"

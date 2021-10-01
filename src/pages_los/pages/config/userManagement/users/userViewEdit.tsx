@@ -1,4 +1,4 @@
-import { useState, Fragment, useEffect } from "react";
+import { useState, Fragment, useEffect, useCallback } from "react";
 import Button from "@material-ui/core/Button";
 import loaderGif from "assets/images/loader.gif";
 import IconButton from "@material-ui/core/IconButton";
@@ -9,7 +9,7 @@ import Dialog from "@material-ui/core/Dialog";
 import { Transition } from "pages_los/common";
 import { useDialogStyles } from "pages_los/common/dialogStyles";
 import * as API from "./api";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
 import { queryClient } from "cache";
 
@@ -17,8 +17,17 @@ let updateUserDataWrapper = ({ data, setServerError }) => {
   return API.updateUserData(data);
 };
 
-export const ViewEditUser = ({ closeHandler, isDataChangedRef }) => {
+export const ViewEditUser = ({
+  closeHandler,
+  isDataChangedRef,
+  goBackPath = "..",
+}) => {
   const { state: rows }: any = useLocation();
+  const navigate = useNavigate();
+  const handleDialogCloseWrapper = useCallback(() => {
+    closeHandler();
+    navigate(goBackPath);
+  }, [navigate]);
   const userID = rows[0]?.id;
   const dialogClasses = useDialogStyles();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -103,7 +112,7 @@ export const ViewEditUser = ({ closeHandler, isDataChangedRef }) => {
             return mode === "view" ? (
               <Fragment>
                 <Button onClick={moveToEdit}>Edit</Button>
-                <Button onClick={closeHandler}>Cancel</Button>
+                <Button onClick={handleDialogCloseWrapper}>Cancel</Button>
               </Fragment>
             ) : (
               <Fragment>

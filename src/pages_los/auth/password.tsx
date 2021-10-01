@@ -33,7 +33,7 @@ export const PasswordField = ({
     <Fragment>
       <div className={classes.formWrap}>
         <Typography variant="h6" color="primary">
-          Hi, {loginState.username}
+          Hi, {`${loginState.firstName ?? ""} ${loginState.lastName ?? ""}`}
         </Typography>
         <br />
         <TextField

@@ -102,8 +102,8 @@ export const UserForm: FC<any> = ({
   );
 
   const products = useQuery<any, any, any>(
-    "getProducts",
-    API.getProducts(data?.company),
+    ["getProducts", { company: data?.company, role }],
+    API.getProducts(data?.company, role),
     {
       enabled: isCompanySelected,
       cacheTime: 0,

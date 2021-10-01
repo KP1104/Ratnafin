@@ -1,4 +1,4 @@
-import { useState, Fragment } from "react";
+import { useState, Fragment, useCallback } from "react";
 import Button from "@material-ui/core/Button";
 import { UserForm } from "./userForm/userForm";
 import { useMutation } from "react-query";
@@ -6,21 +6,31 @@ import { useSnackbar } from "notistack";
 import Dialog from "@material-ui/core/Dialog";
 import { Transition } from "pages_los/common";
 import { useDialogStyles } from "pages_los/common/dialogStyles";
+import { useNavigate } from "react-router-dom";
 import * as API from "./api";
 
 let insertDataWrapper = ({ data, setServerError }) => {
   return API.insertUserData(data);
 };
 
-export const AddUser = ({ closeHandler, isDataChangedRef }) => {
+export const AddUser = ({
+  closeHandler,
+  isDataChangedRef,
+  goBackPath = "..",
+}) => {
   const dialogClasses = useDialogStyles();
+  const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
+  let handleDialogCloseWrapper = useCallback(() => {
+    closeHandler();
+    navigate(goBackPath);
+  }, [navigate]);
 
   const mutation = useMutation(insertDataWrapper, {
     onSuccess: (result) => {
       isDataChangedRef.current = true;
-      closeHandler();
+      handleDialogCloseWrapper();
       enqueueSnackbar("user successfully added", {
         variant: "success",
       });
@@ -57,13 +67,12 @@ export const AddUser = ({ closeHandler, isDataChangedRef }) => {
           setIsSubmitting(true);
           mutation.mutate({ data: values, setServerError });
         }}
-        childrenAtBottom={true}
       >
         {({ handleSubmit }) => {
           return (
             <Fragment>
               <Button onClick={handleSubmit}>Save</Button>
-              <Button onClick={closeHandler}>Cancel</Button>
+              <Button onClick={handleDialogCloseWrapper}>Cancel</Button>
             </Fragment>
           );
         }}

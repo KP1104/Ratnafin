@@ -1,6 +1,6 @@
 import { LOSSDK } from "registry/fns/los";
 import { MiscSDK } from "registry/fns/misc";
-import { VERTICALHEAD_ROLES } from "pages_los/roles";
+import { VERTICALHEAD_ROLES, CREDIT_ADVISOR } from "pages_los/roles";
 
 export const getRoles = async () => {
   const { data, status } = await LOSSDK.internalFetcher(
@@ -177,7 +177,17 @@ export const getCoordinator = async ({ queryKey }) => {
 
 export const getCompaniesInfo = MiscSDK.getMiscVal("COMPANY_TYPE");
 
-export const getProducts = (company) => MiscSDK.getPrimaryPartnerProduct;
+export const getProducts = (company, role) => async () => {
+  try {
+    let result = await MiscSDK.getPrimaryPartnerProduct();
+    if (role === CREDIT_ADVISOR) {
+      return result.filter((one) => one.value !== "12000001");
+    }
+    return result;
+  } catch (e) {
+    throw e;
+  }
+};
 
 const initCap = (value) => {
   return value.toLowerCase().replace(/(?:^|\b)[a-z]/g, function (m) {

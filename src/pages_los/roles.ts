@@ -10,3 +10,5 @@ export const BRANCH_MANAGER = 9;
 export const BDM = 18;
 export const BDE = 19;
 export const BDEDIRECT = 20;
+
+export const CREDIT_ADVISOR = 23;

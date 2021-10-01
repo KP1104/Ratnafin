@@ -11,6 +11,8 @@ import logo from "assets/images/logo.svg";
 
 const inititalState = {
   username: "",
+  firstName: "",
+  lastName: "",
   loading: false,
   isError: false,
   userMessage: "",
@@ -41,7 +43,7 @@ const reducer = (state, action) => {
         ...state,
         loading: false,
         isError: true,
-        userMessage: action.payload.error,
+        userMessage: action?.payload?.error,
       };
     }
     case "usernameVerificationSuccessful": {
@@ -49,8 +51,10 @@ const reducer = (state, action) => {
         ...state,
         loading: false,
         currentFlow: "password",
-        transactionID: action.payload.transactionID,
-        username: action.payload.username,
+        transactionID: action?.payload?.transactionID,
+        username: action?.payload?.username,
+        firstName: action?.payload?.firstName,
+        lastName: action?.payload?.lastName,
       };
     }
     case "passwordVerificationSuccessful": {
@@ -94,6 +98,8 @@ export const AuthLoginController = () => {
           payload: {
             transactionID: result?.data?.transactionId,
             username: username,
+            firstName: result?.data?.firstName,
+            lastName: result?.data?.lastName,
           },
         });
       } else {
