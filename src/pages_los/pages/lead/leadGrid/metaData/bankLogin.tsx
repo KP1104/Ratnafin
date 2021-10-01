@@ -172,7 +172,7 @@ export const leadBankLoginMetaData = {
     {
       accessor: "first_name",
       columnName: "First Name",
-      sequence: 11,
+      sequence: 6.1,
       width: 150,
       minWidth: 100,
       maxWidth: 200,
@@ -196,7 +196,7 @@ export const leadBankLoginMetaData = {
     {
       accessor: "last_name",
       columnName: "Last Name",
-      sequence: 13,
+      sequence: 6.2,
       width: 150,
       minWidth: 100,
       maxWidth: 200,
