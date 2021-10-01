@@ -13,6 +13,7 @@ import { Dashboard } from "pages_los/pages/dashboard";
 import { NewInquiry } from "pages_los/pages/newInquiry";
 import { Config } from "pages_los/pages/config";
 import { Reports } from "pages_los/pages/reports";
+import { Campaign } from "pages_los/pages/campaign";
 import TestForm from "components/dyanmicForm/test";
 import Editor from "components/editor";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -49,6 +50,7 @@ export const PagesLOS = () => {
             <Route path="profile" element={<Profile />} />
             <Route path="config/*" element={<Config />} />
             <Route path="reports/*" element={<Reports />} />
+            <Route path="campaign/*" element={<Campaign />} />
             {/*dummy routes*/}
             <Route path="testForm" element={<TestForm />} />
             <Route path="editor" element={<Editor />} />

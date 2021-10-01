@@ -300,6 +300,12 @@ export const metaData: NavBarMetaDataType = {
       ],
     },
     {
+      label: "Campaign",
+      icon: "table",
+      href: "campaign",
+      isRouterLink: true,
+    },
+    {
       label: "Reports",
       icon: "table",
       children: [
