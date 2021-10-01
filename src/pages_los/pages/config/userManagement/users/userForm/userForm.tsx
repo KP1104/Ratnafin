@@ -232,10 +232,15 @@ export const UserForm: FC<any> = ({
     setTouched(true);
     let result = isFormValid();
     if (result) {
+      let newObj = {};
+      if (data?.role === BRANCH_MANAGER) {
+        newObj = { entity: [data?.base] };
+      }
       if (mode === "new") {
         onSubmit(
           {
             ...data,
+            ...newObj,
             useDefaultPassword,
             changePasswordOnNextLogin,
             entityType: entityType.substr(0, 1).toUpperCase(),
@@ -247,6 +252,7 @@ export const UserForm: FC<any> = ({
         onSubmit(
           {
             ...others,
+            ...newObj,
             entityType: entityType.substr(0, 1).toUpperCase(),
           },
           setServerError
@@ -442,7 +448,7 @@ export const UserForm: FC<any> = ({
             condition={
               Boolean(entityType) &&
               !baseLoading &&
-              COORDINATOR_ROLES.indexOf(role) < 0
+              [BRANCH_MANAGER, ...COORDINATOR_ROLES].indexOf(role) < 0
             }
           >
             <Grid item xs={4}>
