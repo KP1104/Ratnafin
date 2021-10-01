@@ -1,3 +1,5 @@
+import { getBranch } from "./api";
+
 export const regionBranchMasterMetadata = {
   form: {
     name: "bankBranchMasterNew",
@@ -27,10 +29,11 @@ export const regionBranchMasterMetadata = {
       label: "Branch Name",
       placeholder: "Branch Name",
       defaultValue: "00",
-      options: "getBranchList",
+      options: getBranch,
       showCheckbox: true,
       multiple: true,
       fullWidth: true,
+      disableCaching: true,
     },
   ],
 };

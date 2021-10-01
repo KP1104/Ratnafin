@@ -33,6 +33,7 @@ export const countryZoneMasterMetadata = {
       multiple: true,
       showCheckbox: true,
       fullWidth: true,
+      disableCaching: true,
     },
   ],
 };

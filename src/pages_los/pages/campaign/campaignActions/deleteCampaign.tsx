@@ -1,41 +1,33 @@
 import { Fragment } from "react";
 import { useMutation } from "react-query";
+import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import { Alert } from "components/common/alert";
 import DialogContent from "@material-ui/core/DialogContent";
-import * as API from "./api";
-import Dialog from "@material-ui/core/Dialog";
+import { Transition } from "pages_los/common/transition";
+import * as API from "../api";
+import { useLocation } from "react-router";
 
-interface deleteFormDataType {
-  worklogID?: string;
+interface DeleteFormDataType {
+  refID?: string;
 }
 
 const DeleteFormDataFnWrapper =
   (deleteFormData) =>
-  async ({ worklogID }: deleteFormDataType) => {
-    return deleteFormData(worklogID);
+  async ({ refID }: DeleteFormDataType) => {
+    return deleteFormData(refID);
   };
 
-export const WorklogDelete = ({
-  isDataChangedRef,
-  closeDialog,
-  worklogID,
-  moduleType,
-}) => {
-  const mutation = useMutation(
-    DeleteFormDataFnWrapper(
-      API.deleteWorkLogData({ moduleType, worklogID: worklogID })
-    ),
-    {
-      onError: (error: any) => {},
-      onSuccess: (data) => {
-        isDataChangedRef.current = true;
-        closeDialog();
-      },
-    }
-  );
+const DeleteCampaign = ({ isDataChangedRef, closeDialog, refID }) => {
+  const mutation = useMutation(DeleteFormDataFnWrapper(API.deleteCampaign), {
+    onError: (error: any) => {},
+    onSuccess: (data) => {
+      isDataChangedRef.current = true;
+      closeDialog();
+    },
+  });
 
   return (
     <Fragment>
@@ -71,7 +63,7 @@ export const WorklogDelete = ({
             Disagree
           </Button>
           <Button
-            onClick={() => mutation.mutate({ worklogID })}
+            onClick={() => mutation.mutate({ refID })}
             color="primary"
             disabled={mutation.isLoading}
           >
@@ -83,18 +75,20 @@ export const WorklogDelete = ({
   );
 };
 
-export const WorklogDeleteWrapper = ({
-  handleDialogClose,
-  isDataChangedRef,
-  currentAction,
-}) => {
+export const CampaignDeleteWrapper = ({ isDataChangeRef, closeHandler }) => {
+  const { state: rows }: any = useLocation();
   return (
-    <Dialog open={true} maxWidth="sm">
-      <WorklogDelete
-        worklogID={currentAction?.rows.map((one) => one.id)}
-        moduleType="worklog"
-        closeDialog={handleDialogClose}
-        isDataChangedRef={isDataChangedRef}
+    <Dialog
+      open={true}
+      //@ts-ignore
+      TransitionComponent={Transition}
+      maxWidth="sm"
+      fullWidth
+    >
+      <DeleteCampaign
+        isDataChangedRef={isDataChangeRef}
+        refID={rows.map((one) => one.id)}
+        closeDialog={closeHandler}
       />
     </Dialog>
   );

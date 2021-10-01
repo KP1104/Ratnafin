@@ -1,5 +1,28 @@
 import { LOSSDK } from "registry/fns/los";
 
+export const getBranch = async () => {
+  const { data, status } = await LOSSDK.internalFetcher(
+    `./users/options/region-branch`,
+    {
+      body: JSON.stringify({
+        request_data: {},
+      }),
+    }
+  );
+  if (status === "success") {
+    if (Array.isArray(data?.response_data)) {
+      let options = data?.response_data.map((one) => ({
+        label: one?.branchName,
+        value: one?.branchCode,
+      }));
+      return options;
+    }
+    return [];
+  } else {
+    throw data?.error_data;
+  }
+};
+
 export const getRegion = async () => {
   const { data, status } = await LOSSDK.internalFetcher(
     `./users/options/region`,

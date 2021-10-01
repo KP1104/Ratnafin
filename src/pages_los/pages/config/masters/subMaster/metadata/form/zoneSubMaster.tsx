@@ -33,6 +33,7 @@ export const zonesRegionMasterMetadata = {
       multiple: true,
       showCheckbox: true,
       fullWidth: true,
+      disableCaching: true,
     },
   ],
 };
