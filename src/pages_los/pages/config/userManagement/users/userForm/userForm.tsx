@@ -39,7 +39,7 @@ import {
   BIUS,
   BDM,
   BDE,
-  BDEDIRECT,
+  BDE_DIRECT,
 } from "pages_los/roles";
 import { isValid } from "date-fns";
 
@@ -456,7 +456,7 @@ export const UserForm: FC<any> = ({
                 label={`Select Products`}
                 loading={products?.isLoading || products.isFetching}
                 onlySingleSelect={
-                  [BDEDIRECT, BDE, BDM].indexOf(role) >= 0 ? true : false
+                  [BDE_DIRECT, BDE, BDM].indexOf(role) >= 0 ? true : false
                 }
                 touched={touched}
                 error={error?.product ?? ""}
