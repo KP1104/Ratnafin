@@ -1,28 +1,48 @@
 import { Routes, Route } from "react-router-dom";
-import {
-  AllAssignedInquiry,
-  AssignedInquiry,
-  CrossInquiry,
-  IncomingInquiry,
-  MyCrossInquiry,
-  MyInquiry,
-  MyTeamCrossInquiry,
-  MyUnmappedInquiry,
-  UnmappedHOInquiry,
-  UnmappedInqiry,
-} from "./views";
+import { InquiryGridSelector } from "./inquiryGridSelector";
+import { screens } from "./consts";
 
 export const Inquiry = () => (
   <Routes>
-    <Route path="allAssignedInquiries/*" element={<AllAssignedInquiry />} />
-    <Route path="assignedInquiries/*" element={<AssignedInquiry />} />
-    <Route path="crossInquiries/*" element={<CrossInquiry />} />
-    <Route path="incomingInquiries/*" element={<IncomingInquiry />} />
-    <Route path="myCrossInquiries/*" element={<MyCrossInquiry />} />
-    <Route path="myInquiry/*" element={<MyInquiry />} />
-    <Route path="myTeamCrossInquiries/*" element={<MyTeamCrossInquiry />} />
-    <Route path="myUnmappedInquiries/*" element={<MyUnmappedInquiry />} />
-    <Route path="unmappedHOInquiries/*" element={<UnmappedHOInquiry />} />
-    <Route path="unmappedInquiries/*" element={<UnmappedInqiry />} />
+    <Route
+      path="all-assigned-inquiries/*"
+      element={<InquiryGridSelector gridCode={screens.allAssignedInquiries} />}
+    />
+    <Route
+      path="assigned-inquiries/*"
+      element={<InquiryGridSelector gridCode={screens.assignedInquiries} />}
+    />
+    <Route
+      path="cross-inquiries/*"
+      element={<InquiryGridSelector gridCode={screens.crossInquiries} />}
+    />
+    <Route
+      path="incoming-inquiries/*"
+      element={<InquiryGridSelector gridCode={screens.incomingInquiries} />}
+    />
+    <Route
+      path="my-cross-inquiries/*"
+      element={<InquiryGridSelector gridCode={screens.myCrossInquiries} />}
+    />
+    <Route
+      path="my-inquiries/*"
+      element={<InquiryGridSelector gridCode={screens.myInquiry} />}
+    />
+    <Route
+      path="my-teamcross-inquiries/*"
+      element={<InquiryGridSelector gridCode={screens.myTeamCrossInquiries} />}
+    />
+    <Route
+      path="my-unmapped-inquiries/*"
+      element={<InquiryGridSelector gridCode={screens.myUnmappedInquiries} />}
+    />
+    <Route
+      path="unmapped-ho-inquiries/*"
+      element={<InquiryGridSelector gridCode={screens.unmappedHOInquiries} />}
+    />
+    <Route
+      path="unmapped-inquiries/*"
+      element={<InquiryGridSelector gridCode={screens.unmappedInquiries} />}
+    />
   </Routes>
 );

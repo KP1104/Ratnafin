@@ -1,4 +1,5 @@
 import { NavBarMetaDataType } from "components/navigation";
+import { COORDINATOR_ROLES } from "pages_los/roles";
 
 export const metaData: NavBarMetaDataType = {
   config: {
@@ -21,7 +22,7 @@ export const metaData: NavBarMetaDataType = {
           children: [
             {
               label: "Retail Home Loan",
-              href: "newInquiry/retail-rhl",
+              href: "new-inquiry/retail-rhl",
               isRouterLink: true,
               navigationProps: {
                 categoryID: "12000001",
@@ -31,7 +32,7 @@ export const metaData: NavBarMetaDataType = {
             },
             {
               label: "Retail LAP (Loan Against Property)",
-              href: "newInquiry/retail-lap",
+              href: "new-inquiry/retail-lap",
               isRouterLink: true,
               navigationProps: {
                 categoryID: "12000001",
@@ -41,7 +42,7 @@ export const metaData: NavBarMetaDataType = {
             },
             {
               label: "Retail LRD (Lease Rental Discount)",
-              href: "newInquiry/retail-ldr",
+              href: "new-inquiry/retail-ldr",
               isRouterLink: true,
               navigationProps: {
                 categoryID: "12000001",
@@ -51,7 +52,7 @@ export const metaData: NavBarMetaDataType = {
             },
             {
               label: "Retail APF",
-              href: "newInquiry/retail-apf",
+              href: "new-inquiry/retail-apf",
               isRouterLink: true,
               navigationProps: {
                 categoryID: "12000001",
@@ -66,7 +67,7 @@ export const metaData: NavBarMetaDataType = {
           children: [
             {
               label: "SME CC/OD",
-              href: "newInquiry/sme",
+              href: "new-inquiry/sme",
               isRouterLink: true,
               navigationProps: {
                 categoryID: "12000002",
@@ -76,7 +77,7 @@ export const metaData: NavBarMetaDataType = {
             },
             {
               label: "SME Term Loan",
-              href: "newInquiry/stl",
+              href: "new-inquiry/stl",
               isRouterLink: true,
               navigationProps: {
                 categoryID: "12000002",
@@ -86,7 +87,7 @@ export const metaData: NavBarMetaDataType = {
             },
             {
               label: "SME Term Loan + CC/OD",
-              href: "newInquiry/sme-ccod",
+              href: "new-inquiry/sme-ccod",
               isRouterLink: true,
               navigationProps: {
                 categoryID: "12000002",
@@ -96,7 +97,7 @@ export const metaData: NavBarMetaDataType = {
             },
             {
               label: "SME NFB (Non Fund Base)",
-              href: "newInquiry/sme-nfb",
+              href: "new-inquiry/sme-nfb",
               isRouterLink: true,
               navigationProps: {
                 categoryID: "12000002",
@@ -106,7 +107,7 @@ export const metaData: NavBarMetaDataType = {
             },
             {
               label: "SME LAP (Loan Against Property)",
-              href: "newInquiry/sme-lap",
+              href: "new-inquiry/sme-lap",
               isRouterLink: true,
               navigationProps: {
                 categoryID: "12000002",
@@ -116,7 +117,7 @@ export const metaData: NavBarMetaDataType = {
             },
             {
               label: "SME CGTMSE",
-              href: "newInquiry/sme-cgtmse",
+              href: "new-inquiry/sme-cgtmse",
               isRouterLink: true,
               navigationProps: {
                 categoryID: "12000002",
@@ -131,7 +132,7 @@ export const metaData: NavBarMetaDataType = {
           children: [
             {
               label: "Construction Finance",
-              href: "newInquiry/infra-construction",
+              href: "new-inquiry/infra-construction",
               isRouterLink: true,
               navigationProps: {
                 categoryID: "12000003",
@@ -141,7 +142,7 @@ export const metaData: NavBarMetaDataType = {
             },
             {
               label: "Infrastructure Finance",
-              href: "newInquiry/infra-finance",
+              href: "new-inquiry/infra-finance",
               isRouterLink: true,
               navigationProps: {
                 categoryID: "12000003",
@@ -156,7 +157,7 @@ export const metaData: NavBarMetaDataType = {
           children: [
             {
               label: "Business Loan",
-              href: "newInquiry/businessLoan",
+              href: "new-inquiry/business-loan",
               isRouterLink: true,
               navigationProps: {
                 categoryID: "12000004",
@@ -180,53 +181,53 @@ export const metaData: NavBarMetaDataType = {
       children: [
         {
           label: "Incoming Inquiries",
-          href: "inquiry/incomingInquiries",
+          href: "inquiry/incoming-inquiries",
           isRouterLink: true,
           icon: "circle",
           visibleToRoles: [3, 4, 5, 6, 7, 8, 9, 10, 11],
         },
         {
           label: "Assigned Inquiries",
-          href: "inquiry/allAssignedInquiries",
+          href: "inquiry/all-assigned-inquiries",
           isRouterLink: true,
           icon: "circle",
           visibleToRoles: [3, 4, 5, 6, 7, 8, 9, 10, 11],
         },
         {
           label: "My Inquiries",
-          href: "inquiry/myInquiry",
+          href: "inquiry/my-inquiries",
           isRouterLink: true,
           icon: "circle",
         },
         {
           label: "My Unmapped Inquiries",
-          href: "inquiry/myUnmappedInquiries",
+          href: "inquiry/my-unmapped-inquiries",
           isRouterLink: true,
           icon: "circle",
         },
         {
           label: "Unmapped Inquiries",
-          href: "inquiry/unmappedInquiries",
+          href: "inquiry/unmapped-inquiries",
           isRouterLink: true,
           icon: "circle",
           visibleToRoles: [3, 4, 5, 6, 7, 8],
         },
         {
           label: "Unmapped Inquiries HO",
-          href: "inquiry/unmappedHOInquiries",
+          href: "inquiry/unmapped-ho-inquiries",
           isRouterLink: true,
           icon: "circle",
           visibleToRoles: [3, 4, 5, 6, 7, 8, 10, 11],
         },
         {
           label: "My Cross Inquiries",
-          href: "inquiry/myCrossInquiries",
+          href: "inquiry/my-cross-inquiries",
           isRouterLink: true,
           icon: "circle",
         },
         {
           label: "My Team Cross Inquiries",
-          href: "inquiry/myTeamCrossInquiries",
+          href: "inquiry/my-teamcross-inquiries",
           isRouterLink: true,
           icon: "circle",
           visibleToRoles: [3, 4, 5, 6, 7, 8, 9, 18],
@@ -244,6 +245,13 @@ export const metaData: NavBarMetaDataType = {
           icon: "circle",
         },
         {
+          label: "Head Leads",
+          href: "lead/head-leads",
+          isRouterLink: true,
+          icon: "circle",
+          visibleToRoles: [...COORDINATOR_ROLES],
+        },
+        {
           label: "Mandate",
           href: "lead/mandate",
           isRouterLink: true,
@@ -251,7 +259,7 @@ export const metaData: NavBarMetaDataType = {
         },
         {
           label: "Bank Login",
-          href: "lead/bankLogin",
+          href: "lead/bank-login",
           isRouterLink: true,
           icon: "circle",
         },

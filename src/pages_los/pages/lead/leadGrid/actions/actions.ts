@@ -1,50 +1,38 @@
 import { ActionTypes } from "components/dataTable";
 
 interface extendedType {
-  __VISIBLE_FOR__?: any;
+  __VISIBLE_GRID_CODE__?: any;
   __VISIBLE_FOR_ROLES__?: any;
 }
 type MyActionTypes = ActionTypes & extendedType;
 
-const stages = {
-  bankLogin: true,
-  disbursement: true,
-  lead: true,
-  mandate: true,
-  sanction: true,
-};
-
-const actions: MyActionTypes[] = [
+export const actions: MyActionTypes[] = [
   {
-    actionName: "detailView",
+    actionName: "detail-view",
     actionLabel: "Detail View",
     multiple: false,
     rowDoubleClick: true,
-    __VISIBLE_FOR__: [stages.lead],
-    __VISIBLE_FOR_ROLES__: [],
   },
   {
     actionName: "stages",
     actionLabel: "Lead Stages",
     multiple: false,
     rowDoubleClick: false,
-    __VISIBLE_FOR__: [stages.lead],
   },
-
   {
-    actionName: "leadAssignBusiness",
+    actionName: "lead-assign-business",
     actionLabel: "Lead Assign Business",
     multiple: false,
     rowDoubleClick: false,
   },
   {
-    actionName: "leadAssignCredit",
+    actionName: "lead-assign-credit",
     actionLabel: "Lead Assign Credit",
     multiple: false,
     rowDoubleClick: false,
   },
   {
-    actionName: "taskAssign",
+    actionName: "task-assign",
     actionLabel: "Assign Task",
     multiple: false,
     rowDoubleClick: false,
@@ -68,25 +56,22 @@ const actions: MyActionTypes[] = [
     rowDoubleClick: false,
   },
   {
-    actionName: "viewMandate",
+    actionName: "view-mandate",
     actionLabel: "Mandate",
     multiple: false,
     rowDoubleClick: true,
-    __VISIBLE_FOR__: [stages.mandate],
   },
   {
-    actionName: "bankLogin",
+    actionName: "bank-login",
     actionLabel: "Bank Login",
     multiple: false,
     rowDoubleClick: true,
-    __VISIBLE_FOR__: [stages.bankLogin],
   },
   {
-    actionName: "auditDownload",
+    actionName: "audit-download",
     actionLabel: "Audit Download",
     multiple: false,
     rowDoubleClick: false,
-    __VISIBLE_FOR__: [stages.bankLogin],
   },
   {
     actionName: "sanction",

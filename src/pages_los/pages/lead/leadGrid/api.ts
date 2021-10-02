@@ -4,26 +4,33 @@ import {
   leadMandateMetaData,
   leadSanctionMetaData,
   leadDisbursementMetaData,
+  headLeadGridMetaData,
 } from "./metaData";
+import { screens } from "./consts";
 
-export const getGridMetaData = ({ gridCode }) => async () => {
-  switch (gridCode) {
-    case "TRN/003": {
-      return leadGridMetaData;
+export const getGridMetaData =
+  ({ gridCode }) =>
+  async () => {
+    switch (gridCode) {
+      case screens.details: {
+        return leadGridMetaData;
+      }
+      case screens.mandate: {
+        return leadMandateMetaData;
+      }
+      case screens.bankLogin: {
+        return leadBankLoginMetaData;
+      }
+      case screens.sanction: {
+        return leadSanctionMetaData;
+      }
+      case screens.disbursement: {
+        return leadDisbursementMetaData;
+      }
+      case screens.headDetails: {
+        return headLeadGridMetaData;
+      }
+      default:
+        return leadGridMetaData;
     }
-    case "TRN/010": {
-      return leadMandateMetaData;
-    }
-    case "TRN/011": {
-      return leadBankLoginMetaData;
-    }
-    case "TRN/012": {
-      return leadSanctionMetaData;
-    }
-    case "TRN/013": {
-      return leadDisbursementMetaData;
-    }
-    default:
-      return leadGridMetaData;
-  }
-};
+  };

@@ -52,7 +52,7 @@ export const LeadGrid = ({ gridCode, actions }) => {
       <ClearCacheProvider>
         <Routes>
           <Route
-            path="detailView"
+            path="detail-view"
             element={
               <DetailsTabViewWrapper
                 moduleType="lead"
@@ -91,7 +91,7 @@ export const LeadGrid = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="leadAssignBusiness"
+            path="lead-assign-business"
             element={
               <LeadAssignment
                 moduleType="lead"
@@ -103,7 +103,7 @@ export const LeadGrid = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="leadAssignCredit"
+            path="lead-assign-credit"
             element={
               <LeadAssignment
                 handleDialogClose={handleDialogClose}
@@ -115,7 +115,7 @@ export const LeadGrid = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="taskAssign"
+            path="task-assign"
             element={
               <LeadAssignTaskWrapper
                 handleDialogClose={handleDialogClose}
@@ -133,7 +133,7 @@ export const LeadGrid = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="bankLogin"
+            path="bank-login"
             element={
               <BankLoginWrapper
                 handleDialogClose={handleDialogClose}
@@ -142,7 +142,7 @@ export const LeadGrid = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="viewMandate"
+            path="view-mandate"
             element={
               <MandateMetaWrapper
                 handleDialogClose={handleDialogClose}
@@ -162,7 +162,7 @@ export const LeadGrid = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="auditDownload"
+            path="audit-download"
             element={
               <AuditDownloadWrapper
                 handleDialogClose={handleDialogClose}

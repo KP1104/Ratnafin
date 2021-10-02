@@ -34,9 +34,8 @@ export const PagesLOS = () => {
         <Content>
           <Routes>
             <Route path="dashboard" element={<Dashboard />} />
-            {/*New Inquiries */}
             <Route
-              path="newInquiry/*"
+              path="new-inquiry/*"
               element={<NewInquiry key="inquiryx" />}
             />
             <Route path="inquiry/*" element={<Inquiry />} />

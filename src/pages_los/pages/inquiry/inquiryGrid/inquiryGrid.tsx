@@ -15,7 +15,7 @@ import { EligibilityCalculatorWrapper } from "../eligibilityCalculator";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { DocumentUploadWrapper } from "../documentUpload";
 
-export const Inquiry = ({ gridCode, actions }) => {
+export const InquiryGrid = ({ gridCode, actions }) => {
   let navigate = useNavigate();
 
   const setCurrentAction = useCallback(
@@ -51,7 +51,7 @@ export const Inquiry = ({ gridCode, actions }) => {
       <ClearCacheProvider>
         <Routes>
           <Route
-            path="viewDetails"
+            path="view-details"
             element={
               <DetailsTabViewWrapper
                 handleDialogClose={handleDialogClose}
@@ -60,7 +60,7 @@ export const Inquiry = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="viewDetailsReadOnly"
+            path="view-details-readOnly"
             element={
               <DetailsTabViewWrapper
                 handleDialogClose={handleDialogClose}
@@ -70,7 +70,7 @@ export const Inquiry = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="assignBranch"
+            path="assign-branch"
             element={
               <AssignBranchWrapper
                 moduleType="inquiry"
@@ -80,7 +80,7 @@ export const Inquiry = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="assignInquiry"
+            path="assign-inquiry"
             element={
               <InquiryAssignment
                 moduleType="inquiry"
@@ -92,7 +92,7 @@ export const Inquiry = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="assignTask"
+            path="assign-task"
             element={
               <InquiryAssignTaskWrapper
                 closeDialog={handleDialogClose}
@@ -111,7 +111,7 @@ export const Inquiry = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="moveToLead"
+            path="move-to-lead"
             element={
               <MoveToLeadWrapper
                 moduleType="inquiry"
@@ -127,7 +127,7 @@ export const Inquiry = ({ gridCode, actions }) => {
             }
           />
           <Route
-            path="documentUpload"
+            path="document-upload"
             element={
               <DocumentUploadWrapper
                 moduleType="inquiry"

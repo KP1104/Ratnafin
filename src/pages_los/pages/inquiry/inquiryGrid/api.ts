@@ -10,32 +10,34 @@ import {
   unmappedMetaData,
 } from "./metaData";
 
+import { screens } from "./consts";
+
 export const getGridMetaData =
   ({ gridCode }) =>
   async () => {
     switch (gridCode) {
-      case "INQ/002": {
+      case screens.incomingInquiries: {
         return incomingMetaData;
       }
-      case "INQ/003": {
+      case screens.allAssignedInquiries: {
         return allAssignedMetaData;
       }
-      case "INQ/004": {
+      case screens.myInquiry: {
         return myInquiryMetaData;
       }
-      case "INQ/005": {
+      case screens.myUnmappedInquiries: {
         return myUnmappedMetaData;
       }
-      case "INQ/006": {
+      case screens.unmappedInquiries: {
         return unmappedMetaData;
       }
-      case "INQ/007": {
+      case screens.unmappedHOInquiries: {
         return unmappedHOMetaData;
       }
-      case "INQ/008": {
+      case screens.myCrossInquiries: {
         return myCrossMetaData;
       }
-      case "INQ/009": {
+      case screens.myTeamCrossInquiries: {
         return myTeamCrossMetaData;
       }
       default: {

@@ -3,3 +3,4 @@ export * from "./mandate";
 export * from "./bankLogin";
 export * from "./sanction";
 export * from "./disbursement";
+export * from "./headLeads";
