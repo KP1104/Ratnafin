@@ -18,9 +18,8 @@ import { LeadAssignment } from "../leadAssignment";
 import { AuditDownloadWrapper } from "../bankLogin/auditDownload";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
-export const LeadGrid = ({ gridCode, actions, basePath }) => {
+export const LeadGrid = ({ gridCode, actions }) => {
   let navigate = useNavigate();
-
   const setCurrentAction = useCallback(
     (data) => {
       navigate(data?.name, {
@@ -32,11 +31,11 @@ export const LeadGrid = ({ gridCode, actions, basePath }) => {
   const isDataEditedRef = useRef(false);
   const myGridRef = useRef<any>(null);
   const handleDialogClose = () => {
-    navigate(basePath);
     if (isDataEditedRef.current) {
       myGridRef?.current?.fetchData?.();
       isDataEditedRef.current = false;
     }
+    navigate(".");
   };
 
   return (

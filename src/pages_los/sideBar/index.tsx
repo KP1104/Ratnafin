@@ -8,8 +8,7 @@ import { NavBarMetaDataType, NavItemType } from "components/navigation";
 export const MySideBar: FC<{
   handleDrawerOpen: Function;
   open: boolean;
-  basePath: string;
-}> = ({ handleDrawerOpen, open, basePath }) => {
+}> = ({ handleDrawerOpen, open }) => {
   const { authState } = useContext(AuthContext);
 
   let filteredMetaData = transformMetaDataAsPerRole(
@@ -22,7 +21,6 @@ export const MySideBar: FC<{
       metaData={filteredMetaData}
       handleDrawerOpen={handleDrawerOpen}
       drawerOpen={open}
-      basePath={basePath}
     />
   );
 };

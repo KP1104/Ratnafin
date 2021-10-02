@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState, useContext, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState, useContext } from "react";
 import Dialog from "@material-ui/core/Dialog";
 import { ActionTypes } from "components/dataTable";
 import { InvalidAction } from "pages_los/common/invalidAction";
@@ -78,14 +77,9 @@ export const PriorityWrapper = ({
   moduleType,
   isDataChangedRef,
   closeDialog,
-  goBackPath = "..",
 }) => {
   const { state: rows }: any = useLocation();
-  let navigate = useNavigate();
-  let handleDialogCloseWrapper = useCallback(() => {
-    closeDialog();
-    navigate(goBackPath);
-  }, [navigate]);
+
   return (
     <Dialog
       fullScreen
@@ -95,7 +89,7 @@ export const PriorityWrapper = ({
     >
       <HeaderDetails
         productData={rows[0]?.data}
-        handleDialogClose={handleDialogCloseWrapper}
+        handleDialogClose={closeDialog}
       />
       <Priority
         moduleType={moduleType}

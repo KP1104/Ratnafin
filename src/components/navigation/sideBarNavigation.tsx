@@ -18,7 +18,6 @@ export const SideBarNav: FC<SideBarRendererType> = ({
   metaData,
   handleDrawerOpen,
   drawerOpen,
-  basePath,
 }) => {
   const classes = useStylesSideBar();
   let result: JSX.Element[] | null = null;
@@ -33,7 +32,6 @@ export const SideBarNav: FC<SideBarRendererType> = ({
             level={0}
             handleDrawerOpen={handleDrawerOpen}
             drawerOpen={drawerOpen}
-            basePath={basePath}
           />
         );
       } else {
@@ -43,7 +41,6 @@ export const SideBarNav: FC<SideBarRendererType> = ({
             item={one}
             classes={classes}
             level={0}
-            basePath={basePath}
           />
         );
       }
@@ -60,8 +57,7 @@ const SingleListItem: FC<{
   item: NavItemType;
   classes: ReturnType<typeof useStylesSideBar>;
   level: number;
-  basePath: string;
-}> = ({ item, classes, level, basePath }) => {
+}> = ({ item, classes, level }) => {
   const navigate = useNavigate();
 
   const icon = item.icon ? (
@@ -88,9 +84,9 @@ const SingleListItem: FC<{
             item.href?.substr(0, 1) === "/" ? item.href.substr(1) : item.href;
           if (item.passNavigationPropsAsURLParmas) {
             let urlParms = new URLSearchParams(item?.navigationProps);
-            navigate(`${basePath}/${path}?${urlParms.toString()}`);
+            navigate(`${path}?${urlParms.toString()}`);
           } else {
-            navigate(`${basePath}/${path}` as string, {
+            navigate(`${path}` as string, {
               state: { ...item?.navigationProps },
             });
           }
@@ -114,8 +110,7 @@ const NestedListItem: FC<{
   level: number;
   handleDrawerOpen: Function;
   drawerOpen: boolean;
-  basePath: string;
-}> = ({ item, classes, level, handleDrawerOpen, drawerOpen, basePath }) => {
+}> = ({ item, classes, level, handleDrawerOpen, drawerOpen }) => {
   const [open, setOpen] = useState(false);
   const handleClick = () => {
     if (!drawerOpen) {
@@ -133,7 +128,6 @@ const NestedListItem: FC<{
           level={level + 1}
           handleDrawerOpen={handleDrawerOpen}
           drawerOpen={drawerOpen}
-          basePath={basePath}
         />
       );
     } else {
@@ -143,7 +137,6 @@ const NestedListItem: FC<{
           item={one}
           classes={classes}
           level={level + 1}
-          basePath={basePath}
         />
       );
     }

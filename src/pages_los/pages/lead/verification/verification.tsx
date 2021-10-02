@@ -1,5 +1,4 @@
-import { useContext, useRef, useState, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext, useRef, useState, useEffect } from "react";
 import Dialog from "@material-ui/core/Dialog";
 import { queryClient, ClearCacheContext } from "cache";
 import { ActionTypes } from "components/dataTable";
@@ -175,17 +174,9 @@ export const Verification = ({ refID, moduleType }) => {
   );
 };
 
-export const VerificationWrapper = ({
-  moduleType,
-  handleDialogClose,
-  goBackPath = "..",
-}) => {
+export const VerificationWrapper = ({ moduleType, handleDialogClose }) => {
   const { state: rows }: any = useLocation();
-  let navigate = useNavigate();
-  let handleDialogCloseWrapper = useCallback(() => {
-    handleDialogClose();
-    navigate(goBackPath);
-  }, [navigate]);
+
   return (
     <Dialog
       fullScreen
@@ -195,7 +186,7 @@ export const VerificationWrapper = ({
     >
       <HeaderDetails
         rowData={rows?.[0]}
-        handleDialogClose={handleDialogCloseWrapper}
+        handleDialogClose={handleDialogClose}
       />
       <Verification moduleType={moduleType} refID={rows[0].id} />
     </Dialog>

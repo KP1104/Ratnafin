@@ -29,11 +29,7 @@ export const PagesLOS = () => {
       <div className={classes.root}>
         <AppBar open={drawerOpen} handleDrawerOpen={handleDrawerOpen} />
         <Drawer open={drawerOpen} handleDrawerClose={handleDrawerClose}>
-          <MySideBar
-            handleDrawerOpen={handleDrawerOpen}
-            open={drawerOpen}
-            basePath="/los"
-          />
+          <MySideBar handleDrawerOpen={handleDrawerOpen} open={drawerOpen} />
         </Drawer>
         <Content>
           <Routes>

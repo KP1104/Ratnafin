@@ -1,5 +1,4 @@
-import { useCallback } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Kanban } from "./kanban";
 import { columns } from "./metaData/kanbanMetaData";
 import { BankLoginStatusUndefined } from "./termsheet";
@@ -32,17 +31,8 @@ export const BankLogin = (props) => {
   return renderResult;
 };
 
-export const BankLoginWrapper = ({
-  handleDialogClose,
-  moduleType,
-  goBackPath = "..",
-}) => {
+export const BankLoginWrapper = ({ handleDialogClose, moduleType }) => {
   const { state: rows }: any = useLocation();
-  let navigate = useNavigate();
-  let handleDialogCloseWrapper = useCallback(() => {
-    handleDialogClose();
-    navigate(goBackPath);
-  }, [navigate]);
   return (
     <Dialog
       fullScreen
@@ -52,13 +42,13 @@ export const BankLoginWrapper = ({
     >
       <HeaderDetails
         rowData={rows?.[0]}
-        handleDialogClose={handleDialogCloseWrapper}
+        handleDialogClose={handleDialogClose}
       />
       <BankLogin
         moduleType={moduleType}
         refID={rows[0].id}
         otherDetails={rows[0].data}
-        closeDialog={handleDialogCloseWrapper}
+        closeDialog={handleDialogClose}
       />
     </Dialog>
   );

@@ -1,5 +1,4 @@
 import { FC, useState, useEffect, useContext, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
 import loaderGif from "assets/images/loader.gif";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
@@ -243,14 +242,8 @@ export const MandateMetaWrapper = ({
   handleDialogClose,
   isDataChangedRef,
   moduleType,
-  goBackPath = "..",
 }) => {
   const { state: rows }: any = useLocation();
-  let navigate = useNavigate();
-  let handleDialogCloseWrapper = useCallback(() => {
-    handleDialogClose();
-    navigate(goBackPath);
-  }, [navigate]);
   return (
     <Dialog
       fullScreen
@@ -260,7 +253,7 @@ export const MandateMetaWrapper = ({
     >
       <HeaderDetails
         rowData={rows?.[0]}
-        handleDialogClose={handleDialogCloseWrapper}
+        handleDialogClose={handleDialogClose}
         isDataChangedRef={isDataChangedRef}
       />
       <MandateWrapper

@@ -1,5 +1,4 @@
-import { useContext, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext, useEffect } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -114,15 +113,9 @@ export const LeadAssignTask = ({
 export const LeadAssignTaskWrapper = ({
   handleDialogClose,
   isDataChangedRef,
-  goBackPath = "..",
 }) => {
   const dialogClasses = useDialogStyles();
   const { state: rows }: any = useLocation();
-  let navigate = useNavigate();
-  let handleDialogCloseWrapper = useCallback(() => {
-    handleDialogClose();
-    navigate(goBackPath);
-  }, [navigate]);
   return (
     <Dialog
       open={true}
@@ -142,7 +135,7 @@ export const LeadAssignTaskWrapper = ({
     >
       <HeaderDetails
         rowData={rows?.[0]}
-        handleDialogClose={handleDialogCloseWrapper}
+        handleDialogClose={handleDialogClose}
         isDataChangedRef={isDataChangedRef}
       />
       <LeadAssignTask
@@ -151,7 +144,7 @@ export const LeadAssignTaskWrapper = ({
         taskFor="lead"
         moduleType="task"
         isDataChangedRef={isDataChangedRef}
-        closeDialog={handleDialogCloseWrapper}
+        closeDialog={handleDialogClose}
       />
     </Dialog>
   );

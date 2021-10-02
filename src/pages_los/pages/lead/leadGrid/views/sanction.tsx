@@ -28,11 +28,5 @@ export const SanctionLeads = () => {
     },
   ];
 
-  return (
-    <LeadGrid
-      gridCode="TRN/012"
-      actions={actions}
-      basePath="/los/lead/sanction"
-    />
-  );
+  return <LeadGrid gridCode="TRN/012" actions={actions} />;
 };

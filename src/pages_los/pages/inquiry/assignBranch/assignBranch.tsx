@@ -1,5 +1,4 @@
-import { useContext, useEffect, useRef, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext, useEffect, useRef } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
 import { useMutation } from "react-query";
@@ -122,15 +121,10 @@ export const AssignBranchWrapper = ({
   moduleType,
   isDataChangedRef,
   closeDialog,
-  goBackPath = "..",
 }) => {
   const dialogClasses = useDialogStyles();
   const { state: rows }: any = useLocation();
-  let navigate = useNavigate();
-  let handleDialogCloseWrapper = useCallback(() => {
-    closeDialog();
-    navigate(goBackPath);
-  }, [navigate]);
+
   return (
     <Dialog
       open={true}
@@ -150,14 +144,14 @@ export const AssignBranchWrapper = ({
     >
       <HeaderDetails
         productData={rows[0]?.data}
-        handleDialogClose={handleDialogCloseWrapper}
+        handleDialogClose={closeDialog}
       />
       <AssignBranch
         key={rows[0].id}
         moduleType={moduleType}
         rowsData={rows}
         isDataChangedRef={isDataChangedRef}
-        closeDialog={handleDialogCloseWrapper}
+        closeDialog={closeDialog}
       />
     </Dialog>
   );

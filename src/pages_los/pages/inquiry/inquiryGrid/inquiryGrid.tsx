@@ -34,9 +34,9 @@ export const Inquiry = ({ gridCode, actions }) => {
       myGridRef?.current?.fetchData?.();
       isDataChangedRef.current = false;
     }
+    navigate(".");
   };
 
-  //const dialogClasses = useDialogStyles();
   return (
     <Fragment>
       <ServerGridContextProvider {...serverGridContextGenerator(gridCode)}>

@@ -1,5 +1,4 @@
-import { useContext, useEffect, Fragment, useCallback } from "react";
-import { useNavigate } from "react-router";
+import { useContext, useEffect, Fragment } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
 import { useMutation, useQuery } from "react-query";
@@ -163,19 +162,11 @@ export const AssignmentWrapper = ({
   isDataChangedRef,
   handleDialogClose,
   assignmentType,
-  goBackPath = "..",
   HeaderDetailsComponent,
   maxRows,
 }) => {
   const { state: rows }: any = useLocation();
-  console.log(rows);
   const classes = useDialogStyles();
-  let navigate = useNavigate();
-  let handleDialogCloseWrapper = useCallback(() => {
-    handleDialogClose();
-    navigate(goBackPath);
-  }, [navigate]);
-
   return (
     <Dialog
       maxWidth="md"
@@ -191,7 +182,7 @@ export const AssignmentWrapper = ({
       <HeaderDetailsComponent
         rowData={rows?.[0]}
         productData={rows?.[0]?.data}
-        handleDialogClose={handleDialogCloseWrapper}
+        handleDialogClose={handleDialogClose}
         isDataChangedRef={isDataChangedRef}
       />
       <Assignment
@@ -199,7 +190,7 @@ export const AssignmentWrapper = ({
         refID={rows?.[0].id}
         isDataChangedRef={isDataChangedRef}
         assignmentType={assignmentType}
-        closeDialog={handleDialogCloseWrapper}
+        closeDialog={handleDialogClose}
         maxRows={maxRows}
       />
     </Dialog>

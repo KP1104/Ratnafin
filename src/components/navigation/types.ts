@@ -38,5 +38,4 @@ export interface SideBarRendererType {
   metaData: NavBarMetaDataType;
   handleDrawerOpen: Function;
   drawerOpen: boolean;
-  basePath: string;
 }

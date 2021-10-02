@@ -27,7 +27,7 @@ const Redirect = () => {
 const App = () => (
   <StrictMode>
     <DndProvider backend={HTML5Backend}>
-      <BrowserRouter basename="/">
+      <BrowserRouter>
         <Suspense fallback={<div>loading...</div>}>
           {/* <ErrorBoundary> */}
           <Routes>
