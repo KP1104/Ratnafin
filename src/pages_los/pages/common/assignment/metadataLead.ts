@@ -1,9 +1,10 @@
 import { MetaDataType } from "components/dyanmicForm/types";
 import * as API from "./api";
+import { getRowsCount } from "./utils";
 export const leadAssignMetadata: MetaDataType = {
   form: {
     name: "leadAssignForm",
-    label: "Assignment",
+    label: "Lead Assignment",
     resetFieldOnUmnount: false,
     validationRun: "onBlur",
     render: {
@@ -49,7 +50,7 @@ export const leadAssignMetadata: MetaDataType = {
       arrayFieldIDName: "lineNo",
       label: "Lead Assignment",
       fixedRows: true,
-      getFixedRowsCount: () => 1,
+      getFixedRowsCount: getRowsCount,
       _fields: [
         {
           render: {
@@ -69,8 +70,8 @@ export const leadAssignMetadata: MetaDataType = {
           name: "teamRole",
           label: "Team Role",
           //@ts-ignore
-          options: API.getRoleListForLeadAssign,
-          _optionsKey: "getRoleListForLeadAssign",
+          options: API.getRoleListForAssignment,
+          _optionsKey: "getRoleListForAssignment",
           required: true,
           validate: "getValidateValue",
           defaultValue: "00",
@@ -88,8 +89,8 @@ export const leadAssignMetadata: MetaDataType = {
           label: "Team User ID",
           dependentFields: ["teamRole"],
           //@ts-ignore
-          options: API.getTeamRoleListForLeadAssign,
-          _optionsKey: "getTeamRoleListForLeadAssign",
+          options: API.getTeamRoleListForAssignment,
+          _optionsKey: "getTeamRoleListForAssignment",
           required: true,
           defaultValue: "00",
           validate: "getValidateValue",

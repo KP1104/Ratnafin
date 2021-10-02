@@ -1,8 +1,11 @@
 import { MetaDataType } from "components/dyanmicForm/types";
-export const inquiryAssignMetadata: MetaDataType = {
+import * as API from "./api";
+import { getRowsCount } from "./utils";
+
+export const InquiryAssignMetadata: MetaDataType = {
   form: {
     name: "inquiryAssignForm",
-    label: "Assignment",
+    label: "Inquiry Assignment",
     resetFieldOnUmnount: false,
     validationRun: "onBlur",
     render: {
@@ -46,12 +49,9 @@ export const inquiryAssignMetadata: MetaDataType = {
       name: "usersAssignDetails",
       removeRowFn: "deleteAssignArrayFieldData",
       arrayFieldIDName: "lineNo",
-      label: "Inquiry Assignment",
-      GridProps: {
-        xs: 12,
-        md: 12,
-        sm: 12,
-      },
+      label: "Lead Assignment",
+      fixedRows: true,
+      getFixedRowsCount: getRowsCount,
       _fields: [
         {
           render: {
@@ -71,7 +71,8 @@ export const inquiryAssignMetadata: MetaDataType = {
           name: "teamRole",
           label: "Team Role",
           //@ts-ignore
-          options: "getRoleListForInquiryAssign",
+          options: API.getRoleListForAssignment,
+          _optionsKey: "getRoleListForAssignment",
           required: true,
           validate: "getValidateValue",
           defaultValue: "00",
@@ -89,7 +90,8 @@ export const inquiryAssignMetadata: MetaDataType = {
           label: "Team User ID",
           dependentFields: ["teamRole"],
           //@ts-ignore
-          options: "getTeamRoleListForInquiryAssign",
+          options: API.getTeamRoleListForAssignment,
+          _optionsKey: "getTeamRoleListForAssignment",
           required: true,
           defaultValue: "00",
           validate: "getValidateValue",

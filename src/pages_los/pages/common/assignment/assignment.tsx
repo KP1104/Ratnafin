@@ -8,12 +8,12 @@ import { SubmitFnType } from "packages/form";
 import IconButton from "@material-ui/core/IconButton";
 import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
 import FormWrapper, { MetaDataType } from "components/dyanmicForm";
-import { leadAssignMetadata } from "./metadata";
+import { leadAssignMetadata } from "./metadataLead";
+import { InquiryAssignMetadata } from "./metadataInquiry";
 import * as API from "./api";
 import { ClearCacheContext } from "cache";
 import Dialog from "@material-ui/core/Dialog";
 import { useLocation } from "react-router-dom";
-import { HeaderDetails } from "../headerDetails";
 import { Transition } from "pages_los/common";
 import loaderGif from "assets/images/loader.gif";
 import { useDialogStyles } from "pages_los/common/dialogStyles";
@@ -31,32 +31,33 @@ const insertFormDataFnWrapper =
     return leadAssignFn(data);
   };
 
-export const LeadAssign = ({
+export const Assignment = ({
   moduleType,
+  assignmentType,
   refID,
   isDataChangedRef,
   closeDialog,
-  assignmentType,
+  maxRows,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
   const removeCache = useContext(ClearCacheContext);
 
   useEffect(() => {
     removeCache?.addEntry([
-      "getCurrentLeadAssignment",
-      { refID, assignmentType },
+      "getCurrentAssignment",
+      { refID, assignmentType, moduleType },
     ]);
   }, [removeCache]);
 
   const queryData = useQuery<any, any, any>(
-    ["getCurrentLeadAssignment", { refID, assignmentType, moduleType }],
-    API.getCurrentLeadAssignment({ refID, assignmentType, moduleType }),
+    ["getCurrentAssignment", { refID, assignmentType, moduleType }],
+    API.getCurrentAssignment({ refID, assignmentType, moduleType }),
     { cacheTime: 0 }
   );
 
   const mutation = useMutation(
     insertFormDataFnWrapper(
-      API.assignLeadMembers({ moduleType, assignmentType, refID })
+      API.assignMembers({ moduleType, assignmentType, refID })
     ),
     {
       onError: (error: any, { endSubmit }) => {
@@ -120,8 +121,12 @@ export const LeadAssign = ({
     </Fragment>
   ) : (
     <FormWrapper
-      key="leadAssign"
-      metaData={leadAssignMetadata as MetaDataType}
+      key="Assignment"
+      metaData={
+        moduleType === "lead"
+          ? (leadAssignMetadata as MetaDataType)
+          : (InquiryAssignMetadata as MetaDataType)
+      }
       initialValues={queryData.data}
       onSubmitHandler={onSubmitHandler}
       displayMode={"new"}
@@ -130,6 +135,7 @@ export const LeadAssign = ({
         moduleType: moduleType,
         assignmentType: assignmentType,
         refID: refID,
+        maxRows: maxRows,
       }}
     >
       {({ isSubmitting, handleSubmit }) => {
@@ -152,20 +158,24 @@ export const LeadAssign = ({
   );
 };
 
-export const LeadAssignWrapper = ({
+export const AssignmentWrapper = ({
   moduleType,
   isDataChangedRef,
   handleDialogClose,
   assignmentType,
   goBackPath = "..",
+  HeaderDetailsComponent,
+  maxRows,
 }) => {
   const { state: rows }: any = useLocation();
+  console.log(rows);
   const classes = useDialogStyles();
   let navigate = useNavigate();
   let handleDialogCloseWrapper = useCallback(() => {
     handleDialogClose();
     navigate(goBackPath);
   }, [navigate]);
+
   return (
     <Dialog
       maxWidth="md"
@@ -178,17 +188,19 @@ export const LeadAssignWrapper = ({
         paperScrollBody: classes.topPaperScrollBody,
       }}
     >
-      <HeaderDetails
+      <HeaderDetailsComponent
         rowData={rows?.[0]}
+        productData={rows?.[0]?.data}
         handleDialogClose={handleDialogCloseWrapper}
         isDataChangedRef={isDataChangedRef}
       />
-      <LeadAssign
+      <Assignment
         moduleType={moduleType}
-        refID={rows[0].id}
+        refID={rows?.[0].id}
         isDataChangedRef={isDataChangedRef}
         assignmentType={assignmentType}
         closeDialog={handleDialogCloseWrapper}
+        maxRows={maxRows}
       />
     </Dialog>
   );

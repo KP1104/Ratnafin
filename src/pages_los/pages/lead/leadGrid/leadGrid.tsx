@@ -10,11 +10,11 @@ import { DetailsTabViewWrapper } from "../detailsTabView";
 import { AnalysisWrapper } from "../analysis";
 import { StageWrapper } from "../stages";
 import { CAMWrapper } from "../cam";
-import { LeadAssign } from "../leadAssign";
 import { VerificationWrapper } from "../verification";
 import { BankLoginWrapper } from "../bankLogin";
 import { MandateMetaWrapper } from "../mandate";
 import { SanctionMetaWrapper } from "../sanction";
+import { LeadAssignment } from "../leadAssignment";
 import { AuditDownloadWrapper } from "../bankLogin/auditDownload";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
@@ -94,22 +94,24 @@ export const LeadGrid = ({ gridCode, actions, basePath }) => {
           <Route
             path="leadAssignBusiness"
             element={
-              <LeadAssign
-                handleDialogClose={handleDialogClose}
+              <LeadAssignment
                 moduleType="lead"
-                isDataChangedRef={isDataEditedRef}
                 assignmentType="business"
+                handleDialogClose={handleDialogClose}
+                isDataChangedRef={isDataEditedRef}
+                maxRows={1}
               />
             }
           />
           <Route
             path="leadAssignCredit"
             element={
-              <LeadAssign
+              <LeadAssignment
                 handleDialogClose={handleDialogClose}
                 moduleType="lead"
-                isDataChangedRef={isDataEditedRef}
                 assignmentType="credit"
+                isDataChangedRef={isDataEditedRef}
+                maxRows={2}
               />
             }
           />

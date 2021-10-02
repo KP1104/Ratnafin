@@ -8,7 +8,7 @@ import { serverGridContextGenerator } from "./context";
 import { DetailsTabViewWrapper } from "../detailsTabView";
 import { InquiryAssignTaskWrapper } from "../inquiryAssignTask";
 import { AssignBranchWrapper } from "../assignBranch";
-import { AssignInquiryWrapper } from "../assignInquiry";
+import { InquiryAssignment } from "../inquiryAssignment";
 import { PriorityWrapper } from "../priority";
 import { MoveToLeadWrapper } from "../moveToLead";
 import { EligibilityCalculatorWrapper } from "../eligibilityCalculator";
@@ -82,10 +82,12 @@ export const Inquiry = ({ gridCode, actions }) => {
           <Route
             path="assignInquiry"
             element={
-              <AssignInquiryWrapper
+              <InquiryAssignment
                 moduleType="inquiry"
+                assignmentType="business"
                 isDataChangedRef={isDataChangedRef}
-                closeDialog={handleDialogClose}
+                handleDialogClose={handleDialogClose}
+                maxRows={1}
               />
             }
           />

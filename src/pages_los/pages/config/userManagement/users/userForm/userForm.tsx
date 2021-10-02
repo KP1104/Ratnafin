@@ -394,24 +394,43 @@ export const UserForm: FC<any> = ({
             }
           >
             <Grid item xs={4}>
-              <SelectWithoutOptions
-                key={`${entityType}-${role}`}
-                name="coordinator"
-                options={cooridnator.data ?? []}
-                handleChange={handleChange}
-                handleBlur={isValid}
-                defaultOptionLabel={`Select ${initCap(
-                  entityType
-                )} Co-ordinator`}
-                disabled={disabled}
-                value={data?.coordinator ?? ""}
-                selectVariant="regular"
-                label={`${initCap(entityType)} Co-ordinator`}
-                loadingOptions={cooridnator.isLoading || cooridnator.isFetching}
-                fullWidth
-                touched={touched}
-                error={error?.coordinator ?? ""}
-              />
+              {mode === "new" ? (
+                <SelectWithoutOptions
+                  key={`${entityType}-${role}`}
+                  name="coordinator"
+                  options={cooridnator.data ?? []}
+                  handleChange={handleChange}
+                  handleBlur={isValid}
+                  defaultOptionLabel={`Select ${initCap(
+                    entityType
+                  )} Co-ordinator`}
+                  disabled={disabled}
+                  value={data?.coordinator ?? ""}
+                  selectVariant="regular"
+                  label={`${initCap(entityType)} Co-ordinator`}
+                  loadingOptions={
+                    cooridnator.isLoading || cooridnator.isFetching
+                  }
+                  fullWidth
+                  touched={touched}
+                  error={error?.coordinator ?? ""}
+                />
+              ) : (
+                <TextField
+                  name="username"
+                  value={data?.coordinatorName}
+                  label={`${initCap(entityType)} Co-ordinator`}
+                  inputProps={{
+                    readOnly: true,
+                    tabIndex: -1,
+                  }}
+                  fullWidth
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  disabled={disabled}
+                />
+              )}
             </Grid>
           </ShowWhen>
         </Grid>

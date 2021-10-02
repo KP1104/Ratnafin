@@ -1,6 +1,6 @@
 import { LOSSDK } from "registry/fns/los";
 
-export const assignLeadMembers =
+export const assignMembers =
   ({ moduleType, assignmentType, refID }) =>
   async (formData) => {
     const { data, status } = await LOSSDK.internalFetcher(
@@ -22,7 +22,7 @@ export const assignLeadMembers =
     }
   };
 
-export const getCurrentLeadAssignment =
+export const getCurrentAssignment =
   ({ assignmentType, moduleType, refID }) =>
   async () => {
     const { data, status } = await LOSSDK.internalFetcher(
@@ -43,29 +43,7 @@ export const getCurrentLeadAssignment =
     }
   };
 
-export const deleteLeadAssign =
-  ({ refID, moduleType }) =>
-  async (lineNo: string) => {
-    const { data, status } = await LOSSDK.internalFetcher(
-      `./${moduleType}/assign/usersassigndetails/delete`,
-      {
-        body: JSON.stringify({
-          request_data: {
-            refID: refID,
-            lineNo: lineNo,
-          },
-          channel: "W",
-        }),
-      }
-    );
-    if (status === "success") {
-      return data?.response_data;
-    } else {
-      throw data?.error_data;
-    }
-  };
-
-export const getRoleListForLeadAssign = async (
+export const getRoleListForAssignment = async (
   _,
   { refID, assignmentType, moduleType }
 ) => {
@@ -90,7 +68,7 @@ export const getRoleListForLeadAssign = async (
   }
 };
 
-export const getTeamRoleListForLeadAssign = async (
+export const getTeamRoleListForAssignment = async (
   _,
   { refID, assignmentType, moduleType },
   dependentFields2
